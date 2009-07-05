@@ -1,0 +1,10 @@
+This is a list of improvements little by little while they come to my mind:
+
+- Animated pixbufs showing the transitions effect instead of a simple static icon.
+- Ability to add text on the slides.
+- Audio effects such as echo, fade-out, fade-in.
+- Ken Burn effects.
+- Check if a slide is already imported.
+- Import a video in the exported slideshow.  
+
+
