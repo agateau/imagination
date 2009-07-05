@@ -34,17 +34,6 @@
 #define	NORMAL	4
 #define	SLOW	8
 
-/* This simple define controls the backed implementation.
- *
- * If TB_EDITS is defined, new cairo-based backed will be used,
- * else GdkPixbuf backed will do the job.
- *
- * NOTE: DO NOT TRY TO EXPORT OR PREVIEW SLIDE SHOW WHEN USING NEW
- *       CAIRO BACKEND!!! THINGS WILL DEFINITELY GO KA_BOOM!!!!
- */
-//#define TB_EDITS
-#undef TB_EDITS
-
 #define comment_string	"Imagination Slideshow Project - http://imagination.sf.net"
 
 typedef struct _plugin plugin;
@@ -143,16 +132,9 @@ struct _img_window_struct
 
 	/* Variables common to export and preview functions */
   	slide_struct *current_slide;
-#ifdef TB_EDITS
-	cairo_surface_t *current_image;
-	cairo_surface_t *stored_image;
-	cairo_surface_t *image1;
-	cairo_surface_t *image2;
-#else
   	GdkPixbuf	*slide_pixbuf;
   	GdkPixbuf	*pixbuf1;
   	GdkPixbuf	*pixbuf2;
-#endif
   	GtkTreeIter *cur_ss_iter;
   	guint		source_id;
 	gdouble     progress;

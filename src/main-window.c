@@ -435,13 +435,7 @@ img_window_struct *img_create_window (void)
 	align = gtk_event_box_new();
 	gtk_container_add(GTK_CONTAINER(image_area_frame), align);
 
-#ifdef TB_EDITS
-	img_struct->image_area = gtk_drawing_area_new();
-	g_signal_connect( G_OBJECT( img_struct->image_area ), "expose-event",
-					  G_CALLBACK( img_on_expose_event ), img_struct );
-#else
 	img_struct->image_area = gtk_image_new();
-#endif
 	gtk_widget_set_size_request(img_struct->image_area, 720, 576);
 	gtk_container_add(GTK_CONTAINER(align), img_struct->image_area);
 	/* Set the signal for accepting images through drag and drop */
@@ -939,14 +933,7 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 	if (selected == NULL)
 	{
 		img_set_statusbar_message(img,nr_selected);
-#ifdef TB_EDITS
-		if( img->current_image )
-			cairo_surface_destroy( img->current_image );
-		img->current_image = NULL;
-		gtk_widget_queue_draw( img->image_area );
-#else
 		gtk_image_set_from_pixbuf(GTK_IMAGE(img->image_area),NULL);
-#endif
 		gtk_widget_set_sensitive(img->trans_duration,	FALSE);
 		gtk_widget_set_sensitive(img->duration,			FALSE);
 		gtk_widget_set_sensitive(img->transition_type,	FALSE);
@@ -1026,17 +1013,9 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 		g_free(slide_info_msg);
 	}
 
-#ifdef TB_EDITS
-	if( img->current_image )
-		cairo_surface_destroy( img->current_image );
-	img->current_image = img_scale_image( img, info_slide->filename, 0,
-										  img->image_area->allocation.height );
-	gtk_widget_queue_draw( img->image_area );
-#else
 	img->slide_pixbuf = img_scale_pixbuf(img,info_slide->filename);
 	gtk_image_set_from_pixbuf(GTK_IMAGE (img->image_area),img->slide_pixbuf);
 	g_object_unref(img->slide_pixbuf);
-#endif
 }
 
 static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_window_struct *img)

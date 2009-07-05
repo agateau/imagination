@@ -398,14 +398,6 @@ img_start_export( img_window_struct *img )
 	while( gtk_events_pending() )
 		gtk_main_iteration();
 
-#ifdef TB_EDITS
-	img->stored_image = img->current_image;
-
-	/* FIXME: Here background color is fixed to BLACK!!! */
-	img->image1 = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
-											  img->image_area->allocation.width,
-											  img->image_area->allocation.height );
-#else
 	img->slide_pixbuf = gtk_image_get_pixbuf( GTK_IMAGE( img->image_area ) );
 	if( img->slide_pixbuf )
 		g_object_ref( G_OBJECT( img->slide_pixbuf ) );
@@ -419,17 +411,12 @@ img_start_export( img_window_struct *img )
 								   img->image_area->allocation.width,
 								   img->image_area->allocation.height );
 	gdk_pixbuf_fill( img->pixbuf1, img->background_color );
-#endif
 
 	/* Load first image from model */
 	model = gtk_icon_view_get_model( GTK_ICON_VIEW( img->thumbnail_iconview ) );
 	gtk_tree_model_get_iter_first( model, &iter );
 	gtk_tree_model_get( model, &iter, 1, &entry, -1 );
-#ifdef TB_EDITS
-	img->image1 = img_scale_image( img, entry->filename, 0, 0 );
-#else
 	img->pixbuf2 = img_scale_pixbuf( img, entry->filename );
-#endif
 
 	/* Add export idle function and set initial values */
 	img->export_is_running = 4;
@@ -483,9 +470,6 @@ img_stop_export( img_window_struct *img )
 			kill( img->ffmpeg_export, SIGINT );
 			g_source_remove( img->source_id );
 
-#ifdef TB_EDITS
-			img->current_image = img->stored_image;
-#else
 			/* Disconnect expose event */
 			g_signal_handlers_disconnect_by_func( img->image_area,
 												  img_on_expose_event, img );
@@ -496,7 +480,6 @@ img_stop_export( img_window_struct *img )
 									   img->slide_pixbuf );
 			if( img->slide_pixbuf )
 				g_object_unref( G_OBJECT( img->slide_pixbuf ) );
-#endif
 			
 			/* Clean other resources */
 			g_slice_free( GtkTreeIter, img->cur_ss_iter );
@@ -555,17 +538,10 @@ img_prepare_pixbufs( img_window_struct *img )
 	if( gtk_tree_model_iter_next( model, img->cur_ss_iter ) )
 	{
 		/* We have next iter, so prepare for next round */
-#ifdef TB_EDITS
-		cairo_surface_destroy( img->image1 );
-		img->image1 = img->image2;
-		gtk_tree_model_get( model, img->cur_ss_iter, 1, &img->current_slide, -1 );
-		img->image2 = img_scale_image( img, img->current_slide->filename, 0, 0 );
-#else
 		g_object_unref( G_OBJECT( img->pixbuf1 ) );
 		img->pixbuf1 = img->pixbuf2;
 		gtk_tree_model_get( model, img->cur_ss_iter, 1, &img->current_slide, -1 );
 		img->pixbuf2 = img_scale_pixbuf( img, img->current_slide->filename );
-#endif
 
 		return(TRUE);
 	}
@@ -575,21 +551,12 @@ img_prepare_pixbufs( img_window_struct *img )
 		 * been displayed. */
 		last_transition = FALSE;
 
-#ifdef TB_EDITS
-		cairo_surface_destroy( img->image1 );
-		img->image1 = img->image2;
-		/* FIXME: This image is always black!!! */
-		img->image2 = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
-												  img->image_area->allocation.width,
-												  img->image_area->allocation.height );
-#else
 		g_object_unref( G_OBJECT( img->pixbuf1 ) );
 		img->pixbuf1 = img->pixbuf2;
 		img->pixbuf2 = gdk_pixbuf_new( GDK_COLORSPACE_RGB, FALSE, 8,
 									   img->image_area->allocation.width,
 									   img->image_area->allocation.height );
 		gdk_pixbuf_fill( img->pixbuf2, img->background_color );
-#endif
 		img->current_slide = &img->final_transition;
 
 		return( TRUE );
@@ -752,12 +719,8 @@ img_export_transition( img_window_struct *img )
 	}
 
 	/* Draw one frame of transition animation */
-#ifdef TB_EDITS
-	/* FIXME!!!! */
-#else
 	img->current_slide->render( img->image_area->window, img->pixbuf1,
 								img->pixbuf2, img->progress, img->file_desc );
-#endif
 
 	/* Increment global frame counters and update progress bars */
 	img->export_frame_cur++;
@@ -803,12 +766,8 @@ img_export_still( img_window_struct *img )
 	/* Initialize pixbuf data buffer */
 	if( img->pixbuf_data == NULL )
 	{
-#ifdef TB_EDITS
-		/* FIXME!!!! */
-#else
 		gtk_image_set_from_pixbuf( GTK_IMAGE( img->image_area ), img->pixbuf2 );
 		img_export_pixbuf_to_ppm( img->pixbuf2, &img->pixbuf_data, &length );
-#endif
 	}
 
 	/* Draw frames until we have enough of them to fill slide duration gap. */
@@ -816,10 +775,8 @@ img_export_still( img_window_struct *img )
 	{
 		/* Exit still rendering and continue with next transition. */
 
-#ifndef TB_EDITS
 		/* Clear image area for next renderer */
 		gtk_image_clear( GTK_IMAGE( img->image_area ) );
-#endif
 
 		/* Load next image from store. */
 		if( img_prepare_pixbufs( img ) )

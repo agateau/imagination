@@ -53,11 +53,7 @@ GSList *img_import_slides_file_chooser(img_window_struct *);
 void img_free_allocated_memory(img_window_struct *);
 gint img_ask_user_confirmation(img_window_struct *, gchar *);
 gboolean img_quit_application(GtkWidget *, GdkEvent *, img_window_struct *);
-#ifdef TB_EDITS
-cairo_surface_t *img_scale_image( img_window_struct *, gchar *, gint, gint );
-#else
 GdkPixbuf *img_scale_pixbuf (img_window_struct *, gchar *);
-#endif
 void img_move_audio_up( GtkButton *, img_window_struct * );
 void img_move_audio_down( GtkButton *, img_window_struct * );
 gboolean img_on_expose_event(GtkWidget *,GdkEventExpose *,img_window_struct *);

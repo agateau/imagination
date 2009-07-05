@@ -479,13 +479,7 @@ void img_delete_selected_slides(GtkMenuItem *item,img_window_struct *img_struct)
 	g_list_free(bak);
 
 	img_set_statusbar_message(img_struct,0);
-#ifdef TB_EDITS
-	cairo_surface_destroy( img_struct->current_image );
-	img_struct->current_image = NULL;
-	gtk_widget_queue_draw( img_struct->image_area );
-#else
 	gtk_image_set_from_pixbuf(GTK_IMAGE(img_struct->image_area),NULL);
-#endif
 	img_struct->project_is_modified = TRUE;
 	img_iconview_selection_changed(GTK_ICON_VIEW(img_struct->thumbnail_iconview),img_struct);
 }
@@ -546,17 +540,9 @@ void img_rotate_selected_slide(GtkWidget *button, img_window_struct *img)
 	info_slide->filename = filename;
 	img->rotated_files = g_slist_append(img->rotated_files, g_strdup(filename));
 
-#ifdef TB_EDITS
-	if( img->current_image )
-		cairo_surface_destroy( img->current_image );
-	img->current_image = img_scale_image( img, filename, 0,
-										  img->image_area->allocation.height );
-	gtk_widget_queue_draw( img->image_area );
-#else
 	img->slide_pixbuf = img_scale_pixbuf(img, filename);
 	gtk_image_set_from_pixbuf(GTK_IMAGE (img->image_area),img->slide_pixbuf);
 	g_object_unref(img->slide_pixbuf);
-#endif
 
 	/* Display the rotated image in thumbnails iconview */
 	thumb = gdk_pixbuf_new_from_file_at_scale(filename, 93, 70, TRUE, NULL);
@@ -803,10 +789,8 @@ void img_start_stop_preview(GtkWidget *button, img_window_struct *img)
 		/* Replace button and menu images */
 		img_swap_toolbar_images( img, FALSE );
 
-		/* Store currently displayed image and then clear image_area. */
-#ifdef TB_EDITS
-		img->stored_image = img->current_image;
-#else
+		/* Store currently displayed image and then clear image_area.
+		 * If the image is not cleared, the transition from*/
 		img->slide_pixbuf = gtk_image_get_pixbuf(GTK_IMAGE(img->image_area));
 		if (img->slide_pixbuf)
 			g_object_ref(G_OBJECT(img->slide_pixbuf));
@@ -815,16 +799,10 @@ void img_start_stop_preview(GtkWidget *button, img_window_struct *img)
 		/* Connect expose event to handler */
 		gtk_widget_set_app_paintable(img->image_area, TRUE);
 		g_signal_connect( G_OBJECT(img->image_area), "expose-event",G_CALLBACK(img_on_expose_event),img);
-#endif
 
 		/* Load the first image in the pixbuf */
 		gtk_tree_model_get(model, &iter,1,&entry,-1);
-#ifdef TB_EDITS
-		img->image2 = img_scale_image( img, entry->filename, 0,
-									   img->image_area->allocation.height );
-#else
 		img->pixbuf2 = img_scale_pixbuf(img,entry->filename);
-#endif
 		img->current_slide = entry;
 
 		/* If we started our preview from beginning, create empty pixbuf and
@@ -837,25 +815,13 @@ void img_start_stop_preview(GtkWidget *button, img_window_struct *img)
 
 			gtk_tree_model_get_iter( model, &prev, path );
 			gtk_tree_model_get( model, &prev, 1, &entry, -1 );
-#ifdef TB_EDITS
-			img->image1 = img_scale_image( img, entry->filename, 0,
-										   img->image_area->allocation.height );
-#else
 			img->pixbuf1 = img_scale_pixbuf(img, entry->filename);
-#endif
 			*img->cur_ss_iter = iter;
 		}
 		else
 		{
-#ifdef TB_EDITS
-			/* FIXME: Here background color is fixed to BLACK!!! */
-			img->image1 = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
-													  img->image_area->allocation.width,
-													  img->image_area->allocation.height );
-#else
 			img->pixbuf1 = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8,img->image_area->allocation.width,img->image_area->allocation.height);
 			gdk_pixbuf_fill(img->pixbuf1,img->background_color);
-#endif
 		}
 		if( path )
 			gtk_tree_path_free( path );
@@ -1031,41 +997,6 @@ void img_on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,
 
 gboolean img_on_expose_event(GtkWidget *widget,GdkEventExpose *event,img_window_struct *img)
 {
-#ifdef TB_EDITS
-	/* This expose function will be responsible for two things:
-	 *  - normal rendering of still images
-	 *  - preview rendering
-	 *
-	 * Currently, only still part is implemented, just to be able to test image
-	 * loading and scaling. Preview will be done after GdkPixbufs have been
-	 * replaced all over the application.
-	 *
-	 * Other things that are missing right now are:
-	 *  - separation of separate procesess into distinct function calls.
-	 *  - zoomming and panning
-	 *  - subtitles
-	 */
-	cairo_t *cr;
-	gint     wa, wc;
-	gdouble  scale;
-
-	if( ! img->current_image )
-		/* Use default handler */
-		return( FALSE );
-
-	gdk_drawable_get_size( widget->window, &wa, NULL );
-	wc = cairo_image_surface_get_width( img->current_image );
-	scale = (gdouble)wa / wc;
-
-	cr = gdk_cairo_create( widget->window );
-	cairo_scale( cr, scale, scale );
-	cairo_set_source_surface( cr, img->current_image, 0, 0 );
-	cairo_paint( cr );
-
-	cairo_destroy( cr );
-
-	return( TRUE );
-#else
 	/* We always pass negative number as a last parameter when we want to
 	 * draw on screen. */
 	if ((img->current_slide)->render)
@@ -1087,63 +1018,20 @@ gboolean img_on_expose_event(GtkWidget *widget,GdkEventExpose *event,img_window_
 		cairo_destroy(cr);
 	}
 	return FALSE;
-#endif
 }
 
-#ifdef TB_EDITS
-/*
- * img_scale_image:
- * @img: global img_window_struct structure
- * @filename: name of the file to load
- * @width: requested width of the returned surface
- * @height: requested height of the returned surface
- *
- * This function should be called for all image loading needs. It'll properly
- * scale and trim loaded images, add borders is needed and return surface of
- * requested size.
- *
- * If one of the size requests is 0, the other one will be calculated from
- * first one with aspect ratio calculation. If both dimensions are 0, image
- * will be loaded from disk at original size (this is mainly used for export,
- * when we want to have images at their best quality).
- *
- * Return value: newly constructed cairo_surface_t type. This surface should be
- * unreferenced with cairo_surface_destroy() when not needed anymore.
- */
-cairo_surface_t *
-img_scale_image( img_window_struct *img,
-				 gchar             *filename,
-				 int                width,
-				 int                height )
-#else
 GdkPixbuf *img_scale_pixbuf(img_window_struct *img, gchar *filename)
-#endif
 {
-	GdkPixbuf *pixbuf;                  /* Pixbuf used for loading */
+	GdkPixbuf *pixbuf, *compose;
 	gint       i_width, i_height;		/* Image dimensions */
 	gint       a_width, a_height;		/* Display dimensions */
-	gint       offset_x, offset_y;      /* Offset values for borders */
-	gdouble    a_ratio, i_ratio;        /* Export and image aspect ratios */
-#ifdef TB_EDITS
-	cairo_surface_t *surface;           /* Surface to draw on */
-	cairo_t   *cr;                      /* Cairo, used to transform image */
-	gint       c_width, c_height;       /* Dimensions of cairo surface that
-										   will be created and will hold
-										   original image with any borders
-										   if needed */
-	gdouble    skew;                    /* Transformation between a_ratio
-										   and i_ratio */
-	gdouble    max_skew = 1.35;         /* Maxumum allowed distortion values */
-	gdouble    min_skew = 0.75;
-	gboolean   transform = FALSE;       /* Flag that controls scalling */
-#else
-	GdkPixbuf *compose;
+	gint       offset_x, offset_y;
+	gdouble    a_ratio, i_ratio;
 	gdouble    max_stretch = 0.1280;	/* Maximum amount of stretch */
 	gdouble    max_crop    = 0.8500;	/* Maximum amount of crop */
 	gboolean   too_small;
-#endif
 
-	/* Obtain information about display area */
+	/* Obtaint information about display area */
 	a_width  = img->image_area->allocation.width;
 	a_height = img->image_area->allocation.height;
 	a_ratio  = (gdouble)a_width / a_height;
@@ -1152,169 +1040,6 @@ GdkPixbuf *img_scale_pixbuf(img_window_struct *img, gchar *filename)
 	gdk_pixbuf_get_file_info( filename, &i_width, &i_height );
 	i_ratio = (gdouble)i_width / i_height;
 
-#ifdef TB_EDITS
-	/* How distorted images would be if we scaled them */
-	skew = a_ratio / i_ratio;
-
-	/* This is where things are going to change. Main difference will be
-	 * replacement of GdkPixbuf with cairo_surface_t as a image storage format.
-	 * But image loading will still be performed by gdk-pixbuf library, since
-	 * cairo can load only from PNG.
-	 *
-	 * Image loading process is separated into four stages:
-	 *  - calculating surface dimensions
-	 *  - creation of image surface that will be returned
-	 *  - loading from disk into pixbuf according to requested sizes
-	 *  - painting of this image surface according to stretching
-	 */
-
-	/* Calculationg surface dimensions.
-	 *
-	 * In order to be as flexible as possible, this function can load images at
-	 * various sizes, but at aspect ration that matches the aspect ratio of main
-	 * preview area. How size is determined? If width argument is not -1, this
-	 * is taken as a reference dimension from which height is calculated (if
-	 * height argument also present, it's ignored). If width argument is -1,
-	 * height is taken as a reference dimension. If both width and height are
-	 * -1, surface dimensions are calculated to to fit original image.
-	 */
-	if( width > 0 )
-	{
-		/* Calculate height according to width */
-		c_width = width;
-		c_height = width / a_ratio;
-	}
-	else if( height > 0 )
-	{
-		/* Calculate width from height */
-		c_height = height;
-		c_width = height * a_ratio;
-	}
-	else
-	{
-		/* Load image at maximum quality
-		 *
-		 * If the user doesn't want to have distorted images, we create slightly
-		 * bigger surface that will hold borders too.
-		 *
-		 * If images should be distorted, we first check if we're able to fit
-		 * image without distorting it too much. If images would be largely
-		 * distorted, we simply load them undistorted.
-		 *
-		 * If we came all the way to  here, then we're able to distort image.
-		 */
-		if( ( ! img->distort_images ) || /* Don't distort */
-			( skew > max_skew )       || /* Image is too wide */
-			( skew < min_skew )        ) /* Image is too tall */
-		{
-			/* User doesn't want images to be distorted or distortion would be
-			 * too intrusive. */
-			if( a_ratio < i_ratio )
-			{
-				/* Borders will be added on left and right */
-				c_width = i_width;
-				c_height = c_width / a_ratio;
-			}
-			else
-			{
-				/* Borders will be added on top and bottom */
-				c_height = i_height;
-				c_width = c_height * a_ratio;
-			}
-		}
-		else
-		{
-			/* User wants images to be distorted and we're able to do it
-			 * without ruining images. */
-			if( a_ratio < i_ratio )
-			{
-				/* Image will be distorted horizontally */
-				c_height = i_height;
-				c_width = c_height * a_ratio;
-			}
-			else
-			{
-				/* Image will be distorted vertically */
-				c_width = i_width;
-				c_height = c_width / a_ratio;
-			}
-		}
-	}
-	/* Will image be disotrted?
-	 *
-	 * Conditions:
-	 *  - user allows us to do it
-	 *  - skew is in sensible range
-	 *  - image is not smaller that requested size
-	 */
-	transform = img->distort_images &&
-				skew < max_skew && skew > min_skew &&
-				( i_width > c_width || i_height > c_height );
-
-	/* Create image surface with proper dimensions */
-	surface = cairo_image_surface_create( CAIRO_FORMAT_RGB24, c_width, c_height );
-
-	/* Load image into pixbuf at proper size */
-	if( transform )
-	{
-		gint lw, lh;
-
-		/* Images will be loaded at slightly modified dimensions */
-		if( a_ratio < i_ratio )
-		{
-			/* Horizontal scaling */
-			lw = (gdouble)c_width / ( skew + 1 ) * 2;
-			lh = c_height;
-		}
-		else
-		{
-			/* Vertical scaling */
-			lw = c_width;
-			lh = (gdouble)c_height / ( skew + 1 ) * 2;
-		}
-		pixbuf = gdk_pixbuf_new_from_file_at_scale( filename, lw, lh,
-													FALSE, NULL );
-	}
-	else
-	{
-		/* Simply load image into pixbuf at size */
-		pixbuf = gdk_pixbuf_new_from_file_at_size( filename, c_width,
-												   c_height, NULL );
-	}
-	i_width  = gdk_pixbuf_get_width( pixbuf );
-	i_height = gdk_pixbuf_get_height( pixbuf );
-
-	/* Paint surface with loaded image
-	 *
-	 * If image cannot be scalled, transform is FALSE. In this case, just
-	 * borders are added. If transform is not 0, than scale image before
-	 * painting it. */
-	cr = cairo_create( surface );
-
-	offset_x = ( c_width - i_width ) / 2;   /* CAN BE NEGATIVE!!! */
-	offset_y = ( c_height - i_height ) / 2; /* CAN BE NEGATIVE!!! */
-	if( ! transform )
-	{
-		/* Fill with background color */
-		gdouble red, green, blue;
-
-		red   = (gdouble)( ( img->background_color >> 24 ) & 0xff ) / 0xff;
-		green = (gdouble)( ( img->background_color >> 16 ) & 0xff ) / 0xff;
-		blue  = (gdouble)( ( img->background_color >> 8  ) & 0xff ) / 0xff;
-
-		cairo_set_source_rgb( cr, red, green, blue );
-		cairo_paint( cr );
-	}
-
-	/* Paint image */
-	gdk_cairo_set_source_pixbuf( cr, pixbuf, offset_x, offset_y );
-	cairo_paint( cr );
-
-	cairo_destroy( cr );
-
-	return( surface );
-
-#else
 	/* If the image is smaller than display area, just center it and fill
 	 * the background with color. We do approximatelly the same thing if
 	 * the user doesn't want to distort images. */
@@ -1412,7 +1137,6 @@ GdkPixbuf *img_scale_pixbuf(img_window_struct *img, gchar *filename)
 	g_object_unref( G_OBJECT( pixbuf ) );
 
 	return( compose );
-#endif
 }
 
 static gboolean img_transition_timeout(img_window_struct *img)
@@ -1501,15 +1225,10 @@ static void img_clean_after_preview(img_window_struct *img)
 	g_signal_handlers_disconnect_by_func(img->image_area,img_on_expose_event,img);
 	gtk_widget_set_app_paintable(img->image_area, FALSE);
 
-#ifdef TB_EDITS
-	img->current_image = img->stored_image;
-	gtk_widget_queue_draw( img->image_area );
-#else
 	/* Restore image that was used before preview */
 	gtk_image_set_from_pixbuf(GTK_IMAGE(img->image_area), img->slide_pixbuf);
 	if( img->slide_pixbuf )
 		g_object_unref(G_OBJECT(img->slide_pixbuf));
-#endif
 
 	/* Swap toolbar and menu icons */
 	img_swap_toolbar_images( img, TRUE );
@@ -1590,14 +1309,7 @@ void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 	img_free_allocated_memory(img);
 	img_set_window_title(img,NULL);
 	img_set_statusbar_message(img,0);
-#ifdef TB_EDITS
-	if( img->current_image )
-		cairo_surface_destroy( img->current_image );
-	img->current_image = NULL;
-	gtk_widget_queue_draw( img->image_area );
-#else
 	gtk_image_set_from_pixbuf(GTK_IMAGE(img->image_area),NULL);
-#endif
 	gtk_widget_set_sensitive(img->random_button, FALSE);
 	gtk_widget_set_sensitive(img->transition_type, FALSE);
 	gtk_widget_set_sensitive(img->duration, FALSE);
