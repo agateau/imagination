@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+_Name=Imagination
+_GenericName=A DVD slideshow maker
+_Comment=A lightweight DVD slideshow maker using GTK+2
+Exec=imagination %F
+Icon=imagination
+Terminal=false
+Categories=AudioVideo;
+StartupNotify=true
