@@ -1,0 +1,500 @@
+# Swedish translation for imagination.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the imagination package.
+# Daniel Nylander <po@danielnylander.se>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: imagination\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-03 20:51+0200\n"
+"PO-Revision-Date: 2009-06-22 20:15+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../imagination.desktop.in.in.h:1
+msgid "A DVD slideshow maker"
+msgstr "En DVD-bildspelsskapare"
+
+#: ../imagination.desktop.in.in.h:2
+msgid "A lightweight DVD slideshow maker using GTK+2"
+msgstr "En lättviktig DVD-bildspelsskapare som använder GTK+2"
+
+#: ../imagination.desktop.in.in.h:3
+msgid "Imagination"
+msgstr "Imagination"
+
+#: ../src/audio.c:106
+#, c-format
+msgid "Playing %s..."
+msgstr "Spelar upp %s..."
+
+#: ../src/audio.c:126 ../src/main-window.c:733
+msgid "Play the selected file"
+msgstr "Spela upp markerad fil"
+
+#: ../src/audio.c:134
+msgid "Stop the playback"
+msgstr "Stoppa uppspelningen"
+
+#: ../src/main-window.c:156
+msgid "_Slideshow"
+msgstr "_Bildspel"
+
+#: ../src/main-window.c:192
+msgid "_Preview"
+msgstr "_Förhandsgranska"
+
+#: ../src/main-window.c:200
+msgid "Export"
+msgstr "Exportera"
+
+#: ../src/main-window.c:216
+msgid "_Slide"
+msgstr "_Bild"
+
+#: ../src/main-window.c:222
+msgid "Import p_ictures"
+msgstr "Importera bil_der"
+
+#: ../src/main-window.c:232
+msgid "Import _music"
+msgstr "Importera _musik"
+
+#: ../src/main-window.c:242
+msgid "Dele_te"
+msgstr "Ta _bort"
+
+#: ../src/main-window.c:254
+msgid "Rotate _clockwise"
+msgstr ""
+
+#: ../src/main-window.c:264
+msgid "Rotate co_unter-clockwise"
+msgstr ""
+
+#: ../src/main-window.c:278
+msgid "Un_select all"
+msgstr "_Avmarkera alla"
+
+#: ../src/main-window.c:283
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: ../src/main-window.c:302 ../src/new_slideshow.c:54
+msgid "Create a new slideshow"
+msgstr "Skapa ett nytt bildspel"
+
+#: ../src/main-window.c:307
+msgid "Open a slideshow"
+msgstr "Öppna ett bildspel"
+
+#: ../src/main-window.c:312
+msgid "Save the slideshow"
+msgstr "Spara bildspelet"
+
+#: ../src/main-window.c:325
+msgid "Import pictures"
+msgstr "Importera bilder"
+
+#: ../src/main-window.c:334
+msgid "Import music"
+msgstr "Importera musik"
+
+#: ../src/main-window.c:339
+msgid "Delete the selected slides"
+msgstr "Ta bort markerade bilder"
+
+#: ../src/main-window.c:348
+#, fuzzy
+msgid "Rotate the slide clockwise"
+msgstr "Spara bildspelet"
+
+#: ../src/main-window.c:357
+msgid "Rotate the slide counter-clockwise"
+msgstr ""
+
+#: ../src/main-window.c:365 ../src/callbacks.c:1208
+msgid "Starts the preview"
+msgstr "Startar förhandsgranskningen"
+
+#: ../src/main-window.c:373
+#, fuzzy
+msgid "Goto first slide"
+msgstr "Importera bilderna"
+
+#: ../src/main-window.c:378
+#, fuzzy
+msgid "Goto previous selected slide"
+msgstr "Ta bort markerade bilder"
+
+#: ../src/main-window.c:394 ../src/main-window.c:586
+msgid " of "
+msgstr ""
+
+#: ../src/main-window.c:405
+#, fuzzy
+msgid "Goto next selected slide"
+msgstr "Ta bort markerade bilder"
+
+#: ../src/main-window.c:410
+#, fuzzy
+msgid "Goto last slide"
+msgstr "Importera bilderna"
+
+#: ../src/main-window.c:451
+msgid "Zoom Factor: "
+msgstr ""
+
+#: ../src/main-window.c:478
+#, fuzzy
+msgid "<b>Slide Settings</b>"
+msgstr "<b>Bildinställningar</b>"
+
+#. Transition types label
+#: ../src/main-window.c:488
+msgid "Transition Type:"
+msgstr "Övergångstyp:"
+
+#: ../src/main-window.c:508
+msgid "Random"
+msgstr "Slumpmässigt"
+
+#: ../src/main-window.c:509
+msgid "Imagination randomly decides which transition to apply"
+msgstr "Imagination bestämmer slumpmässigt vilken övergång att tillämpa"
+
+#. Transition duration
+#: ../src/main-window.c:515
+msgid "Transition Speed:"
+msgstr "Övergångshastighet:"
+
+#: ../src/main-window.c:526
+msgid "Fast"
+msgstr "Snabb"
+
+#: ../src/main-window.c:528
+msgid "Normal"
+msgstr "Normal"
+
+#: ../src/main-window.c:530
+msgid "Slow"
+msgstr "Långsam"
+
+#. Slide duration
+#: ../src/main-window.c:537
+msgid "Slide Duration in sec:"
+msgstr "Bildlängd i sekunder:"
+
+#. Slide Total Duration
+#: ../src/main-window.c:548
+msgid "Slideshow Length:"
+msgstr "Bildvisningslängd:"
+
+#: ../src/main-window.c:565
+#, fuzzy
+msgid "<b>Slide Motion</b>"
+msgstr "<b>Bildinställningar</b>"
+
+#: ../src/main-window.c:608
+msgid "Add"
+msgstr ""
+
+#: ../src/main-window.c:610
+msgid "Remove"
+msgstr ""
+
+#: ../src/main-window.c:622
+#, fuzzy
+msgid "<b>Slide Text</b>"
+msgstr "<b>Bildinställningar</b>"
+
+#: ../src/main-window.c:640 ../src/main-window.c:854
+msgid "Click to expand the area"
+msgstr ""
+
+#: ../src/main-window.c:650
+msgid "Click to choose the font"
+msgstr ""
+
+#: ../src/main-window.c:653
+msgid "Animation:"
+msgstr ""
+
+#: ../src/main-window.c:662 ../src/main-window.c:1282
+#: ../src/main-window.c:1284 ../src/support.c:138
+msgid "None"
+msgstr "Ingen"
+
+#: ../src/main-window.c:674
+msgid "<b>Background Music</b>"
+msgstr "<b>Bakgrundsmusik</b>"
+
+#: ../src/main-window.c:717
+msgid "Music Duration:"
+msgstr "Musiklängd:"
+
+#: ../src/main-window.c:741
+msgid "Delete the selected file"
+msgstr "Ta bort markerad fil"
+
+#: ../src/main-window.c:748
+msgid "Move the selected file up"
+msgstr "Flytta markerad fil uppåt"
+
+#: ../src/main-window.c:755
+msgid "Move the selected file down"
+msgstr "Flytta markerad fil nedåt"
+
+#: ../src/main-window.c:762
+msgid "Clear all files"
+msgstr "Töm alla filer"
+
+#: ../src/main-window.c:849
+msgid "Click to shrink the area"
+msgstr ""
+
+#: ../src/main-window.c:868 ../src/callbacks.c:962
+msgid "Sorry,I could not perform the operation!"
+msgstr ""
+
+#: ../src/main-window.c:1011
+#, fuzzy
+msgid "Resolution"
+msgstr "Upplösning:"
+
+#: ../src/main-window.c:1011
+#, fuzzy
+msgid "Type"
+msgstr "Typ:"
+
+#: ../src/callbacks.c:119
+#, c-format
+msgid "Please wait, importing slide %d out of %d"
+msgstr "Vänta, importerar bild %d av %d"
+
+#: ../src/callbacks.c:186
+msgid "Please choose the audio files to import"
+msgstr "Välj ljudfilerna att importera"
+
+#: ../src/callbacks.c:197
+msgid "All audio files"
+msgstr "Alla ljudfiler"
+
+#: ../src/callbacks.c:206 ../src/callbacks.c:277
+msgid "All files"
+msgstr "Alla filer"
+
+#: ../src/callbacks.c:259
+msgid "Import slides, use SHIFT key for multiple select"
+msgstr "Importera bilder, använd SKIFT-tangenten för flera markeringar"
+
+#: ../src/callbacks.c:271
+msgid "All image files"
+msgstr "Alla bildfiler"
+
+#: ../src/callbacks.c:380 ../src/callbacks.c:1305
+msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
+msgstr ""
+"Du har inte sparat ditt bildspel än. Är du säker på att du vill stänga det?"
+
+#: ../src/callbacks.c:437
+#, c-format
+msgid "%d x %d pixels"
+msgid_plural "%d x %d pixels"
+msgstr[0] "%d x %d bildpunkter"
+msgstr[1] "%d x %d bildpunkter"
+
+#: ../src/callbacks.c:526
+msgid "An error occurred while trying to rotate the slide:"
+msgstr ""
+
+#: ../src/callbacks.c:680
+msgid "translator-credits"
+msgstr ""
+"Daniel Nylander <po@danielnylander.se>\n"
+"\n"
+"Skicka synpunkter på översättningen till\n"
+"<tp-sv@listor.tp-sv.se>."
+
+#: ../src/callbacks.c:1218
+msgid "Stops the preview"
+msgstr "Stoppar förhandsgranskningen"
+
+#: ../src/callbacks.c:1264
+msgid "Load an Imagination slideshow project"
+msgstr "Läs in ett Imagination-bildspelsprojekt"
+
+#: ../src/callbacks.c:1265
+msgid "Save an Imagination slideshow project"
+msgstr "Spara ett Imagination-bildspelsprojekt"
+
+#. Display propert title depending on the callback that is calling this function.
+#: ../src/new_slideshow.c:54
+msgid "Project properties"
+msgstr "Projektegenskaper"
+
+#: ../src/new_slideshow.c:79
+msgid "<b>Slideshow Settings</b>"
+msgstr "<b>Bildspelsinställningar</b>"
+
+#: ../src/new_slideshow.c:112
+msgid "<b>Video Format</b>"
+msgstr "<b>Videoformat</b>"
+
+#: ../src/new_slideshow.c:124
+msgid "<b>Advanced Settings</b>"
+msgstr "<b>Avancerade inställningar</b>"
+
+#: ../src/new_slideshow.c:131
+msgid "Rescale images to fit desired aspect ratio"
+msgstr "Skala om bilderna för att passa önskat bildformat"
+
+#: ../src/new_slideshow.c:139
+msgid "Select background color:"
+msgstr "Välj bakgrundsfärg:"
+
+#: ../src/slideshow_project.c:132
+msgid "This is not an Imagination project file!"
+msgstr "Detta är inte en projektfil för Imagination!"
+
+#: ../src/support.c:98
+#, c-format
+msgid "Welcome to Imagination - %d transitions loaded."
+msgstr "Välkommen till Imagination - %d övergångar inlästa."
+
+#: ../src/support.c:105
+#, c-format
+msgid "%d slides selected"
+msgstr "%d bilder markerade"
+
+#: ../src/support.c:113
+#, c-format
+msgid "%d slide imported %s"
+msgid_plural "%d slides imported %s"
+msgstr[0] "%d bild importerad %s"
+msgstr[1] "%d bilder importerade %s"
+
+#: ../src/support.c:113
+msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
+msgstr ""
+" - Använd CTRL-tangenten för att markera/avmarkera eller SKIFT för flera "
+"markeringar"
+
+#: ../src/support.c:232
+msgid "Please choose the slideshow project filename"
+msgstr "Välj filnamn för bildspelsprojektet"
+
+#: ../src/export.c:204
+msgid "<b>Export Settings</b>"
+msgstr "<b>Exportinställningar</b>"
+
+#: ../src/export.c:218
+msgid "Filename of the slideshow:"
+msgstr "Filnamn för bildspelet:"
+
+#: ../src/export.c:349
+msgid "Exporting the slideshow"
+msgstr "Exporterar bildspelet"
+
+#: ../src/export.c:360
+msgid "Preparing for export ..."
+msgstr "Förbereder för export ..."
+
+#: ../src/export.c:371
+msgid "Overall progress:"
+msgstr "Totalt förlopp:"
+
+#: ../src/export.c:435 ../src/export.c:793
+#, c-format
+msgid "Slide %d export progress:"
+msgstr "Förlopp för export av bild %d:"
+
+#: ../src/export.c:651
+msgid "Failed to launch the encoder!"
+msgstr "Misslyckades med att starta kodaren!"
+
+#: ../src/export.c:791
+#, c-format
+msgid "Final transition export progress:"
+msgstr "Förlopp för export av slutgiltig övergång:"
+
+#. Additional options - <format> only
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:892 ../src/export.c:955
+msgid "VOB export"
+msgstr "VOB-export"
+
+#: ../src/export.c:967 ../src/export.c:1051
+msgid "<b>Television Format</b>"
+msgstr "<b>Tv-format</b>"
+
+#: ../src/export.c:974 ../src/export.c:1058
+msgid "Normal 4:3"
+msgstr "Normal 4:3"
+
+#: ../src/export.c:979 ../src/export.c:1063
+msgid "Widescreen 16:9"
+msgstr "Bredbild 16:9"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:1039
+msgid "OGG export"
+msgstr "OGG-export"
+
+#: ../src/export.c:1069 ../src/export.c:1163
+msgid "<b>Video Quality:</b>"
+msgstr "<b>Videokvalitet:</b>"
+
+#: ../src/export.c:1076 ../src/export.c:1170
+msgid "Low"
+msgstr "Låg"
+
+#: ../src/export.c:1080 ../src/export.c:1174
+msgid "Medium"
+msgstr "Medel"
+
+#: ../src/export.c:1085 ../src/export.c:1179
+msgid "High"
+msgstr "Hög"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:1151
+msgid "FLV export"
+msgstr "FLV-export"
+
+#~ msgid "Slide Number:"
+#~ msgstr "Bildnummer:"
+
+#~ msgid "Jump to the entered slide number"
+#~ msgstr "Hoppa till angivet bildnummer"
+
+#~ msgid "Export the DVD slideshow"
+#~ msgstr "Exportera DVD-bildspelet"
+
+#~ msgid ""
+#~ "The length of the audio track is longer than the video one. Do you want "
+#~ "to continue?"
+#~ msgstr ""
+#~ "Längden på ljudspåret är större än videons längd. Vill du fortsätta?"
+
+#~ msgid "Export the slideshow as:"
+#~ msgstr "Exportera bildspelet som:"
+
+#, fuzzy
+#~ msgid "Import the audio files"
+#~ msgstr "Importera bilderna"
+
+#~ msgid "Preview the slideshow"
+#~ msgstr "Förhandsgranska bildspelet"
+
+#, fuzzy
+#~ msgid "Clear the selection"
+#~ msgstr "Ta bort markerade bilder"
