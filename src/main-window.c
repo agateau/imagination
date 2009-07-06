@@ -440,19 +440,26 @@ img_window_struct *img_create_window (void)
 	viewport = gtk_bin_get_child(GTK_BIN(swindow));
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
 
-	valign = gtk_alignment_new (1, 0, 0, 0);
+#if 0
+	valign = gtk_alignment_new (0, 0, 0, 0);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (valign), 10, 10, 10, 10);
 	gtk_box_pack_start (GTK_BOX (hbox), valign, FALSE, FALSE, 0);
 
 	halign = gtk_alignment_new (0, 0, 0, 0);
 	gtk_container_add (GTK_CONTAINER (valign), halign);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (halign), 10, 10, 10, 10);
+#endif
 
 	vbox_frames = gtk_vbox_new(FALSE, 10);
 	scrollable_window = gtk_scrolled_window_new(NULL, NULL);
 	g_object_set (G_OBJECT (scrollable_window),"hscrollbar-policy",GTK_POLICY_NEVER,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
-	gtk_widget_set_size_request(scrollable_window, -1, 500);
+//	gtk_widget_set_size_request(scrollable_window, -1, 500);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrollable_window), vbox_frames);
-	gtk_container_add (GTK_CONTAINER (halign), scrollable_window);
+//	gtk_container_add (GTK_CONTAINER (halign), scrollable_window);
+	gtk_box_pack_start( GTK_BOX( hbox ), scrollable_window, FALSE, FALSE, 0 );
+
+	viewport = gtk_bin_get_child(GTK_BIN(scrollable_window));
+	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
+	gtk_container_set_border_width( GTK_CONTAINER( viewport ), 10 );
 
 	/* Slide frame */
 	frame1 = gtk_frame_new (NULL);
