@@ -36,14 +36,6 @@
 
 #define comment_string	"Imagination Slideshow Project - http://imagination.sf.net"
 
-typedef struct _plugin plugin;
-
-struct _plugin
-{
-	const gchar	*name;		/* The name of the transition */
-	gpointer	address;	/* The mem address of the routine */
-};
-
 typedef struct _slide_struct slide_struct;
 
 struct _slide_struct
