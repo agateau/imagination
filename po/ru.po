@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: imagination 1.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-03 20:51+0200\n"
-"PO-Revision-Date: 2009-07-03 21:23+0400\n"
+"PO-Revision-Date: 2009-07-04 12:32+0400\n"
 "Last-Translator: Dmitry A. Levin <levin.dmi@gmail.com>\n"
 "Language-Team: Russian <levin.dmi@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -73,11 +73,11 @@ msgstr "_Удалить"
 
 #: ../src/main-window.c:254
 msgid "Rotate _clockwise"
-msgstr ""
+msgstr "Повернуть _по часовой стрелке"
 
 #: ../src/main-window.c:264
 msgid "Rotate co_unter-clockwise"
-msgstr ""
+msgstr "Повернуть п_ротив часовой стрелки"
 
 #: ../src/main-window.c:278
 msgid "Un_select all"
@@ -112,13 +112,12 @@ msgid "Delete the selected slides"
 msgstr "Удалить выбранные слайды"
 
 #: ../src/main-window.c:348
-#, fuzzy
 msgid "Rotate the slide clockwise"
-msgstr "Сохранить слайд-шоу"
+msgstr "Повернуть слайд по часовой стрелке"
 
 #: ../src/main-window.c:357
 msgid "Rotate the slide counter-clockwise"
-msgstr ""
+msgstr "Повернуть слайд против часовой стрелки"
 
 #: ../src/main-window.c:365 ../src/callbacks.c:1208
 msgid "Starts the preview"
@@ -126,32 +125,29 @@ msgstr "Запустить предварительный просмотр"
 
 #: ../src/main-window.c:373
 msgid "Goto first slide"
-msgstr ""
+msgstr "Перейти к первому слайду"
 
 #: ../src/main-window.c:378
-#, fuzzy
 msgid "Goto previous selected slide"
-msgstr "Удалить выбранные слайды"
+msgstr "Перейти к предыдущему выбранному слайду"
 
 #: ../src/main-window.c:394 ../src/main-window.c:586
 msgid " of "
-msgstr ""
+msgstr " из "
 
 #: ../src/main-window.c:405
-#, fuzzy
 msgid "Goto next selected slide"
-msgstr "Удалить выбранные слайды"
+msgstr "Перейти к следующему выбранному слайду"
 
 #: ../src/main-window.c:410
 msgid "Goto last slide"
-msgstr ""
+msgstr "Перейти к последнему слайду"
 
 #: ../src/main-window.c:451
 msgid "Zoom Factor: "
-msgstr ""
+msgstr "Масштаб: "
 
 #: ../src/main-window.c:478
-#, fuzzy
 msgid "<b>Slide Settings</b>"
 msgstr "<b>Параметры слайда</b>"
 
@@ -193,37 +189,35 @@ msgstr "Длительность показа слайда в секундах:"
 #. Slide Total Duration
 #: ../src/main-window.c:548
 msgid "Slideshow Length:"
-msgstr "Продолжительность Слайд-шоу"
+msgstr "Продолжительность Слайд-шоу:"
 
 #: ../src/main-window.c:565
-#, fuzzy
 msgid "<b>Slide Motion</b>"
-msgstr "<b>Параметры слайда</b>"
+msgstr "<b>Параметры анимации</b>"
 
 #: ../src/main-window.c:608
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: ../src/main-window.c:610
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: ../src/main-window.c:622
-#, fuzzy
 msgid "<b>Slide Text</b>"
-msgstr "<b>Параметры слайда</b>"
+msgstr "<b>Текст слайда</b>"
 
 #: ../src/main-window.c:640 ../src/main-window.c:854
 msgid "Click to expand the area"
-msgstr ""
+msgstr "Нажмите, чтобы расширить область"
 
 #: ../src/main-window.c:650
 msgid "Click to choose the font"
-msgstr ""
+msgstr "Нажмите, чтобы выбрать шрифт"
 
 #: ../src/main-window.c:653
 msgid "Animation:"
-msgstr ""
+msgstr "Анимация:"
 
 #: ../src/main-window.c:662 ../src/main-window.c:1282
 #: ../src/main-window.c:1284 ../src/support.c:138
@@ -256,21 +250,19 @@ msgstr "Очистить список файлов"
 
 #: ../src/main-window.c:849
 msgid "Click to shrink the area"
-msgstr ""
+msgstr "Нажмите, чтобы уменьшить область"
 
 #: ../src/main-window.c:868 ../src/callbacks.c:962
 msgid "Sorry,I could not perform the operation!"
-msgstr ""
+msgstr "Не могу выполнить данное действие!"
 
 #: ../src/main-window.c:1011
-#, fuzzy
 msgid "Resolution"
-msgstr "Разрешение:"
+msgstr "Разрешение"
 
 #: ../src/main-window.c:1011
-#, fuzzy
 msgid "Type"
-msgstr "Тип:"
+msgstr "Тип"
 
 #: ../src/callbacks.c:119
 #, c-format
@@ -311,7 +303,7 @@ msgstr[2] "%d x %d pixels"
 
 #: ../src/callbacks.c:526
 msgid "An error occurred while trying to rotate the slide:"
-msgstr ""
+msgstr "Ошибка при повороте слайда:"
 
 #: ../src/callbacks.c:680
 msgid "translator-credits"
@@ -369,10 +361,10 @@ msgid "%d slides selected"
 msgstr "Выбрано слайдов - %d"
 
 #: ../src/support.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%d slide imported %s"
 msgid_plural "%d slides imported %s"
-msgstr[0] "Выбрано слайдов - %d"
+msgstr[0] "%d слайдов загружено %s"
 msgstr[1] "Выбрано слайдов - %d"
 msgstr[2] "Выбрано слайдов - %d"
 

@@ -88,7 +88,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *toolbutton_slide_goto;
 	GtkWidget *first_slide, *last_slide, *prev_slide, *next_slide, *label_of;
 	GtkWidget *hbox;
-	GtkWidget *swindow;
+	GtkWidget *swindow, *scrollable_window;
 	GtkWidget *viewport;
 	GtkWidget *align;
 	GtkWidget *image_area_frame;
@@ -132,7 +132,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *thumb_scrolledwindow;
 	GdkPixbuf *pixbuf;
 
-	accel_group = gtk_accel_group_new ();
+	accel_group = gtk_accel_group_new();
 	icon_theme = gtk_icon_theme_get_default();
 	icon = gtk_icon_theme_load_icon(icon_theme, "imagination", 24, 0, NULL);
 
@@ -140,7 +140,7 @@ img_window_struct *img_create_window (void)
 	img_struct->imagination_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_icon (GTK_WINDOW(img_struct->imagination_window),icon);
 	gtk_window_set_position (GTK_WINDOW(img_struct->imagination_window),GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size (GTK_WINDOW (img_struct->imagination_window), 1072, 828);
+	gtk_window_set_default_size (GTK_WINDOW (img_struct->imagination_window), 1072, 700);
 	img_set_window_title(img_struct,NULL);
 	g_signal_connect (G_OBJECT (img_struct->imagination_window),"delete-event",G_CALLBACK (img_quit_application),img_struct);
 	g_signal_connect (G_OBJECT (img_struct->imagination_window), "destroy", G_CALLBACK (gtk_main_quit), NULL );
@@ -415,15 +415,10 @@ img_window_struct *img_create_window (void)
 	/* Create the image area and the other widgets */
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox, TRUE, TRUE, 0);
-	
-	/* This is a job for..... Tadej: put the label and the zoom scale
-	 * inside the align so when user enlarge the window it behaves like the image area */
-	GtkWidget *vbox_zoom = gtk_vbox_new(FALSE,0);
-	gtk_box_pack_start (GTK_BOX (hbox), vbox_zoom, TRUE, TRUE, 0);
 
 	swindow = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start (GTK_BOX (vbox_zoom), swindow, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), swindow, TRUE, TRUE, 0);
 
 	align = gtk_alignment_new(0.5, 0.5, 0, 0);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swindow), align);
@@ -445,17 +440,6 @@ img_window_struct *img_create_window (void)
 	viewport = gtk_bin_get_child(GTK_BIN(swindow));
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
 
-	GtkWidget *hbox_zoom = gtk_hbox_new(FALSE,0);
-	gtk_box_pack_start (GTK_BOX (vbox_zoom), hbox_zoom, FALSE, FALSE, 0);
-
-	GtkWidget *label = gtk_label_new(_("Zoom Factor: "));
-	gtk_misc_set_alignment(GTK_MISC(label),0.0, 0.5);
-	gtk_box_pack_start (GTK_BOX (hbox_zoom), label, FALSE, TRUE, 0);
-
-	GtkWidget *zoom_scale = gtk_hscale_new_with_range(1,30,0.10000000000000001);
-	gtk_scale_set_value_pos (GTK_SCALE(zoom_scale), GTK_POS_LEFT);
-	gtk_box_pack_start (GTK_BOX (hbox_zoom), zoom_scale, TRUE, TRUE, 0);
-
 	valign = gtk_alignment_new (1, 0, 0, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), valign, FALSE, FALSE, 0);
 
@@ -464,7 +448,11 @@ img_window_struct *img_create_window (void)
 	gtk_alignment_set_padding (GTK_ALIGNMENT (halign), 10, 10, 10, 10);
 
 	vbox_frames = gtk_vbox_new(FALSE, 10);
-	gtk_container_add (GTK_CONTAINER (halign), vbox_frames);
+	scrollable_window = gtk_scrolled_window_new(NULL, NULL);
+	g_object_set (G_OBJECT (scrollable_window),"hscrollbar-policy",GTK_POLICY_NEVER,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
+	gtk_widget_set_size_request(scrollable_window, -1, 500);
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrollable_window), vbox_frames);
+	gtk_container_add (GTK_CONTAINER (halign), scrollable_window);
 
 	/* Slide frame */
 	frame1 = gtk_frame_new (NULL);
@@ -483,7 +471,7 @@ img_window_struct *img_create_window (void)
 	vbox_info_slide = gtk_vbox_new (FALSE, 2);
 	gtk_container_add (GTK_CONTAINER (frame1_alignment), vbox_info_slide);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox_info_slide), 2);
-	
+
 	/* Transition types label */
 	transition_label = gtk_label_new (_("Transition Type:"));
 	gtk_box_pack_start (GTK_BOX (vbox_info_slide), transition_label, FALSE, FALSE, 0);
@@ -601,7 +589,17 @@ img_window_struct *img_create_window (void)
 	gtk_box_pack_start (GTK_BOX (hbox_time_offset), img_struct->stop_point_duration, FALSE, FALSE, 0);
 	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON (img_struct->stop_point_duration),TRUE);
 	//g_signal_connect (G_OBJECT (img_struct->stop_point_duration),"value-changed",G_CALLBACK (img_time_offset_spin_button_value_changed),img_struct);
+	GtkWidget *hbox_zoom = gtk_hbox_new(FALSE,0);
+	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_zoom, FALSE, FALSE, 0);
 
+	GtkWidget *label = gtk_label_new(_("Zoom: "));
+	gtk_misc_set_alignment(GTK_MISC(label),0.0, 0.5);
+	gtk_box_pack_start (GTK_BOX (hbox_zoom), label, FALSE, TRUE, 0);
+
+	GtkWidget *zoom_scale = gtk_hscale_new_with_range(1,30,0.10000000000000001);
+	gtk_scale_set_value_pos (GTK_SCALE(zoom_scale), GTK_POS_LEFT);
+	gtk_box_pack_start (GTK_BOX (hbox_zoom), zoom_scale, TRUE, TRUE, 0);
+	
 	hbox_buttons = gtk_hbutton_box_new();
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (hbox_buttons), GTK_BUTTONBOX_SPREAD);
 	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_buttons, FALSE, FALSE, 0);
@@ -633,7 +631,7 @@ img_window_struct *img_create_window (void)
 	img_struct->slide_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(caption_textview));
 	img_struct->scrolled_win = gtk_scrolled_window_new(NULL, NULL);
 	gtk_widget_set_size_request(img_struct->scrolled_win, -1, 18);
-	g_object_set (G_OBJECT (img_struct->scrolled_win),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_OUT,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
+	g_object_set (G_OBJECT (img_struct->scrolled_win),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 	gtk_container_add(GTK_CONTAINER (img_struct->scrolled_win), caption_textview);
 	gtk_box_pack_start (GTK_BOX (hbox_textview), img_struct->scrolled_win, TRUE, TRUE, 0);
 	img_struct->expand_button = gtk_button_new();
@@ -650,9 +648,9 @@ img_window_struct *img_create_window (void)
 	gtk_widget_set_tooltip_text(font_button, _("Click to choose the font"));
 	text_animation_hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox_slide_caption), text_animation_hbox, FALSE, FALSE, 0);
-	label = gtk_label_new(_("Animation:"));
-	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-	gtk_box_pack_start (GTK_BOX (text_animation_hbox), label, TRUE, TRUE, 0);
+	GtkWidget *animation_label = gtk_label_new(_("Animation:"));
+	gtk_misc_set_alignment(GTK_MISC(animation_label), 0.0, 0.5);
+	gtk_box_pack_start (GTK_BOX (text_animation_hbox), animation_label, TRUE, TRUE, 0);
 	img_struct->text_animation_combo = _gtk_combo_box_new_text(FALSE);
 	gtk_box_pack_start (GTK_BOX (text_animation_hbox), img_struct->text_animation_combo, FALSE, FALSE, 0);
 	{
