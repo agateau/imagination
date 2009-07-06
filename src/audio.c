@@ -143,7 +143,7 @@ void output_message(unsigned level, const char *filename, const char *fmt, va_li
 	if (level == 1)
 	{
 		string = g_strdup_vprintf(fmt,ap);
-		dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
+		dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", string);
 		gtk_window_set_title(GTK_WINDOW(dialog), "Imagination");
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (GTK_WIDGET (dialog));

@@ -92,8 +92,6 @@ img_window_struct *img_create_window (void)
 	GtkWidget *viewport;
 	GtkWidget *align;
 	GtkWidget *image_area_frame;
-	GtkWidget *valign;
-	GtkWidget *halign;
 	GtkWidget *vbox_frames, *frame1_alignment, *frame2_alignment, *frame3_alignment,*frame4_alignment;
 	GtkWidget *frame1, *frame2, *frame3, *frame4, *frame_label;
 	GtkWidget *transition_label;
@@ -413,12 +411,12 @@ img_window_struct *img_create_window (void)
 	gtk_widget_show_all (toolbar);
 
 	/* Create the image area and the other widgets */
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_hpaned_new();
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox, TRUE, TRUE, 0);
 
 	swindow = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start (GTK_BOX (hbox), swindow, TRUE, TRUE, 0);
+	gtk_paned_add1( GTK_PANED( hbox ), swindow );
 
 	align = gtk_alignment_new(0.5, 0.5, 0, 0);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swindow), align);
@@ -440,22 +438,12 @@ img_window_struct *img_create_window (void)
 	viewport = gtk_bin_get_child(GTK_BIN(swindow));
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
 
-#if 0
-	valign = gtk_alignment_new (0, 0, 0, 0);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (valign), 10, 10, 10, 10);
-	gtk_box_pack_start (GTK_BOX (hbox), valign, FALSE, FALSE, 0);
-
-	halign = gtk_alignment_new (0, 0, 0, 0);
-	gtk_container_add (GTK_CONTAINER (valign), halign);
-#endif
-
 	vbox_frames = gtk_vbox_new(FALSE, 10);
 	scrollable_window = gtk_scrolled_window_new(NULL, NULL);
-	g_object_set (G_OBJECT (scrollable_window),"hscrollbar-policy",GTK_POLICY_NEVER,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
-//	gtk_widget_set_size_request(scrollable_window, -1, 500);
+	g_object_set (G_OBJECT (scrollable_window),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrollable_window), vbox_frames);
-//	gtk_container_add (GTK_CONTAINER (halign), scrollable_window);
-	gtk_box_pack_start( GTK_BOX( hbox ), scrollable_window, FALSE, FALSE, 0 );
+	gtk_paned_add2( GTK_PANED( hbox ), scrollable_window );
+	gtk_paned_set_position( GTK_PANED( hbox ), 650 );
 
 	viewport = gtk_bin_get_child(GTK_BIN(scrollable_window));
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
