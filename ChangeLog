@@ -1,6 +1,7 @@
 Imagination changelog
 
 xx/09/09 - 1.x:
+			- Added HTML documentation.
 			- Made GUI work better on smaller screens.
 			- Added russian translation.	
 			- Changed suffix for exported OGG Theora/Vorbis slideshow to ".ogv".

@@ -81,7 +81,8 @@ img_window_struct *img_create_window (void)
 	GtkWidget *menuitem3;
 	GtkWidget *tmp_image;
 	GtkWidget *menu3;
-	GtkWidget *imagemenuitem11;
+	GtkWidget *about;
+	GtkWidget *contents;
 	GtkWidget *toolbar;
 	GtkWidget *new_button;
 	GtkWidget *separatortoolitem;
@@ -245,10 +246,24 @@ img_window_struct *img_create_window (void)
 	tmp_image = gtk_image_new_from_stock (GTK_STOCK_DELETE,GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (remove_menu),tmp_image);
 
+	/* Preview quality menu */
+	menuitem1 = gtk_menu_item_new_with_mnemonic( _("Preview quality") );
+	gtk_menu_shell_append( GTK_MENU_SHELL( slide_menu ), menuitem1 );
+
+	menu3 = gtk_menu_new();
+	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menuitem1 ), menu3 );
+
+	menuitem2 = gtk_radio_menu_item_new_with_mnemonic( NULL, _("_Low") );
+	//g_signal_connect( G_OBJECT( menuitem2 ), "toggled", G_CALLBACK( img_quality_toggled ), img_struct );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu3 ), menuitem2 );
+	menuitem3 = gtk_radio_menu_item_new_with_mnemonic_from_widget(GTK_RADIO_MENU_ITEM( menuitem2 ), _("High") );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu3 ), menuitem3 );
+
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"object-rotate-left",GTK_ICON_SIZE_MENU,0,NULL);
 	tmp_image = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
 
+	/* Rotate menu */
 	img_struct->rotate_left_menu = gtk_image_menu_item_new_with_mnemonic (_("Rotate _clockwise"));
 	gtk_container_add (GTK_CONTAINER (slide_menu),img_struct->rotate_left_menu);
 	gtk_widget_add_accelerator (img_struct->rotate_left_menu,"activate",accel_group, GDK_c,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
@@ -265,6 +280,28 @@ img_window_struct *img_create_window (void)
 	g_signal_connect (G_OBJECT (img_struct->rotate_right_menu),"activate",G_CALLBACK (img_rotate_selected_slide),img_struct);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (img_struct->rotate_right_menu),tmp_image);
 
+	/* Zoom controls */
+	menuitem1 = gtk_menu_item_new_with_mnemonic( _("_Zoom") );
+	gtk_menu_shell_append( GTK_MENU_SHELL( slide_menu ), menuitem1 );
+
+	menu3 = gtk_menu_new();
+	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menuitem1 ), menu3 );
+
+	menuitem2 = gtk_image_menu_item_new_from_stock( GTK_STOCK_ZOOM_IN,accel_group );
+	gtk_widget_add_accelerator( menuitem2, "activate", accel_group, GDK_plus,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE );
+	//g_signal_connect( G_OBJECT( menuitem2 ), "activate", G_CALLBACK( img_image_area_zoom_in ), img_struct );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu3 ), menuitem2 );
+
+	menuitem2 = gtk_image_menu_item_new_from_stock( GTK_STOCK_ZOOM_OUT, accel_group );
+	gtk_widget_add_accelerator( menuitem2, "activate", accel_group, GDK_minus, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE );
+	//g_signal_connect( G_OBJECT( menuitem2 ), "activate", G_CALLBACK( img_image_area_zoom_out ), img_struct );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu3 ), menuitem2 );
+
+	menuitem2 = gtk_image_menu_item_new_from_stock( GTK_STOCK_ZOOM_100,	accel_group );
+	gtk_widget_add_accelerator( menuitem2, "activate", accel_group, GDK_0,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE );
+	//g_signal_connect( G_OBJECT( menuitem2 ), "activate", G_CALLBACK( img_image_area_zoom_reset ), img_struct );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu3 ), menuitem2 );
+
 	separator_slide_menu = gtk_separator_menu_item_new ();
 	gtk_container_add (GTK_CONTAINER (slide_menu),separator_slide_menu);
 
@@ -280,14 +317,18 @@ img_window_struct *img_create_window (void)
 
 	menuitem3 = gtk_menu_item_new_with_mnemonic (_("_Help"));
 	gtk_container_add (GTK_CONTAINER (menubar), menuitem3);
-
 	menu3 = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem3), menu3);
+	contents = gtk_image_menu_item_new_with_mnemonic (_("Contents"));
+	gtk_container_add (GTK_CONTAINER (menu3),contents);
+	gtk_widget_add_accelerator (contents,"activate",accel_group,GDK_F1,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	tmp_image = gtk_image_new_from_stock ("gtk-help",GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (contents),tmp_image);
 
-	imagemenuitem11 = gtk_image_menu_item_new_from_stock (GTK_STOCK_ABOUT, accel_group);
-	gtk_container_add (GTK_CONTAINER (menu3), imagemenuitem11);
+	about = gtk_image_menu_item_new_from_stock (GTK_STOCK_ABOUT, accel_group);
+	gtk_container_add (GTK_CONTAINER (menu3), about);
 	gtk_widget_show_all (menubar);
-	g_signal_connect (G_OBJECT (imagemenuitem11),"activate",G_CALLBACK (img_show_about_dialog),img_struct);
+	g_signal_connect (G_OBJECT (about),"activate",G_CALLBACK (img_show_about_dialog),img_struct);
 
 	/* Create the toolbar */
 	toolbar = gtk_toolbar_new ();
