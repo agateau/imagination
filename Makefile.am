@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = icons src transitions po
+SUBDIRS = icons src transitions po doc
 
 EXTRA_DIST = \
 	autogen.sh \

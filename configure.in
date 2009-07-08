@@ -60,6 +60,10 @@ GETTEXT_PACKAGE=imagination
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
+AC_PATH_PROG([XSLTPROC], [xsltproc], [yes])
+
+AM_CONDITIONAL([ENABLE_XSLTPROC], [test x"$enable_xsltproc" = x"yes"])
+
 dnl Add the languages which your application supports here.
 ALL_LINGUAS="`sed -e '/^#/d' $srcdir/po/LINGUAS`"
 AM_GLIB_GNU_GETTEXT
@@ -72,6 +76,10 @@ Makefile
 src/Makefile
 transitions/Makefile
 po/Makefile.in
+doc/Makefile
+doc/en/Makefile
+doc/en/imagination.xml
+doc/en/images/Makefile
 icons/Makefile
 icons/16x16/Makefile
 icons/24x24/Makefile

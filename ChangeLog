@@ -1,31 +1,33 @@
 Imagination changelog
 
 xx/09/09 - 1.x:
-				- Changed suffix for exported OGG slideshow to ".ogv".
-				- Added "Insert" family transitions thanks to Jean-Pierre Redonnet.
-				- Added slide total number on the toolbar thanks to David Prieto for the idea.
-				- Slides can be rotated inside Imagination but the original image won't be affected since the EXIF info would be lost.
-				- Added ability to import audio with drag and drop.
-				- Added first, prev, next and last buttons to move the selection on the slides; thanks to David Prieto for the suggestions.
-				- Addded ability to import pictures with drag and drop.
-				- Centered the Heart transition effect of the Misc Shape Wipe family.
-				- Removed ffmpeg's dependancy in the configure script.
-				- Use icons from the current Gtk theme for import image and import sound menu/toolbar entries thanks to David Prieto for the idea.
-				- Changed accelerator of menu Slide->Delete to DEL key.
+			- Made GUI work better on smaller screens.
+			- Added russian translation.	
+			- Changed suffix for exported OGG Theora/Vorbis slideshow to ".ogv".
+			- Added "Insert" family transitions thanks to Jean-Pierre Redonnet.
+			- Added slide total number on the toolbar thanks to David Prieto for the idea.
+			- Slides can be rotated inside Imagination but the original image won't be affected since the EXIF info would be lost.
+			- Added ability to import audio with drag and drop.
+			- Added first, prev, next and last buttons to move the selection on the slides; thanks to David Prieto for the suggestions.
+			- Addded ability to import pictures with drag and drop.
+			- Centered the Heart transition effect of the Misc Shape Wipe family.
+			- Removed ffmpeg's dependancy in the configure script.
+			- Use icons from the current Gtk theme for import image and import sound menu/toolbar entries thanks to David Prieto for the idea.
+			- Changed accelerator of menu Slide->Delete to DEL key.
 
 24/06/09 - 1.5:
-				- Added ability to add audio to the slideshow.
-				- Added OGG Theora/Vorbis slideshow export.
-				- Last slide closes the slideshow with the same transition applied to the first one.
-				- Imagination can open project specified on cmd-line, thanks to Jean-Pierre Redonnet for the code.
-				- Imagination can produce OGG and FLV with different video quality, thanks to
-		  		  Jean-Pierre Redonnet for the idea.
-				- Added ability to randomly choose the transitions.
-				- Grouped the transitions in families and added icons for describing the effect.
-				- Added new transitions effects: Barn Door Wipe, Box Tie Wipe, Four Box Wipe, Ellipse Wipe, Diagonal Wipe,
-		  		  Clock Wipe, Wave, Misc Diagonal Wipe and Misc Shape Wipe families thanks to Tadej Borovšak.
-				- Added man page thanks to Alessio Treglia.
-				- Added French, Czech, Brazilian Portuguese, German and Spanish translations.
+			- Added ability to add audio to the slideshow.
+			- Added OGG Theora/Vorbis slideshow export.
+			- Last slide closes the slideshow with the same transition applied to the first one.
+			- Imagination can open project specified on cmd-line, thanks to Jean-Pierre Redonnet for the code.
+			- Imagination can produce OGG and FLV with different video quality, thanks to
+		  	  Jean-Pierre Redonnet for the idea.
+			- Added ability to randomly choose the transitions.
+			- Grouped the transitions in families and added icons for describing the effect.
+			- Added new transitions effects: Barn Door Wipe, Box Tie Wipe, Four Box Wipe, Ellipse Wipe, Diagonal Wipe,
+		  	  Clock Wipe, Wave, Misc Diagonal Wipe and Misc Shape Wipe families thanks to Tadej Borovšak.
+			- Added man page thanks to Alessio Treglia.
+			- Added French, Czech, Brazilian Portuguese, German and Spanish translations.
 
 26/02/09 - 1.0:
-				- First release.
+			- First release.
