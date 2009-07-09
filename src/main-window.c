@@ -127,6 +127,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *import_audio_button;
 	GtkWidget *remove_menu;
 	GtkWidget *remove_button;
+	GtkWidget *zoom_in_button, *zoom_out_button, *zoom_normal;
 	GtkWidget *export_menu;
 	GtkWidget *thumb_scrolledwindow;
 	GdkPixbuf *pixbuf;
@@ -396,6 +397,21 @@ img_window_struct *img_create_window (void)
 	gtk_widget_set_tooltip_text(img_struct->rotate_right_button, _("Rotate the slide counter-clockwise"));
 	g_signal_connect (G_OBJECT (img_struct->rotate_right_button),"clicked",G_CALLBACK (img_rotate_selected_slide),img_struct);
 
+	zoom_in_button = GTK_WIDGET (gtk_tool_button_new_from_stock ("gtk-zoom-in"));
+	gtk_container_add (GTK_CONTAINER (toolbar),zoom_in_button);
+	gtk_widget_set_tooltip_text(zoom_in_button, _("Zoom In"));
+	//g_signal_connect (G_OBJECT (zoom_in_button),"clicked",G_CALLBACK (img_image_area_zoom_in),img_struct);
+
+	zoom_out_button = GTK_WIDGET (gtk_tool_button_new_from_stock ("gtk-zoom-out"));
+	gtk_container_add (GTK_CONTAINER (toolbar),zoom_out_button);
+	gtk_widget_set_tooltip_text(zoom_out_button, _("Zoom Out"));
+	//g_signal_connect (G_OBJECT (zoom_out_button),"clicked",G_CALLBACK (img_image_area_zoom_out),img_struct);
+
+	zoom_normal = GTK_WIDGET (gtk_tool_button_new_from_stock ("gtk-zoom-fit"));
+	gtk_container_add (GTK_CONTAINER (toolbar),zoom_normal);
+	gtk_widget_set_tooltip_text(zoom_normal, _("Normal Size"));
+	//g_signal_connect (G_OBJECT (zoom_normal),"clicked",G_CALLBACK (img_image_area_zoom_reset),img_struct);
+
 	separatortoolitem = GTK_WIDGET (gtk_separator_tool_item_new());
 	gtk_container_add (GTK_CONTAINER (toolbar),separatortoolitem);
 
@@ -472,9 +488,6 @@ img_window_struct *img_create_window (void)
 	img_struct->image_area = gtk_image_new();
 	gtk_widget_set_size_request(img_struct->image_area, 720, 576);
 	gtk_container_add(GTK_CONTAINER(align), img_struct->image_area);
-	/* Set the signal for accepting images through drag and drop */
-	gtk_drag_dest_set (GTK_WIDGET(img_struct->image_area),GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect (G_OBJECT (img_struct->image_area),"drag-data-received",G_CALLBACK (img_on_drag_data_received), img_struct);
 
 	viewport = gtk_bin_get_child(GTK_BIN(swindow));
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
