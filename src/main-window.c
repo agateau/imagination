@@ -980,6 +980,7 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 
 	selected = gtk_icon_view_get_selected_items(iconview);
 	nr_selected = g_list_length(selected);
+	img_set_total_slideshow_duration(img);
 
 	if (selected == NULL)
 	{
@@ -1053,7 +1054,6 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 	 * only need to display it. BTW, is total duration label hidding needed?
 	 * Even when there is no slide selected, duration stays the same. */
 	img->project_is_modified = TRUE;
-	img_set_total_slideshow_duration(img);
 
 	if (nr_selected > 1)
 		img_set_statusbar_message(img,nr_selected);
