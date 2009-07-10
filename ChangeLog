@@ -5,6 +5,8 @@ xx/09/09 - 1.x:
 			- Made GUI work better on smaller screens.
 			- Added russian translation.	
 			- Changed suffix for exported OGG Theora/Vorbis slideshow to ".ogv".
+			- A progress bar is now displayed when loading a project with many slides.
+			- Fixed missed update of the total time slideshow when deleting slides.
 			- Added "Insert" family transitions thanks to Jean-Pierre Redonnet.
 			- Added slide total number on the toolbar thanks to David Prieto for the idea.
 			- Slides can be rotated inside Imagination but the original image won't be affected since the EXIF info would be lost.
