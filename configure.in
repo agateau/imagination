@@ -19,13 +19,13 @@ AC_DISABLE_STATIC
 AM_PROG_LIBTOOL
 LIBTOOL="$LIBTOOL --silent"
 
-pkg_modules="gtk+-2.0 >= 2.12.0"
+pkg_modules="gtk+-2.0 >= 2.14.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 
 sox_modules="sox >= 14.2.0"
 PKG_CHECK_MODULES(SOX, [$sox_modules])
 
-plugins_modules="cairo >= 1.6 gdk-2.0 > 2.12.0"
+plugins_modules="cairo >= 1.6 gdk-2.0 > 2.14.0"
 PKG_CHECK_MODULES(PLUGINS, [$plugins_modules])
 
 # get svn revision

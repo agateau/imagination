@@ -62,12 +62,7 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	gtk_window_set_default_size(GTK_WINDOW(dialog1),520,-1);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog1), FALSE);
 
-	#if GTK_CHECK_VERSION( 2, 14, 0 )
 	dialog_vbox1 = gtk_dialog_get_content_area( GTK_DIALOG( dialog1 ) );
-#else
-	dialog_vbox1 = GTK_DIALOG( dialog )->vbox;
-#endif
-
 	vbox1 = gtk_vbox_new (FALSE, 5);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox1), 5);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, TRUE, TRUE, 0);
