@@ -49,7 +49,7 @@
 	<sect1 id="menu">
 		<title>Imagination menus</title>
 		<para>
-			This section describes in detail the available menus of Imagination.
+			This section describes in detail the menus of Imagination.
 		</para>
 		<sect2 id="slideshow">
 			<title>Slideshow menu</title>
@@ -64,10 +64,58 @@
 				<listitem><para>Export</para></listitem>
 				<listitem><para>Quit</para></listitem>
 			</itemizedlist>
-			<sect3 id="New">
-				<title>New menu</title>
+			<sect3 id="new">
+				<title>New</title>
 				<para>
-					This menu allows you to create a new slideshow. The slideshow dialog is displayed. You can choose the background color to be displayed when the slide does't cover the whole available area
+					This menu allows you to create a new slideshow. The slideshow dialog is displayed. You can choose the video format (PAL/NTSC), if to scale the picture so that it covers the whole screen avoiding the black stripes and the background color to be displayed when the picture is too small and the rescaling doesn't succed to cover the whole screen. You can also change these options later.
+				</para>
+			</sect3>
+			<sect3 id="open">
+				<title>Open</title>
+				<para>
+					This menu allows you to open a previously saved slideshow.
+				</para>
+			</sect3>
+			<sect3 id="save">
+				<title>Save</title>
+				<para>
+					This menu allows you to save a previously saved slideshow. The filename won't be asked.
+				</para>
+			</sect3>
+			<sect3 id="saveas">
+				<title>Save as</title>
+				<para>
+					This menu allows you save a slideshow with a different filename.
+				</para>
+			</sect3>
+			<sect3 id="close">
+				<title>Close</title>
+				<para>
+					This menu closes the slideshow. If the slideshow is not saved yet or you changed something Imagination will ask you to save it first.
+				</para>
+			</sect3>
+			<sect3 id="properties">
+				<title>Properties</title>
+				<para>
+					This menu displays a dialog with the slideshow properties. Please see above for an explanation of the available settings.
+				</para>
+			</sect3>
+			<sect3 id="preview_slideshow">
+				<title>Preview</title>
+				<para>
+					This menu starts the preview of the slideshow in the image area. If you want to start the preview by a specific slide just select it by left-clicking on it. The preview quality if affected by the setting in the menu <menuchoice><guimenu>Slide</guimenu><guimenuitem>Preview quality</guimenuitem></menuchoice>.
+				</para>
+			</sect3>
+			<sect3 id="export">
+				<title>Export</title>
+				<para>
+					This submenu allows you to export the slideshow in three different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis) and FLV (Flash Video).
+				</para>
+			</sect3>
+			<sect3 id="quit">
+				<title>Quit</title>
+				<para>
+					This menu quits Imagination. If the slideshow wasn't saved yet Imagination will prompt you to save it first.
 				</para>
 			</sect3>
 		</sect2>
@@ -84,6 +132,30 @@
 				<listitem><para>Select all</para></listitem>
 				<listitem><para>Unselect all</para></listitem>
 			</itemizedlist>
+			<sect3 id="import_pictures">
+				<title>Import pictures</title>
+				<para>
+					This menu opens up a file dialog allowing you to choose the pictures to import in Imagination To select more than one pictures press and hold SHIFT key while clicking on the files. A progress bar is displayed in the status bar notifying you the percentage progress of the pictures' import.
+				</para>
+			</sect3>
+			<sect3 id="import_music">
+				<title>Import music</title>
+				<para>
+					This is the same as the previous only but works for audio files. Please make sure you have installed the package <citetitle>libsox-fmt-all</citetitle> otherwise you won't be able to import MP3 files.
+				</para>
+			</sect3>
+			<sect3 id="delete">
+				<title>Delete</title>
+				<para>
+					This deletes the selected slides. Hold down the SHIFT key to select more than one slide at once.
+				</para>
+			</sect3>
+			<sect3 id="preview">
+				<title>Preview</title>
+				<para>
+					This submenu allows you to set different quality for the preview and the image quality in the image area. Tadej please, can you add more?
+				</para>
+			</sect3>
 		</sect2>
 		<sect2 id="help">
 			<title>Help menu</title>
