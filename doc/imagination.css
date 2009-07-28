@@ -13,7 +13,7 @@ body blockquote
 
 html body
 {
-  margin: 1em 2% 1em 2%;
+  margin: 1em 8% 1em 10%;
   line-height: 1.2;
   background-color: #ffffff;
 }
@@ -33,13 +33,14 @@ body div
 
 dl
 {
-  margin: .4em 0;
+  margin: .8em 0;
   line-height: 1.2;
 }
 
 .legalnotice
 {
   font-size: small;
+  font-variant: small-caps;
 }
 
 h1,h2,h3,h4,h5,h6,
@@ -71,7 +72,7 @@ a
 a:hover
 {
   color: #3c3c3c;
-  border-bottom: 1px solid #dc0000;
+  border-bottom: 1px dotted #dc0000;
 }
 
 hr
@@ -81,7 +82,7 @@ hr
   height: 1px;
 }
 
-li
+ul li
 {
   list-style-type: square;
 }
@@ -95,3 +96,4 @@ li
   padding: 0.5em;
 }
 
+/* vim:set ts=2 sw=2 et ai: */
