@@ -46,8 +46,52 @@
 				It requires the ffmpeg encoder to produce the movie file and libsox to import the audio files. Yes you don't need any other third-party software!
 			</para>
 	</sect1>
+	<sect1 id="window">
+		<title>Imagination's window</title>
+		<para>
+			This section describes the sections of the Imagination's window.
+		</para>
+		<sect2 id="toolbar">
+			<title>Toolbar</title>
+			<itemizedlist>
+				<listitem><para>New</para></listitem>
+				<listitem><para>Open</para></listitem>
+				<listitem><para>Save</para></listitem>
+				<listitem><para>Save As</para></listitem>
+				<listitem><para>Close</para></listitem>
+				<listitem><para>Properties</para></listitem>
+				<listitem><para>Preview</para></listitem>
+				<listitem><para>Export</para></listitem>
+				<listitem><para>Quit</para></listitem>
+			</itemizedlist>
+			<sect3 id="toolbar_new">
+				<title>New</title>
+				<para>
+					This menu allows you to create a new slideshow. The slideshow dialog is displayed. You can choose the video format (PAL/NTSC), if to scale the picture so that it covers the whole screen avoiding the black stripes and the background color to be displayed when the picture is too small and the rescaling doesn't succed to cover the whole screen. You can also change these options later.
+				</para>
+			</sect3>
+			<sect3 id="toolbar_open">
+				<title>Open</title>
+				<para>
+					This menu allows you to open a previously saved slideshow.
+				</para>
+			</sect3>
+		</sect2>
+		<sect2 id="image_area">
+			<title>Image Area</title>
+			<para>Cucu</para>
+		</sect2>
+		<sect2 id="Side Panel">
+			<title>Side Panel</title>
+			<para>Please refer to the Working Area section of this document for a detailed explanation.</para>
+		</sect2>
+		<sect2 id="status_bar">
+			<title>Status Bar</title>
+			<para>Cucu</para>
+		</sect2>		
+	</sect1>			
 	<sect1 id="menu">
-		<title>Imagination menus</title>
+		<title>Imagination's menus</title>
 		<para>
 			This section describes in detail the menus of Imagination.
 		</para>
