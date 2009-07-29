@@ -165,6 +165,37 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
+	<sect1 id="working_area">
+		<title>Working Area</title>
+		<para>
+			This section explains the slide settings located on the Imagination window's side panel.
+		</para>
+		<sect2 id="working_area_tools">
+			<itemizedlist>
+				<listitem><para>Slide Settings</para></listitem>
+				<listitem><para>Slide Motion</para></listitem>
+				<listitem><para>Slide Text</para></listitem>
+			</itemizedlist>
+			<sect3 id="slide_settings">
+				<title>Slide Settings</title>
+				<para>
+					This section allows you to choose a random transition or to pick one from the drop-down menu. You can set the transition speed choosing among Fast, Normal and Slow and the time in seconds that the slide must remain still. Finally you can see the total time length of the slideshow. Note: the slide (or the slides) must be selected for this section to work.
+				</para>
+			</sect3>
+			<sect3 id="slide_motion">
+				<title>Slide Motion</title>
+				<para>
+					This section allows you to apply the famous Ken Burns effects on a slide. Just begin by clicking on the Add button to add a stop point. Then use the Zoom slider to zoom in or out and then hold the left mouse button on the picture to center a detail of the picture. If you commit a mistake re-adjust your slide and then click the Update button. You can add as many stop points as you want. The Remove button deletes a stop point. Click the preview button on the toolbar or choose <menuchoice><guimenu>Slideshow</guimenu><guimenuitem>Preview</guimenuitem></menuchoice> to have a preview of the effect. Note: the slide (or the slides) must be selected for this section to work. 
+				</para>
+			</sect3>
+			<sect3 id="slide_text">
+				<title>Slide Text</title>
+				<para>
+					This section bla bla bla.
+				</para>
+			</sect3>
+		</sect2>
+	</sect1>
 	<sect1 id="license">
 		<title>License</title>
 		<para>
