@@ -197,7 +197,13 @@
 			<sect3 id="preview">
 				<title>Preview</title>
 				<para>
-					This submenu allows you to set different quality for the preview and the image quality in the image area. Tadej please, can you add more?
+					This submenu allows you to set different quality for the
+					preview and the image quality in the image area. This option
+					doesn't affect exported video in any way. It's main purpose
+					is to speed-up the creation process, since loading large
+					images from disk at original size may take some time
+					(loading of 4032x3024 image from disk takes cca. 2s on
+					modern system).
 				</para>
 			</sect3>
 		</sect2>
