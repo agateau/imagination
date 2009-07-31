@@ -211,7 +211,7 @@
 				</para>
 			</sect3>
 			<sect3 id="preview">
-				<title>Preview</title>
+				<title>Preview quality</title>
 				<para>
 					This submenu allows you to set different quality for the
 					preview and the image quality in the image area. This option
@@ -314,6 +314,7 @@
 					apply zoom, text that is positioned relative to the original
 					image will be zoomed to, while text positioned relative to
 					exported video will be stay of the same size.
+				</para>
 			</sect3>
 		</sect2>
 	</sect1>
