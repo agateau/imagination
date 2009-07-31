@@ -123,7 +123,9 @@
 			<sect3 id="save">
 				<title>Save</title>
 				<para>
-					This menu allows you to save a previously saved slideshow. The filename won't be asked.
+					This menu allows you to save a previously saved slideshow.
+					The filename won't be asked unless you haven't saved your
+					project yet.
 				</para>
 			</sect3>
 			<sect3 id="saveas">
@@ -153,7 +155,11 @@
 			<sect3 id="export">
 				<title>Export</title>
 				<para>
-					This submenu allows you to export the slideshow in three different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis) and FLV (Flash Video).
+					This submenu allows you to export the slideshow in three
+					different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis)
+					and FLV (Flash Video). Each format has it's own set of
+					preferences that you'll be asked about when you select any
+					of them.
 				</para>
 			</sect3>
 			<sect3 id="quit">
@@ -179,13 +185,23 @@
 			<sect3 id="import_pictures">
 				<title>Import pictures</title>
 				<para>
-					This menu opens up a file dialog allowing you to choose the pictures to import in Imagination To select more than one pictures press and hold SHIFT key while clicking on the files. A progress bar is displayed in the status bar notifying you the percentage progress of the pictures' import.
+					This menu opens up a file dialog allowing you to choose the
+					pictures to import in Imagination To select more than one
+					pictures press and hold SHIFT key while clicking on the
+					files. A progress bar is displayed in the status bar
+					notifying you the percentage progress of the pictures'
+					import. Thumbnails won't be shown util the loading
+					completes.
 				</para>
 			</sect3>
 			<sect3 id="import_music">
 				<title>Import music</title>
 				<para>
-					This is the same as the previous only but works for audio files. Please make sure you have installed the package <citetitle>libsox-fmt-all</citetitle> otherwise you won't be able to import MP3 files.
+					This is the same as the previous only but works for audio
+					files. Please make sure your libsox is able to handle your
+					selected audio formats (on Debian derived distros, you'll
+					most probably want to install
+					<citetitle>libsox-fmt-all</citetitle> package).
 				</para>
 			</sect3>
 			<sect3 id="delete">
@@ -203,7 +219,8 @@
 					is to speed-up the creation process, since loading large
 					images from disk at original size may take some time
 					(loading of 4032x3024 image from disk takes cca. 2s on
-					modern system).
+					modern system). Be aware, preview might not work properly on
+					slower machines when high quality is selected.
 				</para>
 			</sect3>
 		</sect2>
@@ -229,20 +246,74 @@
 			<sect3 id="slide_settings">
 				<title>Slide Settings</title>
 				<para>
-					This section allows you to choose a random transition or to pick one from the drop-down menu. You can set the transition speed choosing among Fast, Normal and Slow and the time in seconds that the slide must remain still. Finally you can see the total time length of the slideshow. Note: the slide (or the slides) must be selected for this section to work.
+					This section allows you to choose a random transition or to
+					pick one from the drop-down menu. You can set the transition
+					speed choosing among Fast, Normal and Slow and the time in
+					seconds that the slide must remain still. Finally you can
+					see the total time length of the slideshow. Note: at least
+					one slide must be selected for this section to work.
 				</para>
 			</sect3>
 			<sect3 id="slide_motion">
 				<title>Slide Motion</title>
 				<para>
-					This section allows you to apply the famous Ken Burns effects on a slide. Just begin by clicking on the Add button to add a stop point. Then use the Zoom slider to zoom in or out and then hold the left mouse button on the picture to center a detail of the picture. If you commit a mistake re-adjust your slide and then click the Update button. You can add as many stop points as you want. The Remove button deletes a stop point. Click the preview button on the toolbar or choose <menuchoice><guimenu>Slideshow</guimenu><guimenuitem>Preview</guimenuitem></menuchoice> to have a preview of the effect. Note: the slide (or the slides) must be selected for this section to work. 
+					This section allows you to apply the famous Ken Burns
+					effects on a slide. Just begin by zooming in/out and
+					dragging image around with left mouse button to center a
+					detail on the picture. Now click Add button and Imagination
+					will add a new stop point with currently selected zoom level
+					and image position. You can add as many points as you want.
+				</para>
+				<para>
+					You can see how each stop point looks like by selecting it
+					using left and right arrows or by directly entering point
+					number in proper field. Imagination will update it's preview
+					area to show you your selected stop point.
+				</para>
+				<para>
+					If you commit a mistake or want to change some point, simply
+					select problematic point, re-adjust your slide and then
+					click the Update button. Now your selected point has it's
+					zoom level and position set to new values.
+				</para>
+				<para>
+					The Remove button deletes a stop point. Simply select
+					point that should be removed and click Remove button.
+				</para>
+				<para>
+					Click the preview button on the toolbar or choose
+					<menuchoice><guimenu>Slideshow</guimenu><guimenuitem>Preview</guimenuitem></menuchoice>
+					to have a preview of the effect.
+				</para>
+				<para>
+					NOTE: This section is available only when exactly one slide
+					is selected.
 				</para>
 			</sect3>
 			<sect3 id="slide_text">
 				<title>Slide Text</title>
 				<para>
-					This section bla bla bla.
+					Imagination can add some text to your slides. Just start
+					typing in proper field and text will show up in preview
+					area. If you wish to have multi line text, click on + sign
+					on the right side of the text field that will expand it a
+					bit.
 				</para>
+				<para>
+					You can modify text's font size, variant and family using
+					font button below the text field. Color is controlled by
+					color selector button right of the font button (font color
+					can be partially transparent too).
+				</para>
+				<para>
+					Text can be positioned on the slide in nine locations that
+					can be selected with position selector button. Those
+					positions can be made relative to exported video or original
+					image. What does this mean? For images without Ken Burns
+					effect, both options produce the same result. But if you
+					apply zoom, text that is positioned relative to the original
+					image will be zoomed to, while text positioned relative to
+					exported video will be stay of the same size.
 			</sect3>
 		</sect2>
 	</sect1>
