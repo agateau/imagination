@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-03 20:51+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"Last-Translator: Me <Me@my.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,8 +20,7 @@ msgstr "Aplikace pro vytváření prezentací na disky DVD"
 
 #: ../imagination.desktop.in.in.h:2
 msgid "A lightweight DVD slideshow maker using GTK+2"
-msgstr ""
-"Odlehčená aplikace pro vytváření prezentací na disky DVD používající GTK+2"
+msgstr "Odlehčená aplikace pro vytváření prezentací na disky DVD používající GTK+2"
 
 #: ../imagination.desktop.in.in.h:3
 msgid "Imagination"
@@ -32,7 +31,8 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Přehrávání %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:733
+#: ../src/audio.c:126
+#: ../src/main-window.c:733
 msgid "Play the selected file"
 msgstr "Přehrát vybraný soubor"
 
@@ -70,11 +70,11 @@ msgstr "_Smazat"
 
 #: ../src/main-window.c:254
 msgid "Rotate _clockwise"
-msgstr ""
+msgstr "Otočit ve _směru hodinových ručiček"
 
 #: ../src/main-window.c:264
 msgid "Rotate co_unter-clockwise"
-msgstr ""
+msgstr "Otočit p_roti směru hodinových ručiček"
 
 #: ../src/main-window.c:278
 msgid "Un_select all"
@@ -84,7 +84,8 @@ msgstr "O_dznačit vše"
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: ../src/main-window.c:302 ../src/new_slideshow.c:54
+#: ../src/main-window.c:302
+#: ../src/new_slideshow.c:54
 msgid "Create a new slideshow"
 msgstr "Vytvořit novou prezentaci"
 
@@ -109,48 +110,46 @@ msgid "Delete the selected slides"
 msgstr "Smazat vybrané snímky"
 
 #: ../src/main-window.c:348
-#, fuzzy
 msgid "Rotate the slide clockwise"
-msgstr "Uložit prezentaci"
+msgstr "Otočit snímek ve směru hodinových ručiček"
 
 #: ../src/main-window.c:357
 msgid "Rotate the slide counter-clockwise"
-msgstr ""
+msgstr "Otočit snímek proti směru hodinových ručiček"
 
-#: ../src/main-window.c:365 ../src/callbacks.c:1208
+#: ../src/main-window.c:365
+#: ../src/callbacks.c:1208
 msgid "Starts the preview"
 msgstr "Spouští náhled"
 
 #: ../src/main-window.c:373
 msgid "Goto first slide"
-msgstr ""
+msgstr "Přejít na první snímek"
 
 #: ../src/main-window.c:378
-#, fuzzy
 msgid "Goto previous selected slide"
-msgstr "Smazat vybrané snímky"
+msgstr "Přejít na předchozí snímek"
 
-#: ../src/main-window.c:394 ../src/main-window.c:586
+#: ../src/main-window.c:394
+#: ../src/main-window.c:586
 msgid " of "
-msgstr ""
+msgstr " z"
 
 #: ../src/main-window.c:405
-#, fuzzy
 msgid "Goto next selected slide"
-msgstr "Smazat vybrané snímky"
+msgstr "Přejít na následující snímek"
 
 #: ../src/main-window.c:410
 msgid "Goto last slide"
-msgstr ""
+msgstr "Přejít na poslední snímek"
 
 #: ../src/main-window.c:451
 msgid "Zoom Factor: "
-msgstr ""
+msgstr "Úroveň přiblížení:"
 
 #: ../src/main-window.c:478
-#, fuzzy
 msgid "<b>Slide Settings</b>"
-msgstr "<b>Nastavení snímků</b>"
+msgstr "<b>Nastavení snímku</b>"
 
 #. Transition types label
 #: ../src/main-window.c:488
@@ -193,37 +192,38 @@ msgid "Slideshow Length:"
 msgstr "Délka prezentace:"
 
 #: ../src/main-window.c:565
-#, fuzzy
 msgid "<b>Slide Motion</b>"
-msgstr "<b>Nastavení snímků</b>"
+msgstr "<b>Pohyb snímku</b>"
 
 #: ../src/main-window.c:608
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 #: ../src/main-window.c:610
 msgid "Remove"
-msgstr ""
+msgstr "Odebrat"
 
 #: ../src/main-window.c:622
-#, fuzzy
 msgid "<b>Slide Text</b>"
-msgstr "<b>Nastavení snímků</b>"
+msgstr "<b>Text snímku</b>"
 
-#: ../src/main-window.c:640 ../src/main-window.c:854
+#: ../src/main-window.c:640
+#: ../src/main-window.c:854
 msgid "Click to expand the area"
-msgstr ""
+msgstr "Klikněte pro zvětšení oblasti"
 
 #: ../src/main-window.c:650
 msgid "Click to choose the font"
-msgstr ""
+msgstr "Klikněte pro výběr písma"
 
 #: ../src/main-window.c:653
 msgid "Animation:"
-msgstr ""
+msgstr "Animace:"
 
-#: ../src/main-window.c:662 ../src/main-window.c:1282
-#: ../src/main-window.c:1284 ../src/support.c:138
+#: ../src/main-window.c:662
+#: ../src/main-window.c:1282
+#: ../src/main-window.c:1284
+#: ../src/support.c:138
 msgid "None"
 msgstr "Žádný"
 
@@ -253,21 +253,20 @@ msgstr "Odebrat všechny soubory"
 
 #: ../src/main-window.c:849
 msgid "Click to shrink the area"
-msgstr ""
+msgstr "Klikněte pro zmenšení oblasti"
 
-#: ../src/main-window.c:868 ../src/callbacks.c:962
+#: ../src/main-window.c:868
+#: ../src/callbacks.c:962
 msgid "Sorry,I could not perform the operation!"
-msgstr ""
+msgstr "Operaci nelze provést."
 
 #: ../src/main-window.c:1011
-#, fuzzy
 msgid "Resolution"
-msgstr "Rozlišení:"
+msgstr "Rozlišení"
 
 #: ../src/main-window.c:1011
-#, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #: ../src/callbacks.c:119
 #, c-format
@@ -282,7 +281,8 @@ msgstr "Zvolte zvukové soubory pro import"
 msgid "All audio files"
 msgstr "Všechny zvukové soubory"
 
-#: ../src/callbacks.c:206 ../src/callbacks.c:277
+#: ../src/callbacks.c:206
+#: ../src/callbacks.c:277
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -294,7 +294,8 @@ msgstr "Import snímků, více souborů vyberete použitím klávesy SHIFT"
 msgid "All image files"
 msgstr "Všechny obrázky"
 
-#: ../src/callbacks.c:380 ../src/callbacks.c:1305
+#: ../src/callbacks.c:380
+#: ../src/callbacks.c:1305
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr "Dosud jste prezentaci neuložili. Opravdu ji chcete zavřít?"
 
@@ -308,7 +309,7 @@ msgstr[2] "%d x %d obrazových bodů"
 
 #: ../src/callbacks.c:526
 msgid "An error occurred while trying to rotate the slide:"
-msgstr ""
+msgstr "Při pokusu o otočení snímku došlo k chybě:"
 
 #: ../src/callbacks.c:680
 msgid "translator-credits"
@@ -345,8 +346,7 @@ msgstr "<b>Pokročilá nastavení</b>"
 
 #: ../src/new_slideshow.c:131
 msgid "Rescale images to fit desired aspect ratio"
-msgstr ""
-"Změnit poměry stran obrázků tak, aby odpovídaly požadovanému poměru stran"
+msgstr "Změnit poměry stran obrázků tak, aby odpovídaly požadovanému poměru stran"
 
 #: ../src/new_slideshow.c:139
 msgid "Select background color:"
@@ -376,9 +376,7 @@ msgstr[2] "%d snímků importovnáno %s"
 
 #: ../src/support.c:113
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
-msgstr ""
-" - Pro označení nebo odznačení použijte klávesu CTRL, pomocí klávesy SHIFT "
-"vyberete více položek"
+msgstr " - Pro označení nebo odznačení použijte klávesu CTRL, pomocí klávesy SHIFT vyberete více položek"
 
 #: ../src/support.c:232
 msgid "Please choose the slideshow project filename"
@@ -404,7 +402,8 @@ msgstr "Příprava na export..."
 msgid "Overall progress:"
 msgstr "Celkový průběh:"
 
-#: ../src/export.c:435 ../src/export.c:793
+#: ../src/export.c:435
+#: ../src/export.c:793
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Průběh exportu snímku %d:"
@@ -421,19 +420,23 @@ msgstr "Průběh exportu hotových přechodů"
 #. Additional options - <format> only
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
-#: ../src/export.c:892 ../src/export.c:955
+#: ../src/export.c:892
+#: ../src/export.c:955
 msgid "VOB export"
 msgstr "Export do formátu VOB"
 
-#: ../src/export.c:967 ../src/export.c:1051
+#: ../src/export.c:967
+#: ../src/export.c:1051
 msgid "<b>Television Format</b>"
 msgstr "<b>Televizní formát</b>"
 
-#: ../src/export.c:974 ../src/export.c:1058
+#: ../src/export.c:974
+#: ../src/export.c:1058
 msgid "Normal 4:3"
 msgstr "Běžný 4:3"
 
-#: ../src/export.c:979 ../src/export.c:1063
+#: ../src/export.c:979
+#: ../src/export.c:1063
 msgid "Widescreen 16:9"
 msgstr "Širokoúhlý 16:9"
 
@@ -443,19 +446,23 @@ msgstr "Širokoúhlý 16:9"
 msgid "OGG export"
 msgstr "Export do formátu OGG"
 
-#: ../src/export.c:1069 ../src/export.c:1163
+#: ../src/export.c:1069
+#: ../src/export.c:1163
 msgid "<b>Video Quality:</b>"
 msgstr "<b>Kvalita videa:</b>"
 
-#: ../src/export.c:1076 ../src/export.c:1170
+#: ../src/export.c:1076
+#: ../src/export.c:1170
 msgid "Low"
 msgstr "Nízká"
 
-#: ../src/export.c:1080 ../src/export.c:1174
+#: ../src/export.c:1080
+#: ../src/export.c:1174
 msgid "Medium"
 msgstr "Střední"
 
-#: ../src/export.c:1085 ../src/export.c:1179
+#: ../src/export.c:1085
+#: ../src/export.c:1179
 msgid "High"
 msgstr "Vysoká"
 
@@ -467,18 +474,15 @@ msgstr "Export do formátu FLV"
 
 #~ msgid "Slide Number:"
 #~ msgstr "Číslo snímku:"
-
 #~ msgid "Jump to the entered slide number"
 #~ msgstr "Přejde na zadané číslo snímku"
-
 #~ msgid "Export the DVD slideshow"
 #~ msgstr "Exportovat DVD prezentaci"
-
 #~ msgid ""
 #~ "The length of the audio track is longer than the video one. Do you want "
 #~ "to continue?"
 #~ msgstr ""
 #~ "Délka zvukové stopy je delší než délka obrazové stopy. Chcete pokračovat?"
-
 #~ msgid "Export the slideshow as:"
 #~ msgstr "Exportovat prezentaci jako:"
+
