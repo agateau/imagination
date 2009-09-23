@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:00+0200\n"
-"PO-Revision-Date: 2009-07-04 12:32+0400\n"
-"Last-Translator: Dmitry A. Levin <levin.dmi@gmail.com>\n"
+"POT-Creation-Date: 2009-09-23 14:35+0200\n"
+"PO-Revision-Date: 2009-09-23 15:17+0300\n"
+"Last-Translator: JekaDer <yourname@mail.ru>\n"
 "Language-Team: Russian <levin.dmi@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +49,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate\n"
 msgstr ""
+"%s:\n"
+"несовместимая частота дискретизации\n"
 
 #: ../src/audio.c:266
 #, c-format
@@ -56,6 +58,8 @@ msgid ""
 "%s:\n"
 "incompatible number of channels\n"
 msgstr ""
+"%s:\n"
+"несовместимое число каналлов\n"
 
 #: ../src/audio.c:272
 #, c-format
@@ -63,6 +67,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate and number of channels\n"
 msgstr ""
+"%s:\n"
+"несовместимая частота дискретизации и число каналлов\n"
 
 #: ../src/audio.c:292
 #, c-format
@@ -70,23 +76,24 @@ msgid ""
 "%s\n"
 "<b>Do you want to continue without these files?</b>"
 msgstr ""
+"%s\n"
+"<b>Продолжать без этих файлов?</b>"
 
 #: ../src/audio.c:296 ../src/audio.c:443
-#, fuzzy
 msgid "Audio files mismatch:"
-msgstr "Все аудио файлы"
+msgstr "Аудио файлы не совпадают:"
 
 #: ../src/audio.c:390
 msgid "Incompatible sample rate."
-msgstr ""
+msgstr "несовместимая частота дискретизации."
 
 #: ../src/audio.c:397
 msgid "Incompatible number of channels."
-msgstr ""
+msgstr "несовместимое число каналлов."
 
 #: ../src/audio.c:404
 msgid "Incompatible sample rate and number of channels."
-msgstr ""
+msgstr "несовместимая частота дискретизации и число каналлов."
 
 #: ../src/audio.c:426
 #, c-format
@@ -95,14 +102,13 @@ msgid ""
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Среди выбранных объектов есть файл, несовместимый с остальными."
+msgstr[1] "Среди выбранных объектов есть файлы, несовместимые с остальными."
+msgstr[2] "Среди выбранных объектов есть файлы, несовместимые с остальными."
 
 #: ../src/audio.c:432
-#, fuzzy
 msgid "Please check audio tab for more information."
-msgstr "Пожалуйста, выберите аудио файлы для импорта"
+msgstr "Дополнительная информация - во вкладке информация."
 
 #: ../src/main-window.c:212
 msgid "_Slideshow"
@@ -131,14 +137,12 @@ msgstr "Сл_айд"
 
 #. Preview quality menu
 #: ../src/main-window.c:315
-#, fuzzy
 msgid "Preview quality"
-msgstr "_Предварительный просмотр"
+msgstr "Качество предварительного просмотра"
 
 #: ../src/main-window.c:321
-#, fuzzy
 msgid "_Low"
-msgstr "Низкое"
+msgstr "_Низкое"
 
 #: ../src/main-window.c:325 ../src/export.c:1359 ../src/export.c:1515
 msgid "High"
@@ -147,11 +151,11 @@ msgstr "Высокое"
 #. Zoom controls
 #: ../src/main-window.c:329
 msgid "_Zoom"
-msgstr ""
+msgstr "_Масштаб"
 
 #: ../src/main-window.c:356
 msgid "Add empt_y slide"
-msgstr ""
+msgstr "Добавить пуст_ой слайд"
 
 #: ../src/main-window.c:365
 msgid "Dele_te"
@@ -162,7 +166,6 @@ msgid "Rotate co_unter-clockwise"
 msgstr "Повернуть п_ротив часовой стрелки"
 
 #: ../src/main-window.c:388
-#, fuzzy
 msgid "_Rotate clockwise"
 msgstr "Повернуть _по часовой стрелке"
 
@@ -172,18 +175,16 @@ msgstr "_Снять выделение"
 
 #. View menu
 #: ../src/main-window.c:409
-#, fuzzy
 msgid "_View"
-msgstr "_Предварительный просмотр"
+msgstr "_Просмотр"
 
 #: ../src/main-window.c:415
-#, fuzzy
 msgid "Preview mode"
-msgstr "_Предварительный просмотр"
+msgstr "Предварительный просмотр"
 
 #: ../src/main-window.c:421
 msgid "Overview mode"
-msgstr ""
+msgstr "Режим обзора"
 
 #: ../src/main-window.c:424
 msgid "_Help"
@@ -191,7 +192,7 @@ msgstr "_Помощь"
 
 #: ../src/main-window.c:429
 msgid "Contents"
-msgstr ""
+msgstr "Содержимое"
 
 #: ../src/main-window.c:450 ../src/new_slideshow.c:63
 msgid "Create a new slideshow"
@@ -227,16 +228,15 @@ msgstr "Повернуть слайд против часовой стрелки
 
 #: ../src/main-window.c:512
 msgid "Zoom In"
-msgstr ""
+msgstr "Приблизить"
 
 #: ../src/main-window.c:517
 msgid "Zoom Out"
-msgstr ""
+msgstr "Удалить"
 
 #: ../src/main-window.c:522
-#, fuzzy
 msgid "Normal Size"
-msgstr "Нормально"
+msgstr "Нормальный размер"
 
 #: ../src/main-window.c:530 ../src/callbacks.c:1373
 msgid "Starts the preview"
@@ -264,7 +264,7 @@ msgstr "Перейти к последнему слайду"
 
 #: ../src/main-window.c:626
 msgid "Video"
-msgstr ""
+msgstr "Видео"
 
 #: ../src/main-window.c:644
 msgid "<b>Slide Settings</b>"
@@ -316,15 +316,13 @@ msgstr "<b>Параметры анимации</b>"
 
 #: ../src/main-window.c:741
 msgid "Stop Point:"
-msgstr ""
+msgstr "Точка остановки:"
 
 #: ../src/main-window.c:778
-#, fuzzy
 msgid "Duration:"
-msgstr "Длительность звучания:"
+msgstr "Длительность:"
 
 #: ../src/main-window.c:787
-#, fuzzy
 msgid "Zoom: "
 msgstr "Масштаб: "
 
@@ -334,7 +332,7 @@ msgstr "Добавить"
 
 #: ../src/main-window.c:805
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: ../src/main-window.c:810
 msgid "Remove"
@@ -357,31 +355,29 @@ msgid "Animation:"
 msgstr "Анимация:"
 
 #: ../src/main-window.c:892
-#, fuzzy
 msgid "Animation Speed:"
-msgstr "Скорость перехода:"
+msgstr "Скорость анимации:"
 
 #: ../src/main-window.c:908
 msgid "Placing is relative to:"
-msgstr ""
+msgstr "Расположить относительно:"
 
 #: ../src/main-window.c:922
-#, fuzzy
 msgid "Exported video"
-msgstr "Экспорт слайд-шоу"
+msgstr "Экспортированное видео"
 
 #: ../src/main-window.c:924
 msgid "Original image"
-msgstr ""
+msgstr "Исходное изображение"
 
 #: ../src/main-window.c:933
 msgid "Subtitle position:"
-msgstr ""
+msgstr "Положение субтитров:"
 
 #. Background music frame
 #: ../src/main-window.c:968
 msgid "Audio"
-msgstr ""
+msgstr "Аудио"
 
 #: ../src/main-window.c:981
 msgid "<b>Background Music</b>"
@@ -412,9 +408,8 @@ msgid "Click to shrink the area"
 msgstr "Нажмите, чтобы уменьшить область"
 
 #: ../src/main-window.c:1417 ../src/callbacks.c:1132
-#, fuzzy
 msgid "Sorry, I could not perform the operation!"
-msgstr "Не могу выполнить данное действие!"
+msgstr "Не удалось выполнить данное действие!"
 
 #: ../src/main-window.c:1574
 msgid "Resolution"
@@ -486,30 +481,28 @@ msgid "Save an Imagination slideshow project"
 msgstr "Сохранить проект"
 
 #: ../src/callbacks.c:2133
-#, fuzzy
 msgid "Create new slide"
-msgstr "Создать новое слайд-шоу"
+msgstr "Создать новый слайд"
 
 #: ../src/callbacks.c:2144
 msgid "Empty slide options:"
-msgstr ""
+msgstr "Параметры пустого слайда:"
 
 #: ../src/callbacks.c:2154
 msgid "Use _solid color"
-msgstr ""
+msgstr "Использовать _сплошную заливку"
 
 #: ../src/callbacks.c:2160
 msgid "Use _linear gradient"
-msgstr ""
+msgstr "Использовать _линейный градиент"
 
 #: ../src/callbacks.c:2166
 msgid "Use _radial gradient"
-msgstr ""
+msgstr "Использовать _радиальный градиент"
 
 #: ../src/callbacks.c:2196
-#, fuzzy
 msgid "Preview"
-msgstr "_Предварительный просмотр"
+msgstr "Предварительный просмотр"
 
 #. Display propert title depending on the callback that is calling this function.
 #: ../src/new_slideshow.c:63
@@ -646,13 +639,8 @@ msgid "FLV export"
 msgstr "Экспорт FLV"
 
 #: ../src/export.c:1439
-#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Качество видео:</b>"
-
-#, fuzzy
-#~ msgid "Sorry,I could not perform the operation!"
-#~ msgstr "Не могу выполнить данное действие!"
+msgstr "<b>Размер видео</b>"
 
 #~ msgid "Jump to the entered slide number"
 #~ msgstr "Перейти к слайду с указанным номером"

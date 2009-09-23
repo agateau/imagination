@@ -19,7 +19,7 @@
 
 #include "support.h"
 
-#define PLUGINS_INSTALLED 0
+#define PLUGINS_INSTALLED 1
 
 static gboolean img_plugin_is_loaded(img_window_struct *, GModule *);
 
