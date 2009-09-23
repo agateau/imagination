@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:35+0200\n"
+"POT-Creation-Date: 2009-09-23 20:52+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Me <Me@my.com>\n"
 "Language-Team: \n"
@@ -32,7 +32,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Přehrávání %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1044
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Přehrát vybraný soubor"
 
@@ -353,7 +353,7 @@ msgstr "Odebrat"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Text snímku</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1390
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Klikněte pro zvětšení oblasti"
 
@@ -396,43 +396,43 @@ msgstr ""
 msgid "<b>Background Music</b>"
 msgstr "<b>Hudba na pozadí</b>"
 
-#: ../src/main-window.c:1028
+#: ../src/main-window.c:1027
 msgid "Music Duration:"
 msgstr "Délka přehrávání hudby:"
 
-#: ../src/main-window.c:1052
+#: ../src/main-window.c:1051
 msgid "Delete the selected file"
 msgstr "Smazat vybraný soubor"
 
-#: ../src/main-window.c:1059
+#: ../src/main-window.c:1058
 msgid "Move the selected file up"
 msgstr "Přesunout vybraný soubor nahoru"
 
-#: ../src/main-window.c:1066
+#: ../src/main-window.c:1065
 msgid "Move the selected file down"
 msgstr "Přesunou vybraný soubor dolů"
 
-#: ../src/main-window.c:1073
+#: ../src/main-window.c:1072
 msgid "Clear all files"
 msgstr "Odebrat všechny soubory"
 
-#: ../src/main-window.c:1385
+#: ../src/main-window.c:1384
 msgid "Click to shrink the area"
 msgstr "Klikněte pro zmenšení oblasti"
 
-#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Operaci nelze provést."
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Resolution"
 msgstr "Rozlišení"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Žádný"
 

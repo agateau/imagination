@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:35+0200\n"
-"PO-Revision-Date: 2009-09-22 14:20+0100\n"
+"POT-Creation-Date: 2009-09-23 20:52+0200\n"
+"PO-Revision-Date: 2009-09-23 17:10+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Spelar upp %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1044
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Spela upp markerad fil"
 
@@ -82,41 +82,32 @@ msgid "Audio files mismatch:"
 msgstr "Ljudfilerna är inte korrekta:"
 
 #: ../src/audio.c:390
-#, fuzzy
 msgid "Incompatible sample rate."
-msgstr ""
-"%s:\n"
-"inkompatibel samplingsfrekvens\n"
+msgstr "Inkompatibel samplingsfrekvens."
 
 #: ../src/audio.c:397
-#, fuzzy
 msgid "Incompatible number of channels."
-msgstr ""
-"%s:\n"
-"inkompatibelt antal kanaler\n"
+msgstr "Inkompatibelt antal kanaler."
 
 #: ../src/audio.c:404
-#, fuzzy
 msgid "Incompatible sample rate and number of channels."
-msgstr ""
-"%s:\n"
-"inkompatibel samplingsfrekvens och antal kanaler\n"
+msgstr "Inkompatibel samplingsfrekvens och antal kanaler."
 
 #: ../src/audio.c:426
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File selection contains %d audio file that is incompatible with other files."
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
-msgstr[0] "Filvalet innehåller en ljudfil som är inkompatibel med den andra."
+msgstr[0] ""
+"Filvalet innehåller %d ljudfil som är inkompatibel med de andra filerna."
 msgstr[1] ""
-"Filvalet innehåller ljudfiler som är inkompatibla med de andra filerna."
+"Filvalet innehåller %d ljudfiler som är inkompatibla med de andra filerna."
 
 #: ../src/audio.c:432
-#, fuzzy
 msgid "Please check audio tab for more information."
-msgstr "Välj ljudfilerna att importera"
+msgstr "Kontrollera ljudfliken för mer information."
 
 #: ../src/main-window.c:212
 msgid "_Slideshow"
@@ -350,7 +341,7 @@ msgstr "Ta bort"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Bildtext</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1390
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Klicka för att expandera utrymmet"
 
@@ -391,43 +382,43 @@ msgstr "Ljud"
 msgid "<b>Background Music</b>"
 msgstr "<b>Bakgrundsmusik</b>"
 
-#: ../src/main-window.c:1028
+#: ../src/main-window.c:1027
 msgid "Music Duration:"
 msgstr "Musiklängd:"
 
-#: ../src/main-window.c:1052
+#: ../src/main-window.c:1051
 msgid "Delete the selected file"
 msgstr "Ta bort markerad fil"
 
-#: ../src/main-window.c:1059
+#: ../src/main-window.c:1058
 msgid "Move the selected file up"
 msgstr "Flytta markerad fil uppåt"
 
-#: ../src/main-window.c:1066
+#: ../src/main-window.c:1065
 msgid "Move the selected file down"
 msgstr "Flytta markerad fil nedåt"
 
-#: ../src/main-window.c:1073
+#: ../src/main-window.c:1072
 msgid "Clear all files"
 msgstr "Töm alla filer"
 
-#: ../src/main-window.c:1385
+#: ../src/main-window.c:1384
 msgid "Click to shrink the area"
 msgstr "Klicka för att minska utrymmet"
 
-#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Tyvärr, jag kunde inte genomföra åtgärden!"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Resolution"
 msgstr "Upplösning"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Ingen"
 

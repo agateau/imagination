@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:35+0200\n"
-"PO-Revision-Date: 2009-08-26 11:47-0300\n"
+"POT-Creation-Date: 2009-09-23 20:52+0200\n"
+"PO-Revision-Date: 2009-09-23 13:16-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish (Spain)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Reproduciendo %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1044
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Reproducir el archivo seleccionado"
 
@@ -47,6 +47,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate\n"
 msgstr ""
+"%s:\n"
+"frecuencia de muestreo incompatible\n"
 
 #: ../src/audio.c:266
 #, c-format
@@ -54,6 +56,8 @@ msgid ""
 "%s:\n"
 "incompatible number of channels\n"
 msgstr ""
+"%s:\n"
+"número de canales incompatible\n"
 
 #: ../src/audio.c:272
 #, c-format
@@ -61,6 +65,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate and number of channels\n"
 msgstr ""
+"%s:\n"
+"frecuencia de muestreo y número de canales incompatibles\n"
 
 #: ../src/audio.c:292
 #, c-format
@@ -68,33 +74,47 @@ msgid ""
 "%s\n"
 "<b>Do you want to continue without these files?</b>"
 msgstr ""
+"%s\n"
+"<b>¿Desea continuar sin estos archivos?</b>"
 
 #: ../src/audio.c:296 ../src/audio.c:443
-#, fuzzy
 msgid "Audio files mismatch:"
-msgstr "Todos los archivos de audio"
+msgstr "Los archivos de audio no coinciden:"
 
 #: ../src/audio.c:390
+#, fuzzy
 msgid "Incompatible sample rate."
 msgstr ""
+"%s:\n"
+"frecuencia de muestreo incompatible\n"
 
 #: ../src/audio.c:397
+#, fuzzy
 msgid "Incompatible number of channels."
 msgstr ""
+"%s:\n"
+"número de canales incompatible\n"
 
 #: ../src/audio.c:404
+#, fuzzy
 msgid "Incompatible sample rate and number of channels."
 msgstr ""
+"%s:\n"
+"frecuencia de muestreo y número de canales incompatibles\n"
 
 #: ../src/audio.c:426
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "File selection contains %d audio file that is incompatible with other files."
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
 msgstr[0] ""
+"La selección de archivos contiene un archivos de audio que es incompatible "
+"con los demás."
 msgstr[1] ""
+"La selección de archivos contiene archivos de audio que son incompatibles "
+"con otros archivos archivos."
 
 #: ../src/audio.c:432
 #, fuzzy
@@ -333,7 +353,7 @@ msgstr "Remover"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Texto de las diapositivas</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1390
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Haga clic aquí para expandir el área"
 
@@ -374,44 +394,44 @@ msgstr "Audio"
 msgid "<b>Background Music</b>"
 msgstr "<b>Música de fondo</b>"
 
-#: ../src/main-window.c:1028
+#: ../src/main-window.c:1027
 msgid "Music Duration:"
 msgstr "Duración de la música:"
 
-#: ../src/main-window.c:1052
+#: ../src/main-window.c:1051
 msgid "Delete the selected file"
 msgstr "Borrar el archivo seleccionado"
 
-#: ../src/main-window.c:1059
+#: ../src/main-window.c:1058
 msgid "Move the selected file up"
 msgstr "Subir el archivo seleccionado"
 
-#: ../src/main-window.c:1066
+#: ../src/main-window.c:1065
 msgid "Move the selected file down"
 msgstr "Bajar el archivo seleccionado"
 
-#: ../src/main-window.c:1073
+#: ../src/main-window.c:1072
 msgid "Clear all files"
 msgstr "Borrar todos los archivos"
 
-#: ../src/main-window.c:1385
+#: ../src/main-window.c:1384
 msgid "Click to shrink the area"
 msgstr "Haga clic aquí para reducir el tamaño del área"
 
-#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 #, fuzzy
 msgid "Sorry, I could not perform the operation!"
 msgstr "Lo siento, ¡No puedo realizar la operación!"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Resolution"
 msgstr "Resolución:"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Type"
 msgstr "Tipo:"
 
-#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Ninguna"
 
@@ -633,13 +653,8 @@ msgid "FLV export"
 msgstr "Exportar FLV"
 
 #: ../src/export.c:1439
-#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Calidad de video:</b>"
-
-#, fuzzy
-#~ msgid "Sorry,I could not perform the operation!"
-#~ msgstr "Lo siento, ¡No puedo realizar la operación!"
+msgstr "<b>Tamaño del video:</b>"
 
 #~ msgid "Slide Number:"
 #~ msgstr "Número de la diapositiva:"

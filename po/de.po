@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:35+0200\n"
+"POT-Creation-Date: 2009-09-23 20:52+0200\n"
 "PO-Revision-Date: 2009-08-19 23:12+0100\n"
 "Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German\n"
@@ -44,7 +44,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Spiele »%s« ab ..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1044
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Ausgewählte Datei abspielen"
 
@@ -345,7 +345,7 @@ msgstr "Entfernen"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Dia-Text</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1390
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Klicken, um die Fläche zu erweitern"
 
@@ -386,44 +386,44 @@ msgstr "Audio"
 msgid "<b>Background Music</b>"
 msgstr "<b>Hintergrundmusik</b>"
 
-#: ../src/main-window.c:1028
+#: ../src/main-window.c:1027
 msgid "Music Duration:"
 msgstr "Musikdauer:"
 
-#: ../src/main-window.c:1052
+#: ../src/main-window.c:1051
 msgid "Delete the selected file"
 msgstr "Die ausgewählte Datei löschen"
 
-#: ../src/main-window.c:1059
+#: ../src/main-window.c:1058
 msgid "Move the selected file up"
 msgstr "Die ausgewählte Datei nach oben verschieben"
 
-#: ../src/main-window.c:1066
+#: ../src/main-window.c:1065
 msgid "Move the selected file down"
 msgstr "Die ausgewählte Datei nach unten verschieben"
 
-#: ../src/main-window.c:1073
+#: ../src/main-window.c:1072
 msgid "Clear all files"
 msgstr "Alle Dateien entfernen"
 
-#: ../src/main-window.c:1385
+#: ../src/main-window.c:1384
 msgid "Click to shrink the area"
 msgstr "Klicken, um die Fläche zu verkleinern"
 
-#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 #, fuzzy
 msgid "Sorry, I could not perform the operation!"
 msgstr "Entschuldigung, die Operation konnte nicht durchgeführt werden!"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Keiner"
 

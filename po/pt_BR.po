@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the  package.
 # banto palmarino <bantopalmarino@nkosi.org>, 2008.
 # Og Maciel <ogmaciel@gnome.org>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 14:35+0200\n"
-"PO-Revision-Date: 2009-09-23 08:20+0100\n"
-"Last-Translator: Giuseppe Torelli\n"
+"POT-Creation-Date: 2009-09-23 20:52+0200\n"
+"PO-Revision-Date: 2009-09-23 09:06-0500\n"
+"Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Reproduzindo %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1044
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Reproduzir o arquivo selecionado"
 
@@ -83,44 +83,34 @@ msgid "Audio files mismatch:"
 msgstr "Os arquivos não coincidem:"
 
 #: ../src/audio.c:390
-#, fuzzy
 msgid "Incompatible sample rate."
-msgstr ""
-"%s:\n"
-"taxa incompatível de amostra\n"
+msgstr "Taxa incompatível de amostra."
 
 #: ../src/audio.c:397
-#, fuzzy
 msgid "Incompatible number of channels."
-msgstr ""
-"%s:\n"
-"número incompatível de canais\n"
+msgstr "Número incompatível de canais."
 
 #: ../src/audio.c:404
-#, fuzzy
 msgid "Incompatible sample rate and number of channels."
-msgstr ""
-"%s:\n"
-"taxa incompatível de amostra e número de canais\n"
+msgstr "Taxa incompatível de amostra e número de canais."
 
 #: ../src/audio.c:426
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File selection contains %d audio file that is incompatible with other files."
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
 msgstr[0] ""
-"O arquivo selecionado contém um arquivo de áudio que não é compatível com os "
-"outros."
+"O arquivo selecionado contém %d arquivo de áudio que não é compatível com "
+"outros arquivos."
 msgstr[1] ""
-"O arquivo selecionado contém arquivos de áudio que não é compatível outros "
-"arquivos."
+"O arquivo selecionado contém %d arquivos de áudio que não são compatíveis "
+"com outros arquivos."
 
 #: ../src/audio.c:432
-#, fuzzy
 msgid "Please check audio tab for more information."
-msgstr "Por favor escolha os arquivos de áudio para importar"
+msgstr "Por favor cheque a aba de áudio para mais informação."
 
 #: ../src/main-window.c:212
 msgid "_Slideshow"
@@ -354,7 +344,7 @@ msgstr "Remover"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Texto do slide</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1390
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Clique para expandir a área"
 
@@ -395,43 +385,43 @@ msgstr "Áudio"
 msgid "<b>Background Music</b>"
 msgstr "<b>Música de fundo</b>"
 
-#: ../src/main-window.c:1028
+#: ../src/main-window.c:1027
 msgid "Music Duration:"
 msgstr "Duração da música"
 
-#: ../src/main-window.c:1052
+#: ../src/main-window.c:1051
 msgid "Delete the selected file"
 msgstr "Excluir o arquivo selecionado"
 
-#: ../src/main-window.c:1059
+#: ../src/main-window.c:1058
 msgid "Move the selected file up"
 msgstr "Mover o arquivo selecionado para cima"
 
-#: ../src/main-window.c:1066
+#: ../src/main-window.c:1065
 msgid "Move the selected file down"
 msgstr "Mover o arquivo selecionado para baixo"
 
-#: ../src/main-window.c:1073
+#: ../src/main-window.c:1072
 msgid "Clear all files"
 msgstr "Remover todos arquivos"
 
-#: ../src/main-window.c:1385
+#: ../src/main-window.c:1384
 msgid "Click to shrink the area"
 msgstr "Clique para reduzir a área"
 
-#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Desculpe,  mas não foi possível efetuar a operação!"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Resolution"
 msgstr "Resolução"
 
-#: ../src/main-window.c:1574
+#: ../src/main-window.c:1573
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Nenhum"
 
