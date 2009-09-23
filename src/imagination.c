@@ -39,6 +39,9 @@ int main (int argc, char *argv[])
   		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   		textdomain (GETTEXT_PACKAGE);
 	#endif
+	
+	if( ! g_thread_supported() )
+		g_thread_init( NULL );
 
 	gtk_set_locale ();
 	gtk_init (&argc, &argv);
@@ -51,25 +54,13 @@ int main (int argc, char *argv[])
 	/* Load the transitions as plugins with GModule */
 	img_load_available_transitions(img_window);
 
-	/* Set some default values */
-	img_window->background_color = 0x000000ff;
-	img_window->slides_nr = 0;
-	img_window->distort_images = TRUE;
-
-	/* Last pseudo-slide has a duration of 0 */
-	img_window->final_transition.duration = 0;
-	img_window->final_transition.render = NULL;
-	img_window->final_transition.speed = NORMAL;
-
-	gtk_widget_show (img_window->imagination_window);
+	gtk_widget_show( img_window->imagination_window );
 	img_set_statusbar_message(img_window,0);
 
 	/*read the project filename passed in argv*/
  	if (argc > 1 )
 	{
-		argv++;
-		img_window->project_filename = g_strdup(*argv);
-		img_load_slideshow(img_window);
+		img_load_slideshow( img_window, argv[1] );
 	}
 
 	gtk_main ();

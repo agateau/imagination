@@ -20,7 +20,12 @@
 #include "export.h"
 #include "support.h"
 #include "callbacks.h"
+#include "audio.h"
+#include "img_sox.h"
 #include <glib/gstdio.h>
+
+static void
+img_export_flv_changed( GtkComboBox   *, GtkWidget * );
 
 static GtkWidget *
 img_create_export_dialog( img_window_struct  *img,
@@ -35,16 +40,8 @@ img_prepare_audio( img_window_struct *img );
 static gboolean
 img_start_export( img_window_struct *img );
 
-static void
-img_export_pixbuf_to_ppm( GdkPixbuf  *pixbuf,
-						  guchar   **data,
-						  guint     *lenght );
-
 static gboolean
 img_run_encoder( img_window_struct *img );
-
-static void
-img_export_calc_slide_frames( img_window_struct *img );
 
 static gboolean
 img_export_transition( img_window_struct *img );
@@ -58,6 +55,10 @@ img_export_still( img_window_struct *img );
 static void
 img_export_pause_unpause( GtkToggleButton   *button,
 						  img_window_struct *img );
+
+static void
+img_export_frame_to_ppm( cairo_surface_t *surface,
+						 gint             file_desc );
 
 static void
 img_exporter_vob( img_window_struct *img );
@@ -93,7 +94,7 @@ img_get_exporters_list( Exporter **exporters )
 	/* Populate list with data */
 	list[i].description = g_strdup( "VOB (DVD video)" );
 	list[i++].func = G_CALLBACK( img_exporter_vob );
-	list[i].description = g_strdup( "OGG (Theora/Vorbis)" );
+	list[i].description = g_strdup( "OGV (Theora/Vorbis)" );
 	list[i++].func = G_CALLBACK( img_exporter_ogg );
 	list[i].description = g_strdup( "FLV (Flash video)" );
 	list[i++].func = G_CALLBACK( img_exporter_flv );
@@ -166,15 +167,19 @@ img_create_export_dialog( img_window_struct  *img,
 	if( img->export_is_running )
 		return( NULL );
 
+	/* Switch mode */
+	if( img->mode == 1 )
+	{
+		img->auto_switch = TRUE;
+		img_switch_mode( img, 0 );
+	}
+
 	/* Abort if no slide is present */
-	model = gtk_icon_view_get_model( GTK_ICON_VIEW( img->thumbnail_iconview ) );
+	model = GTK_TREE_MODEL( img->thumbnail_model );
 	if( ! gtk_tree_model_get_iter_first( model, &iter ) )
 	{
 		return( NULL );
 	}
-
-	/* Indicate that export has been started */
-	img->export_is_running = 1;
 
 	/* Create dialog */
 	dialog = gtk_dialog_new_with_buttons( title, parent,
@@ -235,35 +240,17 @@ img_create_export_dialog( img_window_struct  *img,
 /*
  * img_prepare_audio:
  * @img: global img_window_struct structure
- *
- * This function represents second link in export chain. It concatenates audio
- * files into single file, trims this file and places full path into
- * img->export_audio_file.
- *
- * Currently, it simply places first audio file from store into
- * export_audio_file. This is only temporary solution, but I needed to place
- * something here in order to be able to test the whole chain. In final version,
- * this function will probably just the first of three.
- *
- * Task of this function will be to create audio preparation dialog, spawn sox
- * thread and setup and communication between threads.
- *
- * Second function will only update progress based on data sent from sox thread.
- * It'll also offer user a chance to terminate export process.
- *
- * Third function will be responsible for hiding audio dialog, finalizing ffmpeg
- * command line and linking to video export process.
- *
- * Return value: This function must always return FALSE, since we want it
- * removed from main context.
  */
 static gboolean
 img_prepare_audio( img_window_struct *img )
 {
 	GtkTreeModel *model;
 	GtkTreeIter   iter;
-	gchar        *audio_file;
 	gchar       **tmp;
+	gchar        *inputs[100]; /* 100 audio files is current limit */
+	gint          i = 0;
+	gint          channels;
+	gdouble       rate;
 
 
 	/* Set the export info */
@@ -272,38 +259,72 @@ img_prepare_audio( img_window_struct *img )
 	model = gtk_tree_view_get_model( GTK_TREE_VIEW( img->music_file_treeview ) );
 	if( gtk_tree_model_get_iter_first( model, &iter ) )
 	{
-		gchar   *path, *filename;
-		GString *audio_string;
+		gchar *path, *filename;
 
-		audio_string = g_string_new( "" );
 		do
 		{
 			gtk_tree_model_get( model, &iter, 0, &path, 1, &filename, -1 );
-			g_string_append_printf( audio_string, " -i \"%s%s%s\"",
-									path, G_DIR_SEPARATOR_S, filename );
-			
+			inputs[i] = g_strdup_printf( "%s%s%s", path,
+										 G_DIR_SEPARATOR_S, filename );
+			i++;
 			g_free( path );
 			g_free( filename );
 		}
 		while( gtk_tree_model_iter_next( model, &iter ) );
+	}
 
-		audio_file = audio_string->str;
-		g_string_free( audio_string, FALSE );
+	/* If no audio is present, simply update ffmpeg command line with -an */
+	if( i == 0 )
+	{
+		/* Replace audio place holder */
+		tmp = g_strsplit( img->export_cmd_line, "<#AUDIO#>", 0 );
+		g_free( img->export_cmd_line );
+		img->export_cmd_line = g_strjoin( NULL, tmp[0], "-an", tmp[1], NULL );
+
+		/* Chain last export step - video export */
+		g_idle_add( (GSourceFunc)img_start_export, img );
+
+		return( FALSE );
+	}
+
+	img_analyze_input_files( inputs, i, &rate, &channels );
+	if( img_eliminate_bad_files( inputs, i, rate, channels, img ) )
+	{
+		/* Thread data structure */
+		ImgThreadData *tdata = g_slice_new( ImgThreadData );
+
+		/* FIFO path */
+		img->fifo = g_build_filename( g_get_tmp_dir(), "img_audio_fifo", NULL );
+
+		/* Replace audio place holder */
+		tmp = g_strsplit( img->export_cmd_line, "<#AUDIO#>", 0 );
+		g_free( img->export_cmd_line );
+
+		img->export_cmd_line = g_strdup_printf( "%s-f flac -i %s%s", tmp[0],
+												img->fifo, tmp[1] );
+
+		/* Fill thread structure with data */
+		tdata->sox_flags = &img->sox_flags;
+		tdata->files     =  img->exported_audio;
+		tdata->no_files  =  img->exported_audio_no;
+		tdata->length    =  img->total_secs;
+		tdata->fifo      =  img->fifo;
+
+		mkfifo( img->fifo, S_IRWXU );
+
+		/* Spawn sox thread now. */
+		g_atomic_int_set( &img->sox_flags, 0 );
+		img->sox = g_thread_create( (GThreadFunc)img_produce_audio_data,
+									tdata, TRUE, NULL );
+
+		/* Chain last export step - video export */
+		g_idle_add( (GSourceFunc)img_start_export, img );
 	}
 	else
-		/* Disable audio */
-		audio_file = g_strdup( "-an" );
-
-	/* Replace audio place holder */
-	tmp = g_strsplit( img->export_cmd_line, "<#AUDIO#>", 0 );
-	g_free( img->export_cmd_line );
-	img->export_cmd_line = g_strjoin( NULL, tmp[0], audio_file,
-									  tmp[1], NULL );
-
-	img->export_audio_file = audio_file;
-
-	/* Chain last export step - video export */
-	g_idle_add( (GSourceFunc)img_start_export, img );
+	{
+		/* User declined proposal */
+		img_stop_export( img );
+	}
 
 	return( FALSE );
 }
@@ -330,6 +351,7 @@ img_start_export( img_window_struct *img )
 	GtkWidget    *progress;
 	GtkWidget    *button;
 	gchar        *string;
+	cairo_t      *cr;
 
 	/* Set export info */
 	img->export_is_running = 3;
@@ -394,39 +416,65 @@ img_start_export( img_window_struct *img )
 
 	gtk_widget_show_all( dialog );
 
-	/* Display some visual feedback */
-	while( gtk_events_pending() )
-		gtk_main_iteration();
-
-	img->slide_pixbuf = gtk_image_get_pixbuf( GTK_IMAGE( img->image_area ) );
-	if( img->slide_pixbuf )
-		g_object_ref( G_OBJECT( img->slide_pixbuf ) );
-	gtk_image_clear( GTK_IMAGE( img->image_area ) );
-	gtk_widget_set_app_paintable( img->image_area, TRUE );
-	g_signal_connect( G_OBJECT( img->image_area ), "expose-event",
-					  G_CALLBACK( img_on_expose_event ), img );
-
-	/* Create an empty pixbuf for starting image. */
-	img->pixbuf1 = gdk_pixbuf_new( GDK_COLORSPACE_RGB, FALSE, 8,
-								   img->image_area->allocation.width,
-								   img->image_area->allocation.height );
-	gdk_pixbuf_fill( img->pixbuf1, img->background_color );
+	/* Create first slide */
+	img->image1 = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
+											  img->video_size[0],
+											  img->video_size[1] );
+	cr = cairo_create( img->image1 );
+	cairo_set_source_rgb( cr, img->background_color[0],
+							  img->background_color[1],
+							  img->background_color[2] );
+	cairo_paint( cr );
+	cairo_destroy( cr );
 
 	/* Load first image from model */
-	model = gtk_icon_view_get_model( GTK_ICON_VIEW( img->thumbnail_iconview ) );
+	model = GTK_TREE_MODEL( img->thumbnail_model );
 	gtk_tree_model_get_iter_first( model, &iter );
 	gtk_tree_model_get( model, &iter, 1, &entry, -1 );
-	img->pixbuf2 = img_scale_pixbuf( img, entry->filename );
+
+	if( ! entry->filename )
+	{
+		img_scale_gradient( entry->gradient, entry->g_start_point,
+							entry->g_stop_point, entry->g_start_color,
+							entry->g_stop_color, img->video_size[0],
+							img->video_size[1], NULL, &img->image2 );
+	}
+	else
+	{
+		img_scale_image( entry->filename, img->video_ratio,
+						 0, 0, img->distort_images,
+						 img->background_color, NULL, &img->image2 );
+	}
 
 	/* Add export idle function and set initial values */
 	img->export_is_running = 4;
-	img->current_slide = entry;
-	img->progress = 0;
-	img->export_frame_nr = img->total_secs * img->export_fps;
-	img->export_frame_cur = 0;
+	img->work_slide = entry;
+	img->total_nr_frames = img->total_secs * img->export_fps;
+	img->displayed_frame = 0;
+	img->next_slide_off = 0;
+	img_calc_next_slide_time_offset( img, img->export_fps );
 
-	/* Fix for the wrong progress bar indicators. */
-	img_export_calc_slide_frames( img );
+	/* Create surfaces to be passed to transition renderer */
+	img->image_from = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
+												  img->video_size[0],
+												  img->video_size[1] );
+	img->image_to = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
+												img->video_size[0],
+												img->video_size[1] );
+	img->exported_image = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
+													  img->video_size[0],
+													  img->video_size[1] );
+
+	/* Set stop points */
+	img->cur_point = NULL;
+	img->point1 = NULL;
+	img->point2 = (ImgStopPoint *)( img->work_slide->no_points ?
+									img->work_slide->points->data :
+									NULL );
+
+	/* Set first slide */
+	gtk_tree_model_get_iter_first( GTK_TREE_MODEL( img->thumbnail_model ),
+								   &img->cur_ss_iter );
 
 	img->export_slide = 1;
 	img->export_idle_func = (GSourceFunc)img_export_transition;
@@ -436,6 +484,9 @@ img_start_export( img_window_struct *img )
 	/* I did this for the translators. ^^ */
 	gtk_label_set_label( GTK_LABEL( img->export_label ), string );
 	g_free( string );
+
+	/* Update display */
+	gtk_widget_queue_draw( img->image_area );
 
 	return( FALSE );
 }
@@ -459,55 +510,78 @@ gboolean
 img_stop_export( img_window_struct *img )
 {
 	/* Do any additional tasks */
-	switch( img->export_is_running )
+	if( img->export_is_running > 1 )
 	{
-		case 2:
-			/* Kill sox thread here and delete files */
-			g_source_remove( img->source_id );
-			break;
+		/* Kill sox thread */
+		if( img->exported_audio_no )
+		{
+			int i;
 
-		case 4:
-			kill( img->ffmpeg_export, SIGINT );
-			g_source_remove( img->source_id );
+			if( g_atomic_int_get( &img->sox_flags ) != 2 )
+			{
+				g_atomic_int_set( &img->sox_flags, 1 );
 
-			/* Disconnect expose event */
-			g_signal_handlers_disconnect_by_func( img->image_area,
-												  img_on_expose_event, img );
-			gtk_widget_set_app_paintable( img->image_area, FALSE );
-			
-			/* Restore image that was used before export */
-			gtk_image_set_from_pixbuf( GTK_IMAGE( img->image_area),
-									   img->slide_pixbuf );
-			if( img->slide_pixbuf )
-				g_object_unref( G_OBJECT( img->slide_pixbuf ) );
-			
-			/* Clean other resources */
-			g_slice_free( GtkTreeIter, img->cur_ss_iter );
-			img->cur_ss_iter = NULL;
-			g_free(img->pixbuf_data);
-			img->pixbuf_data = NULL;
-			
-			close(img->file_desc);
-			g_spawn_close_pid( img->ffmpeg_export );
+				/* Export some more frames to unblock write on audio pipe */
+				for( i = 0; i < 10; i++ )
+					img_export_frame_to_ppm( img->exported_image,
+											 img->file_desc );
+			}
 
-			/* Close export dialog */
-			gtk_widget_destroy( img->export_dialog );
-			break;
+			/* Wait for thread to finish */
+			g_thread_join( img->sox );
+			img->sox = NULL;
+
+			for( i = 0; i < img->exported_audio_no; i++ )
+				g_free( img->exported_audio[i] );
+			img->exported_audio = NULL;
+			img->exported_audio_no = 0;
+		}
 	}
 
-	/* This will be neede when we start producing our own audio file */
-#if 0
-	/* Delete audio file it present */
-	if( strcmp( img->export_audio_file, "-an" ) )
-		g_unlink( img->export_audio_file );
-#endif
+	if( img->export_is_running > 3 )
+	{
+		kill( img->ffmpeg_export, SIGINT );
+		g_source_remove( img->source_id );
 
-	/* Free ffmpeg cmd line and audio file */
+		close(img->file_desc);
+		g_spawn_close_pid( img->ffmpeg_export );
+
+		/* Destroy images that were used */
+		cairo_surface_destroy( img->image1 );
+		cairo_surface_destroy( img->image2 );
+		cairo_surface_destroy( img->image_from );
+		cairo_surface_destroy( img->image_to );
+		cairo_surface_destroy( img->exported_image );
+
+		/* Close export dialog */
+		gtk_widget_destroy( img->export_dialog );
+	}
+
+	/* If we created FIFO, we need to destroy it now */
+	if( img->fifo )
+	{
+		g_unlink( img->fifo );
+		g_free( img->fifo );
+		img->fifo = NULL;
+	}
+
+	/* Free ffmpeg cmd line */
 	g_free( img->export_cmd_line );
-	g_free( img->export_audio_file );
 
 	/* Indicate that export is not running any more */
 	img->export_is_running = 0;
+
+	/* Switch mode if needed */
+	if( img->auto_switch )
+	{
+		img->auto_switch = FALSE;
+		img_switch_mode( img, 1 );
+	}
+	else
+	{
+		/* Redraw preview area */
+		gtk_widget_queue_draw( img->image_area );
+	}
 
 	return( FALSE );
 }
@@ -515,49 +589,87 @@ img_stop_export( img_window_struct *img )
 /*
  * img_prepare_pixbufs:
  * @img: global img_window_struct
+ * @preview: do we load image for preview
  *
  * This function is used when previewing or exporting slideshow. It goes
  * through the model and prepares everything for next transition.
  *
+ * If @preview is TRUE, we also respect quality settings.
+ *
+ * This function also sets img->point[12] that are used for transitions.
+ *
  * Return value: TRUE if images have been succefully prepared, FALSE otherwise.
  */
 gboolean
-img_prepare_pixbufs( img_window_struct *img )
+img_prepare_pixbufs( img_window_struct *img,
+					 gboolean           preview )
 {
 	GtkTreeModel    *model;
 	static gboolean  last_transition = TRUE;
 
-	model = gtk_icon_view_get_model( GTK_ICON_VIEW( img->thumbnail_iconview ) );
+	model = GTK_TREE_MODEL( img->thumbnail_model );
 
-	if( ! img->cur_ss_iter )
-	{
-		img->cur_ss_iter = g_slice_new( GtkTreeIter );
-		gtk_tree_model_get_iter_first( model, img->cur_ss_iter );
-	}
+	/* Get last stop point of current slide */
+	img->point1 = (ImgStopPoint *)( img->work_slide->no_points ?
+									g_list_last( img->work_slide->points )->data :
+									NULL );
 
-	if( gtk_tree_model_iter_next( model, img->cur_ss_iter ) )
+	if( gtk_tree_model_iter_next( model, &img->cur_ss_iter ) )
 	{
 		/* We have next iter, so prepare for next round */
-		g_object_unref( G_OBJECT( img->pixbuf1 ) );
-		img->pixbuf1 = img->pixbuf2;
-		gtk_tree_model_get( model, img->cur_ss_iter, 1, &img->current_slide, -1 );
-		img->pixbuf2 = img_scale_pixbuf( img, img->current_slide->filename );
+		cairo_surface_destroy( img->image1 );
+		img->image1 = img->image2;
+		gtk_tree_model_get( model, &img->cur_ss_iter, 1, &img->work_slide, -1 );
 
-		return(TRUE);
+		if( ! img->work_slide->filename )
+		{
+			img_scale_gradient( img->work_slide->gradient,
+								img->work_slide->g_start_point,
+								img->work_slide->g_stop_point,
+								img->work_slide->g_start_color,
+								img->work_slide->g_stop_color,
+								img->video_size[0],
+								img->video_size[1], NULL, &img->image2 );
+		}
+		else if( preview && img->low_quality )
+			img_scale_image( img->work_slide->filename, img->video_ratio,
+							 0, img->video_size[1], img->distort_images,
+							 img->background_color, NULL, &img->image2 );
+		else
+			img_scale_image( img->work_slide->filename, img->video_ratio,
+							 0, 0, img->distort_images,
+							 img->background_color, NULL, &img->image2 );
+
+		/* Get first stop point */
+		img->point2 = (ImgStopPoint *)( img->work_slide->no_points ?
+										img->work_slide->points->data :
+										NULL );
+
+		return( TRUE );
 	}
 	else if( last_transition )
 	{
+		cairo_t *cr;
+
 		/* We displayed last image, but bye-bye transition hasn't
 		 * been displayed. */
 		last_transition = FALSE;
 
-		g_object_unref( G_OBJECT( img->pixbuf1 ) );
-		img->pixbuf1 = img->pixbuf2;
-		img->pixbuf2 = gdk_pixbuf_new( GDK_COLORSPACE_RGB, FALSE, 8,
-									   img->image_area->allocation.width,
-									   img->image_area->allocation.height );
-		gdk_pixbuf_fill( img->pixbuf2, img->background_color );
-		img->current_slide = &img->final_transition;
+		cairo_surface_destroy( img->image1 );
+		img->image1 = img->image2;
+
+		img->image2 = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
+												  img->video_size[0],
+												  img->video_size[1] );
+		cr = cairo_create( img->image2 );
+		cairo_set_source_rgb( cr, img->background_color[0],
+								  img->background_color[1],
+								  img->background_color[2] );
+		cairo_paint( cr );
+		cairo_destroy( cr );
+
+		img->work_slide = &img->final_transition;
+		img->point2 = NULL;
 
 		return( TRUE );
 	}
@@ -565,54 +677,7 @@ img_prepare_pixbufs( img_window_struct *img )
 	/* We're done now */
 	last_transition = TRUE;
 
-	return(FALSE);
-}
-
-/*
- * img_export_pixbuf_to_ppm:
- * @pixbuf: GdkPixbuf to be exported
- * @data: location for data
- * @lenght: location for @data lenght
- *
- * Converts GdkPixbuf into PPM format.
- */
-static void
-img_export_pixbuf_to_ppm( GdkPixbuf  *pixbuf,
-						  guchar    **data,
-						  guint      *lenght )
-{
-	gint      width, height, stride, channels;
-	guchar   *pixels, *tmp;
-	gint      col, row;
-	gchar    *header;
-	gint      header_lenght;
-
-	width    = gdk_pixbuf_get_width( pixbuf );
-	height   = gdk_pixbuf_get_height( pixbuf );
-	stride   = gdk_pixbuf_get_rowstride( pixbuf );
-	channels = gdk_pixbuf_get_n_channels( pixbuf );
-	pixels   = gdk_pixbuf_get_pixels( pixbuf );
-
-	header = g_strdup_printf( "P6\n%d %d\n255\n", width, height );
-	header_lenght = strlen( header ) * sizeof(gchar);
-
-	*lenght = sizeof( guchar ) * width * height * channels + header_lenght;
-	*data = g_slice_alloc( sizeof( guchar ) * *lenght);
-
-	memcpy( *data, header, header_lenght );
-	tmp = *data + header_lenght;
-	for( row = 0; row < height; row++ )
-	{
-		for( col = 0; col < width; col++ )
-		{
-			tmp[0] = pixels[0];
-			tmp[1] = pixels[1];
-			tmp[2] = pixels[2];
-
-			tmp    += 3;
-			pixels += channels;
-		}
-	}
+	return( FALSE );
 }
 
 /*
@@ -636,10 +701,9 @@ img_run_encoder( img_window_struct *img )
 	g_print( "%s\n", img->export_cmd_line);
 
 	ret = g_spawn_async_with_pipes( NULL, argv, NULL,
-									G_SPAWN_SEARCH_PATH /*|
-									G_SPAWN_DO_NOT_REAP_CHILD |
+									G_SPAWN_SEARCH_PATH |
 									G_SPAWN_STDOUT_TO_DEV_NULL |
-									G_SPAWN_STDERR_TO_DEV_NULL*/,
+									G_SPAWN_STDERR_TO_DEV_NULL,
 									NULL, NULL, &img->ffmpeg_export,
 									&img->file_desc, NULL, NULL, &error );
 	if( ! ret )
@@ -661,26 +725,50 @@ img_run_encoder( img_window_struct *img )
 }
 
 /*
- * img_export_calc_slide_frames:
- * @img:
+ * img_calc_next_slide_time_offset:
+ * @img: global img_window_struct structure
+ * @rate: frame rate to be used for calculations
  *
- * This function calculates how many frames will this slide need in order to be
- * exported completely. We need this information in order to be able display
- * slide export progress.
+ * This function will calculate:
+ *   - time offset of next slide (img->next_slide_off)
+ *   - number of frames for current slide (img->slide_nr_frames)
+ *   - number of slides needed for transition (img->slide_trans_frames)
+ *   - number of slides needed for still part (img->slide_still_franes)
+ *   - reset current slide counter to 0 (img->slide_cur_frame)
+ *   - number of frames for subtitle animation (img->no_text_frames)
+ *   - reset current subtitle counter to 0 (img->cur_text_frame)
+ *
+ * Return value: new time offset. The same value is stored in
+ * img->next_slide_off.
  */
-static void
-img_export_calc_slide_frames( img_window_struct *img )
+guint
+img_calc_next_slide_time_offset( img_window_struct *img,
+								 gdouble            rate )
 {
-
-	if( img->current_slide->render )
-		/* Duration + transition time */
-		img->export_slide_nr = ( img->current_slide->duration +
-								 img->current_slide->speed ) * img->export_fps;
+	if( img->work_slide->render )
+	{
+		img->next_slide_off += img->work_slide->duration +
+							   img->work_slide->speed;
+		img->slide_trans_frames = img->work_slide->speed * rate;
+	}
 	else
-		/* Duration only */
-		img->export_slide_nr = img->current_slide->duration * img->export_fps;
+	{
+		img->next_slide_off += img->work_slide->duration;
+		img->slide_trans_frames = 0;
+	}
 
-	img->export_slide_cur = 0;
+	img->slide_nr_frames = img->next_slide_off * rate - img->displayed_frame;
+	img->slide_cur_frame = 0;
+	img->slide_still_frames = img->slide_nr_frames - img->slide_trans_frames;
+
+	/* Calculate subtitle frames */
+	if( img->work_slide->subtitle )
+	{
+		img->cur_text_frame = 0;
+		img->no_text_frames = img->work_slide->anim_duration * rate;
+	}
+
+	return( img->next_slide_off );
 }
 
 /*
@@ -699,19 +787,9 @@ img_export_transition( img_window_struct *img )
 	gchar   string[10];
 	gdouble export_progress;
 
-	/* If no transition effect is set, just connect still export
-	 * idle function and remove itself from main loop. */
-	if( img->current_slide->render == NULL )
+	/* If we rendered all transition frames, connect still export */
+	if( img->slide_cur_frame == img->slide_trans_frames )
 	{
-		img->source_id = g_idle_add( (GSourceFunc)img_export_still, img );
-		return( FALSE );
-	}
-
-	/* Switch to still export phase if progress reached 1. */
-	img->progress += (gdouble)1 / ( img->current_slide->speed * img->export_fps );
-	if(img->progress > 1.00000005)
-	{
-		img->progress = 0;
 		img->export_idle_func = (GSourceFunc)img_export_still;
 		img->source_id = g_idle_add( (GSourceFunc)img_export_still, img );
 
@@ -719,29 +797,31 @@ img_export_transition( img_window_struct *img )
 	}
 
 	/* Draw one frame of transition animation */
-	img->current_slide->render( img->image_area->window, img->pixbuf1,
-								img->pixbuf2, img->progress, img->file_desc );
+	img_render_transition_frame( img );
+
+	/* Export frame */
+	img_export_frame_to_ppm( img->exported_image, img->file_desc );
 
 	/* Increment global frame counters and update progress bars */
-	img->export_frame_cur++;
-	img->export_slide_cur++;
+	img->slide_cur_frame++;
+	img->displayed_frame++;
 
-	export_progress = CLAMP( (gdouble)img->export_slide_cur /
-									  img->export_slide_nr, 0, 1 );
+	export_progress = CLAMP( (gdouble)img->slide_cur_frame /
+									  img->slide_nr_frames, 0, 1 );
 	snprintf( string, 10, "%.2f%%", export_progress * 100 );
 	gtk_progress_bar_set_fraction( GTK_PROGRESS_BAR( img->export_pbar1 ),
 								   export_progress );
 	gtk_progress_bar_set_text( GTK_PROGRESS_BAR( img->export_pbar1 ), string );
 
-	export_progress = CLAMP( (gdouble)img->export_frame_cur /
-									  img->export_frame_nr, 0, 1 );
+	export_progress = CLAMP( (gdouble)img->displayed_frame /
+									  img->total_nr_frames, 0, 1 );
 	snprintf( string, 10, "%.2f%%", export_progress * 100 );
 	gtk_progress_bar_set_fraction( GTK_PROGRESS_BAR( img->export_pbar2 ),
 								   export_progress );
 	gtk_progress_bar_set_text( GTK_PROGRESS_BAR( img->export_pbar2 ), string );
 
 	/* Draw every 10th frame of animation on screen */
-	if( img->export_frame_cur % 10 == 0 )
+	if( img->displayed_frame % 10 == 0 )
 		gtk_widget_queue_draw( img->image_area );
 
 	return( TRUE );
@@ -759,72 +839,70 @@ img_export_transition( img_window_struct *img )
 static gboolean
 img_export_still( img_window_struct *img )
 {
-	static guint length;
-	gdouble      export_progress;
-	gchar        string[10];
+	gdouble export_progress;
+	gchar   string[10];
 
-	/* Initialize pixbuf data buffer */
-	if( img->pixbuf_data == NULL )
+	/* If there is next slide, connect transition preview, else finish
+	 * preview. */
+	if( img->slide_cur_frame == img->slide_nr_frames )
 	{
-		gtk_image_set_from_pixbuf( GTK_IMAGE( img->image_area ), img->pixbuf2 );
-		img_export_pixbuf_to_ppm( img->pixbuf2, &img->pixbuf_data, &length );
-	}
-
-	/* Draw frames until we have enough of them to fill slide duration gap. */
-	if( img->export_slide_cur > img->export_slide_nr )
-	{
-		/* Exit still rendering and continue with next transition. */
-
-		/* Clear image area for next renderer */
-		gtk_image_clear( GTK_IMAGE( img->image_area ) );
-
-		/* Load next image from store. */
-		if( img_prepare_pixbufs( img ) )
+		if( img_prepare_pixbufs( img, FALSE ) )
 		{
 			gchar *string;
 
-			/* Update progress counters */
+			img_calc_next_slide_time_offset( img, img->export_fps );
 			img->export_slide++;
 
 			/* Make dialog more informative */
-			if( img->current_slide->duration == 0 )
+			if( img->work_slide->duration == 0 )
 				string = g_strdup_printf( _("Final transition export progress:") );
 			else
 				string = g_strdup_printf( _("Slide %d export progress:"),
 										  img->export_slide );
 			gtk_label_set_label( GTK_LABEL( img->export_label ), string );
 			g_free( string );
-			img_export_calc_slide_frames( img );
 
-			g_free( img->pixbuf_data );
-			img->pixbuf_data = NULL;
 			img->export_idle_func = (GSourceFunc)img_export_transition;
 			img->source_id = g_idle_add( (GSourceFunc)img_export_transition, img );
+
+			img->cur_point = NULL;
 		}
 		else
 			img_stop_export( img );
 
 		return( FALSE );
 	}
-	write( img->file_desc, img->pixbuf_data, length );
+
+	/* Draw frames until we have enough of them to fill slide duration gap. */
+	img_render_still_frame( img, img->export_fps );
+
+	/* Export frame */
+	img_export_frame_to_ppm( img->exported_image, img->file_desc );
 
 	/* Increment global frame counter and update progress bar */
-	img->export_frame_cur++;
-	img->export_slide_cur++;
+	img->still_counter++;
+	img->slide_cur_frame++;
+	img->displayed_frame++;
 
 	/* CLAMPS are needed here because of the loosy conversion when switching
 	 * from floating point to integer arithmetics. */
-	export_progress = CLAMP( (gdouble)img->export_slide_cur / img->export_slide_nr, 0, 1 );
+	export_progress = CLAMP( (gdouble)img->slide_cur_frame /
+									  img->slide_nr_frames, 0, 1 );
 	snprintf( string, 10, "%.2f%%", export_progress * 100 );
 	gtk_progress_bar_set_fraction( GTK_PROGRESS_BAR( img->export_pbar1 ),
 								   export_progress );
 	gtk_progress_bar_set_text( GTK_PROGRESS_BAR( img->export_pbar1 ), string );
 
-	export_progress = CLAMP( (gdouble)img->export_frame_cur / img->export_frame_nr, 0, 1 );
+	export_progress = CLAMP( (gdouble)img->displayed_frame /
+									  img->total_nr_frames, 0, 1 );
 	snprintf( string, 10, "%.2f%%", export_progress * 100 );
 	gtk_progress_bar_set_fraction( GTK_PROGRESS_BAR( img->export_pbar2 ),
 								   export_progress );
 	gtk_progress_bar_set_text( GTK_PROGRESS_BAR( img->export_pbar2 ), string );
+
+	/* Draw every 10th frame of animation on screen */
+	if( img->displayed_frame % 10 == 0 )
+		gtk_widget_queue_draw( img->image_area );
 
 	return( TRUE );
 }
@@ -844,6 +922,264 @@ img_export_pause_unpause( GtkToggleButton   *button,
 		g_source_remove( img->source_id );
 	else
 		img->source_id = g_idle_add(img->export_idle_func, img);
+}
+
+void
+img_render_transition_frame( img_window_struct *img )
+{
+	ImgStopPoint  point = { 0, 0, 0, 1.0 }; /* Default point */
+	gdouble       progress;
+	cairo_t      *cr;
+
+	/* Do image composing here and place result in exported_image */
+	/* Create first image */
+	cr = cairo_create( img->image_from );
+	img_draw_image_on_surface( cr, img->video_size[0], img->image1,
+							   ( img->point1 ? img->point1 : &point ), img );
+
+#if 0
+	/* Render subtitle if present */
+	if( img->work_slide->subtitle )
+	{
+		gdouble       progress;     /* Text animation progress */
+		ImgStopPoint *p_draw_point; 
+
+		progress = (gdouble)img->cur_text_frame / ( img->no_text_frames - 1 );
+		progress = CLAMP( progress, 0, 1 );
+		img->cur_text_frame++;
+
+		p_draw_point = ( img->point1 ? img->point1 : &point );
+
+		img_render_subtitle( cr,
+							 img->video_size[0],
+							 img->video_size[1],
+							 1.0,
+							 img->work_slide->position,
+							 img->work_slide->placing,
+							 p_draw_point->zoom,
+							 p_draw_point->offx,
+							 p_draw_point->offy,
+							 img->work_slide->subtitle,
+							 img->work_slide->font_desc,
+							 img->work_slide->font_color,
+							 img->work_slide->anim,
+							 progress );
+	}
+#endif
+	cairo_destroy( cr );
+
+	/* Create second image */
+	cr = cairo_create( img->image_to );
+	img_draw_image_on_surface( cr, img->video_size[0], img->image2,
+							   ( img->point2 ? img->point2 : &point ), img );
+	/* FIXME: Add subtitles here */
+	cairo_destroy( cr );
+
+	/* Compose them together */
+	progress = (gdouble)img->slide_cur_frame / ( img->slide_trans_frames - 1 );
+	cr = cairo_create( img->exported_image );
+	cairo_save( cr );
+	img->work_slide->render( cr, img->image_from, img->image_to, progress );
+	cairo_restore( cr );
+
+	cairo_destroy( cr );
+}
+
+void
+img_render_still_frame( img_window_struct *img,
+						gdouble            rate )
+{
+	cairo_t      *cr;
+	ImgStopPoint *p_draw_point;                  /* Pointer to current sp */
+	ImgStopPoint  draw_point = { 0, 0, 0, 1.0 }; /* Calculated stop point */
+
+	/* If no stop points are specified, we simply draw img->image2 with default
+	 * stop point on each frame.
+	 *
+	 * If we have only one stop point, we draw img->image2 on each frame
+	 * properly scaled, with no movement.
+	 *
+	 * If we have more than one point, we draw movement from point to point.
+	 */
+	switch( img->work_slide->no_points )
+	{
+		case( 0 ): /* No stop points */
+			p_draw_point = &draw_point;
+			break;
+
+		case( 1 ): /* Single stop point */
+			p_draw_point = (ImgStopPoint *)img->work_slide->points->data;
+			break;
+
+		default:   /* Many stop points */
+			{
+				ImgStopPoint *point1,
+							 *point2;
+				gdouble       progress;
+				GList        *tmp;
+
+				if( ! img->cur_point )
+				{
+					/* This is initialization */
+					img->cur_point = img->work_slide->points;
+					point1 = (ImgStopPoint *)img->cur_point->data;
+					img->still_offset = point1->time;
+					img->still_max = img->still_offset * rate;
+					img->still_counter = 0;
+					img->still_cmlt = 0;
+				}
+				else if( img->still_counter == img->still_max )
+				{
+					/* This is advancing to next point */
+					img->cur_point = g_list_next( img->cur_point );
+					point1 = (ImgStopPoint *)img->cur_point->data;
+					img->still_offset += point1->time;
+					img->still_cmlt += img->still_counter;
+					img->still_max = img->still_offset * rate -
+									 img->still_cmlt;
+					img->still_counter = 0;
+				}
+
+				point1 = (ImgStopPoint *)img->cur_point->data;
+				tmp = g_list_next( img->cur_point );
+				if( tmp )
+				{
+					point2 = (ImgStopPoint *)tmp->data;
+					progress = (gdouble)img->still_counter /
+										( img->still_max - 1);
+					img_calc_current_ken_point( &draw_point, point1, point2,
+												progress, 0 );
+					p_draw_point = &draw_point;
+				}
+				else
+					p_draw_point = point1;
+			}
+			break;
+	}
+
+	/* Paint surface */
+	cr = cairo_create( img->exported_image );
+	img_draw_image_on_surface( cr, img->video_size[0], img->image2,
+							   p_draw_point, img );
+
+	/* Render subtitle if present */
+	if( img->work_slide->subtitle )
+	{
+		gdouble progress; /* Text animation progress */
+
+		progress = (gdouble)img->cur_text_frame / ( img->no_text_frames - 1 );
+		progress = CLAMP( progress, 0, 1 );
+		img->cur_text_frame++;
+
+		img_render_subtitle( cr,
+							 img->video_size[0],
+							 img->video_size[1],
+							 1.0,
+							 img->work_slide->position,
+							 img->work_slide->placing,
+							 p_draw_point->zoom,
+							 p_draw_point->offx,
+							 p_draw_point->offy,
+							 img->work_slide->subtitle,
+							 img->work_slide->font_desc,
+							 img->work_slide->font_color,
+							 img->work_slide->anim,
+							 progress );
+	}
+
+	/* Destroy drawing context */
+	cairo_destroy( cr );
+}
+
+static void
+img_export_frame_to_ppm( cairo_surface_t *surface,
+						 gint             file_desc )
+{
+	cairo_format_t  format;
+	gint            width, height, stride, row, col;
+	guchar         *data, *pix;
+	gchar          *header;
+
+	guchar         *buffer, *tmp;
+	gint            buf_size;
+
+	/* Get info about cairo surface passed in. */
+	format = cairo_image_surface_get_format( surface );
+
+	/* For more information on diferent formats, see
+	 * www.cairographics.org/manual/cairo-image-surface.html#cairo-format-t */
+	/* Currently this exporter only handles CAIRO_FORMAT_(ARGB32|RGB24)
+	 * formats. */
+	if( ! format == CAIRO_FORMAT_ARGB32 && ! format == CAIRO_FORMAT_RGB24 )
+	{
+		g_print( "Unsupported cairo surface format!\n" );
+		return;
+	}
+
+	/* Image info and pixel data */
+	width  = cairo_image_surface_get_width( surface );
+	height = cairo_image_surface_get_height( surface );
+	stride = cairo_image_surface_get_stride( surface );
+	pix    = cairo_image_surface_get_data( surface );
+
+	/* Output PPM file header information:
+	 *   - P6 is a magic number for PPM file
+	 *   - width and height are image's dimensions
+	 *   - 255 is number of colors
+	 * */
+	header = g_strdup_printf( "P6\n%d %d\n255\n", width, height );
+	write( file_desc, header, sizeof( gchar ) * strlen( header ) );
+	g_free( header );
+
+	/* PRINCIPLES BEHING EXPORT LOOP
+	 *
+	 * Cairo surface data is composed of height * stride 32-bit numbers. The
+	 * actual data for displaying image is inside height * width boundary,
+	 * and each pixel is represented with 1 32-bit number.
+	 *
+	 * In CAIRO_FORMAT_ARGB32, first 8 bits contain alpha value, second 8
+	 * bits red value, third green and fourth 8 bits blue value.
+	 *
+	 * In CAIRO_FORMAT_RGB24, groups of 8 bits contain values for red, green
+	 * and blue color respectively. Last 8 bits are unused.
+	 *
+	 * Since guchar type contains 8 bits, it's usefull to think of cairo
+	 * surface as a height * stride gropus of 4 guchars, where each guchar
+	 * holds value for each color. And this is the principle behing my method
+	 * of export.
+	 * */
+
+	/* Output PPM data */
+	buf_size = sizeof( guchar ) * width * height * 3;
+	buffer = g_slice_alloc( buf_size );
+	tmp = buffer;
+	data = pix;
+	for( row = 0; row < height; row++ )
+	{
+		data = pix + row * stride;
+
+		for( col = 0; col < width; col++ )
+		{
+			/* Output data. This is done differenty on little endian
+			 * and big endian machines. */
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
+			/* Little endian machine sees pixel data as being stored in
+			 * BGRA format. This is why we skip the last 8 bit group and
+			 * read the other three groups in reverse order. */
+			tmp[0] = data[2];
+			tmp[1] = data[1];
+			tmp[2] = data[0];
+#elif G_BYTE_ORDER == G_BIG_ENDIAN
+			tmp[0] = data[1];
+			tmp[1] = data[2];
+			tmp[2] = data[3];
+#endif
+			data += 4;
+			tmp  += 3;
+		}
+	}
+	write( file_desc, buffer, buf_size );
+	g_slice_free1( buf_size, buffer );
 }
 
 /* ****************************************************************************
@@ -871,68 +1207,6 @@ img_export_pause_unpause( GtkToggleButton   *button,
  * placeholder named <#AUDIO#>, which will be in next stage replaced by real
  * path to newly produced audio file (at this stage, we don't have any).
  * ************************************************************************* */
-
-/* Template for exporter function. */
-#if 0
-static void
-img_exporter_<format>( img_window_struct *img )
-{
-	gchar          *cmd_line;
-	gchar          *format;
-	const gchar    *filename;
-	gchar          *aspect_ratio;
-	GtkWidget      *dialog;
-	GtkEntry       *entry;
-	GtkWidget      *vbox;
-
-	/* Additional options - <format> only */
-
-	/* This function call should be the first thing exporter does, since this
-	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("VOB export"),
-									   GTK_WINDOW( img->imagination_window ),
-									   &entry, &vbox );
-
-	/* If dialog is NULL, abort. */
-	if( dialog == NULL )
-		return;
-
-	/* Add any export format specific GUI elements here */
-
-	
-
-	gtk_widget_show_all( dialog );
-
-	/* Run dialog and abort if needed */
-	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
-	{
-		gtk_widget_destroy( dialog );
-		img->export_is_running = 0;
-		return;
-	}
-
-	/* User is serious, so we better prepare ffmpeg command line;) */
-	img->export_fps = <frame rate>;
-	filename = gtk_entry_get_text( entry );
-
-	/* Any additional calculation can be placed here. */
-
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -i pipe: "
-								"-r %.02f -aspect %s -s %dx%d <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd \"%s.vob\"",
-								img->export_fps, aspect_ratio,
-								img->image_area->allocation.width,
-								img->image_area->allocation.height,
-								format, filename );
-	img->export_cmd_line = cmd_line;
-
-	/* Initiate stage 2 of export - audio processing */
-	g_idle_add( (GSourceFunc)img_prepare_audio, img );
-
-	gtk_widget_destroy( dialog );
-}
-#endif
-
 static void
 img_exporter_vob( img_window_struct *img )
 {
@@ -951,7 +1225,8 @@ img_exporter_vob( img_window_struct *img )
 	GtkWidget *radio1, *radio2;
 
 	/* This function call should be the first thing exporter does, since this
-	 * function will take some preventive measures. */
+	 * function will take some preventive measures and also switches mode into
+	 * preview if needed. */
 	dialog = img_create_export_dialog( img, _("VOB export"),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
@@ -985,12 +1260,12 @@ img_exporter_vob( img_window_struct *img )
 	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
 	{
 		gtk_widget_destroy( dialog );
-		img->export_is_running = 0;
 		return;
 	}
 
 	/* User is serious, so we better prepare ffmepg command line;) */
-	format = img->image_area->allocation.height == 576 ? "pal" : "ntsc";
+	img->export_is_running = 1;
+	format = img->video_size[1] == 576 ? "pal" : "ntsc";
 	img->export_fps = 30;
 	filename = gtk_entry_get_text( entry );
 	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
@@ -998,12 +1273,11 @@ img_exporter_vob( img_window_struct *img )
 	else
 		aspect_ratio = "16:9";
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -i pipe: "
-								"-r %.02f -aspect %s -s %dx%d <#AUDIO#> -y "
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+								"-aspect %s -s %dx%d -i pipe: <#AUDIO#> -y "
 								"-bf 2 -target %s-dvd \"%s.vob\"",
 								img->export_fps, aspect_ratio,
-								img->image_area->allocation.width,
-								img->image_area->allocation.height,
+								img->video_size[0], img->video_size[1],
 								format, filename );
 	img->export_cmd_line = cmd_line;
 
@@ -1091,11 +1365,11 @@ img_exporter_ogg( img_window_struct *img )
 	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
 	{
 		gtk_widget_destroy( dialog );
-		img->export_is_running = 0;
 		return;
 	}
 
 	/* User is serious, so we better prepare ffmpeg command line;) */
+	img->export_is_running = 1;
 	img->export_fps = 30;
 	filename = gtk_entry_get_text( entry );
 
@@ -1111,13 +1385,12 @@ img_exporter_ogg( img_window_struct *img )
 			break;
 	}
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -i pipe: "
-								"-r %.02f -aspect %s -s %dx%d <#AUDIO#> "
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+								"-aspect %s -s %dx%d -i pipe: <#AUDIO#> "
 								"-vcodec libtheora -b %dk -acodec libvorbis "
 								"-f ogg -y \"%s.ogv\"",
 								img->export_fps, aspect_ratio,
-								img->image_area->allocation.width,
-								img->image_area->allocation.height,
+								img->video_size[0], img->video_size[1],
 								qualities[i], filename );
 	img->export_cmd_line = cmd_line;
 
@@ -1136,12 +1409,15 @@ img_exporter_flv( img_window_struct *img )
 	GtkEntry       *entry;
 	GtkWidget      *vbox;
 
-	/* Additional options - OGG  only */
+	/* Additional options - FLV  only */
 	GtkWidget *frame;
 	GtkWidget *label;
-	GtkWidget *hbox;
+	GtkWidget *hbox, *vbox_normal, *vbox_wide;
+	GtkWidget *radio1, *radio2;
+	GtkWidget *normal_combo, *wide_combo;
 	GtkWidget *radios[3];
-	gint       i;
+	gint       i, width, height;
+
 	/* These values have been contributed by Jean-Pierre Redonnet.
 	 * Thanks. */
 	gint       qualities[] = { 192, 384, 768 };
@@ -1157,6 +1433,66 @@ img_exporter_flv( img_window_struct *img )
 		return;
 
 	/* Add any export format specific GUI elements here */
+	frame = gtk_frame_new( NULL );
+	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, FALSE, 0 );
+
+	label = gtk_label_new( _("<b>Video Size</b>") );
+	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
+	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
+
+	hbox = gtk_hbox_new( TRUE, 5 );
+	gtk_container_add( GTK_CONTAINER( frame ), hbox );
+
+	vbox_normal = gtk_vbox_new( FALSE, 0 );
+	gtk_box_pack_start (GTK_BOX(hbox), vbox_normal, FALSE, FALSE, 0 );
+	
+	radio1 = gtk_radio_button_new_with_mnemonic( NULL, _("Normal 4:3") );
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radio1 ), TRUE );
+	gtk_box_pack_start( GTK_BOX( vbox_normal ), radio1, FALSE, FALSE, 0 );
+
+	normal_combo = _gtk_combo_box_new_text(FALSE);
+	gtk_box_pack_start( GTK_BOX( vbox_normal ), normal_combo, FALSE, FALSE, 0 );
+	{
+		GtkTreeIter   iter;
+		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( normal_combo ) ) );
+
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "320 x 240", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "400 x 300", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "512 x 384", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "640 x 480", -1 );
+	}
+	gtk_combo_box_set_active( GTK_COMBO_BOX( normal_combo ), 0 );
+
+	vbox_wide = gtk_vbox_new( FALSE, 0 );
+	gtk_box_pack_start (GTK_BOX(hbox), vbox_wide, FALSE, FALSE, 0 );
+
+	radio2 = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON( radio1 ), _("Widescreen 16:9") );
+	gtk_box_pack_start( GTK_BOX( vbox_wide ), radio2, FALSE, FALSE, 0 );
+
+	wide_combo = _gtk_combo_box_new_text(FALSE);
+	gtk_box_pack_start( GTK_BOX( vbox_wide ), wide_combo, FALSE, FALSE, 0 );
+	
+	{
+		GtkTreeIter   iter;
+		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( wide_combo ) ) );
+
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "320 x 180", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "400 x 225", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "512 x 288", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "640 x 360", -1 );
+	}
+	gtk_combo_box_set_active( GTK_COMBO_BOX( wide_combo ), 0 );
+	g_signal_connect( G_OBJECT( normal_combo ), "changed", G_CALLBACK( img_export_flv_changed ), radio1 );
+	g_signal_connect( G_OBJECT( wide_combo ), "changed", G_CALLBACK( img_export_flv_changed ), radio2 );
+
 	frame = gtk_frame_new( NULL );
 	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, FALSE, 0 );
 
@@ -1185,26 +1521,78 @@ img_exporter_flv( img_window_struct *img )
 	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
 	{
 		gtk_widget_destroy( dialog );
-		img->export_is_running = 0;
 		return;
 	}
 
 	/* User is serious, so we better prepare ffmpeg command line;) */
+	img->export_is_running = 1;
 	img->export_fps = 30;
 	filename = gtk_entry_get_text( entry );
 
 	/* Any additional calculation can be placed here. */
+	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
+	{
+		switch(gtk_combo_box_get_active(GTK_COMBO_BOX(normal_combo)) )
+		{
+			case 0:
+			width  = 320;
+			height = 240;
+			break;
+
+			case 1:
+			width  = 400;
+			height = 300;
+			break;
+
+			case 2:
+			width  = 512;
+			height = 384;
+			break;
+
+			case 3:
+			width  = 640;
+			height = 480;
+			break;
+		}
+	}
+	else
+	{
+		switch(gtk_combo_box_get_active(GTK_COMBO_BOX(wide_combo)) )
+		{
+			case 0:
+			width  = 320;
+			height = 180;
+			break;
+
+			case 1:
+			width  = 400;
+			height = 225;
+			break;
+
+			case 2:
+			width  = 512;
+			height = 288;
+			break;
+
+			case 3:
+			width  = 640;
+			height = 360;
+			break;
+		}
+	}
+
 	for( i = 0; i < 3; i++ )
 	{
 		if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radios[i] ) ) )
 			break;
 	}
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -i pipe: "
-								"-r %.02f -b %dk -s 320x240 <#AUDIO#> "
-								"-f flv -vcodec flv -acodec libmp3lame "
-								"-ab 56000 -ar 22050 -ac 1 -y \"%s.flv\"",
-								img->export_fps, qualities[i], filename );
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+								"-b %dk -s %dx%d -i pipe: <#AUDIO#> -f flv "
+								"-vcodec flv -acodec libmp3lame -ab 56000 "
+								"-ar 22050 -ac 1 -y \"%s.flv\"",
+								img->export_fps, qualities[i],
+								width, height, filename );
 	img->export_cmd_line = cmd_line;
 
 	/* Initiate stage 2 of export - audio processing */
@@ -1212,7 +1600,11 @@ img_exporter_flv( img_window_struct *img )
 
 	gtk_widget_destroy( dialog );
 }
-
 /* ****************************************************************************
  * End exporters
  * ************************************************************************* */
+
+static void img_export_flv_changed( GtkComboBox   *combo, GtkWidget *radio )
+{
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radio ), TRUE );
+}

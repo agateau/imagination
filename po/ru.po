@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 20:51+0200\n"
+"POT-Creation-Date: 2009-09-23 14:00+0200\n"
 "PO-Revision-Date: 2009-07-04 12:32+0400\n"
 "Last-Translator: Dmitry A. Levin <levin.dmi@gmail.com>\n"
 "Language-Team: Russian <levin.dmi@gmail.com>\n"
@@ -35,7 +35,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Проиграть %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:733
+#: ../src/audio.c:126 ../src/main-window.c:1044
 msgid "Play the selected file"
 msgstr "Проиграть выбранный файл"
 
@@ -43,257 +43,421 @@ msgstr "Проиграть выбранный файл"
 msgid "Stop the playback"
 msgstr "Остановить"
 
-#: ../src/main-window.c:156
+#: ../src/audio.c:261
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate\n"
+msgstr ""
+
+#: ../src/audio.c:266
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible number of channels\n"
+msgstr ""
+
+#: ../src/audio.c:272
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate and number of channels\n"
+msgstr ""
+
+#: ../src/audio.c:292
+#, c-format
+msgid ""
+"%s\n"
+"<b>Do you want to continue without these files?</b>"
+msgstr ""
+
+#: ../src/audio.c:296 ../src/audio.c:443
+#, fuzzy
+msgid "Audio files mismatch:"
+msgstr "Все аудио файлы"
+
+#: ../src/audio.c:390
+msgid "Incompatible sample rate."
+msgstr ""
+
+#: ../src/audio.c:397
+msgid "Incompatible number of channels."
+msgstr ""
+
+#: ../src/audio.c:404
+msgid "Incompatible sample rate and number of channels."
+msgstr ""
+
+#: ../src/audio.c:426
+#, c-format
+msgid ""
+"File selection contains %d audio file that is incompatible with other files."
+msgid_plural ""
+"File selection contains %d audio files that are incompatible with other "
+"files."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/audio.c:432
+#, fuzzy
+msgid "Please check audio tab for more information."
+msgstr "Пожалуйста, выберите аудио файлы для импорта"
+
+#: ../src/main-window.c:212
 msgid "_Slideshow"
 msgstr "_Слайд-шоу"
 
-#: ../src/main-window.c:192
-msgid "_Preview"
-msgstr "_Предварительный просмотр"
-
-#: ../src/main-window.c:200
-msgid "Export"
-msgstr "_Экспорт"
-
-#: ../src/main-window.c:216
-msgid "_Slide"
-msgstr "Сл_айд"
-
-#: ../src/main-window.c:222
+#: ../src/main-window.c:241
 msgid "Import p_ictures"
 msgstr "Импортировать _изображения"
 
-#: ../src/main-window.c:232
+#: ../src/main-window.c:251
 msgid "Import _music"
 msgstr "Импортировать _музыкальный файл"
 
-#: ../src/main-window.c:242
+#: ../src/main-window.c:268
+msgid "_Preview"
+msgstr "_Предварительный просмотр"
+
+#: ../src/main-window.c:276
+msgid "Export"
+msgstr "_Экспорт"
+
+#. Slide menu
+#: ../src/main-window.c:293
+msgid "_Slide"
+msgstr "Сл_айд"
+
+#. Preview quality menu
+#: ../src/main-window.c:315
+#, fuzzy
+msgid "Preview quality"
+msgstr "_Предварительный просмотр"
+
+#: ../src/main-window.c:321
+#, fuzzy
+msgid "_Low"
+msgstr "Низкое"
+
+#: ../src/main-window.c:325 ../src/export.c:1359 ../src/export.c:1515
+msgid "High"
+msgstr "Высокое"
+
+#. Zoom controls
+#: ../src/main-window.c:329
+msgid "_Zoom"
+msgstr ""
+
+#: ../src/main-window.c:356
+msgid "Add empt_y slide"
+msgstr ""
+
+#: ../src/main-window.c:365
 msgid "Dele_te"
 msgstr "_Удалить"
 
-#: ../src/main-window.c:254
-msgid "Rotate _clockwise"
-msgstr "Повернуть _по часовой стрелке"
-
-#: ../src/main-window.c:264
+#: ../src/main-window.c:377
 msgid "Rotate co_unter-clockwise"
 msgstr "Повернуть п_ротив часовой стрелки"
 
-#: ../src/main-window.c:278
+#: ../src/main-window.c:388
+#, fuzzy
+msgid "_Rotate clockwise"
+msgstr "Повернуть _по часовой стрелке"
+
+#: ../src/main-window.c:403
 msgid "Un_select all"
 msgstr "_Снять выделение"
 
-#: ../src/main-window.c:283
+#. View menu
+#: ../src/main-window.c:409
+#, fuzzy
+msgid "_View"
+msgstr "_Предварительный просмотр"
+
+#: ../src/main-window.c:415
+#, fuzzy
+msgid "Preview mode"
+msgstr "_Предварительный просмотр"
+
+#: ../src/main-window.c:421
+msgid "Overview mode"
+msgstr ""
+
+#: ../src/main-window.c:424
 msgid "_Help"
 msgstr "_Помощь"
 
-#: ../src/main-window.c:302 ../src/new_slideshow.c:54
+#: ../src/main-window.c:429
+msgid "Contents"
+msgstr ""
+
+#: ../src/main-window.c:450 ../src/new_slideshow.c:63
 msgid "Create a new slideshow"
 msgstr "Создать новое слайд-шоу"
 
-#: ../src/main-window.c:307
+#: ../src/main-window.c:455
 msgid "Open a slideshow"
 msgstr "Открыть слайд-шоу"
 
-#: ../src/main-window.c:312
+#: ../src/main-window.c:460
 msgid "Save the slideshow"
 msgstr "Сохранить слайд-шоу"
 
-#: ../src/main-window.c:325
+#: ../src/main-window.c:473
 msgid "Import pictures"
 msgstr "Импортировать изображения"
 
-#: ../src/main-window.c:334
+#: ../src/main-window.c:482
 msgid "Import music"
 msgstr "Импортировать музыкальный файл"
 
-#: ../src/main-window.c:339
+#: ../src/main-window.c:487
 msgid "Delete the selected slides"
 msgstr "Удалить выбранные слайды"
 
-#: ../src/main-window.c:348
+#: ../src/main-window.c:496
 msgid "Rotate the slide clockwise"
 msgstr "Повернуть слайд по часовой стрелке"
 
-#: ../src/main-window.c:357
+#: ../src/main-window.c:506
 msgid "Rotate the slide counter-clockwise"
 msgstr "Повернуть слайд против часовой стрелки"
 
-#: ../src/main-window.c:365 ../src/callbacks.c:1208
+#: ../src/main-window.c:512
+msgid "Zoom In"
+msgstr ""
+
+#: ../src/main-window.c:517
+msgid "Zoom Out"
+msgstr ""
+
+#: ../src/main-window.c:522
+#, fuzzy
+msgid "Normal Size"
+msgstr "Нормально"
+
+#: ../src/main-window.c:530 ../src/callbacks.c:1373
 msgid "Starts the preview"
 msgstr "Запустить предварительный просмотр"
 
-#: ../src/main-window.c:373
+#: ../src/main-window.c:538
 msgid "Goto first slide"
 msgstr "Перейти к первому слайду"
 
-#: ../src/main-window.c:378
+#: ../src/main-window.c:543
 msgid "Goto previous selected slide"
 msgstr "Перейти к предыдущему выбранному слайду"
 
-#: ../src/main-window.c:394 ../src/main-window.c:586
+#: ../src/main-window.c:559 ../src/main-window.c:764
 msgid " of "
 msgstr " из "
 
-#: ../src/main-window.c:405
+#: ../src/main-window.c:570
 msgid "Goto next selected slide"
 msgstr "Перейти к следующему выбранному слайду"
 
-#: ../src/main-window.c:410
+#: ../src/main-window.c:575
 msgid "Goto last slide"
 msgstr "Перейти к последнему слайду"
 
-#: ../src/main-window.c:451
-msgid "Zoom Factor: "
-msgstr "Масштаб: "
+#: ../src/main-window.c:626
+msgid "Video"
+msgstr ""
 
-#: ../src/main-window.c:478
+#: ../src/main-window.c:644
 msgid "<b>Slide Settings</b>"
 msgstr "<b>Параметры слайда</b>"
 
 #. Transition types label
-#: ../src/main-window.c:488
+#: ../src/main-window.c:654
 msgid "Transition Type:"
 msgstr "Тип перехода:"
 
-#: ../src/main-window.c:508
+#: ../src/main-window.c:674
 msgid "Random"
 msgstr "Произвольный"
 
-#: ../src/main-window.c:509
+#: ../src/main-window.c:675
 msgid "Imagination randomly decides which transition to apply"
 msgstr "Imagination применит произвольный переход"
 
 #. Transition duration
-#: ../src/main-window.c:515
+#: ../src/main-window.c:681
 msgid "Transition Speed:"
 msgstr "Скорость перехода:"
 
-#: ../src/main-window.c:526
+#: ../src/main-window.c:692
 msgid "Fast"
 msgstr "Быстро"
 
-#: ../src/main-window.c:528
+#: ../src/main-window.c:694
 msgid "Normal"
 msgstr "Нормально"
 
-#: ../src/main-window.c:530
+#: ../src/main-window.c:696
 msgid "Slow"
 msgstr "Медленно"
 
 #. Slide duration
-#: ../src/main-window.c:537
+#: ../src/main-window.c:703
 msgid "Slide Duration in sec:"
 msgstr "Длительность показа слайда в секундах:"
 
 #. Slide Total Duration
-#: ../src/main-window.c:548
+#: ../src/main-window.c:714
 msgid "Slideshow Length:"
 msgstr "Продолжительность Слайд-шоу:"
 
-#: ../src/main-window.c:565
+#: ../src/main-window.c:731
 msgid "<b>Slide Motion</b>"
 msgstr "<b>Параметры анимации</b>"
 
-#: ../src/main-window.c:608
+#: ../src/main-window.c:741
+msgid "Stop Point:"
+msgstr ""
+
+#: ../src/main-window.c:778
+#, fuzzy
+msgid "Duration:"
+msgstr "Длительность звучания:"
+
+#: ../src/main-window.c:787
+#, fuzzy
+msgid "Zoom: "
+msgstr "Масштаб: "
+
+#: ../src/main-window.c:801
 msgid "Add"
 msgstr "Добавить"
 
-#: ../src/main-window.c:610
+#: ../src/main-window.c:805
+msgid "Update"
+msgstr ""
+
+#: ../src/main-window.c:810
 msgid "Remove"
 msgstr "Удалить"
 
-#: ../src/main-window.c:622
+#: ../src/main-window.c:824
 msgid "<b>Slide Text</b>"
 msgstr "<b>Текст слайда</b>"
 
-#: ../src/main-window.c:640 ../src/main-window.c:854
+#: ../src/main-window.c:853 ../src/main-window.c:1390
 msgid "Click to expand the area"
 msgstr "Нажмите, чтобы расширить область"
 
-#: ../src/main-window.c:650
+#: ../src/main-window.c:870
 msgid "Click to choose the font"
 msgstr "Нажмите, чтобы выбрать шрифт"
 
-#: ../src/main-window.c:653
+#: ../src/main-window.c:880
 msgid "Animation:"
 msgstr "Анимация:"
 
-#: ../src/main-window.c:662 ../src/main-window.c:1282
-#: ../src/main-window.c:1284 ../src/support.c:138
-msgid "None"
-msgstr "Ничего"
+#: ../src/main-window.c:892
+#, fuzzy
+msgid "Animation Speed:"
+msgstr "Скорость перехода:"
 
-#: ../src/main-window.c:674
+#: ../src/main-window.c:908
+msgid "Placing is relative to:"
+msgstr ""
+
+#: ../src/main-window.c:922
+#, fuzzy
+msgid "Exported video"
+msgstr "Экспорт слайд-шоу"
+
+#: ../src/main-window.c:924
+msgid "Original image"
+msgstr ""
+
+#: ../src/main-window.c:933
+msgid "Subtitle position:"
+msgstr ""
+
+#. Background music frame
+#: ../src/main-window.c:968
+msgid "Audio"
+msgstr ""
+
+#: ../src/main-window.c:981
 msgid "<b>Background Music</b>"
 msgstr "<b>Фоновая музыка</b>"
 
-#: ../src/main-window.c:717
+#: ../src/main-window.c:1028
 msgid "Music Duration:"
 msgstr "Длительность звучания:"
 
-#: ../src/main-window.c:741
+#: ../src/main-window.c:1052
 msgid "Delete the selected file"
 msgstr "Удалить выбранный файл"
 
-#: ../src/main-window.c:748
+#: ../src/main-window.c:1059
 msgid "Move the selected file up"
 msgstr "Переместить выбранный файл выше"
 
-#: ../src/main-window.c:755
+#: ../src/main-window.c:1066
 msgid "Move the selected file down"
 msgstr "Переместить выбранный файл ниже"
 
-#: ../src/main-window.c:762
+#: ../src/main-window.c:1073
 msgid "Clear all files"
 msgstr "Очистить список файлов"
 
-#: ../src/main-window.c:849
+#: ../src/main-window.c:1385
 msgid "Click to shrink the area"
 msgstr "Нажмите, чтобы уменьшить область"
 
-#: ../src/main-window.c:868 ../src/callbacks.c:962
-msgid "Sorry,I could not perform the operation!"
+#: ../src/main-window.c:1417 ../src/callbacks.c:1132
+#, fuzzy
+msgid "Sorry, I could not perform the operation!"
 msgstr "Не могу выполнить данное действие!"
 
-#: ../src/main-window.c:1011
+#: ../src/main-window.c:1574
 msgid "Resolution"
 msgstr "Разрешение"
 
-#: ../src/main-window.c:1011
+#: ../src/main-window.c:1574
 msgid "Type"
 msgstr "Тип"
 
-#: ../src/callbacks.c:119
+#: ../src/main-window.c:1896 ../src/main-window.c:1898 ../src/support.c:138
+msgid "None"
+msgstr "Ничего"
+
+#: ../src/callbacks.c:206
 #, c-format
 msgid "Please wait, importing slide %d out of %d"
 msgstr "Пожалуйста, подождите. Идет вывод слайда %d в %d"
 
-#: ../src/callbacks.c:186
+#: ../src/callbacks.c:273
 msgid "Please choose the audio files to import"
 msgstr "Пожалуйста, выберите аудио файлы для импорта"
 
-#: ../src/callbacks.c:197
+#: ../src/callbacks.c:284
 msgid "All audio files"
 msgstr "Все аудио файлы"
 
-#: ../src/callbacks.c:206 ../src/callbacks.c:277
+#: ../src/callbacks.c:293 ../src/callbacks.c:366
 msgid "All files"
 msgstr "Все файлы"
 
-#: ../src/callbacks.c:259
+#: ../src/callbacks.c:348
 msgid "Import slides, use SHIFT key for multiple select"
 msgstr "Импорт слайдов, используйте SHIFT для выбора нескольких файлов"
 
-#: ../src/callbacks.c:271
+#: ../src/callbacks.c:360
 msgid "All image files"
 msgstr "Все графические файлы"
 
-#: ../src/callbacks.c:380 ../src/callbacks.c:1305
+#: ../src/callbacks.c:465 ../src/callbacks.c:1476
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr "Вы не сохранили свое слайд-шоу. Уверены, что хотите завершить работу?"
 
-#: ../src/callbacks.c:437
+#: ../src/callbacks.c:525
 #, c-format
 msgid "%d x %d pixels"
 msgid_plural "%d x %d pixels"
@@ -301,52 +465,78 @@ msgstr[0] "%d x %d pixels"
 msgstr[1] "%d x %d pixels"
 msgstr[2] "%d x %d pixels"
 
-#: ../src/callbacks.c:526
+#: ../src/callbacks.c:646
 msgid "An error occurred while trying to rotate the slide:"
 msgstr "Ошибка при повороте слайда:"
 
-#: ../src/callbacks.c:680
+#: ../src/callbacks.c:816
 msgid "translator-credits"
 msgstr "Переводчики"
 
-#: ../src/callbacks.c:1218
+#: ../src/callbacks.c:1383
 msgid "Stops the preview"
 msgstr "Остановить просмотр"
 
-#: ../src/callbacks.c:1264
+#: ../src/callbacks.c:1433
 msgid "Load an Imagination slideshow project"
 msgstr "Загрузить проект"
 
-#: ../src/callbacks.c:1265
+#: ../src/callbacks.c:1434
 msgid "Save an Imagination slideshow project"
 msgstr "Сохранить проект"
 
+#: ../src/callbacks.c:2133
+#, fuzzy
+msgid "Create new slide"
+msgstr "Создать новое слайд-шоу"
+
+#: ../src/callbacks.c:2144
+msgid "Empty slide options:"
+msgstr ""
+
+#: ../src/callbacks.c:2154
+msgid "Use _solid color"
+msgstr ""
+
+#: ../src/callbacks.c:2160
+msgid "Use _linear gradient"
+msgstr ""
+
+#: ../src/callbacks.c:2166
+msgid "Use _radial gradient"
+msgstr ""
+
+#: ../src/callbacks.c:2196
+#, fuzzy
+msgid "Preview"
+msgstr "_Предварительный просмотр"
+
 #. Display propert title depending on the callback that is calling this function.
-#: ../src/new_slideshow.c:54
+#: ../src/new_slideshow.c:63
 msgid "Project properties"
 msgstr "Свойства проекта"
 
-#: ../src/new_slideshow.c:79
+#: ../src/new_slideshow.c:83
 msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Параметры Слайд-шоу</b>"
 
-#: ../src/new_slideshow.c:112
+#: ../src/new_slideshow.c:116
 msgid "<b>Video Format</b>"
 msgstr "<b>Видео формат</b>"
 
-#: ../src/new_slideshow.c:124
+#: ../src/new_slideshow.c:128
 msgid "<b>Advanced Settings</b>"
 msgstr "<b>Дополнительные параметры</b>"
 
-#: ../src/new_slideshow.c:131
+#: ../src/new_slideshow.c:135
 msgid "Rescale images to fit desired aspect ratio"
 msgstr "Изменять размер изображений с учетом выбранных пропорций"
 
-#: ../src/new_slideshow.c:139
+#: ../src/new_slideshow.c:141
 msgid "Select background color:"
 msgstr "Выберите цвет фона:"
 
-#: ../src/slideshow_project.c:132
+#: ../src/slideshow_project.c:204
 msgid "This is not an Imagination project file!"
 msgstr "Этот файл не является проектом Imagination!"
 
@@ -374,90 +564,95 @@ msgstr ""
 " - Используйте клавишу CTRL для установки/снятия отметки или SHIFT для "
 "выбора нескольких позиций"
 
-#: ../src/support.c:232
+#: ../src/support.c:236
 msgid "Please choose the slideshow project filename"
 msgstr "Пожалуйста, укажите имя файла проекта"
 
-#: ../src/export.c:204
+#: ../src/export.c:209
 msgid "<b>Export Settings</b>"
 msgstr "<b>Параметры экспорта</b>"
 
-#: ../src/export.c:218
+#: ../src/export.c:223
 msgid "Filename of the slideshow:"
 msgstr "Имя файла слайд-шоу:"
 
-#: ../src/export.c:349
+#: ../src/export.c:371
 msgid "Exporting the slideshow"
 msgstr "Экспорт слайд-шоу"
 
-#: ../src/export.c:360
+#: ../src/export.c:382
 msgid "Preparing for export ..."
 msgstr "Подготовка к экспорту ..."
 
-#: ../src/export.c:371
+#: ../src/export.c:393
 msgid "Overall progress:"
 msgstr "Состояние:"
 
-#: ../src/export.c:435 ../src/export.c:793
+#: ../src/export.c:483 ../src/export.c:860
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Состояние экспорта слайда %d:"
 
-#: ../src/export.c:651
+#: ../src/export.c:715
 msgid "Failed to launch the encoder!"
 msgstr "Ошибка запуска кодека!"
 
-#: ../src/export.c:791
+#: ../src/export.c:858
 #, c-format
 msgid "Final transition export progress:"
 msgstr "Состояние экспорта переходов:"
 
-#. Additional options - <format> only
 #. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/export.c:892 ../src/export.c:955
+#. * function will take some preventive measures and also switches mode into
+#. * preview if needed.
+#: ../src/export.c:1230
 msgid "VOB export"
 msgstr "Экспорт VOB"
 
-#: ../src/export.c:967 ../src/export.c:1051
+#: ../src/export.c:1242 ../src/export.c:1325
 msgid "<b>Television Format</b>"
 msgstr "<b>Телевизионный формат</b>"
 
-#: ../src/export.c:974 ../src/export.c:1058
+#: ../src/export.c:1249 ../src/export.c:1332 ../src/export.c:1449
 msgid "Normal 4:3"
 msgstr "Нормально 4:3"
 
-#: ../src/export.c:979 ../src/export.c:1063
+#: ../src/export.c:1254 ../src/export.c:1337 ../src/export.c:1473
 msgid "Widescreen 16:9"
 msgstr "Широкий экран 16:9"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
-#: ../src/export.c:1039
+#: ../src/export.c:1313
 msgid "OGG export"
 msgstr "Экспорт OGG"
 
-#: ../src/export.c:1069 ../src/export.c:1163
+#: ../src/export.c:1343 ../src/export.c:1499
 msgid "<b>Video Quality:</b>"
 msgstr "<b>Качество видео:</b>"
 
-#: ../src/export.c:1076 ../src/export.c:1170
+#: ../src/export.c:1350 ../src/export.c:1506
 msgid "Low"
 msgstr "Низкое"
 
-#: ../src/export.c:1080 ../src/export.c:1174
+#: ../src/export.c:1354 ../src/export.c:1510
 msgid "Medium"
 msgstr "Среднее"
 
-#: ../src/export.c:1085 ../src/export.c:1179
-msgid "High"
-msgstr "Высокое"
-
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
-#: ../src/export.c:1151
+#: ../src/export.c:1427
 msgid "FLV export"
 msgstr "Экспорт FLV"
+
+#: ../src/export.c:1439
+#, fuzzy
+msgid "<b>Video Size</b>"
+msgstr "<b>Качество видео:</b>"
+
+#, fuzzy
+#~ msgid "Sorry,I could not perform the operation!"
+#~ msgstr "Не могу выполнить данное действие!"
 
 #~ msgid "Jump to the entered slide number"
 #~ msgstr "Перейти к слайду с указанным номером"

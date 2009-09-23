@@ -137,17 +137,314 @@ static void img_swap_audio_files_button(img_window_struct *img, gboolean flag)
 
 void output_message(unsigned level, const char *filename, const char *fmt, va_list ap)
 {
-	GtkWidget *dialog;
 	gchar *string;
 
 	if (level == 1)
 	{
 		string = g_strdup_vprintf(fmt,ap);
-		dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", string);
-		gtk_window_set_title(GTK_WINDOW(dialog), "Imagination");
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (GTK_WIDGET (dialog));
-
+		g_message( "%s", string );
 		g_free(string);
 	}
 }
+
+/* ****************************************************************************
+ * EXPORT AUDIO
+ * ************************************************************************* */
+void
+img_analyze_input_files( gchar   **inputs,
+						 gint      no_inputs,
+						 gdouble  *rate,
+						 gint     *channels )
+{
+	gint    i, j, tmp = 1;
+	GArray *array_ra = g_array_sized_new( FALSE, FALSE, sizeof( gdouble ), 10 );
+	GArray *array_rc = g_array_sized_new( FALSE, FALSE, sizeof( gint ), 10 );
+	GArray *array_ch = g_array_sized_new( FALSE, FALSE, sizeof( gdouble ), 2 );
+	GArray *array_cc = g_array_sized_new( FALSE, FALSE, sizeof( gint ), 2 );
+
+	/* Analyze all files */
+	for( i = 0; i < no_inputs; i++ )
+	{
+		sox_format_t *in = sox_open_read( inputs[i], NULL, NULL, NULL );
+
+		/* Get rate setting and increment counter if this rate is already
+		 * present in array. */
+		for( j = 0; j < array_ra->len; j++ )
+			if( *( (gdouble *)( array_ra->data ) + j ) == in->signal.rate )
+				break;
+		if( j == array_ra->len )
+		{
+			g_array_append_val( array_ra, in->signal.rate );
+			g_array_append_val( array_rc, tmp );
+		}
+		else
+		{
+			*( (gint *)( array_rc->data ) + j ) += 1;
+		}
+
+		/* Get channels and increment counter if this number is
+		 * already present */
+		for( j = 0; j < array_ch->len; j++ )
+			if( *( (gint *)( array_ch->data ) + j ) == in->signal.channels )
+				break;
+		if( j == array_ch->len )
+		{
+			g_array_append_val( array_ch, in->signal.channels );
+			g_array_append_val( array_cc, tmp );
+		}
+		else
+		{
+			*( (gint *)( array_cc->data ) + j ) += 1;
+		}
+
+		sox_close( in );
+	}
+
+	/* Do some statistics */
+	for( i = 0, j = 0, tmp = 0; i < array_ra->len; i++ )
+	{
+		if( *( (gint *)( array_rc->data ) + i ) > tmp )
+		{
+			tmp = *( (gint *)( array_rc->data ) + i );
+			j = i;
+		}
+	}
+	*rate = *( (gdouble *)( array_ra->data ) + j );
+
+	for( i = 0, j = 0, tmp = 0; i < array_ch->len; i++ )
+	{
+		if( *( (gint *)( array_cc->data ) + i ) > tmp )
+		{
+			tmp = *( (gint *)( array_cc->data ) + i );
+			j = i;
+		}
+	}
+	*channels = *( (gint *)( array_ch->data ) + j );
+
+	/* Free data storage */
+	g_array_free( array_ra, TRUE );
+	g_array_free( array_rc, TRUE );
+	g_array_free( array_ch, TRUE );
+	g_array_free( array_cc, TRUE );
+}
+
+gboolean
+img_eliminate_bad_files( gchar             **inputs,
+						 gint                no_inputs,
+						 gdouble             rate,
+						 gint                channels,
+						 img_window_struct  *img )
+{
+	gint       i, j, reduced_out = no_inputs;
+	GString   *string;
+	gboolean   warn = FALSE, ret = TRUE;
+	GtkWidget *dialog;
+
+	string = g_string_new( "" );
+
+	/* Analyze all files */
+	for( i = 0, j = 0; i < no_inputs; i++ )
+	{
+		sox_format_t *in = sox_open_read( inputs[i], NULL, NULL, NULL );
+		if( in->signal.rate != rate || in->signal.channels != channels )
+		{
+			gchar *base = g_path_get_basename( inputs[i] );
+			gint   bad = 0;
+			
+			bad += ( in->signal.rate != rate ? 1 : 0 );
+			bad += ( in->signal.channels != channels ? 2 : 0 );
+
+			switch( bad )
+			{
+				case 1: /* Incompatible signal rate */
+					g_string_append_printf(
+							string, _("%s:\nincompatible sample rate\n"), base );
+					break;
+
+				case 2: /* Incompatible number of channels */
+					g_string_append_printf(
+							string, _("%s:\nincompatible number of channels\n"),
+									base );
+					break;
+
+				case 3: /* Both are incompatible */
+					g_string_append_printf(
+							string, _("%s:\nincompatible sample rate and "
+									"number of channels\n"), base );
+					break;
+			}
+			g_free( inputs[i] );
+			g_free( base );
+			inputs[i] = NULL;
+			reduced_out--;
+			warn = TRUE;
+		}
+	}
+
+	/* Present results to user */
+	if( warn )
+	{
+		dialog = gtk_message_dialog_new_with_markup(
+							GTK_WINDOW( img->imagination_window ),
+							GTK_DIALOG_MODAL,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_YES_NO,
+							_("%s\n<b>Do you want to continue without "
+							"these files?</b>"),
+							string->str );
+
+		gtk_window_set_title(GTK_WINDOW(dialog), _("Audio files mismatch:") );
+		if( GTK_RESPONSE_YES != gtk_dialog_run( GTK_DIALOG( dialog ) ) )
+			ret = FALSE;
+		gtk_widget_destroy( dialog );
+	}
+	g_string_free( string, TRUE );
+
+	/* If we continue with export process, set up proper audio files array */
+	if( ret )
+	{
+		img->exported_audio = g_slice_alloc( sizeof( gchar * ) * reduced_out );
+		img->exported_audio_no = reduced_out;
+
+		for( i = 0, j = 0; i < no_inputs; i++ )
+			if( inputs[i] )
+				img->exported_audio[j++] = inputs[i];
+	}
+
+	return( ret );
+}
+
+void
+img_update_inc_audio_display( img_window_struct *img )
+{
+	GtkTreeModel *model;
+	GtkTreeIter   iter;
+	gchar        *inputs[100]; /* 100 audio files is current limit */
+	gint          i = 0;
+	gint          channels;
+	gdouble       rate;
+	gint          warn = 0;
+	gint          total_time = 0;
+
+
+	model = gtk_tree_view_get_model( GTK_TREE_VIEW( img->music_file_treeview ) );
+
+	/* If no audio is present, simply return */
+	if( gtk_tree_model_get_iter_first( model, &iter ) )
+	{
+		gchar *path, *filename;
+
+		do
+		{
+			gtk_tree_model_get( model, &iter, 0, &path, 1, &filename, -1 );
+			inputs[i] = g_strdup_printf( "%s%s%s", path,
+										 G_DIR_SEPARATOR_S, filename );
+			i++;
+			g_free( path );
+			g_free( filename );
+		}
+		while( gtk_tree_model_iter_next( model, &iter ) );
+	}
+	else
+		return;
+
+	img_analyze_input_files( inputs, i, &rate, &channels );
+
+	/* Update display */
+	gtk_tree_model_get_iter_first( model, &iter );
+	do
+	{
+		gchar *path, *file;
+		gchar *full;
+		gint   bad = 0;
+		gint   duration;
+
+		gtk_tree_model_get( model, &iter, 0, &path,
+										  1, &file,
+										  3, &duration,
+										  -1 );
+		full = g_strdup_printf( "%s%s%s", path, G_DIR_SEPARATOR_S, file );
+		g_free( path );
+		g_free( file );
+
+		sox_format_t *in = sox_open_read( full, NULL, NULL, NULL );
+			
+		bad += ( in->signal.rate != rate ? 1 : 0 );
+		bad += ( in->signal.channels != channels ? 2 : 0 );
+		if( bad )
+			warn++;
+
+		switch( bad )
+		{
+			case 0: /* File is compatible */
+				gtk_list_store_set( GTK_LIST_STORE( model ), &iter,
+									4, NULL,
+									5, NULL,
+									-1 );
+				total_time += duration;
+				break;
+
+			case 1: /* Incompatible signal rate */
+				gtk_list_store_set( GTK_LIST_STORE( model ), &iter,
+									4, "red",
+									5, _("Incompatible sample rate."),
+									-1 );
+				break;
+
+			case 2: /* Incompatible number of channels */
+				gtk_list_store_set( GTK_LIST_STORE( model ), &iter,
+									4, "blue",
+									5, _("Incompatible number of channels."),
+									-1 );
+				break;
+
+			case 3: /* Both are incompatible */
+				gtk_list_store_set( GTK_LIST_STORE( model ), &iter,
+									4, "orange",
+									5, _("Incompatible sample rate and "
+										 "number of channels."),
+									-1 );
+				break;
+		}
+		sox_close( in );
+		g_free( full );
+	}
+	while( gtk_tree_model_iter_next( model, &iter ) );
+
+	/* Update total audio length */
+	img->total_music_secs = total_time;
+
+	/* Inform user that some files are incompatible and cannot be concatenated
+	 * for export. */
+	if( warn )
+	{
+		GtkWidget *dialog;
+		gchar     *message,
+				  *count;
+
+		count = g_strdup_printf( 
+					ngettext( "File selection contains %d audio file that "
+							  "is incompatible with other files.",
+							  "File selection contains %d audio files that "
+							  "are incompatible with other files.",
+							  warn ), warn );
+		message = g_strconcat( count, "\n\n",
+							  _("Please check audio tab for more information."),
+							  NULL );
+		g_free( count );
+
+		dialog = gtk_message_dialog_new_with_markup(
+							GTK_WINDOW( img->imagination_window ),
+							GTK_DIALOG_MODAL,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_OK,
+							"%s", message );
+
+		gtk_window_set_title(GTK_WINDOW(dialog), _("Audio files mismatch:") );
+		g_free( message );
+		gtk_dialog_run( GTK_DIALOG( dialog ) );
+		gtk_widget_destroy( dialog );
+	}
+}
+
+

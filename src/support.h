@@ -27,19 +27,12 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
 #include "imagination.h"
 #include "sexy-icon-entry.h"
 
 #ifdef ENABLE_NLS
-#  include <libintl.h>
-#  undef _
-#  define _(String) dgettext (PACKAGE, String)
-#  define Q_(String) g_strip_context ((String), gettext (String))
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop (String)
-#  else
-#    define N_(String) (String)
-#  endif
+#  include <glib/gi18n.h>
 #else
 #  define textdomain(String) (String)
 #  define gettext(String) (String)
@@ -57,9 +50,98 @@ GtkWidget *_gtk_combo_box_new_text(gboolean);
 void img_set_statusbar_message(img_window_struct *, gint);
 void img_load_available_transitions(img_window_struct *);
 void img_show_file_chooser(SexyIconEntry *, SexyIconEntryPosition, int, img_window_struct *);
-GdkPixbuf *img_load_pixbuf_from_file(gchar *);
-slide_struct *img_set_slide_info(gint , guint , void (*), gint, gchar *, gchar *);
+void img_select_nth_slide(img_window_struct *, gint);
 
-GtkWidget *img_transition_combo_new( GtkTreeModel * );
-GtkWidget *img_duration_combo_new( GtkTreeModel * );
+slide_struct *
+img_create_new_slide( void );
+
+void
+img_set_slide_file_info( slide_struct *slide,
+						 const gchar  *filename );
+
+void
+img_set_slide_gradient_info( slide_struct *slide,
+							 gint          gradient,
+							 gdouble      *start_color,
+							 gdouble      *stop_color,
+							 gdouble      *start_point,
+							 gdouble      *stop_point );
+
+void
+img_set_slide_still_info( slide_struct      *slide,
+						  gint               duration,
+						  img_window_struct *img );
+
+void
+img_set_slide_transition_info( slide_struct      *slide,
+							   GtkListStore      *store,
+							   GtkTreeIter       *iter,
+							   GdkPixbuf         *pix,
+							   const gchar       *path,
+							   gint               transition_id,
+							   ImgRender          render,
+							   guint              speed,
+							   img_window_struct *img );
+
+void
+img_set_slide_ken_burns_info( slide_struct *slide,
+							  gint          cur_point,
+							  gsize         length,
+							  gdouble      *points );
+
+void
+img_set_slide_text_info( slide_struct      *slide,
+						 GtkListStore      *store,
+						 GtkTreeIter       *iter,
+						 const gchar       *subtitle,
+						 gint	            anim_id,
+						 gint               anim_duration,
+						 gint               position,
+						 gint               placing,
+						 const gchar       *font_desc,
+						 gdouble           *font_color,
+						 img_window_struct *img );
+
+void img_free_slide_struct( slide_struct * );
+
+
+gboolean
+img_set_total_slideshow_duration( img_window_struct *img );
+
+gint
+img_calc_slide_duration_points( GList *list,
+								gint   length );
+
+gboolean
+img_scale_image( const gchar      *filename,
+				 gdouble           ratio,
+				 gint              width,
+				 gint              height,
+				 gboolean          distort,
+				 gdouble          *color,
+				 GdkPixbuf       **pixbuf,
+				 cairo_surface_t **surface );
+
+void
+img_set_project_mod_state( img_window_struct *img,
+						   gboolean           modified );
+
+void
+img_sync_timings( slide_struct      *slide,
+				  img_window_struct *img );
+
+GdkPixbuf *
+img_convert_surface_to_pixbuf( cairo_surface_t *surface );
+
+gboolean
+img_scale_gradient( gint              gradient,
+					gdouble          *p_start,
+					gdouble          *p_stop,
+					gdouble          *c_start,
+					gdouble          *c_stop,
+					gint              width,
+					gint              height,
+					GdkPixbuf       **pixbuf,
+					cairo_surface_t **surface );
+
 #endif

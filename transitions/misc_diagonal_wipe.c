@@ -17,16 +17,15 @@
  *
  */
 
-#include "export_to_ppm.h"
-#include <gdk/gdk.h>
+#include <cairo.h>
+#include <glib.h>
 
 /* Local functions declarations */
 static void
-transition_render( GdkDrawable *window,
-				   GdkPixbuf   *image_from,
-				   GdkPixbuf   *image_to,
-				   gdouble      progress,
-				   gint         file_desc,
+transition_render(cairo_t         *cr,
+				   cairo_surface_t *image_from,
+				   cairo_surface_t *image_to,
+				   gdouble          progress,
 				   gint         type );
 
 /* Plug-in API */
@@ -48,57 +47,41 @@ img_get_plugin_info( gchar  **group,
 }
 
 void
-img_barn( GdkDrawable *window,
-          GdkPixbuf   *image_from,
-          GdkPixbuf   *image_to,
-          gdouble      progress,
-          gint         file_desc )
+img_barn( cairo_t  *cr,
+				   cairo_surface_t *image_from,
+				   cairo_surface_t *image_to,
+				   gdouble          progress)
 {
-	transition_render( window, image_from, image_to, progress, file_desc, 1 );
+	transition_render( cr, image_from, image_to, progress, 1 );
 }
 
 void
-img_diamond( GdkDrawable *window,
-             GdkPixbuf   *image_from,
-             GdkPixbuf   *image_to,
-             gdouble      progress,
-             gint         file_desc )
+img_diamond( cairo_t *cr,
+			cairo_surface_t *image_from,
+			cairo_surface_t *image_to,
+			gdouble          progress)
 {
-	transition_render( window, image_from, image_to, progress, file_desc, 2 );
+	transition_render( cr, image_from, image_to, progress, 2 );
 }
 
 
 /* Local functions definitions */
 static void
-transition_render( GdkDrawable *window,
-				   GdkPixbuf   *image_from,
-				   GdkPixbuf   *image_to,
-				   gdouble      progress,
-				   gint         file_desc,
-				   gint         type )
+transition_render( cairo_t         *cr,
+				   cairo_surface_t *image_from,
+				   cairo_surface_t *image_to,
+				   gdouble          progress,
+				   gint				type )
 {
-	cairo_t         *cr;
-	cairo_surface_t *surface;
-	gint             width, height;
-	gint             w2, h2;
+	gint width, height, w2, h2;
 
-	gdk_drawable_get_size( window, &width, &height );
+	width  = cairo_image_surface_get_width( image_from );
+	height = cairo_image_surface_get_height( image_from );
 
-	if( file_desc < 0 )
-	{
-		cr = gdk_cairo_create( window );
-	}
-	else
-	{
-		surface = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
-											  width, height );
-		cr = cairo_create( surface );
-	}
-
-	gdk_cairo_set_source_pixbuf( cr, image_from, 0, 0 );
+	cairo_set_source_surface( cr, image_from, 0, 0 );
 	cairo_paint( cr );
 
-	gdk_cairo_set_source_pixbuf( cr, image_to, 0, 0 );
+	cairo_set_source_surface( cr, image_to, 0, 0 );
 	w2 = width / 2;
 	h2 = height / 2;
 	switch( type )
@@ -145,12 +128,4 @@ transition_render( GdkDrawable *window,
 			break;
 	}
 	cairo_fill( cr );
-
-	cairo_destroy( cr );
-
-	if( file_desc < 0 )
-		return;
-
-	img_export_cairo_to_ppm( surface, file_desc );
-	cairo_surface_destroy( surface );
 }

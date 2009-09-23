@@ -1,0 +1,196 @@
+TASKS TO BE DONE BEFORE MERGING THIS BRANCH INTO TRUNK
+======================================================
+
+Below are tasks that should be done before cairo_surface branch gets merged into
+trunk.
+
+SUBTITLE RELATED:
+1.  Determine how much subtitle functionality should be exposed to the user.
+		Status: FINISHED!
+2.  Add widgets/controls that connect to exposed subtitle functionality. This
+    depends on finished 1.
+		Status: FINISHED!
+3.  Add word wrapping to subtitle function.
+		Status: In reconsideration.
+4.  Add subtitle related data to save/load procedures.
+		Status: FINISHED!
+5.  Add some simple text animation functions.
+		Status: Partially done (only fade animation is available).
+6.  Add proper enabling/disabling of sidebar subtitle controls. This depends on
+    finished 2.
+		Status: FINISHED!
+7.  Add proper updating of sidebar controls when selecting/deselecting slides.
+		Status: FINISHED!
+
+KEN BURNS RELATED:
+8.  Add proper enabling/disabling of sidebar controls.
+		Status: FINISHED!
+9.  Check proper updating od sidebar controls when selecting/deselecting slides.
+		Status: FINISHED!
+
+BACKEND CHANGE RELATED:
+10. Test all transition effects.
+		Status: Not started yet.
+11. Test preview/export functionality.
+		Status: Not started yet.
+
+ADDED LATER
+12. Add overview mode and properly test it.
+		Status: Coding FINISHED, testing not started yet.
+13. Add copy/paste and test it.
+		Status: Coding FINISHED, testing is in progress.
+
+
+
+Ad 1.:
+    Subtitle implementation is quite flexible and can be controlled using many
+	parameters. Most prominent features of framework are:
+	 - font family, font size and font variant are configurable
+	 - font color is configurable (supports transparency)
+	 - multi-line subtitles can be aligned left, center or right
+     - subtitles can be positioned freely
+	 - subtitle placing can be relative to exported video or original image
+	 - subtitle animation is can be done through manipulating underlying cairo
+	   transformation matrix and source RGBA color
+
+	Things that should probably be directly exposed to user are:
+	 - font family, font size and font variant (already done using
+	   GtkFontButton)
+	 - font color (already done using GtkColorButton with alpha channel)
+	 - subtitle placing
+
+	Things that should be presented to user in modified form:
+	 - subtitle position (propsed solution is to have 9 predefined positions:
+	   top-left, top-center, top-right, ..., bottom-right
+	 - subtitle animation
+	 - subtitle alignment (proposed solution is to use centered subtitles on
+	   center positions, left aligned on left positions and right aligned on
+	   right positions)
+
+	AGREEMENT:
+	 - Font is completely customizable by the user (family, size,
+	   variant, color).
+	 - Subtitle position can be selected from nine predefined places.
+	 - Subtitle placing can be made relative to original image or exported
+	   video.
+	 - Subtitle animation can be selected from combo box.
+	 - Subtitle animation speed can be selected from combo box.
+
+Ad 2.:
+	Font properties can be customized by using font selector button and color
+	button. Position can be selected from custom table button with nine
+	predefined positions. Placing can be set on radio buttons. Animation and
+	animation speed can be selected from combo boxes.
+
+	NOTE: Position of these controls should be reviewed and possibly moved to
+	better fit into Imagination's interface. Giuseppe?;)
+
+Ad 3.:
+	This is being worked on. The only two things that are in need of discusion
+	here are:
+	 - Should we let user decide hot subtitle should be aligned?
+	 - At what width subtitle should wrap? (This is set to 75% of displayed
+	   area.)
+
+	AGREEMENT:
+	Subtitles are aligned according to position on the image. If subtitle is
+	positioned on the left side, subtitle is aligned left, ...
+	Wrapping is done on 75% of image size.
+
+Ad 4.:
+	This task should be relatively trivial to implements, since we should only
+	store/load some additional data:
+	 - subtitle text
+	 - animation function id
+	 - animation duration
+	 - position of subtitle
+	 - placing of subtitle
+	 - font description
+	 - font color
+
+	When loading, two additional fields should be filled:
+	 - slide_struct->anim, which should be obtained from animation list using
+	   animation id
+	 - slide_struct->has_subtitle, which should be set to TRUE if subtitle is
+	   present
+
+Ad 5.:
+	Currently, one two subtitle animation functions are written:
+	 - no animation function
+	 - fade animation
+
+	Some more simple functions should be added to fill this gap (proposed
+	functions would be:
+	 - grow     -> subtitle size is gradually increased
+	 - creep in -> subtitle slides into slide from one side
+
+Ad 6.:
+	Subtitle controls in side panel should be made insensitive when:
+	 - no slide is selected
+	 - more than one slide is selected (Tadej is not completely sure about this
+	   one: should we leave the option to add the same subtitle to many slides
+	   in one go?)
+
+	 AGREEMENT:
+	 Subtitle controls will be disabled in following conditions:
+	  - no slide is selected
+		-> disable all
+	  - single slide is selected
+		-> enable all
+	  - multiple slides are selected
+		-> enable all except text field
+
+Ad 7.:
+	When slide with subtitle already present is selected, controls should be
+	updated with proper values. There is only one dillema here: What to do if
+	user selects more than one slide? (Also look point 6).
+
+Ad 8.:
+	Ken Burns controls should be propely enabled/disabled. Scenarios that need
+	to be handled are:
+	 - no slide is selected
+		-> disable all controls
+	 - more than one slide is selected
+		-> disable all controls
+	 - slide with no stop points is selected
+		-> disable all controls except zoom slider, "Add" button and duration
+		   spin button
+	 - slide with single stop point is selected
+		-> enable all but navigation controls
+	 - slide with more than one stop point is selected
+		-> enable all controls
+
+	These situations should be recalculated on any stop point modification.
+
+Ad 9.:
+	Values in Ken Burns related controls should be updated when slide with
+	effect applied is selected.
+
+Ad 10.:
+	Backend change involved editing every single transition that existed before.
+	We should test each and every one of them to ensure no errors were
+	introduced during this change.
+
+Ad 11.:
+	Mostly same as previous point. Just make sure things are working as they did
+	before we ripped the GdkPixbuf from Imagination and replaced it with
+	cairo_surface_t.
+
+Ad 12.:
+	Another mode of operation should be added that would make it easier to see
+	the general layout of the whole project and make it much more convenient to
+	apply the same settings to multiple slides at a time.
+
+	Functionality of this mode is supplemented by copy/paste ability.
+
+Ad 13.:
+	Copy/Cut/Paste ability is there to aid moving multiple slides at a time.
+	This should make managing large projects much easier.
+
+
+Tadej Borovšak,
+Sun Jul 26 18:25:10 CEST 2009
+
+Last updated:
+Tue Aug 11 18:40:47 CEST 2009
+

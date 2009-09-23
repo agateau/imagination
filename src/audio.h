@@ -29,4 +29,20 @@
 gchar *img_get_audio_length(img_window_struct *, gchar *, gint *);
 void img_play_stop_selected_file(GtkButton *, img_window_struct *);
 void output_message(unsigned , const char *, const char *, va_list ap);
+
+void
+img_analyze_input_files( gchar   **inputs,
+						 gint      no_inputs,
+						 gdouble  *rate,
+						 gint     *channels );
+
+gboolean
+img_eliminate_bad_files( gchar             **inputs,
+						 gint                no_inputs,
+						 gdouble             rate,
+						 gint                channels,
+						 img_window_struct  *img );
+
+void
+img_update_inc_audio_display( img_window_struct *img );
 #endif

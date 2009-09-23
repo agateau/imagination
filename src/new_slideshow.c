@@ -20,9 +20,18 @@
 
 #include "new_slideshow.h"
 
-static void img_bg_color_changed( GtkColorButton *, img_window_struct *);
-static void img_distort_toggled( GtkToggleButton *, img_window_struct *);
+/* ****************************************************************************
+ * Local declarations
+ * ************************************************************************* */
+static void
+img_update_thumbs( img_window_struct *img );
 
+static void
+img_update_current_slide( img_window_struct *img );
+
+/* ****************************************************************************
+ * Public API
+ * ************************************************************************* */
 void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 {
 	GtkWidget *dialog1;
@@ -124,8 +133,6 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	gtk_container_add( GTK_CONTAINER( alignment_frame3 ), ex_vbox );
 
 	distort_button = gtk_check_button_new_with_label( _("Rescale images to fit desired aspect ratio") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( distort_button ), img->distort_images );
-	g_signal_connect( G_OBJECT( distort_button ), "toggled", G_CALLBACK( img_distort_toggled ), img );
 	gtk_box_pack_start( GTK_BOX( ex_vbox ), distort_button, FALSE, FALSE, 0 );
 
 	ex_hbox = gtk_hbox_new( FALSE, 5 );
@@ -134,17 +141,17 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	bg_label = gtk_label_new( _("Select background color:") );
 	gtk_box_pack_start( GTK_BOX( ex_hbox ), bg_label, FALSE, FALSE, 0 );
 
-	color.red   = ( ( img->background_color >> 24 ) & 0xff ) / (gdouble)0xff * 0xffff;
-	color.green = ( ( img->background_color >> 16 ) & 0xff ) / (gdouble)0xff * 0xffff;
-	color.blue  = ( ( img->background_color >>  8 ) & 0xff ) / (gdouble)0xff * 0xffff;
+	color.red   = img->background_color[0] * 0xffff;
+	color.green = img->background_color[1] * 0xffff;
+	color.blue  = img->background_color[2] * 0xffff;
 	bg_button = gtk_color_button_new_with_color( &color );
-	g_signal_connect( G_OBJECT( bg_button ), "color-set", G_CALLBACK( img_bg_color_changed ), img );
 	gtk_box_pack_start( GTK_BOX( ex_hbox ), bg_button, FALSE, FALSE, 0 );
 
 	gtk_widget_show_all(dialog_vbox1);
 
 	/* Set parameters */
-	if (img->image_area->allocation.height == 480)
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( distort_button ), img->distort_images );
+	if (img->video_size[1] == 480)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ntsc), TRUE);
 	else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);
@@ -153,32 +160,100 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (pal)))
-			gtk_widget_set_size_request(img->image_area,720,576);
-		else
-			gtk_widget_set_size_request(img->image_area,720,480);
+		gboolean dist = img->distort_images;
+		gint     size = img->video_size[1];
+		GdkColor new;
+		gboolean c_dist,
+				 c_size,
+				 c_color;
 
-		img->project_is_modified = TRUE;
+		/* Get distorsion settings */
+		img->distort_images = 
+			gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( distort_button ) );
+		c_dist = ( dist ? ! img->distort_images : img->distort_images );
+
+		/* Get format settings */
+		if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( pal ) ) )
+			img->video_size[1] = 576;
+		else
+			img->video_size[1] = 480;
+		img->video_ratio = (gdouble)img->video_size[0] / img->video_size[1];
+		c_size = ( size != img->video_size[1] );
+
+		/* Get color settings */
+		gtk_color_button_get_color( GTK_COLOR_BUTTON( bg_button ), &new );
+		img->background_color[0] = (gdouble)new.red   / 0xffff;
+		img->background_color[1] = (gdouble)new.green / 0xffff;
+		img->background_color[2] = (gdouble)new.blue  / 0xffff;
+		c_color = ( color.red   != new.red   ) ||
+				  ( color.green != new.green ) ||
+				  ( color.blue  != new.blue  );
+
+		/* Update display properly */
+		if( c_dist || c_size || c_color )
+		{
+			/* Update thumbnails */
+			img_update_thumbs( img );
+
+			/* Update display of currently selected image */
+			img_update_current_slide( img );
+
+			/* Set indicator that project should be saved */
+			img_set_project_mod_state( img, TRUE );
+
+			/* Resize image area */
+			if( c_size )
+				gtk_widget_set_size_request(
+							img->image_area,
+							img->video_size[0] * img->image_area_zoom,
+							img->video_size[1] * img->image_area_zoom );
+		}
 	}
+
+	/* Destroy dialog */
 	gtk_widget_destroy(dialog1);
 }
 
-static void img_bg_color_changed( GtkColorButton *button, img_window_struct *img )
-{
-	GdkColor color;
-	gint     r, g, b;
 
-	gtk_color_button_get_color( button, &color );
-	r = ( (gdouble)color.red   / 0xffff * 0xff );
-	g = ( (gdouble)color.green / 0xffff * 0xff );
-	b = ( (gdouble)color.blue  / 0xffff * 0xff );
-	img->background_color = r  << 24 | g << 16 | b <<  8 | 0xff;
-	img->project_is_modified = TRUE;
+/* ****************************************************************************
+ * Local definitions
+ * ************************************************************************* */
+static void
+img_update_thumbs( img_window_struct *img )
+{
+	gboolean      next;
+	GtkTreeIter   iter;
+	GtkListStore *store = img->thumbnail_model;
+	GtkTreeModel *model = GTK_TREE_MODEL( store );
+
+	for( next = gtk_tree_model_get_iter_first( model, &iter );
+		 next;
+		 next = gtk_tree_model_iter_next( model, &iter ) )
+	{
+		slide_struct *slide;
+		GdkPixbuf    *pix;
+
+		gtk_tree_model_get( model, &iter, 1, &slide, -1 );
+		if( img_scale_image( slide->filename, img->video_ratio, 88, 0,
+							 img->distort_images, img->background_color,
+							 &pix, NULL ) )
+		{
+			gtk_list_store_set( store, &iter, 0, pix, -1 );
+			g_object_unref( G_OBJECT( pix ) );
+		}
+	}
 }
 
-static void img_distort_toggled( GtkToggleButton *button, img_window_struct *img )
+static void
+img_update_current_slide( img_window_struct *img )
 {
-	img->distort_images = gtk_toggle_button_get_active( button );
-	img->project_is_modified = TRUE;
+	if( ! img->current_slide )
+		return;
+
+	cairo_surface_destroy( img->current_image );
+	img_scale_image( img->current_slide->filename, img->video_ratio,
+					 0, img->video_size[1], img->distort_images,
+					 img->background_color, NULL, &img->current_image );
+	gtk_widget_queue_draw( img->image_area );
 }
 

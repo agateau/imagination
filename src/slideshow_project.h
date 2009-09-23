@@ -28,6 +28,11 @@
 #include "support.h"
 #include "callbacks.h"
 
-void img_save_slideshow(img_window_struct *);
-void img_load_slideshow(img_window_struct *);
+void
+img_save_slideshow( img_window_struct *img,
+					const gchar       *output );
+
+void
+img_load_slideshow( img_window_struct *img,
+					const gchar       *input );
 #endif

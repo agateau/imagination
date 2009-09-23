@@ -1,7 +1,22 @@
 Imagination changelog
 
-xx/09/09 - 1.x:
+xx/09/09 - 2.0:
+			- Made the audio files to be concatenated and have fade-out effect at the end.
+			- Fixed save warning dialog to appear when it shouldn't.
+			- Fixed rescale images regression.
+			- FLV export supports several video sizes.
+
+22/08/09 - 2.0b1:
+			- Fixed bug that caused exported slideshows being 20% longer than reported by Imagination.
+			- Added ability to insert an empty slide with the option to choose a background color gradient in three different ways: solid, linear and radial.
+			- Added Widescreen option to FLV exported video.
+			- Added Cut/Copy/Paste ability on the slides.
+			- Added Dissolve transition effect.
+			- Added an overview mode to the GUI which displays slides in a matrix.
+			- Added icons on the slides for indicating the transition type and if text is set on the slide.
+			- Added ability to add text on the slides with some text animations.
 			- Added HTML documentation.
+			- Added Ken Burns effects.
 			- Made GUI work better on smaller screens.
 			- Added russian translation.	
 			- Changed suffix for exported OGG Theora/Vorbis slideshow to ".ogv".
@@ -12,7 +27,7 @@ xx/09/09 - 1.x:
 			- Slides can be rotated inside Imagination but the original image won't be affected since the EXIF info would be lost.
 			- Added ability to import audio with drag and drop.
 			- Added first, prev, next and last buttons to move the selection on the slides; thanks to David Prieto for the suggestions.
-			- Addded ability to import pictures with drag and drop.
+			- Added ability to import pictures with drag and drop.
 			- Centered the Heart transition effect of the Misc Shape Wipe family.
 			- Removed ffmpeg's dependancy in the configure script.
 			- Use icons from the current Gtk theme for import image and import sound menu/toolbar entries thanks to David Prieto for the idea.
