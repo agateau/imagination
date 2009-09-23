@@ -971,7 +971,7 @@ img_window_struct *img_create_window (void)
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox_audio_frames, audio_tab);
 
 	frame3 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (vbox_audio_frames), frame3, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox_audio_frames), frame3, TRUE, TRUE, 0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_OUT);
 
 	frame3_alignment = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -989,10 +989,9 @@ img_window_struct *img_create_window (void)
 	gtk_container_set_border_width (GTK_CONTAINER (vbox2), 0);
 	
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (vbox2), scrolledwindow1, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox2), scrolledwindow1, TRUE, TRUE, 0);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
-	gtk_widget_set_size_request(scrolledwindow1, -1, 373);
 
 	img_struct->music_file_liststore = gtk_list_store_new (6, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING);
 	g_signal_connect (G_OBJECT (img_struct->music_file_liststore), "row-inserted",	G_CALLBACK (img_activate_remove_button_music_liststore) , img_struct);
@@ -1023,7 +1022,7 @@ img_window_struct *img_create_window (void)
 
 	/* Add the total music labels and the buttons */
 	hbox_music_label = gtk_hbox_new(FALSE, 2);
-	gtk_container_add (GTK_CONTAINER ( vbox2), hbox_music_label);
+	gtk_box_pack_start( GTK_BOX( vbox2 ), hbox_music_label, FALSE, FALSE, 0 );
 
 	music_time = gtk_label_new(_("Music Duration:"));
 	gtk_box_pack_start(GTK_BOX(hbox_music_label), music_time, TRUE, TRUE, 0);
@@ -1034,7 +1033,7 @@ img_window_struct *img_create_window (void)
 	gtk_misc_set_alignment (GTK_MISC (img_struct->music_time_data), 1, 0.5);
 
 	hbox_buttons = gtk_hbox_new(TRUE, 2);
-	gtk_container_add (GTK_CONTAINER ( vbox2), hbox_buttons);
+	gtk_box_pack_start( GTK_BOX( vbox2 ), hbox_buttons, FALSE, FALSE, 0 );
 
 	img_struct->play_audio_button = gtk_button_new();
 	gtk_widget_set_sensitive(img_struct->play_audio_button, FALSE);
