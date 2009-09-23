@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 20:52+0200\n"
-"PO-Revision-Date: 2009-08-19 23:12+0100\n"
+"POT-Creation-Date: 2009-09-23 21:22+0200\n"
+"PO-Revision-Date: 2009-09-23 21:08+0200\n"
 "Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate\n"
 msgstr ""
+"%s:\n"
+"Inkompatible Abspielrate\n"
 
 #: ../src/audio.c:266
 #, c-format
@@ -65,6 +67,8 @@ msgid ""
 "%s:\n"
 "incompatible number of channels\n"
 msgstr ""
+"%s:\n"
+"Inkompatible Kanalanzahl\n"
 
 #: ../src/audio.c:272
 #, c-format
@@ -72,6 +76,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate and number of channels\n"
 msgstr ""
+"%s:\n"
+"Inkompatible Abspielrate und Kanalanzahl\n"
 
 #: ../src/audio.c:292
 #, c-format
@@ -79,23 +85,24 @@ msgid ""
 "%s\n"
 "<b>Do you want to continue without these files?</b>"
 msgstr ""
+"%s:\n"
+"<b>Möchten Sie ohne diese Dateien fortfahren?</b>"
 
 #: ../src/audio.c:296 ../src/audio.c:443
-#, fuzzy
 msgid "Audio files mismatch:"
-msgstr "Alle Musikdateien"
+msgstr "Fehlende Übereinstimmung bei Musikdateien:"
 
 #: ../src/audio.c:390
 msgid "Incompatible sample rate."
-msgstr ""
+msgstr "Inkompatible Abspielrate."
 
 #: ../src/audio.c:397
 msgid "Incompatible number of channels."
-msgstr ""
+msgstr "Inkompatible Kanalanzahl"
 
 #: ../src/audio.c:404
 msgid "Incompatible sample rate and number of channels."
-msgstr ""
+msgstr "Inkompatible Abspielrate und Kanalanzahl"
 
 #: ../src/audio.c:426
 #, c-format
@@ -105,12 +112,15 @@ msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
 msgstr[0] ""
+"Dateiauswahl enthält %d Audiodatei, die inkompatibel zu den anderen Dateien "
+"ist."
 msgstr[1] ""
+"Dateiauswahl enthält %d Audiodateien, die inkompatibel zu den anderen "
+"Dateien sind."
 
 #: ../src/audio.c:432
-#, fuzzy
 msgid "Please check audio tab for more information."
-msgstr "Wählen Sie Musikdateien zum Importieren"
+msgstr "Wählen Sie den Musikreiter für weitere Information."
 
 #: ../src/main-window.c:212
 msgid "_Slideshow"
@@ -156,9 +166,8 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: ../src/main-window.c:356
-#, fuzzy
 msgid "Add empt_y slide"
-msgstr "Leeres Dia hinzufügen"
+msgstr "_Leeres Dia hinzufügen"
 
 #: ../src/main-window.c:365
 msgid "Dele_te"
@@ -411,7 +420,6 @@ msgid "Click to shrink the area"
 msgstr "Klicken, um die Fläche zu verkleinern"
 
 #: ../src/main-window.c:1416 ../src/callbacks.c:1132
-#, fuzzy
 msgid "Sorry, I could not perform the operation!"
 msgstr "Entschuldigung, die Operation konnte nicht durchgeführt werden!"
 
@@ -505,7 +513,7 @@ msgstr "_Linearer Farbverlauf"
 
 #: ../src/callbacks.c:2166
 msgid "Use _radial gradient"
-msgstr "Radialer Farbverlauf"
+msgstr "_Radialer Farbverlauf"
 
 #: ../src/callbacks.c:2196
 msgid "Preview"
@@ -538,7 +546,7 @@ msgstr "Hintergrundfarbe:"
 
 #: ../src/slideshow_project.c:204
 msgid "This is not an Imagination project file!"
-msgstr "Dies ist keine Imagination Projektdatei."
+msgstr "Dies ist keine Projektdatei für Imagination."
 
 #: ../src/support.c:98
 #, c-format
@@ -645,11 +653,9 @@ msgid "FLV export"
 msgstr "FLV exportieren"
 
 #: ../src/export.c:1439
-#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Videoqualität</b>"
+msgstr "<b>Videogröße</b>"
 
-#, fuzzy
 #~ msgid "Sorry,I could not perform the operation!"
 #~ msgstr "Entschuldigung, die Operation konnte nicht durchgeführt werden!"
 
