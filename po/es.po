@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-23 21:22+0200\n"
-"PO-Revision-Date: 2009-09-23 13:16-0300\n"
-"Last-Translator: elega <elega@elega.com.ar>\n"
-"Language-Team: Spanish (Spain)\n"
+"POT-Creation-Date: 2009-09-24 14:53+0200\n"
+"PO-Revision-Date: 2009-09-24 08:46-0500\n"
+"Last-Translator: Dairon Medina Caro <dairon@ceac.cu>\n"
+"Language-Team: Spanish  <dairon@ceac.cu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
 
 #: ../imagination.desktop.in.in.h:1
 msgid "A DVD slideshow maker"
@@ -66,7 +68,7 @@ msgid ""
 "incompatible sample rate and number of channels\n"
 msgstr ""
 "%s:\n"
-"frecuencia de muestreo y número de canales incompatibles\n"
+"frecuencia de muestreo y número de canales incompatible\n"
 
 #: ../src/audio.c:292
 #, c-format
@@ -75,49 +77,39 @@ msgid ""
 "<b>Do you want to continue without these files?</b>"
 msgstr ""
 "%s\n"
-"<b>¿Desea continuar sin estos archivos?</b>"
+"<b>Desea continuar sin estos archivos?</b>"
 
 #: ../src/audio.c:296 ../src/audio.c:443
 msgid "Audio files mismatch:"
-msgstr "Los archivos de audio no coinciden:"
+msgstr "Falta de coincidencia de archivos de audio:"
 
 #: ../src/audio.c:390
-#, fuzzy
 msgid "Incompatible sample rate."
-msgstr ""
-"%s:\n"
-"frecuencia de muestreo incompatible\n"
+msgstr "Frecuencia de muestreo incompatible."
 
 #: ../src/audio.c:397
-#, fuzzy
 msgid "Incompatible number of channels."
-msgstr ""
-"%s:\n"
-"número de canales incompatible\n"
+msgstr "Número de canales incompatible."
 
 #: ../src/audio.c:404
-#, fuzzy
 msgid "Incompatible sample rate and number of channels."
-msgstr ""
-"%s:\n"
-"frecuencia de muestreo y número de canales incompatibles\n"
+msgstr "Frecuencia de muestreo y número de canales incompatibles."
 
 #: ../src/audio.c:426
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File selection contains %d audio file that is incompatible with other files."
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
 msgstr[0] ""
-"La selección de archivos contiene un archivos de audio que es incompatible "
-"con los demás."
+"Selección de archivos contiene %d archivo de audio que es incompatible con "
+"otros archivos."
 msgstr[1] ""
-"La selección de archivos contiene archivos de audio que son incompatibles "
-"con otros archivos archivos."
+"Selección de archivos contiene %d archivos de audio que son incompatibles "
+"con otros archivos."
 
 #: ../src/audio.c:432
-#, fuzzy
 msgid "Please check audio tab for more information."
 msgstr "Por favor, elija los archivos de audio a importar"
 
@@ -419,7 +411,6 @@ msgid "Click to shrink the area"
 msgstr "Haga clic aquí para reducir el tamaño del área"
 
 #: ../src/main-window.c:1416 ../src/callbacks.c:1132
-#, fuzzy
 msgid "Sorry, I could not perform the operation!"
 msgstr "Lo siento, ¡No puedo realizar la operación!"
 
@@ -654,7 +645,11 @@ msgstr "Exportar FLV"
 
 #: ../src/export.c:1439
 msgid "<b>Video Size</b>"
-msgstr "<b>Tamaño del video:</b>"
+msgstr "<b>Calidad de video:</b>"
+
+#, fuzzy
+#~ msgid "Sorry,I could not perform the operation!"
+#~ msgstr "Lo siento, ¡No puedo realizar la operación!"
 
 #~ msgid "Slide Number:"
 #~ msgstr "Número de la diapositiva:"
