@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-24 14:53+0200\n"
+"POT-Creation-Date: 2009-09-26 22:46+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: \n"
@@ -20,7 +20,8 @@ msgstr "Aplikace pro vytváření prezentací na disky DVD"
 
 #: ../imagination.desktop.in.in.h:2
 msgid "A lightweight DVD slideshow maker using GTK+2"
-msgstr "Odlehčená aplikace pro vytváření prezentací na disky DVD používající GTK+2"
+msgstr ""
+"Odlehčená aplikace pro vytváření prezentací na disky DVD používající GTK+2"
 
 #: ../imagination.desktop.in.in.h:3
 msgid "Imagination"
@@ -31,8 +32,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Přehrávání %s..."
 
-#: ../src/audio.c:126
-#: ../src/main-window.c:1043
+#: ../src/audio.c:126 ../src/main-window.c:1043
 msgid "Play the selected file"
 msgstr "Přehrát vybraný soubor"
 
@@ -76,8 +76,7 @@ msgstr ""
 "%s\n"
 "<b>Chcete pokračovat bez těchto souborů?</b>"
 
-#: ../src/audio.c:296
-#: ../src/audio.c:443
+#: ../src/audio.c:296 ../src/audio.c:443
 msgid "Audio files mismatch:"
 msgstr "Neshoda ve zvukových souborech:"
 
@@ -95,11 +94,20 @@ msgstr "Nekompatibilní vzorkovací frekvence a počet kanálů."
 
 #: ../src/audio.c:426
 #, c-format
-msgid "File selection contains %d audio file that is incompatible with other files."
-msgid_plural "File selection contains %d audio files that are incompatible with other files."
-msgstr[0] "Výběr souborů obsahuje %d zvukový soubor, který není kompatibilní s ostatními soubory."
-msgstr[1] "Výběr souborů obsahuje %d zvukové soubory, které nejsou kompatibilní s ostatními soubory."
-msgstr[2] "Výběr souborů obsahuje %d zvukových souborů, které nejsou kompatibilní s ostatními soubory."
+msgid ""
+"File selection contains %d audio file that is incompatible with other files."
+msgid_plural ""
+"File selection contains %d audio files that are incompatible with other "
+"files."
+msgstr[0] ""
+"Výběr souborů obsahuje %d zvukový soubor, který není kompatibilní s "
+"ostatními soubory."
+msgstr[1] ""
+"Výběr souborů obsahuje %d zvukové soubory, které nejsou kompatibilní s "
+"ostatními soubory."
+msgstr[2] ""
+"Výběr souborů obsahuje %d zvukových souborů, které nejsou kompatibilní s "
+"ostatními soubory."
 
 #: ../src/audio.c:432
 msgid "Please check audio tab for more information."
@@ -139,9 +147,7 @@ msgstr "Kvalita náhledu"
 msgid "_Low"
 msgstr "_Nízká"
 
-#: ../src/main-window.c:325
-#: ../src/export.c:1359
-#: ../src/export.c:1515
+#: ../src/main-window.c:325 ../src/export.c:1359 ../src/export.c:1515
 msgid "High"
 msgstr "Vysoká"
 
@@ -191,8 +197,7 @@ msgstr "_Nápověda"
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../src/main-window.c:450
-#: ../src/new_slideshow.c:63
+#: ../src/main-window.c:450 ../src/new_slideshow.c:63
 msgid "Create a new slideshow"
 msgstr "Vytvořit novou prezentaci"
 
@@ -236,8 +241,7 @@ msgstr "Oddálit"
 msgid "Normal Size"
 msgstr "Běžná velikost"
 
-#: ../src/main-window.c:530
-#: ../src/callbacks.c:1373
+#: ../src/main-window.c:530 ../src/callbacks.c:1373
 msgid "Starts the preview"
 msgstr "Spouští náhled"
 
@@ -249,8 +253,7 @@ msgstr "Přejít na první snímek"
 msgid "Goto previous selected slide"
 msgstr "Přejít na předchozí snímek"
 
-#: ../src/main-window.c:559
-#: ../src/main-window.c:764
+#: ../src/main-window.c:559 ../src/main-window.c:764
 msgid " of "
 msgstr " z"
 
@@ -342,8 +345,7 @@ msgstr "Odebrat"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Text snímku</b>"
 
-#: ../src/main-window.c:853
-#: ../src/main-window.c:1389
+#: ../src/main-window.c:853 ../src/main-window.c:1389
 msgid "Click to expand the area"
 msgstr "Klikněte pro zvětšení oblasti"
 
@@ -408,8 +410,7 @@ msgstr "Odebrat všechny soubory"
 msgid "Click to shrink the area"
 msgstr "Klikněte pro zmenšení oblasti"
 
-#: ../src/main-window.c:1416
-#: ../src/callbacks.c:1132
+#: ../src/main-window.c:1416 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Operaci nelze provést."
 
@@ -421,9 +422,7 @@ msgstr "Rozlišení"
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1895
-#: ../src/main-window.c:1897
-#: ../src/support.c:138
+#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
 msgid "None"
 msgstr "Žádný"
 
@@ -440,8 +439,7 @@ msgstr "Zvolte zvukové soubory pro import"
 msgid "All audio files"
 msgstr "Všechny zvukové soubory"
 
-#: ../src/callbacks.c:293
-#: ../src/callbacks.c:366
+#: ../src/callbacks.c:293 ../src/callbacks.c:366
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -453,8 +451,7 @@ msgstr "Import snímků, více souborů vyberete použitím klávesy SHIFT"
 msgid "All image files"
 msgstr "Všechny obrázky"
 
-#: ../src/callbacks.c:465
-#: ../src/callbacks.c:1476
+#: ../src/callbacks.c:465 ../src/callbacks.c:1476
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr "Dosud jste prezentaci neuložili. Opravdu ji chcete zavřít?"
 
@@ -529,7 +526,8 @@ msgstr "<b>Pokročilá nastavení</b>"
 
 #: ../src/new_slideshow.c:135
 msgid "Rescale images to fit desired aspect ratio"
-msgstr "Změnit poměry stran obrázků tak, aby odpovídaly požadovanému poměru stran"
+msgstr ""
+"Změnit poměry stran obrázků tak, aby odpovídaly požadovanému poměru stran"
 
 #: ../src/new_slideshow.c:141
 msgid "Select background color:"
@@ -559,7 +557,9 @@ msgstr[2] "%d snímků importovnáno %s"
 
 #: ../src/support.c:113
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
-msgstr " - Pro označení nebo odznačení použijte klávesu CTRL, pomocí klávesy SHIFT vyberete více položek"
+msgstr ""
+" - Pro označení nebo odznačení použijte klávesu CTRL, pomocí klávesy SHIFT "
+"vyberete více položek"
 
 #: ../src/support.c:236
 msgid "Please choose the slideshow project filename"
@@ -585,8 +585,7 @@ msgstr "Příprava na export..."
 msgid "Overall progress:"
 msgstr "Celkový průběh:"
 
-#: ../src/export.c:483
-#: ../src/export.c:860
+#: ../src/export.c:483 ../src/export.c:860
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Průběh exportu snímku %d:"
@@ -607,20 +606,15 @@ msgstr "Průběh exportu hotových přechodů"
 msgid "VOB export"
 msgstr "Export do formátu VOB"
 
-#: ../src/export.c:1242
-#: ../src/export.c:1325
+#: ../src/export.c:1242 ../src/export.c:1325
 msgid "<b>Television Format</b>"
 msgstr "<b>Televizní formát</b>"
 
-#: ../src/export.c:1249
-#: ../src/export.c:1332
-#: ../src/export.c:1449
+#: ../src/export.c:1249 ../src/export.c:1332 ../src/export.c:1449
 msgid "Normal 4:3"
 msgstr "Běžný 4:3"
 
-#: ../src/export.c:1254
-#: ../src/export.c:1337
-#: ../src/export.c:1473
+#: ../src/export.c:1254 ../src/export.c:1337 ../src/export.c:1473
 msgid "Widescreen 16:9"
 msgstr "Širokoúhlý 16:9"
 
@@ -630,18 +624,15 @@ msgstr "Širokoúhlý 16:9"
 msgid "OGG export"
 msgstr "Export do formátu OGG"
 
-#: ../src/export.c:1343
-#: ../src/export.c:1499
+#: ../src/export.c:1343 ../src/export.c:1499
 msgid "<b>Video Quality:</b>"
 msgstr "<b>Kvalita videa:</b>"
 
-#: ../src/export.c:1350
-#: ../src/export.c:1506
+#: ../src/export.c:1350 ../src/export.c:1506
 msgid "Low"
 msgstr "Nízká"
 
-#: ../src/export.c:1354
-#: ../src/export.c:1510
+#: ../src/export.c:1354 ../src/export.c:1510
 msgid "Medium"
 msgstr "Střední"
 
@@ -658,17 +649,21 @@ msgstr "<b>Velikost videa</b>"
 #, fuzzy
 #~ msgid "Sorry,I could not perform the operation!"
 #~ msgstr "Tuto operaci nelze provést."
+
 #~ msgid "Slide Number:"
 #~ msgstr "Číslo snímku:"
+
 #~ msgid "Jump to the entered slide number"
 #~ msgstr "Přejde na zadané číslo snímku"
+
 #~ msgid "Export the DVD slideshow"
 #~ msgstr "Exportovat DVD prezentaci"
+
 #~ msgid ""
 #~ "The length of the audio track is longer than the video one. Do you want "
 #~ "to continue?"
 #~ msgstr ""
 #~ "Délka zvukové stopy je delší než délka obrazové stopy. Chcete pokračovat?"
+
 #~ msgid "Export the slideshow as:"
 #~ msgstr "Exportovat prezentaci jako:"
-
