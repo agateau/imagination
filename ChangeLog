@@ -1,6 +1,10 @@
 Imagination changelog
 
-xx/09/09 - 2.0:
+zz/xx/10 - 2.5:
+			- xxx
+
+27/09/09 - 2.0:
+			- Fixed loading of text position icons.
 			- Made the audio files to be concatenated and have fade-out effect at the end.
 			- Fixed save warning dialog to appear when it shouldn't.
 			- Fixed rescale images regression.
