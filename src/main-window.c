@@ -943,7 +943,10 @@ img_window_struct *img_create_window (void)
 		gint       i;
 		gchar     *path;
 
-		path = g_strconcat( "pixmaps/imagination-pos", NULL );
+		/* First code snippet is in use for development version,
+		 * while second is intendeded for releases */
+		/* path = g_strconcat( "pixmaps/imagination-pos", NULL ); */
+		path = g_strconcat( DATADIR, "/imagination/pixmaps/imagination-pos", NULL );
 		for( i = 0; i < 9; i++ )
 		{
 			gchar *file;
