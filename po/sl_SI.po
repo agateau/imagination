@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-26 22:46+0200\n"
+"POT-Creation-Date: 2009-09-28 15:59+0200\n"
 "PO-Revision-Date: 2009-02-24 11:55+0100\n"
 "Last-Translator: tadeboro <tadeboro@gmail.com>\n"
 "Language-Team: Slovenian\n"
@@ -34,7 +34,7 @@ msgstr "Domišljija"
 msgid "Playing %s..."
 msgstr "Predvajam %s ..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1043
+#: ../src/audio.c:126 ../src/main-window.c:1046
 msgid "Play the selected file"
 msgstr "Predvajaj izbrano datoteko"
 
@@ -342,7 +342,7 @@ msgstr "Odstrani"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Besedilo diapozitiva</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1389
+#: ../src/main-window.c:853 ../src/main-window.c:1392
 msgid "Click to expand the area"
 msgstr "Razširi besedilno polje"
 
@@ -375,51 +375,51 @@ msgid "Subtitle position:"
 msgstr "Položaj besedila:"
 
 #. Background music frame
-#: ../src/main-window.c:968
+#: ../src/main-window.c:971
 msgid "Audio"
 msgstr "Glasba"
 
-#: ../src/main-window.c:981
+#: ../src/main-window.c:984
 msgid "<b>Background Music</b>"
 msgstr "<b>Glasbena podlaga</b>"
 
-#: ../src/main-window.c:1027
+#: ../src/main-window.c:1030
 msgid "Music Duration:"
 msgstr "Trajanje glasbene podlage:"
 
-#: ../src/main-window.c:1051
+#: ../src/main-window.c:1054
 msgid "Delete the selected file"
 msgstr "Zbriši izbrane datoteke"
 
-#: ../src/main-window.c:1058
+#: ../src/main-window.c:1061
 msgid "Move the selected file up"
 msgstr "Premakni izbrano datoteko navzgor"
 
-#: ../src/main-window.c:1065
+#: ../src/main-window.c:1068
 msgid "Move the selected file down"
 msgstr "Premakni izbrano datoteko navzdol"
 
-#: ../src/main-window.c:1072
+#: ../src/main-window.c:1075
 msgid "Clear all files"
 msgstr "Počisti datoteke"
 
-#: ../src/main-window.c:1384
+#: ../src/main-window.c:1387
 msgid "Click to shrink the area"
 msgstr "Skrčni besedilno polje"
 
-#: ../src/main-window.c:1416 ../src/callbacks.c:1132
+#: ../src/main-window.c:1419 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Na žalost operacije ne morem izvesti!"
 
-#: ../src/main-window.c:1573
+#: ../src/main-window.c:1576
 msgid "Resolution"
 msgstr "Ločljivost"
 
-#: ../src/main-window.c:1573
+#: ../src/main-window.c:1576
 msgid "Type"
 msgstr "Tip"
 
-#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
+#: ../src/main-window.c:1898 ../src/main-window.c:1900 ../src/support.c:138
 msgid "None"
 msgstr "Brez"
 

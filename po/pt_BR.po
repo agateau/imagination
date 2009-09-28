@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-26 22:46+0200\n"
+"POT-Creation-Date: 2009-09-28 15:59+0200\n"
 "PO-Revision-Date: 2009-09-23 09:06-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -34,7 +34,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Reproduzindo %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1043
+#: ../src/audio.c:126 ../src/main-window.c:1046
 msgid "Play the selected file"
 msgstr "Reproduzir o arquivo selecionado"
 
@@ -344,7 +344,7 @@ msgstr "Remover"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Texto do slide</b>"
 
-#: ../src/main-window.c:853 ../src/main-window.c:1389
+#: ../src/main-window.c:853 ../src/main-window.c:1392
 msgid "Click to expand the area"
 msgstr "Clique para expandir a área"
 
@@ -377,51 +377,51 @@ msgid "Subtitle position:"
 msgstr "Posicionamento de subtítulo"
 
 #. Background music frame
-#: ../src/main-window.c:968
+#: ../src/main-window.c:971
 msgid "Audio"
 msgstr "Áudio"
 
-#: ../src/main-window.c:981
+#: ../src/main-window.c:984
 msgid "<b>Background Music</b>"
 msgstr "<b>Música de fundo</b>"
 
-#: ../src/main-window.c:1027
+#: ../src/main-window.c:1030
 msgid "Music Duration:"
 msgstr "Duração da música"
 
-#: ../src/main-window.c:1051
+#: ../src/main-window.c:1054
 msgid "Delete the selected file"
 msgstr "Excluir o arquivo selecionado"
 
-#: ../src/main-window.c:1058
+#: ../src/main-window.c:1061
 msgid "Move the selected file up"
 msgstr "Mover o arquivo selecionado para cima"
 
-#: ../src/main-window.c:1065
+#: ../src/main-window.c:1068
 msgid "Move the selected file down"
 msgstr "Mover o arquivo selecionado para baixo"
 
-#: ../src/main-window.c:1072
+#: ../src/main-window.c:1075
 msgid "Clear all files"
 msgstr "Remover todos arquivos"
 
-#: ../src/main-window.c:1384
+#: ../src/main-window.c:1387
 msgid "Click to shrink the area"
 msgstr "Clique para reduzir a área"
 
-#: ../src/main-window.c:1416 ../src/callbacks.c:1132
+#: ../src/main-window.c:1419 ../src/callbacks.c:1132
 msgid "Sorry, I could not perform the operation!"
 msgstr "Desculpe,  mas não foi possível efetuar a operação!"
 
-#: ../src/main-window.c:1573
+#: ../src/main-window.c:1576
 msgid "Resolution"
 msgstr "Resolução"
 
-#: ../src/main-window.c:1573
+#: ../src/main-window.c:1576
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/main-window.c:1895 ../src/main-window.c:1897 ../src/support.c:138
+#: ../src/main-window.c:1898 ../src/main-window.c:1900 ../src/support.c:138
 msgid "None"
 msgstr "Nenhum"
 
