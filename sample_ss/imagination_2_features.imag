@@ -69,10 +69,11 @@ font color=0;0;0;1;
 
 [slide 5]
 filename=sample_ss/0024 (15).JPG
-duration=3
+duration=11
 transition_id=43
 speed=4
-no_points=0
+no_points=5
+points=4;0;0;1;3;-946.75;-24;2.8999999999999999;1;-949.25;-330.25;2.8999999999999999;1;-950.5;-875.25;2.8999999999999999;2;0;0;1;
 text=The following transition is a new one
 anim id=0
 anim duration=1
