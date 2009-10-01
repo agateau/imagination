@@ -230,10 +230,16 @@ struct _img_window_struct
 	GtkWidget *ken_entry;    /* Jump to stop point entry */
 	GtkWidget *ken_right;    /* Go to right stop point button */
 	GtkWidget *ken_duration; /* Stop point duration spin button */
+	GtkWidget *ken_still;	 /* Stop point still time spin button */
+	GtkWidget *radio1; 	     /* Point Style Sharp */
+	GtkWidget *radio2; 	     /* Point Style Smooth */
+	GtkWidget *ken_spin_mode; /* Combo Box for Movement Mode */
 	GtkWidget *ken_zoom;     /* Zoom slider */
-	GtkWidget *ken_add;      /* Add stop point button */
-	GtkWidget *ken_update;   /* Update stop point button */
-	GtkWidget *ken_remove;   /* Remove stop point button */
+	
+	/*
+	GtkWidget *ken_add;      Add stop point button
+	GtkWidget *ken_update;   Update stop point button
+	GtkWidget *ken_remove;   Remove stop point button */
 
 	/* Subtitle related controls */
 	GtkWidget *sub_textview;      /* Text view */
