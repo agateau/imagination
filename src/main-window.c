@@ -131,9 +131,6 @@ img_window_struct *img_create_window (void)
 	GtkWidget *total_time;
 	GtkWidget *hbox_stop_points, *stop_points_label;
 	GtkWidget *hbox_time_offset, *time_offset_label;
-	GtkWidget *hbox_still_time,  *hbox_point_style;
-	GtkWidget *hbox_spin_mode, *hbox_editor_button;
-	GtkWidget *ken_editor_button;
 	GtkWidget *hbox_textview, *text_animation_hbox;
 	GtkWidget *hbox_music_label;
 	GtkWidget *music_time;
@@ -776,74 +773,17 @@ img_window_struct *img_create_window (void)
 	image_buttons = gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_MENU);
 	gtk_button_set_image(GTK_BUTTON(img_struct->ken_right), image_buttons);
 
-	/* Movement Duration */
-	hbox_time_offset = gtk_hbox_new(FALSE, 5);
+	hbox_time_offset = gtk_hbox_new(FALSE,0);
 	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_time_offset, FALSE, FALSE, 0);
-
-	time_offset_label = gtk_label_new(_("Movement Duration:"));
+	time_offset_label = gtk_label_new(_("Duration:"));
 	gtk_box_pack_start (GTK_BOX (hbox_time_offset), time_offset_label, TRUE, TRUE, 0);
 	gtk_misc_set_alignment(GTK_MISC(time_offset_label),0.0, 0.5);
 	img_struct->ken_duration = gtk_spin_button_new_with_range (1, 60, 1);
 	gtk_box_pack_start (GTK_BOX (hbox_time_offset), img_struct->ken_duration, FALSE, FALSE, 0);
 	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON (img_struct->ken_duration),TRUE);
-
-	/* Still Time */
-	hbox_still_time = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_still_time, FALSE, FALSE, 0);
-	time_offset_label = gtk_label_new(_("Still Time:"));
-	gtk_box_pack_start (GTK_BOX (hbox_still_time), time_offset_label, TRUE, TRUE, 0);
-	gtk_misc_set_alignment(GTK_MISC(time_offset_label),0.0, 0.5);
-	img_struct->ken_still = gtk_spin_button_new_with_range (1, 60, 1);
-	gtk_box_pack_start (GTK_BOX (hbox_still_time), img_struct->ken_still, FALSE, FALSE, 0);
-	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON (img_struct->ken_still),TRUE);
-	
-	/* Point Style */
-	hbox_point_style = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_point_style, FALSE, FALSE, 0);
-
-	time_offset_label = gtk_label_new(_("Point Style:"));
-	gtk_misc_set_alignment(GTK_MISC(time_offset_label),0.0, 0.5);
-	gtk_box_pack_start (GTK_BOX (hbox_point_style), time_offset_label, TRUE, TRUE, 0);
-
-	img_struct->radio1 = gtk_radio_button_new_with_mnemonic( NULL, _("Sharp") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( img_struct->radio1 ), TRUE );
-	gtk_box_pack_start( GTK_BOX( hbox_point_style ), img_struct->radio1, FALSE, FALSE, 0 );
-	img_struct->radio2 = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON( img_struct->radio1 ), _("Smooth") );
-	gtk_box_pack_start( GTK_BOX( hbox_point_style ), img_struct->radio2, FALSE, FALSE, 0 );
-
-	/* Movement Mode */
-	hbox_spin_mode = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_spin_mode, FALSE, FALSE, 0);
-
-	time_offset_label = gtk_label_new(_("Spin Mode:"));
-	gtk_misc_set_alignment(GTK_MISC(time_offset_label),0.0, 0.5);
-	gtk_box_pack_start (GTK_BOX (hbox_spin_mode), time_offset_label, TRUE, TRUE, 0);
-	img_struct->ken_spin_mode = _gtk_combo_box_new_text(FALSE);
-	gtk_box_pack_start( GTK_BOX( hbox_spin_mode ), img_struct->ken_spin_mode, FALSE, FALSE, 0 );
-	{
-		GtkTreeIter   iter;
-		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model( GTK_COMBO_BOX( img_struct->ken_spin_mode ) ) );
-
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, _("None"), -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, _("Acceleration"), -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, _("Decelaration"), -1 );
-	}
-	gtk_combo_box_set_active(GTK_COMBO_BOX(img_struct->ken_spin_mode), 0);
-	//gtk_widget_set_sensitive(img_struct->ken_movement_mode, FALSE);
-	//g_signal_connect (G_OBJECT (img_struct->ken_movement_mode),"changed",G_CALLBACK (img_combo_box_ken_movement_move_changed),img_struct);
-	
-	/* Ken Burn Editor Button Switch */
-	hbox_editor_button = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_editor_button, FALSE, FALSE, 0);
-	ken_editor_button = gtk_button_new_with_mnemonic(_("Start/Stop Ken Burns Editor"));
-	gtk_box_pack_start (GTK_BOX (hbox_editor_button), ken_editor_button, TRUE, TRUE, 0);
-
-	/*
 	GtkWidget *hbox_zoom = gtk_hbox_new(FALSE,0);
 	gtk_box_pack_start (GTK_BOX (vbox_slide_motion), hbox_zoom, FALSE, FALSE, 0);
+
 	GtkWidget *label = gtk_label_new(_("Zoom: "));
 	gtk_misc_set_alignment(GTK_MISC(label),0.0, 0.5);
 	gtk_box_pack_start (GTK_BOX (hbox_zoom), label, FALSE, TRUE, 0);
@@ -870,7 +810,7 @@ img_window_struct *img_create_window (void)
 	img_struct->ken_remove = gtk_button_new_with_label(_("Remove"));
 	g_signal_connect( G_OBJECT( img_struct->ken_remove ), "clicked",
 					  G_CALLBACK( img_delete_stop_point ), img_struct );
-	gtk_box_pack_start (GTK_BOX (hbox_buttons), img_struct->ken_remove, FALSE, FALSE, 0);*/
+	gtk_box_pack_start (GTK_BOX (hbox_buttons), img_struct->ken_remove, FALSE, FALSE, 0);
 
 	/* Slide text frame */
 	frame4 = gtk_frame_new (NULL);
@@ -2287,9 +2227,9 @@ img_ken_burns_update_sensitivity( img_window_struct *img,
 	gtk_widget_set_sensitive( img->ken_right,    FALSE );
 	gtk_widget_set_sensitive( img->ken_duration, FALSE );
 	gtk_widget_set_sensitive( img->ken_zoom,     FALSE );
-	//gtk_widget_set_sensitive( img->ken_add,      FALSE );
-	//gtk_widget_set_sensitive( img->ken_update,   FALSE );
-	//gtk_widget_set_sensitive( img->ken_remove,   FALSE );
+	gtk_widget_set_sensitive( img->ken_add,      FALSE );
+	gtk_widget_set_sensitive( img->ken_update,   FALSE );
+	gtk_widget_set_sensitive( img->ken_remove,   FALSE );
 
 	/* Enabler */
 	switch( mode ) /* THIS SWITCH IS IN FALL-THROUGH MODE!! */
@@ -2299,14 +2239,14 @@ img_ken_burns_update_sensitivity( img_window_struct *img,
 			gtk_widget_set_sensitive( img->ken_entry,    TRUE );
 			gtk_widget_set_sensitive( img->ken_right,    TRUE );
 
-		case 1: /* Disable navigation only 
+		case 1: /* Disable navigation only */
 			gtk_widget_set_sensitive( img->ken_update,   TRUE );
-			gtk_widget_set_sensitive( img->ken_remove,   TRUE );*/
+			gtk_widget_set_sensitive( img->ken_remove,   TRUE );
 
-		case 2: /* Only adding is enabled 
+		case 2: /* Only adding is enabled */
 			gtk_widget_set_sensitive( img->ken_add,      TRUE );
 			gtk_widget_set_sensitive( img->ken_zoom,     TRUE );
-			gtk_widget_set_sensitive( img->ken_duration, TRUE );*/
+			gtk_widget_set_sensitive( img->ken_duration, TRUE );
 
 		case 3: /* Disable all */
 			break;
