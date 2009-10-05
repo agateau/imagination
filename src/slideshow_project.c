@@ -471,10 +471,6 @@ img_load_slideshow( img_window_struct *img,
 	g_key_file_free (img_key_file);
 	img_set_total_slideshow_duration(img);
 
-	time = img_convert_seconds_to_time(img->total_music_secs);
-	gtk_label_set_text(GTK_LABEL(img->music_time_data), time);
-	g_free(time);
-
 	img_set_statusbar_message(img, 0);
 
 	dummy = g_path_get_basename( input );
@@ -495,6 +491,10 @@ img_load_slideshow( img_window_struct *img,
 
 	/* Update incompatibilities display */
 	img_update_inc_audio_display( img );
+
+	time = img_convert_seconds_to_time(img->total_music_secs);
+	gtk_label_set_text(GTK_LABEL(img->music_time_data), time);
+	g_free(time);
 }
 
 static gboolean img_populate_hash_table( GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GHashTable **table )
