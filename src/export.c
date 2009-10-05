@@ -22,6 +22,7 @@
 #include "callbacks.h"
 #include "audio.h"
 #include "img_sox.h"
+#include <fcntl.h>
 #include <glib/gstdio.h>
 
 static void
@@ -510,34 +511,6 @@ gboolean
 img_stop_export( img_window_struct *img )
 {
 	/* Do any additional tasks */
-	if( img->export_is_running > 1 )
-	{
-		/* Kill sox thread */
-		if( img->exported_audio_no )
-		{
-			int i;
-
-			if( g_atomic_int_get( &img->sox_flags ) != 2 )
-			{
-				g_atomic_int_set( &img->sox_flags, 1 );
-
-				/* Export some more frames to unblock write on audio pipe */
-				for( i = 0; i < 10; i++ )
-					img_export_frame_to_ppm( img->exported_image,
-											 img->file_desc );
-			}
-
-			/* Wait for thread to finish */
-			g_thread_join( img->sox );
-			img->sox = NULL;
-
-			for( i = 0; i < img->exported_audio_no; i++ )
-				g_free( img->exported_audio[i] );
-			img->exported_audio = NULL;
-			img->exported_audio_no = 0;
-		}
-	}
-
 	if( img->export_is_running > 3 )
 	{
 		kill( img->ffmpeg_export, SIGINT );
@@ -555,6 +528,38 @@ img_stop_export( img_window_struct *img )
 
 		/* Close export dialog */
 		gtk_widget_destroy( img->export_dialog );
+	}
+
+	if( img->export_is_running > 1 )
+	{
+		/* Kill sox thread */
+		if( img->exported_audio_no )
+		{
+			int i;
+
+			if( g_atomic_int_get( &img->sox_flags ) != 2 )
+			{
+				gint   fd;
+				guchar buf[1024];
+
+				g_atomic_int_set( &img->sox_flags, 1 );
+
+				/* Flush any buffered audio data from pipe */
+				fd = open( img->fifo, O_RDONLY );
+				while( read( fd, buf, sizeof( buf ) ) )
+					;
+				close( fd );
+			}
+
+			/* Wait for thread to finish */
+			g_thread_join( img->sox );
+			img->sox = NULL;
+
+			for( i = 0; i < img->exported_audio_no; i++ )
+				g_free( img->exported_audio[i] );
+			img->exported_audio = NULL;
+			img->exported_audio_no = 0;
+		}
 	}
 
 	/* If we created FIFO, we need to destroy it now */
