@@ -4,6 +4,7 @@ zz/10/09 - 2.1:
 			- Added a nice slides transitions report.
 			- Fixed display of music duration after loading the slideshow.
 			- Fixed seg-fault when exporting with audio files.
+			- Image rotation is stored inside project file
 
 27/09/09 - 2.0:
 			- Fixed loading of text position icons.
