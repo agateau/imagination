@@ -1,7 +1,8 @@
 Imagination changelog
 
 zz/xx/10 - 2.5:
-			- xxx
+			- Fixed display of music duration after loading the slideshow.
+			- Fixed seg-fault when exporting with audio files.
 
 27/09/09 - 2.0:
 			- Fixed loading of text position icons.
