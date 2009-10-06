@@ -70,6 +70,7 @@ input_drain( sox_effect_t *effp,
 	if( ! read )
 	{
 		sox_close( global->input );
+		global->input = NULL;
 
 		if( global->current_input < global->no_files )
 		{
@@ -155,7 +156,8 @@ img_produce_audio_data( ImgThreadData *data )
 
 	/* Cleanup */
 	sox_delete_effects_chain( chain );
-	sox_close( data->input );
+	if( data->input )
+		sox_close( data->input );
 	sox_close( data->output );
 	g_free( fargs[2] );
 	g_slice_free( ImgThreadData, data );
