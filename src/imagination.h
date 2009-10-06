@@ -191,6 +191,7 @@ struct _img_window_struct
 	GtkWidget	*copy;
 	GtkWidget	*paste;
 	GtkWidget	*remove_menu;
+	GtkWidget	*report_menu;
 	GtkWidget	*preview_menu;
 	GtkWidget 	*preview_button;
 	GtkWidget	*transition_type;
@@ -376,6 +377,10 @@ struct _img_window_struct
 	/* Clipboard related stuff */
 	GList				*selected_paths;
 	ImgClipboardMode	clipboard_mode;
+	
+	/* Report dialog related widgets */
+	GtkWidget	*report_dialog;
+	GSList		*report_dialog_row_slist;
 };
 
 #endif

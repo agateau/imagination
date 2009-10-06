@@ -44,6 +44,7 @@ static void img_spinbutton_value_changed (GtkSpinButton *, img_window_struct *);
 static void img_slide_cut(GtkMenuItem * , img_window_struct *);
 static void img_slide_copy(GtkMenuItem * , img_window_struct *);
 static void img_slide_paste(GtkMenuItem* , img_window_struct *);
+static void img_report_slides_transitions(GtkMenuItem* , img_window_struct *);
 static void img_clear_audio_files(GtkButton *, img_window_struct *);
 static void img_expand_button_clicked(GtkButton *, img_window_struct *);
 static void img_on_drag_audio_data_received (GtkWidget *,GdkDragContext *, int, int, GtkSelectionData *, unsigned int, unsigned int, img_window_struct *);
@@ -370,6 +371,14 @@ img_window_struct *img_create_window (void)
 	tmp_image = gtk_image_new_from_stock (GTK_STOCK_DELETE,GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (img_struct->remove_menu),tmp_image);
 
+	img_struct->report_menu = gtk_image_menu_item_new_with_mnemonic (_("Repor_t"));
+	gtk_container_add (GTK_CONTAINER (slide_menu), img_struct->report_menu);
+	gtk_widget_add_accelerator( img_struct->report_menu, "activate", img_struct->accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE );
+	g_signal_connect (G_OBJECT (img_struct->report_menu),"activate",G_CALLBACK (img_report_slides_transitions),img_struct);
+
+	tmp_image = gtk_image_new_from_stock (GTK_STOCK_INDEX,GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (img_struct->report_menu),tmp_image);
+	
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"object-rotate-left",GTK_ICON_SIZE_MENU,0,NULL);
 	tmp_image = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
@@ -2411,4 +2420,110 @@ img_switch_mode( img_window_struct *img,
 
 	g_list_free( selection );
 }
+
+static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_struct *img)
+{
+	GtkWidget *vbox, *vbox_rows, *hbox_rows, *frame, *image, *label, *nr_label;
+	GHashTable *trans_nr;
+	GSList *back;
+	GList *keys,*values, *bak, *bak2;
+	GtkTreeModel *model;
+	gint number = 0;
+	gchar *filename, *nr;
+	GdkPixbuf *pixbuf;
+	GtkTreeIter iter;
+	slide_struct *slide_info;
+
+	if (img->report_dialog == NULL)
+	{
+		img->report_dialog = gtk_dialog_new_with_buttons(
+					_("Slides Transitions Report"),
+					GTK_WINDOW( img->imagination_window ),
+					GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
+					GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+					NULL );
+
+		gtk_window_set_modal(GTK_WINDOW(img->report_dialog), FALSE);
+		gtk_button_box_set_layout (GTK_BUTTON_BOX (GTK_DIALOG (img->report_dialog)->action_area), GTK_BUTTONBOX_SPREAD);
+		g_signal_connect (G_OBJECT (img->report_dialog),"delete-event",G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+	}
+	vbox = gtk_dialog_get_content_area( GTK_DIALOG( img->report_dialog ) );
+
+	/* Delete previous shown rows */
+	if (img->report_dialog_row_slist)
+	{
+		back = img->report_dialog_row_slist;
+		while (back)
+		{
+			gtk_widget_destroy(GTK_WIDGET(back->data));
+			back = back->next;
+		}
+		g_slist_free(img->report_dialog_row_slist);
+		img->report_dialog_row_slist = NULL;
+	}
+
+	/* Count the numbers of single transitions in all the slides and store them in the hash table */
+	trans_nr = g_hash_table_new( g_direct_hash, g_direct_equal);
+	model = GTK_TREE_MODEL(img->thumbnail_model);
+	if( gtk_tree_model_get_iter_first( model, &iter ) )
+	{
+		do
+		{
+			gtk_tree_model_get( model, &iter, 1, &slide_info, -1 );
+			if (slide_info->transition_id > 0)
+			{
+				number = (gint) g_hash_table_lookup(trans_nr, GINT_TO_POINTER(slide_info->transition_id));
+				number++;
+				g_hash_table_insert(trans_nr, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
+			}
+		}
+		while( gtk_tree_model_iter_next( model, &iter ) );
+	}
+	/* Display the results */
+	keys   = g_hash_table_get_keys(trans_nr);
+	values = g_hash_table_get_values(trans_nr);
+
+	bak  = keys;
+	bak2 = values;
+	while (bak)
+	{
+		vbox_rows = gtk_vbox_new(TRUE, 5);
+		gtk_box_pack_start(GTK_BOX(vbox), vbox_rows, FALSE, FALSE, 5);
+		img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
+
+		hbox_rows = gtk_hbox_new(TRUE, 5);
+		gtk_box_pack_start(GTK_BOX(vbox_rows), hbox_rows, FALSE, FALSE, 0);
+
+		frame = gtk_frame_new (NULL);
+		gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+		gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
+
+		#if PLUGINS_INSTALLED
+		filename = g_strdup_printf( "%s/imagination/pixmaps/imagination-%d.png", DATADIR, GPOINTER_TO_INT(bak->data));
+		#else /* PLUGINS_INSTALLED */
+		filename =	g_strdup_printf( "./pixmaps/imagination-%d.png", GPOINTER_TO_INT(bak->data));
+		#endif
+
+		pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
+		image = gtk_image_new_from_pixbuf (pixbuf);
+		gtk_container_add (GTK_CONTAINER (frame), image);
+
+		label = gtk_label_new(" = ");
+		gtk_box_pack_start (GTK_BOX (hbox_rows), label, FALSE, FALSE, 0);
+
+		nr = g_strdup_printf("%d",GPOINTER_TO_INT(bak2->data));
+		nr_label = gtk_label_new(nr);
+		g_free(nr);
+		gtk_box_pack_start (GTK_BOX (hbox_rows), nr_label, FALSE, FALSE, 0);
+		bak  = bak->next;
+		bak2 = bak2->next;
+	}
+	g_list_free(keys);
+	g_list_free(values);
+	g_hash_table_destroy(trans_nr);
+
+	gtk_widget_show_all(img->report_dialog);
+}
+
+
 

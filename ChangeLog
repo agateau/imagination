@@ -1,6 +1,7 @@
 Imagination changelog
 
-zz/xx/10 - 2.5:
+zz/10/09 - 2.1:
+			- Added a nice slides transitions report.
 			- Fixed display of music duration after loading the slideshow.
 			- Fixed seg-fault when exporting with audio files.
 
