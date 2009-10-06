@@ -433,7 +433,7 @@ img_start_export( img_window_struct *img )
 	gtk_tree_model_get_iter_first( model, &iter );
 	gtk_tree_model_get( model, &iter, 1, &entry, -1 );
 
-	if( ! entry->filename )
+	if( ! entry->o_filename )
 	{
 		img_scale_gradient( entry->gradient, entry->g_start_point,
 							entry->g_stop_point, entry->g_start_color,
@@ -442,7 +442,7 @@ img_start_export( img_window_struct *img )
 	}
 	else
 	{
-		img_scale_image( entry->filename, img->video_ratio,
+		img_scale_image( entry->r_filename, img->video_ratio,
 						 0, 0, img->distort_images,
 						 img->background_color, NULL, &img->image2 );
 	}
@@ -626,7 +626,7 @@ img_prepare_pixbufs( img_window_struct *img,
 		img->image1 = img->image2;
 		gtk_tree_model_get( model, &img->cur_ss_iter, 1, &img->work_slide, -1 );
 
-		if( ! img->work_slide->filename )
+		if( ! img->work_slide->o_filename )
 		{
 			img_scale_gradient( img->work_slide->gradient,
 								img->work_slide->g_start_point,
@@ -637,11 +637,11 @@ img_prepare_pixbufs( img_window_struct *img,
 								img->video_size[1], NULL, &img->image2 );
 		}
 		else if( preview && img->low_quality )
-			img_scale_image( img->work_slide->filename, img->video_ratio,
+			img_scale_image( img->work_slide->r_filename, img->video_ratio,
 							 0, img->video_size[1], img->distort_images,
 							 img->background_color, NULL, &img->image2 );
 		else
-			img_scale_image( img->work_slide->filename, img->video_ratio,
+			img_scale_image( img->work_slide->r_filename, img->video_ratio,
 							 0, 0, img->distort_images,
 							 img->background_color, NULL, &img->image2 );
 

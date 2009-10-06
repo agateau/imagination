@@ -18,6 +18,7 @@
  */
 
 #include "support.h"
+#include <glib/gstdio.h>
 
 #define PLUGINS_INSTALLED 0
 
@@ -296,8 +297,9 @@ img_set_slide_file_info( slide_struct *slide,
 
 	format = gdk_pixbuf_get_file_info( filename, &width, &height );
 
-	slide->filename = g_strdup( filename );
-	slide->original_filename = NULL;
+	slide->o_filename = g_strdup( filename );
+	slide->r_filename = g_strdup( filename );
+	slide->angle = 0;
 	
 	slide->resolution = g_strdup_printf( "%d x %d", width, height );
 	slide->type = gdk_pixbuf_format_get_name( format );
@@ -492,9 +494,10 @@ img_free_slide_struct( slide_struct *entry )
 {
 	GList *tmp;
 
-	if (entry->original_filename)
-		g_free(entry->original_filename);
-	g_free(entry->filename);
+	if( entry->angle != ANGLE_0 )
+		g_unlink( entry->r_filename );
+	g_free(entry->o_filename);
+	g_free(entry->r_filename);
 	g_free(entry->resolution);
 	g_free(entry->type);
 	

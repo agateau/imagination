@@ -234,7 +234,7 @@ img_update_thumbs( img_window_struct *img )
 		GdkPixbuf    *pix;
 
 		gtk_tree_model_get( model, &iter, 1, &slide, -1 );
-		if( img_scale_image( slide->filename, img->video_ratio, 88, 0,
+		if( img_scale_image( slide->r_filename, img->video_ratio, 88, 0,
 							 img->distort_images, img->background_color,
 							 &pix, NULL ) )
 		{
@@ -251,7 +251,7 @@ img_update_current_slide( img_window_struct *img )
 		return;
 
 	cairo_surface_destroy( img->current_image );
-	img_scale_image( img->current_slide->filename, img->video_ratio,
+	img_scale_image( img->current_slide->r_filename, img->video_ratio,
 					 0, img->video_size[1], img->distort_images,
 					 img->background_color, NULL, &img->current_image );
 	gtk_widget_queue_draw( img->image_area );

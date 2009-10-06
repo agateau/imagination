@@ -1311,8 +1311,8 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 			{
 				/* Fill fields with fresh strings, since g_slice_copy cannot do
 				 * that for us. */
-				pasted_slide->filename = g_strdup(info_slide->filename);
-				pasted_slide->original_filename = g_strdup(info_slide->original_filename);
+				pasted_slide->o_filename = g_strdup(info_slide->o_filename);
+				pasted_slide->r_filename = g_strdup(info_slide->r_filename);
 				pasted_slide->resolution = g_strdup(info_slide->resolution);
 				pasted_slide->type = g_strdup(info_slide->type);
 				pasted_slide->path = g_strdup(info_slide->path);
@@ -1580,9 +1580,9 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 	}
 	else
 	{
-		if (info_slide->filename != NULL)
+		if (info_slide->o_filename != NULL)
 		{
-			slide_info_msg = g_strdup_printf("%s    %s: %s    %s: %s",info_slide->filename, _("Resolution"), info_slide->resolution, _("Type"), info_slide->type);
+			slide_info_msg = g_strdup_printf("%s    %s: %s    %s: %s",info_slide->o_filename, _("Resolution"), info_slide->resolution, _("Type"), info_slide->type);
 			gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);
 			g_free(slide_info_msg);
 		}
@@ -1600,7 +1600,7 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 	 * large image preview. */
 	if( img->mode == 0 )
 	{
-		if( ! info_slide->filename )
+		if( ! info_slide->r_filename )
 		{
 			img_scale_gradient( info_slide->gradient,
 								info_slide->g_start_point,
@@ -1613,12 +1613,12 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 		}
 		/* Respect quality settings */
 		else if( img->low_quality )
-			img_scale_image( info_slide->filename,
+			img_scale_image( info_slide->r_filename,
 							 (gdouble)img->video_size[0] / img->video_size[1],
 							 0, img->video_size[1], img->distort_images,
 							 img->background_color, NULL, &img->current_image );
 		else
-			img_scale_image( info_slide->filename,
+			img_scale_image( info_slide->r_filename,
 							 (gdouble)img->video_size[0] / img->video_size[1],
 							 0, 0, img->distort_images,
 							 img->background_color, NULL, &img->current_image );

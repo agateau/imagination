@@ -57,10 +57,13 @@ img_save_slideshow( img_window_struct *img,
 		gtk_tree_model_get(model, &iter,1,&entry,-1);
 		conf = g_strdup_printf("slide %d",count);
 
-		if (entry->original_filename)
-			g_key_file_set_string(img_key_file, conf,"filename", entry->original_filename);
-		else if (entry->filename)
-			g_key_file_set_string(img_key_file, conf,"filename",	entry->filename);
+		if( entry->o_filename)
+		{
+			/* Save original filename and rotation */
+			g_key_file_set_string( img_key_file, conf,
+								   "filename", entry->o_filename);
+			g_key_file_set_integer( img_key_file, conf, "angle", entry->angle );
+		}
 		else
 		{
 			/* We are dealing with an empty slide */
@@ -313,6 +316,7 @@ img_load_slideshow( img_window_struct *img,
 		gint anim_id,anim_duration, text_pos, placing, gradient;
 		GdkPixbuf *pix = NULL;
 		gboolean   load_ok;
+		ImgAngle   angle;
 	
 		/* Load project backgroud color */
 		color = g_key_file_get_double_list( img_key_file, "slideshow settings",
@@ -337,6 +341,8 @@ img_load_slideshow( img_window_struct *img,
 
 			if( slide_filename )
 			{
+				angle = (ImgAngle)g_key_file_get_integer( img_key_file, conf,
+														  "angle", NULL );
 				load_ok = img_scale_image( slide_filename, img->video_ratio,
 										   88, 0, img->distort_images,
 										   img->background_color, &thumb, NULL );
@@ -391,6 +397,16 @@ img_load_slideshow( img_window_struct *img,
 						img_set_slide_gradient_info( slide_info, gradient,
 													 c_start, c_stop,
 													 p_start, p_stop );
+
+					/* If image has been rotated, rotate it now too. */
+					if( angle )
+					{
+						img_rotate_slide( slide_info, angle, NULL );
+						g_object_unref( thumb );
+						img_scale_image( slide_info->r_filename, img->video_ratio,
+										 88, 0, img->distort_images,
+										 img->background_color, &thumb, NULL );
+					}
 
 					gtk_list_store_append( img->thumbnail_model, &iter );
 					gtk_list_store_set( img->thumbnail_model, &iter,

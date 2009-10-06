@@ -135,4 +135,8 @@ img_load_window_settings( img_window_struct *img );
 void
 img_set_window_default_settings( img_window_struct *img );
 
+void
+img_rotate_slide( slide_struct   *slide,
+				  ImgAngle        angle,
+				  GtkProgressBar *progress );
 #endif

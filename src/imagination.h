@@ -66,6 +66,15 @@ typedef enum
 }
 ImgRelPlacing;
 
+typedef enum
+{
+	ANGLE_0 = 0,
+	ANGLE_90,
+	ANGLE_180,
+	ANGLE_270
+}
+ImgAngle;
+
 /*
  * TextAnimationFunc:
  * @cr: cairo context that should be used for drawing
@@ -141,8 +150,9 @@ struct _slide_struct
 	gchar *type;              /* Image type */
 
 	/* Fields that are filled when we load slide from disk */
-	gchar *filename;          /* Filename of the image that slide represents */
-	gchar *original_filename; /* This is filled if the image has been rotated */
+	gchar    *o_filename; /* Filename of the image that slide represents */
+	gchar    *r_filename; /* o_filename, rotated according to angle */
+	ImgAngle  angle;      /* Angle of rotated image */
 
 	/* Fields that are filled if we create slide in memory */
 	gint    gradient;         /* Gradient type */
@@ -211,7 +221,6 @@ struct _img_window_struct
   	guint		context_id;
   	GtkListStore *thumbnail_model;
   	gchar		*current_dir;
-	GSList		*rotated_files;
 
 	GtkWidget   *paned; /* Main paned (used for saving/restoring geometry) */
 
