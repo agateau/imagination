@@ -2424,12 +2424,13 @@ img_switch_mode( img_window_struct *img,
 static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_struct *img)
 {
 	GtkWidget *vbox, *vbox_rows, *hbox_rows, *frame, *image, *label, *nr_label;
-	GHashTable *trans_nr;
-	GSList *back;
-	GList *keys,*values, *bak, *bak2;
+	GHashTable *trans_hash, *slide_filename_hash;
+	GSList *back = NULL;
+	GList *keys,*values, *bak, *bak2, *bak3, *slide_info_pnt = NULL;
 	GtkTreeModel *model;
 	gint number = 0;
 	gchar *filename, *nr;
+	GdkPixbuf *thumb;
 	GtkTreeIter iter;
 	slide_struct *slide_info;
 
@@ -2461,29 +2462,42 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		img->report_dialog_row_slist = NULL;
 	}
 
-	/* Count the numbers of single transitions in all the slides and store them in the hash table */
-	trans_nr = g_hash_table_new( g_direct_hash, g_direct_equal);
+	/* Count the numbers of times the same transition is applied and store them in the hash table */
+	trans_hash = g_hash_table_new( g_direct_hash, g_direct_equal);
+	slide_filename_hash = g_hash_table_new_full( g_direct_hash, g_direct_equal, NULL, (GDestroyNotify)g_list_free );
+
 	model = GTK_TREE_MODEL(img->thumbnail_model);
 	if( gtk_tree_model_get_iter_first( model, &iter ) )
 	{
 		do
 		{
-			gtk_tree_model_get( model, &iter, 1, &slide_info, -1 );
+			gtk_tree_model_get( model, &iter, 0, &thumb, 1, &slide_info, -1 );
 			if (slide_info->transition_id > 0)
 			{
-				number = (gint) g_hash_table_lookup(trans_nr, GINT_TO_POINTER(slide_info->transition_id));
+				/* Increment the number of times of the same transition id */
+				number = (gint) g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id));
 				number++;
-				g_hash_table_insert(trans_nr, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
+				g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
+
+				/* Store a GList containing the slide_info structs of the slides with that transition_id */
+				slide_info_pnt = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
+				if (slide_info_pnt == NULL)
+				{
+					slide_info_pnt = g_list_append(slide_info_pnt, thumb);
+					g_hash_table_insert(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id), (gpointer)(slide_info_pnt) );
+				}
+				else
+					slide_info_pnt = g_list_append(slide_info_pnt, thumb);
 			}
 		}
 		while( gtk_tree_model_iter_next( model, &iter ) );
 	}
 	/* Display the results */
-	keys   = g_hash_table_get_keys(trans_nr);
-	values = g_hash_table_get_values(trans_nr);
-
+	keys				= g_hash_table_get_keys  (trans_hash);
+	values				= g_hash_table_get_values(trans_hash);
 	bak  = keys;
 	bak2 = values;
+
 	while (bak)
 	{
 		/* Set the vertical box container */
@@ -2497,7 +2511,6 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 
 		/* Set the frame to contain the image of the transition */
 		frame = gtk_frame_new (NULL);
-		gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 		gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
 
 		#if PLUGINS_INSTALLED
@@ -2516,17 +2529,31 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 
 		nr = g_strdup_printf(ngettext("%d time" , "%d times", GPOINTER_TO_INT(bak2->data)), GPOINTER_TO_INT(bak2->data));
 		nr_label = gtk_label_new(nr);
-		g_free(nr);
 		gtk_box_pack_start (GTK_BOX (hbox_rows), nr_label, FALSE, FALSE, 0);
-	
+		g_free(nr);
+
+		/* Get the GList (the thumb pixbuf) we stored before according to transition id */
+		bak3 = g_hash_table_lookup(slide_filename_hash, bak->data);
+		while (bak3)
+		{
+			frame = gtk_frame_new (NULL);
+			gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
+
+			thumb = ((GdkPixbuf*)bak3->data);
+			image = gtk_image_new_from_pixbuf(thumb);
+			gtk_container_add (GTK_CONTAINER (frame), image);
+
+			bak3 = bak3->next;
+		}
 		/* Display the slide thumbnail which has that transition set */
 		bak  = bak->next;
 		bak2 = bak2->next;
 	}
 	/* Free lists and table */
-	g_list_free(keys);
-	g_list_free(values);
-	g_hash_table_destroy(trans_nr);
+	g_list_free (keys);
+	g_list_free (values);
+	g_hash_table_destroy (trans_hash);
+	g_hash_table_destroy (slide_filename_hash);
 
 	gtk_widget_show_all(img->report_dialog);
 }
