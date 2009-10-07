@@ -2430,7 +2430,6 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	GtkTreeModel *model;
 	gint number = 0;
 	gchar *filename, *nr;
-	GdkPixbuf *pixbuf;
 	GtkTreeIter iter;
 	slide_struct *slide_info;
 
@@ -2487,13 +2486,16 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	bak2 = values;
 	while (bak)
 	{
+		/* Set the vertical box container */
 		vbox_rows = gtk_vbox_new(TRUE, 5);
 		gtk_box_pack_start(GTK_BOX(vbox), vbox_rows, FALSE, FALSE, 5);
 		img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
 
+		/* Set the horizontal box container */
 		hbox_rows = gtk_hbox_new(TRUE, 5);
 		gtk_box_pack_start(GTK_BOX(vbox_rows), hbox_rows, FALSE, FALSE, 0);
 
+		/* Set the frame to contain the image of the transition */
 		frame = gtk_frame_new (NULL);
 		gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 		gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
@@ -2504,20 +2506,24 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		filename =	g_strdup_printf( "./pixmaps/imagination-%d.png", GPOINTER_TO_INT(bak->data));
 		#endif
 
-		pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
-		image = gtk_image_new_from_pixbuf (pixbuf);
+		image = gtk_image_new_from_file(filename);
+		g_free(filename);
 		gtk_container_add (GTK_CONTAINER (frame), image);
 
+		/* Set the label = and the one with the number of transitions */
 		label = gtk_label_new(" = ");
 		gtk_box_pack_start (GTK_BOX (hbox_rows), label, FALSE, FALSE, 0);
 
-		nr = g_strdup_printf("%d",GPOINTER_TO_INT(bak2->data));
+		nr = g_strdup_printf(ngettext("%d time" , "%d times", GPOINTER_TO_INT(bak2->data)), GPOINTER_TO_INT(bak2->data));
 		nr_label = gtk_label_new(nr);
 		g_free(nr);
 		gtk_box_pack_start (GTK_BOX (hbox_rows), nr_label, FALSE, FALSE, 0);
+	
+		/* Display the slide thumbnail which has that transition set */
 		bak  = bak->next;
 		bak2 = bak2->next;
 	}
+	/* Free lists and table */
 	g_list_free(keys);
 	g_list_free(values);
 	g_hash_table_destroy(trans_nr);
