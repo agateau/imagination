@@ -2446,6 +2446,7 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		gtk_window_set_modal(GTK_WINDOW(img->report_dialog), FALSE);
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (GTK_DIALOG (img->report_dialog)->action_area), GTK_BUTTONBOX_SPREAD);
 		g_signal_connect (G_OBJECT (img->report_dialog),"delete-event",G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+		g_signal_connect (G_OBJECT (img->report_dialog),"response",G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 	}
 	vbox = gtk_dialog_get_content_area( GTK_DIALOG( img->report_dialog ) );
 
@@ -2479,7 +2480,7 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 				number++;
 				g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
 
-				/* Store a GList containing the slide_info structs of the slides with that transition_id */
+				/* Store a GList containing the thumb pixbuf of the slides with that transition_id */
 				slide_info_pnt = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
 				if (slide_info_pnt == NULL)
 				{
@@ -2506,11 +2507,12 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
 
 		/* Set the horizontal box container */
-		hbox_rows = gtk_hbox_new(TRUE, 5);
+		hbox_rows = gtk_hbox_new(FALSE, 5);
 		gtk_box_pack_start(GTK_BOX(vbox_rows), hbox_rows, FALSE, FALSE, 0);
 
 		/* Set the frame to contain the image of the transition */
-		frame = gtk_frame_new (NULL);
+		frame = gtk_frame_new(NULL);
+		gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
 		gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
 
 		#if PLUGINS_INSTALLED
