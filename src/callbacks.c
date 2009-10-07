@@ -1469,6 +1469,12 @@ void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 	img->background_color[2] = 0;
 	img->final_transition.speed = NORMAL;
 	img->final_transition.render = NULL;
+
+	/* Disable ken burns controls */
+	img_ken_burns_update_sensitivity( img, FALSE, 0 );
+
+	/* Disable subtitle controls */
+	img_subtitle_update_sensitivity( img, 0 );
 }
 
 void img_move_audio_up( GtkButton *button, img_window_struct *img )
