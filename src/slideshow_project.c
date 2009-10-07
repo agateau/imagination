@@ -316,7 +316,7 @@ img_load_slideshow( img_window_struct *img,
 		gint anim_id,anim_duration, text_pos, placing, gradient;
 		GdkPixbuf *pix = NULL;
 		gboolean   load_ok;
-		ImgAngle   angle;
+		ImgAngle   angle = 0;
 	
 		/* Load project backgroud color */
 		color = g_key_file_get_double_list( img_key_file, "slideshow settings",
