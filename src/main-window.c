@@ -2434,6 +2434,10 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	GtkTreeIter iter;
 	slide_struct *slide_info;
 
+	model = GTK_TREE_MODEL(img->thumbnail_model);
+	if( gtk_tree_model_get_iter_first( model, &iter ) == 0)
+		return;
+
 	if (img->report_dialog == NULL)
 	{
 		img->report_dialog = gtk_dialog_new_with_buttons(
@@ -2467,32 +2471,29 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	trans_hash = g_hash_table_new( g_direct_hash, g_direct_equal);
 	slide_filename_hash = g_hash_table_new_full( g_direct_hash, g_direct_equal, NULL, (GDestroyNotify)g_list_free );
 
-	model = GTK_TREE_MODEL(img->thumbnail_model);
-	if( gtk_tree_model_get_iter_first( model, &iter ) )
+	do
 	{
-		do
+		gtk_tree_model_get( model, &iter, 0, &thumb, 1, &slide_info, -1 );
+		if (slide_info->transition_id > 0)
 		{
-			gtk_tree_model_get( model, &iter, 0, &thumb, 1, &slide_info, -1 );
-			if (slide_info->transition_id > 0)
-			{
-				/* Increment the number of times of the same transition id */
-				number = (gint) g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id));
-				number++;
-				g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
+			/* Increment the number of times of the same transition id */
+			number = (gint) g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id));
+			number++;
+			g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
 
-				/* Store a GList containing the thumb pixbuf of the slides with that transition_id */
-				slide_info_pnt = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
-				if (slide_info_pnt == NULL)
-				{
-					slide_info_pnt = g_list_append(slide_info_pnt, thumb);
-					g_hash_table_insert(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id), (gpointer)(slide_info_pnt) );
-				}
-				else
-					slide_info_pnt = g_list_append(slide_info_pnt, thumb);
+			/* Store a GList containing the thumb pixbuf of the slides with that transition_id */
+			slide_info_pnt = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
+			if (slide_info_pnt == NULL)
+			{
+				slide_info_pnt = g_list_append(slide_info_pnt, thumb);
+				g_hash_table_insert(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id), (gpointer)(slide_info_pnt) );
 			}
+			else
+				slide_info_pnt = g_list_append(slide_info_pnt, thumb);
 		}
-		while( gtk_tree_model_iter_next( model, &iter ) );
 	}
+	while( gtk_tree_model_iter_next( model, &iter ) );
+
 	/* Display the results */
 	keys				= g_hash_table_get_keys  (trans_hash);
 	values				= g_hash_table_get_values(trans_hash);
