@@ -204,6 +204,8 @@ struct _img_window_struct
 	GtkWidget	*report_menu;
 	GtkWidget	*preview_menu;
 	GtkWidget 	*preview_button;
+	GtkWidget	*menu_preview_mode;
+	GtkWidget	*menu_overview_mode;
 	GtkWidget	*transition_type;
 	GtkWidget	*random_button;
 	GtkWidget	*duration;				// Duration spin button

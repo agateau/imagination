@@ -2588,8 +2588,12 @@ img_load_window_settings( img_window_struct *img )
 
 	/* Update mode */
 	img->mode = - 1;
+	
 	img_switch_mode( img, m );
-
+	if (m == 0)
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (img->menu_preview_mode), TRUE);
+	else
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (img->menu_overview_mode), TRUE);
 	/* Update window size and gutter position */
 	gtk_window_set_default_size( GTK_WINDOW( img->imagination_window ), w, h );
 	gtk_paned_set_position( GTK_PANED( img->paned ), g );

@@ -95,7 +95,6 @@ img_window_struct *img_create_window (void)
 	GtkWidget *menuitem1;
 	GtkWidget *menu1;
 	GtkWidget *imagemenuitem1;
-	GtkWidget *imagemenuitem2;
 	GtkWidget *imagemenuitem5;
 	GtkWidget *separatormenuitem1;
 	GtkWidget *menuitem2;
@@ -421,14 +420,14 @@ img_window_struct *img_create_window (void)
 	menu1 = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem1), menu1);
 
-	imagemenuitem1 = gtk_radio_menu_item_new_with_label( NULL, _("Preview mode") );
-	g_signal_connect( G_OBJECT( imagemenuitem1 ), "toggled",
+	img_struct->menu_preview_mode = gtk_radio_menu_item_new_with_label( NULL, _("Preview mode") );
+	g_signal_connect( G_OBJECT( img_struct->menu_preview_mode ), "toggled",
 					  G_CALLBACK( img_toggle_mode ), img_struct );
-	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), imagemenuitem1 );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), img_struct->menu_preview_mode );
 
-	imagemenuitem2 = gtk_radio_menu_item_new_with_label_from_widget( 
-							GTK_RADIO_MENU_ITEM( imagemenuitem1 ), _("Overview mode") );
-	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), imagemenuitem2 );
+	img_struct->menu_overview_mode = gtk_radio_menu_item_new_with_label_from_widget( 
+							GTK_RADIO_MENU_ITEM( img_struct->menu_preview_mode ), _("Overview mode") );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), img_struct->menu_overview_mode );
 
 	menuitem3 = gtk_menu_item_new_with_mnemonic (_("_Help"));
 	gtk_container_add (GTK_CONTAINER (menubar), menuitem3);
@@ -2423,7 +2422,7 @@ img_switch_mode( img_window_struct *img,
 
 static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_struct *img)
 {
-	GtkWidget *vbox, *vbox_rows, *hbox_rows, *frame, *image, *label, *nr_label;
+	GtkWidget *vbox, *viewport, *swindow, *vbox_rows, *hbox_rows, *frame, *image, *label, *nr_label;
 	GHashTable *trans_hash, *slide_filename_hash;
 	GSList *back = NULL;
 	GList *keys,*values, *bak, *bak2, *bak3, *slide_info_pnt = NULL;
@@ -2453,6 +2452,14 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		g_signal_connect (G_OBJECT (img->report_dialog),"response",G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 	}
 	vbox = gtk_dialog_get_content_area( GTK_DIALOG( img->report_dialog ) );
+
+	swindow = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_box_pack_start( GTK_BOX( vbox ), swindow, TRUE, TRUE, 0 );
+
+	viewport = gtk_viewport_new( NULL, NULL );
+	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
+	gtk_container_add( GTK_CONTAINER( swindow ), viewport );
 
 	/* Delete previous shown rows */
 	if (img->report_dialog_row_slist)
@@ -2500,13 +2507,13 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	bak  = keys;
 	bak2 = values;
 
+	/* Set the vertical box container */
+	vbox_rows = gtk_vbox_new(TRUE, 5);
+	gtk_container_add( GTK_CONTAINER( viewport ), vbox_rows );
+	img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
+
 	while (bak)
 	{
-		/* Set the vertical box container */
-		vbox_rows = gtk_vbox_new(TRUE, 5);
-		gtk_box_pack_start(GTK_BOX(vbox), vbox_rows, FALSE, FALSE, 5);
-		img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
-
 		/* Set the horizontal box container */
 		hbox_rows = gtk_hbox_new(FALSE, 5);
 		gtk_box_pack_start(GTK_BOX(vbox_rows), hbox_rows, FALSE, FALSE, 0);
