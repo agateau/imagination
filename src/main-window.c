@@ -1135,9 +1135,13 @@ img_window_struct *img_create_window (void)
 		gtk_cell_layout_pack_start( GTK_CELL_LAYOUT( icon ), cell, FALSE );
 		img_struct->over_cell = G_OBJECT( cell );
 
+#if PLUGINS_INSTALLED
 		path = g_strconcat( DATADIR,
 							"/imagination/pixmaps/imagination-text.png",
 							NULL );
+#else
+		path = g_strdup( "pixmaps/imagination-text.png" );
+#endif
 		text = gdk_pixbuf_new_from_file( path, NULL );
 		g_free( path );
 		g_object_set( G_OBJECT( cell ), "ypad", 2,
@@ -1183,9 +1187,13 @@ img_window_struct *img_create_window (void)
 		gchar     *path;
 		GdkPixbuf *text;
 
+#if PLUGINS_INSTALLED
 		path = g_strconcat( DATADIR,
 							"/imagination/pixmaps/imagination-text.png",
 							NULL );
+#else
+		path = g_strdup( "pixmaps/imagination-text.png" );
+#endif
 		text = gdk_pixbuf_new_from_file( path, NULL );
 		g_free( path );
 		g_object_set( G_OBJECT( pixbuf_cell ), "width", 115,
