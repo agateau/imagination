@@ -1475,6 +1475,8 @@ void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 
 	/* Disable subtitle controls */
 	img_subtitle_update_sensitivity( img, 0 );
+	
+	gtk_entry_set_text(GTK_ENTRY(img->slide_number_entry), "");
 }
 
 void img_move_audio_up( GtkButton *button, img_window_struct *img )

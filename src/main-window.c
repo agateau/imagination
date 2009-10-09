@@ -58,6 +58,7 @@ static void img_goto_line_entry_activate(GtkWidget *, img_window_struct *);
 static gint img_sort_none_before_other(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, gpointer);
 static void img_check_numeric_entry (GtkEditable *entry, gchar *text, gint lenght, gint *position, gpointer data);
 static void img_show_uri(GtkMenuItem *, img_window_struct *);
+static void img_select_slide_from_slide_report_dialog(GtkButton *, img_window_struct *);
 
 static void
 img_create_export_menu( GtkWidget         *item,
@@ -1698,6 +1699,7 @@ static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_windo
 	}
 	g_free( path );
 	img->project_is_modified = TRUE;
+	img_report_slides_transitions(NULL, img);
 	img_set_total_slideshow_duration(img);
 	g_list_foreach (bak, (GFunc)gtk_tree_path_free, NULL);
 	g_list_free(bak);
@@ -2422,10 +2424,10 @@ img_switch_mode( img_window_struct *img,
 
 static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_struct *img)
 {
-	GtkWidget *vbox, *viewport, *swindow, *vbox_rows, *hbox_rows, *frame, *image, *label, *nr_label;
+	GtkWidget *hbox_rows, *frame, *image, *label, *nr_label, *slide_button;
+	static GtkWidget *vbox, *viewport, *swindow;
 	GHashTable *trans_hash, *slide_filename_hash;
-	GSList *back = NULL;
-	GList *keys,*values, *bak, *bak2, *bak3, *slide_info_pnt = NULL;
+	GList *keys,*values, *bak, *bak2, *bak3, *button_list = NULL;
 	GtkTreeModel *model;
 	gint number = 0;
 	gchar *filename, *nr;
@@ -2440,38 +2442,33 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	if (img->report_dialog == NULL)
 	{
 		img->report_dialog = gtk_dialog_new_with_buttons(
-					_("Slides Transitions Report"),
+					_("Slides Transitions Report Dialog"),
 					GTK_WINDOW( img->imagination_window ),
 					GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
-					GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+					GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT,
 					NULL );
 
+		gtk_container_set_border_width(GTK_CONTAINER(img->report_dialog), 10);		
+		gtk_window_set_default_size(GTK_WINDOW(img->report_dialog), 480, 370);
 		gtk_window_set_modal(GTK_WINDOW(img->report_dialog), FALSE);
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (GTK_DIALOG (img->report_dialog)->action_area), GTK_BUTTONBOX_SPREAD);
 		g_signal_connect (G_OBJECT (img->report_dialog),"delete-event",G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 		g_signal_connect (G_OBJECT (img->report_dialog),"response",G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+
+		vbox = gtk_dialog_get_content_area( GTK_DIALOG( img->report_dialog ) );
+		swindow = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+		gtk_box_pack_start( GTK_BOX( vbox ), swindow, TRUE, TRUE, 0 );
+
+		viewport = gtk_viewport_new( NULL, NULL );
+		gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
+		gtk_container_add( GTK_CONTAINER( swindow ), viewport );
 	}
-	vbox = gtk_dialog_get_content_area( GTK_DIALOG( img->report_dialog ) );
-
-	swindow = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start( GTK_BOX( vbox ), swindow, TRUE, TRUE, 0 );
-
-	viewport = gtk_viewport_new( NULL, NULL );
-	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
-	gtk_container_add( GTK_CONTAINER( swindow ), viewport );
-
 	/* Delete previous shown rows */
-	if (img->report_dialog_row_slist)
+	if (img->vbox_slide_report_rows)
 	{
-		back = img->report_dialog_row_slist;
-		while (back)
-		{
-			gtk_widget_destroy(GTK_WIDGET(back->data));
-			back = back->next;
-		}
-		g_slist_free(img->report_dialog_row_slist);
-		img->report_dialog_row_slist = NULL;
+		gtk_widget_destroy(img->vbox_slide_report_rows);
+		img->vbox_slide_report_rows = NULL;
 	}
 
 	/* Count the numbers of times the same transition is applied and store them in the hash table */
@@ -2480,7 +2477,21 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 
 	do
 	{
+		GtkTreePath *path;
 		gtk_tree_model_get( model, &iter, 0, &thumb, 1, &slide_info, -1 );
+
+		/* Create the button and set its image to the thumbnail of the slide */
+		slide_button = gtk_button_new();
+		image = gtk_image_new_from_pixbuf(thumb);
+		g_object_unref(thumb);
+		gtk_button_set_image(GTK_BUTTON(slide_button), image);
+		g_signal_connect (G_OBJECT (slide_button), "clicked", G_CALLBACK(img_select_slide_from_slide_report_dialog), img);
+
+		/* Get the slide number and store it in the gtk button */
+		path = gtk_tree_model_get_path(model, &iter);
+		g_object_set_data(G_OBJECT(slide_button), "index", GINT_TO_POINTER(gtk_tree_path_get_indices(path)[0]));
+		gtk_tree_path_free(path);
+
 		if (slide_info->transition_id > 0)
 		{
 			/* Increment the number of times of the same transition id */
@@ -2489,14 +2500,14 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 			g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
 
 			/* Store a GList containing the thumb pixbuf of the slides with that transition_id */
-			slide_info_pnt = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
-			if (slide_info_pnt == NULL)
+			button_list = (GList*) g_hash_table_lookup(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id));
+			if (button_list == NULL)
 			{
-				slide_info_pnt = g_list_append(slide_info_pnt, thumb);
-				g_hash_table_insert(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id), (gpointer)(slide_info_pnt) );
+				button_list = g_list_append(button_list, slide_button);
+				g_hash_table_insert(slide_filename_hash, GINT_TO_POINTER(slide_info->transition_id), (gpointer)(button_list) );
 			}
 			else
-				slide_info_pnt = g_list_append(slide_info_pnt, thumb);
+				button_list = g_list_append(button_list, slide_button);
 		}
 	}
 	while( gtk_tree_model_iter_next( model, &iter ) );
@@ -2507,54 +2518,57 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	bak  = keys;
 	bak2 = values;
 
-	/* Set the vertical box container */
-	vbox_rows = gtk_vbox_new(TRUE, 5);
-	gtk_container_add( GTK_CONTAINER( viewport ), vbox_rows );
-	img->report_dialog_row_slist = g_slist_append(img->report_dialog_row_slist, vbox_rows);
+	/* Set the vertical box container that was previously
+	 * destroyed so to allow update in real time */
+	img->vbox_slide_report_rows = gtk_vbox_new(FALSE, 15);
+	gtk_container_add( GTK_CONTAINER( viewport ), img->vbox_slide_report_rows );
+
+	label = gtk_label_new(_("\n<span weight='bold'>Note:</span>\n\nSlides whose transition is applied only once are not shown here.\nClick on the slide to have Imagination automatically select it."));
+	gtk_misc_set_alignment(GTK_MISC(label),0.0, 0.5);
+	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
+	gtk_box_pack_start(GTK_BOX(img->vbox_slide_report_rows), label, FALSE, FALSE, 0);
 
 	while (bak)
 	{
-		/* Set the horizontal box container */
-		hbox_rows = gtk_hbox_new(FALSE, 5);
-		gtk_box_pack_start(GTK_BOX(vbox_rows), hbox_rows, FALSE, FALSE, 0);
-
-		/* Set the frame to contain the image of the transition */
-		frame = gtk_frame_new(NULL);
-		gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
-		gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
-
-		#if PLUGINS_INSTALLED
-		filename = g_strdup_printf( "%s/imagination/pixmaps/imagination-%d.png", DATADIR, GPOINTER_TO_INT(bak->data));
-		#else /* PLUGINS_INSTALLED */
-		filename =	g_strdup_printf( "./pixmaps/imagination-%d.png", GPOINTER_TO_INT(bak->data));
-		#endif
-
-		image = gtk_image_new_from_file(filename);
-		g_free(filename);
-		gtk_container_add (GTK_CONTAINER (frame), image);
-
-		/* Set the label = and the one with the number of transitions */
-		label = gtk_label_new(" = ");
-		gtk_box_pack_start (GTK_BOX (hbox_rows), label, FALSE, FALSE, 0);
-
-		nr = g_strdup_printf(ngettext("%d time" , "%d times", GPOINTER_TO_INT(bak2->data)), GPOINTER_TO_INT(bak2->data));
-		nr_label = gtk_label_new(nr);
-		gtk_box_pack_start (GTK_BOX (hbox_rows), nr_label, FALSE, FALSE, 0);
-		g_free(nr);
-
-		/* Get the GList (the thumb pixbuf) we stored before according to transition id */
-		bak3 = g_hash_table_lookup(slide_filename_hash, bak->data);
-		while (bak3)
+		if (GPOINTER_TO_INT(bak2->data) > 1)
 		{
-			frame = gtk_frame_new (NULL);
+			/* Set the horizontal box container */
+			hbox_rows = gtk_hbox_new(FALSE, 15);
+			gtk_box_pack_start(GTK_BOX(img->vbox_slide_report_rows), hbox_rows, FALSE, FALSE, 0);
+
+			/* Set the frame to contain the image of the transition */
+			frame = gtk_frame_new(NULL);
+			gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
 			gtk_box_pack_start (GTK_BOX (hbox_rows), frame, FALSE, FALSE, 0);
 
-			thumb = ((GdkPixbuf*)bak3->data);
-			image = gtk_image_new_from_pixbuf(thumb);
+			#if PLUGINS_INSTALLED
+			filename = g_strdup_printf( "%s/imagination/pixmaps/imagination-%d.png", DATADIR, GPOINTER_TO_INT(bak->data));
+			#else /* PLUGINS_INSTALLED */
+			filename =	g_strdup_printf( "./pixmaps/imagination-%d.png", GPOINTER_TO_INT(bak->data));
+			#endif
+
+			image = gtk_image_new_from_file(filename);
+			g_free(filename);
 			gtk_container_add (GTK_CONTAINER (frame), image);
 
-			bak3 = bak3->next;
+			nr = g_strdup_printf("(%d)", GPOINTER_TO_INT(bak2->data));
+			nr_label = gtk_label_new(nr);
+			gtk_box_pack_start (GTK_BOX (hbox_rows), nr_label, FALSE, FALSE, 0);
+			g_free(nr);
+
+			/* Set the label = and the one with the number of transitions 
+			label = gtk_label_new(" = ");
+			gtk_box_pack_start (GTK_BOX (hbox_rows), label, FALSE, FALSE, 0);*/
+
+			/* Get the GList (the gtk button) we stored before according to transition id */
+			bak3 = g_hash_table_lookup(slide_filename_hash, bak->data);
+			while (bak3)
+			{
+				gtk_box_pack_start (GTK_BOX (hbox_rows), bak3->data, FALSE, FALSE, 0);
+				bak3 = bak3->next;
+			}
 		}
+
 		/* Display the slide thumbnail which has that transition set */
 		bak  = bak->next;
 		bak2 = bak2->next;
@@ -2568,5 +2582,16 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	gtk_widget_show_all(img->report_dialog);
 }
 
+static void img_select_slide_from_slide_report_dialog(GtkButton *button, img_window_struct *img)
+{
+	GtkTreePath *path;
+	gint slide = (gint)g_object_get_data(G_OBJECT(button), "index");
 
+	gtk_icon_view_unselect_all(GTK_ICON_VIEW (img->active_icon));
+	path = gtk_tree_path_new_from_indices(slide, -1);
+	gtk_icon_view_set_cursor (GTK_ICON_VIEW (img->active_icon), path, NULL, FALSE);
+	gtk_icon_view_select_path (GTK_ICON_VIEW (img->active_icon), path);
+	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (img->active_icon), path, FALSE, 0, 0);
+	gtk_tree_path_free (path);
+}
 

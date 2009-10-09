@@ -391,6 +391,7 @@ struct _img_window_struct
 	
 	/* Report dialog related widgets */
 	GtkWidget	*report_dialog;
+	GtkWidget	*vbox_slide_report_rows;
 	GSList		*report_dialog_row_slist;
 };
 
