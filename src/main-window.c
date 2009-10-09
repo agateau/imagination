@@ -44,7 +44,7 @@ static void img_spinbutton_value_changed (GtkSpinButton *, img_window_struct *);
 static void img_slide_cut(GtkMenuItem * , img_window_struct *);
 static void img_slide_copy(GtkMenuItem * , img_window_struct *);
 static void img_slide_paste(GtkMenuItem* , img_window_struct *);
-static void img_report_slides_transitions(GtkMenuItem* , img_window_struct *);
+static void img_report_slides_transitions(img_window_struct *);
 static void img_clear_audio_files(GtkButton *, img_window_struct *);
 static void img_expand_button_clicked(GtkButton *, img_window_struct *);
 static void img_on_drag_audio_data_received (GtkWidget *,GdkDragContext *, int, int, GtkSelectionData *, unsigned int, unsigned int, img_window_struct *);
@@ -59,6 +59,7 @@ static gint img_sort_none_before_other(GtkTreeModel *, GtkTreeIter *, GtkTreeIte
 static void img_check_numeric_entry (GtkEditable *entry, gchar *text, gint lenght, gint *position, gpointer data);
 static void img_show_uri(GtkMenuItem *, img_window_struct *);
 static void img_select_slide_from_slide_report_dialog(GtkButton *, img_window_struct *);
+static void img_show_slides_report_dialog(GtkMenuItem *, img_window_struct *);
 
 static void
 img_create_export_menu( GtkWidget         *item,
@@ -374,7 +375,7 @@ img_window_struct *img_create_window (void)
 	img_struct->report_menu = gtk_image_menu_item_new_with_mnemonic (_("Repor_t"));
 	gtk_container_add (GTK_CONTAINER (slide_menu), img_struct->report_menu);
 	gtk_widget_add_accelerator( img_struct->report_menu, "activate", img_struct->accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE );
-	g_signal_connect (G_OBJECT (img_struct->report_menu),"activate",G_CALLBACK (img_report_slides_transitions),img_struct);
+	g_signal_connect (G_OBJECT (img_struct->report_menu),"activate",G_CALLBACK (img_show_slides_report_dialog),img_struct);
 
 	tmp_image = gtk_image_new_from_stock (GTK_STOCK_INDEX,GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (img_struct->report_menu),tmp_image);
@@ -1699,7 +1700,7 @@ static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_windo
 	}
 	g_free( path );
 	img->project_is_modified = TRUE;
-	img_report_slides_transitions(NULL, img);
+	img_report_slides_transitions(img);
 	img_set_total_slideshow_duration(img);
 	g_list_foreach (bak, (GFunc)gtk_tree_path_free, NULL);
 	g_list_free(bak);
@@ -1790,6 +1791,8 @@ img_set_random_transition( img_window_struct *img,
 	/* Select proper iter in transition model */
 	g_signal_handlers_block_by_func((gpointer)img->transition_type, (gpointer)img_combo_box_transition_type_changed, img);	
 	gtk_combo_box_set_active_iter(GTK_COMBO_BOX(img->transition_type), &iter);
+	/* Update the slide dialog report in real time */
+	img_report_slides_transitions(img);
 	g_signal_handlers_unblock_by_func((gpointer)img->transition_type, (gpointer)img_combo_box_transition_type_changed, img);	
 
 	return( pix );
@@ -2422,7 +2425,7 @@ img_switch_mode( img_window_struct *img,
 	g_list_free( selection );
 }
 
-static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_struct *img)
+static void img_report_slides_transitions(img_window_struct *img)
 {
 	GtkWidget *hbox_rows, *frame, *image, *label, *nr_label, *slide_button;
 	static GtkWidget *vbox, *viewport, *swindow;
@@ -2495,7 +2498,7 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 		if (slide_info->transition_id > 0)
 		{
 			/* Increment the number of times of the same transition id */
-			number = (gint) g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id));
+			number = GPOINTER_TO_INT(g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id)));
 			number++;
 			g_hash_table_insert(trans_hash, GINT_TO_POINTER(slide_info->transition_id), GINT_TO_POINTER(number) );
 
@@ -2578,14 +2581,15 @@ static void img_report_slides_transitions(GtkMenuItem *menuitem, img_window_stru
 	g_list_free (values);
 	g_hash_table_destroy (trans_hash);
 	g_hash_table_destroy (slide_filename_hash);
-
-	gtk_widget_show_all(img->report_dialog);
+	
+	if (GTK_WIDGET_VISIBLE(img->report_dialog))
+		gtk_widget_show_all(img->report_dialog);
 }
 
 static void img_select_slide_from_slide_report_dialog(GtkButton *button, img_window_struct *img)
 {
 	GtkTreePath *path;
-	gint slide = (gint)g_object_get_data(G_OBJECT(button), "index");
+	gint slide = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(button), "index"));
 
 	gtk_icon_view_unselect_all(GTK_ICON_VIEW (img->active_icon));
 	path = gtk_tree_path_new_from_indices(slide, -1);
@@ -2595,3 +2599,8 @@ static void img_select_slide_from_slide_report_dialog(GtkButton *button, img_win
 	gtk_tree_path_free (path);
 }
 
+static void img_show_slides_report_dialog(GtkMenuItem *item, img_window_struct *img)
+{
+	img_report_slides_transitions(img);
+	gtk_widget_show_all(img->report_dialog);
+}
