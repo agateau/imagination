@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-09 20:16+0200\n"
-"PO-Revision-Date: 2009-09-23 15:17+0300\n"
+"POT-Creation-Date: 2009-10-09 21:15+0200\n"
+"PO-Revision-Date: 2009-10-09 22:10+0300\n"
 "Last-Translator: JekaDer <yourname@mail.ru>\n"
 "Language-Team: Russian <levin.dmi@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -162,9 +162,8 @@ msgid "Dele_te"
 msgstr "_Удалить"
 
 #: ../src/main-window.c:375
-#, fuzzy
 msgid "Repor_t"
-msgstr "_Экспорт"
+msgstr "Отчё_т"
 
 #: ../src/main-window.c:387
 msgid "Rotate co_unter-clockwise"
@@ -424,16 +423,15 @@ msgstr "Разрешение"
 msgid "Type"
 msgstr "Тип"
 
-#: ../src/main-window.c:1909 ../src/main-window.c:1911 ../src/support.c:139
+#: ../src/main-window.c:1911 ../src/main-window.c:1913 ../src/support.c:139
 msgid "None"
 msgstr "Ничего"
 
-#: ../src/main-window.c:2446
-#, fuzzy
+#: ../src/main-window.c:2448
 msgid "Slides Transitions Report Dialog"
-msgstr "Состояние экспорта переходов:"
+msgstr "Диалог отчётов о переходах между слайдами"
 
-#: ../src/main-window.c:2527
+#: ../src/main-window.c:2529
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -441,6 +439,11 @@ msgid ""
 "Slides whose transition is applied only once are not shown here.\n"
 "Click on the slide to have Imagination automatically select it."
 msgstr ""
+"\n"
+"<span weight='bold'>Примечание:</span>\n"
+"\n"
+"Слайды, для которых переходы применены только один раз, здесь не показаны.\n"
+"Нажмите на слайд, чтобы Imagination автоматически выбрал его."
 
 #: ../src/callbacks.c:205
 #, c-format

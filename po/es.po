@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-09 20:16+0200\n"
+"POT-Creation-Date: 2009-10-09 21:15+0200\n"
 "PO-Revision-Date: 2009-09-24 08:46-0500\n"
 "Last-Translator: Dairon Medina Caro <dairon@ceac.cu>\n"
 "Language-Team: Spanish  <dairon@ceac.cu>\n"
@@ -427,16 +427,16 @@ msgstr "Resolución:"
 msgid "Type"
 msgstr "Tipo:"
 
-#: ../src/main-window.c:1909 ../src/main-window.c:1911 ../src/support.c:139
+#: ../src/main-window.c:1911 ../src/main-window.c:1913 ../src/support.c:139
 msgid "None"
 msgstr "Ninguna"
 
-#: ../src/main-window.c:2446
+#: ../src/main-window.c:2448
 #, fuzzy
 msgid "Slides Transitions Report Dialog"
 msgstr "Progreso de exportación de la transición final:"
 
-#: ../src/main-window.c:2527
+#: ../src/main-window.c:2529
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
