@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-09 21:15+0200\n"
+"POT-Creation-Date: 2009-10-10 07:42+0200\n"
 "PO-Revision-Date: 2009-09-23 13:37+0100\n"
 "Last-Translator: Giuseppe Torelli\n"
 "Language-Team: English (British)\n"
@@ -33,7 +33,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Playing %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1056
+#: ../src/audio.c:126 ../src/main-window.c:1059
 msgid "Play the selected file"
 msgstr "Play the selected file"
 
@@ -346,7 +346,7 @@ msgstr "Remove"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Slide Text</b>"
 
-#: ../src/main-window.c:863 ../src/main-window.c:1402
+#: ../src/main-window.c:863 ../src/main-window.c:1413
 msgid "Click to expand the area"
 msgstr "Click to expand the area"
 
@@ -379,59 +379,59 @@ msgid "Subtitle position:"
 msgstr "Subtitle position:"
 
 #. Background music frame
-#: ../src/main-window.c:981
+#: ../src/main-window.c:984
 msgid "Audio"
 msgstr "Audio"
 
-#: ../src/main-window.c:994
+#: ../src/main-window.c:997
 msgid "<b>Background Music</b>"
 msgstr "<b>Background Music</b>"
 
-#: ../src/main-window.c:1040
+#: ../src/main-window.c:1043
 msgid "Music Duration:"
 msgstr "Music Duration:"
 
-#: ../src/main-window.c:1064
+#: ../src/main-window.c:1067
 msgid "Delete the selected file"
 msgstr "Delete the selected file"
 
-#: ../src/main-window.c:1071
+#: ../src/main-window.c:1074
 msgid "Move the selected file up"
 msgstr "Move the selected file up"
 
-#: ../src/main-window.c:1078
+#: ../src/main-window.c:1081
 msgid "Move the selected file down"
 msgstr "Move the selected file down"
 
-#: ../src/main-window.c:1085
+#: ../src/main-window.c:1088
 msgid "Clear all files"
 msgstr "Clear all files"
 
-#: ../src/main-window.c:1397
+#: ../src/main-window.c:1408
 msgid "Click to shrink the area"
 msgstr "Click to shrink the area"
 
-#: ../src/main-window.c:1429 ../src/callbacks.c:1105
+#: ../src/main-window.c:1440 ../src/callbacks.c:1105
 msgid "Sorry, I could not perform the operation!"
 msgstr "Sorry, I could not perform the operation!"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Resolution"
 msgstr "Resolution"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Type"
 msgstr "Type"
 
-#: ../src/main-window.c:1911 ../src/main-window.c:1913 ../src/support.c:139
+#: ../src/main-window.c:1922 ../src/main-window.c:1924 ../src/support.c:139
 msgid "None"
 msgstr "None"
 
-#: ../src/main-window.c:2448
+#: ../src/main-window.c:2459
 msgid "Slides Transitions Report Dialog"
 msgstr "Slides Transitions Report Dialog"
 
-#: ../src/main-window.c:2529
+#: ../src/main-window.c:2540
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"

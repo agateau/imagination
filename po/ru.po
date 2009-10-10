@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-09 21:15+0200\n"
+"POT-Creation-Date: 2009-10-10 07:42+0200\n"
 "PO-Revision-Date: 2009-10-09 22:10+0300\n"
 "Last-Translator: JekaDer <yourname@mail.ru>\n"
 "Language-Team: Russian <levin.dmi@gmail.com>\n"
@@ -35,7 +35,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Проиграть %s..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1056
+#: ../src/audio.c:126 ../src/main-window.c:1059
 msgid "Play the selected file"
 msgstr "Проиграть выбранный файл"
 
@@ -346,7 +346,7 @@ msgstr "Удалить"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Текст слайда</b>"
 
-#: ../src/main-window.c:863 ../src/main-window.c:1402
+#: ../src/main-window.c:863 ../src/main-window.c:1413
 msgid "Click to expand the area"
 msgstr "Нажмите, чтобы расширить область"
 
@@ -379,59 +379,59 @@ msgid "Subtitle position:"
 msgstr "Положение субтитров:"
 
 #. Background music frame
-#: ../src/main-window.c:981
+#: ../src/main-window.c:984
 msgid "Audio"
 msgstr "Аудио"
 
-#: ../src/main-window.c:994
+#: ../src/main-window.c:997
 msgid "<b>Background Music</b>"
 msgstr "<b>Фоновая музыка</b>"
 
-#: ../src/main-window.c:1040
+#: ../src/main-window.c:1043
 msgid "Music Duration:"
 msgstr "Длительность звучания:"
 
-#: ../src/main-window.c:1064
+#: ../src/main-window.c:1067
 msgid "Delete the selected file"
 msgstr "Удалить выбранный файл"
 
-#: ../src/main-window.c:1071
+#: ../src/main-window.c:1074
 msgid "Move the selected file up"
 msgstr "Переместить выбранный файл выше"
 
-#: ../src/main-window.c:1078
+#: ../src/main-window.c:1081
 msgid "Move the selected file down"
 msgstr "Переместить выбранный файл ниже"
 
-#: ../src/main-window.c:1085
+#: ../src/main-window.c:1088
 msgid "Clear all files"
 msgstr "Очистить список файлов"
 
-#: ../src/main-window.c:1397
+#: ../src/main-window.c:1408
 msgid "Click to shrink the area"
 msgstr "Нажмите, чтобы уменьшить область"
 
-#: ../src/main-window.c:1429 ../src/callbacks.c:1105
+#: ../src/main-window.c:1440 ../src/callbacks.c:1105
 msgid "Sorry, I could not perform the operation!"
 msgstr "Не удалось выполнить данное действие!"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Resolution"
 msgstr "Разрешение"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Type"
 msgstr "Тип"
 
-#: ../src/main-window.c:1911 ../src/main-window.c:1913 ../src/support.c:139
+#: ../src/main-window.c:1922 ../src/main-window.c:1924 ../src/support.c:139
 msgid "None"
 msgstr "Ничего"
 
-#: ../src/main-window.c:2448
+#: ../src/main-window.c:2459
 msgid "Slides Transitions Report Dialog"
 msgstr "Диалог отчётов о переходах между слайдами"
 
-#: ../src/main-window.c:2529
+#: ../src/main-window.c:2540
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"

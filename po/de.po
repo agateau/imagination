@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-09 21:15+0200\n"
-"PO-Revision-Date: 2009-09-23 21:08+0200\n"
+"POT-Creation-Date: 2009-10-10 07:42+0200\n"
+"PO-Revision-Date: 2009-10-09 21:50+0100\n"
 "Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Spiele »%s« ab ..."
 
-#: ../src/audio.c:126 ../src/main-window.c:1056
+#: ../src/audio.c:126 ../src/main-window.c:1059
 msgid "Play the selected file"
 msgstr "Ausgewählte Datei abspielen"
 
@@ -174,7 +174,6 @@ msgid "Dele_te"
 msgstr "Lö_schen"
 
 #: ../src/main-window.c:375
-#, fuzzy
 msgid "Repor_t"
 msgstr "_Exportieren"
 
@@ -359,7 +358,7 @@ msgstr "Entfernen"
 msgid "<b>Slide Text</b>"
 msgstr "<b>Dia-Text</b>"
 
-#: ../src/main-window.c:863 ../src/main-window.c:1402
+#: ../src/main-window.c:863 ../src/main-window.c:1413
 msgid "Click to expand the area"
 msgstr "Klicken, um die Fläche zu erweitern"
 
@@ -392,60 +391,59 @@ msgid "Subtitle position:"
 msgstr "Position des Untertitels"
 
 #. Background music frame
-#: ../src/main-window.c:981
+#: ../src/main-window.c:984
 msgid "Audio"
 msgstr "Audio"
 
-#: ../src/main-window.c:994
+#: ../src/main-window.c:997
 msgid "<b>Background Music</b>"
 msgstr "<b>Hintergrundmusik</b>"
 
-#: ../src/main-window.c:1040
+#: ../src/main-window.c:1043
 msgid "Music Duration:"
 msgstr "Musikdauer:"
 
-#: ../src/main-window.c:1064
+#: ../src/main-window.c:1067
 msgid "Delete the selected file"
 msgstr "Die ausgewählte Datei löschen"
 
-#: ../src/main-window.c:1071
+#: ../src/main-window.c:1074
 msgid "Move the selected file up"
 msgstr "Die ausgewählte Datei nach oben verschieben"
 
-#: ../src/main-window.c:1078
+#: ../src/main-window.c:1081
 msgid "Move the selected file down"
 msgstr "Die ausgewählte Datei nach unten verschieben"
 
-#: ../src/main-window.c:1085
+#: ../src/main-window.c:1088
 msgid "Clear all files"
 msgstr "Alle Dateien entfernen"
 
-#: ../src/main-window.c:1397
+#: ../src/main-window.c:1408
 msgid "Click to shrink the area"
 msgstr "Klicken, um die Fläche zu verkleinern"
 
-#: ../src/main-window.c:1429 ../src/callbacks.c:1105
+#: ../src/main-window.c:1440 ../src/callbacks.c:1105
 msgid "Sorry, I could not perform the operation!"
 msgstr "Entschuldigung, die Operation konnte nicht durchgeführt werden!"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: ../src/main-window.c:1586
+#: ../src/main-window.c:1597
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1911 ../src/main-window.c:1913 ../src/support.c:139
+#: ../src/main-window.c:1922 ../src/main-window.c:1924 ../src/support.c:139
 msgid "None"
 msgstr "Keiner"
 
-#: ../src/main-window.c:2448
-#, fuzzy
+#: ../src/main-window.c:2459
 msgid "Slides Transitions Report Dialog"
-msgstr "Exportfortschritt beim letzten Dia:"
+msgstr "Diaübergänge"
 
-#: ../src/main-window.c:2529
+#: ../src/main-window.c:2540
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -453,6 +451,12 @@ msgid ""
 "Slides whose transition is applied only once are not shown here.\n"
 "Click on the slide to have Imagination automatically select it."
 msgstr ""
+"\n"
+"<span weight='bold'>Bemerkung:</span>\n"
+"\n"
+"Dias, deren Übergang nur einmal angewandt wird, werden hier nicht "
+"aufgeführt.\n"
+"Klicken Sie das Dia an, damit Imagination dieses automatisch auswählt."
 
 #: ../src/callbacks.c:205
 #, c-format
