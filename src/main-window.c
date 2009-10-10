@@ -1639,26 +1639,36 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 
 static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_window_struct *img)
 {
-	GList *selected, *bak;
-	GtkTreeIter iter;
+	GList        *selected,
+				 *bak;
+	GtkTreeIter   iter;
 	GtkTreeModel *model;
-	gpointer address;
+	gpointer      address;
 	slide_struct *info_slide;
-	gint transition_id;
-	GtkTreePath *p;
-	gchar       *path;
-	GdkPixbuf   *pix;
+	gint          transition_id;
+	GtkTreePath  *p;
+	gchar        *path;
+	GdkPixbuf    *pix;
 
-	/* Get the address of the transition function stored in the model of the combo box*/
-	model = gtk_combo_box_get_model(combo);
-	gtk_combo_box_get_active_iter(combo, &iter);
-	gtk_tree_model_get(model, &iter, 0, &pix, 2, &address, 3, &transition_id, -1);
+	/* Check if anything is selected and return if nothing is */
+	selected = gtk_icon_view_get_selected_items(
+					GTK_ICON_VIEW( img->active_icon ) );
+	if( selected == NULL )
+		return;
 
-	/* Get index of currently selected item */
-	if (transition_id == -1)
-		gtk_widget_set_sensitive(img->trans_duration,FALSE);
+	/* Get information about selected transition */
+	model = gtk_combo_box_get_model( combo );
+	gtk_combo_box_get_active_iter( combo, &iter );
+	gtk_tree_model_get( model, &iter, 0, &pix,
+									  2, &address,
+									  3, &transition_id,
+									  -1 );
+
+	/* If user applied None transition, make duration combo insensitive */
+	if( transition_id == -1 )
+		gtk_widget_set_sensitive( img->trans_duration, FALSE );
 	else
-		gtk_widget_set_sensitive(img->trans_duration,TRUE);
+		gtk_widget_set_sensitive( img->trans_duration, TRUE );
 
 	/* If user selected group name, automatically select first transition
 	 * from this group. */
@@ -1666,37 +1676,34 @@ static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_windo
 	{
 		GtkTreeIter parent = iter;
 		gtk_tree_model_iter_nth_child( model, &iter, &parent, 0 );
-		gtk_tree_model_get(model, &iter, 0, &pix, 2, &address, 3, &transition_id, -1);
-		g_signal_handlers_block_by_func(img->transition_type,
-										img_combo_box_transition_type_changed,
-										img);
-		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(img->transition_type),
-									  &iter );
-		g_signal_handlers_unblock_by_func(img->transition_type,
-										  img_combo_box_transition_type_changed,
-										  img);
+		gtk_tree_model_get( model, &iter, 0, &pix,
+										  2, &address,
+										  3, &transition_id,
+										  -1 );
+		g_signal_handlers_block_by_func( img->transition_type,
+										 img_combo_box_transition_type_changed,
+										 img);
+		gtk_combo_box_set_active_iter( GTK_COMBO_BOX( img->transition_type),
+									   &iter );
+		g_signal_handlers_unblock_by_func( img->transition_type,
+										   img_combo_box_transition_type_changed,
+										   img);
 	}
+
+	/* Get string representation of the path, which will be
+	 * saved inside slide */
 	p = gtk_tree_model_get_path( model, &iter );
 	path = gtk_tree_path_to_string( p );
 	gtk_tree_path_free( p );
 
+	/* Update all selected slides */
 	model = GTK_TREE_MODEL( img->thumbnail_model );
-	selected = gtk_icon_view_get_selected_items(GTK_ICON_VIEW (img->active_icon));
-	if (selected == NULL)
-	{
-		g_free( path );
-		return;
-	}
-
-	/* Avoiding GList memory leak. */
 	bak = selected;
 	while (selected)
 	{
-		gtk_tree_model_get_iter(model, &iter,selected->data);
-		gtk_tree_model_get(model, &iter,1,&info_slide,-1);
+		gtk_tree_model_get_iter( model, &iter, selected->data );
+		gtk_tree_model_get( model, &iter, 1, &info_slide, -1 );
 		gtk_list_store_set( GTK_LIST_STORE( model ), &iter, 2, pix, -1 );
-		if( pix )
-			g_object_unref( G_OBJECT( pix ) );
 		info_slide->render = (ImgRender)address;
 		info_slide->transition_id = transition_id;
 		g_free( info_slide->path );
@@ -1710,11 +1717,13 @@ static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_windo
 		selected = selected->next;
 	}
 	g_free( path );
+	if( pix )
+		g_object_unref( G_OBJECT( pix ) );
 	img->project_is_modified = TRUE;
-	img_report_slides_transitions(img);
-	img_set_total_slideshow_duration(img);
-	g_list_foreach (bak, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free(bak);
+	img_report_slides_transitions( img );
+	img_set_total_slideshow_duration( img );
+	g_list_foreach( bak, (GFunc)gtk_tree_path_free, NULL );
+	g_list_free( bak );
 }
 
 static void img_random_button_clicked(GtkButton *button, img_window_struct *img)

@@ -162,9 +162,8 @@ msgid "Dele_te"
 msgstr "_Zbriši"
 
 #: ../src/main-window.c:375
-#, fuzzy
 msgid "Repor_t"
-msgstr "Izvoz"
+msgstr "Po_ročilo"
 
 #: ../src/main-window.c:387
 msgid "Rotate co_unter-clockwise"
@@ -429,9 +428,8 @@ msgid "None"
 msgstr "Brez"
 
 #: ../src/main-window.c:2459
-#, fuzzy
 msgid "Slides Transitions Report Dialog"
-msgstr "Napredek izvoza zadnjega prehoda:"
+msgstr "Poročilo o uporabljenih prehodih"
 
 #: ../src/main-window.c:2540
 msgid ""
@@ -441,6 +439,10 @@ msgid ""
 "Slides whose transition is applied only once are not shown here.\n"
 "Click on the slide to have Imagination automatically select it."
 msgstr ""
+"\n"
+"<span weight='bold'>Note:</span>\n"
+"Prehodi, ki so uporabljeni le enkrat, niso prikazani.\n"
+"Kliknite diapozitiv, če ga želite prikazati v urejevalniku."
 
 #: ../src/callbacks.c:205
 #, c-format
