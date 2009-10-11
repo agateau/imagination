@@ -2503,20 +2503,20 @@ static void img_report_slides_transitions(img_window_struct *img)
 		GtkTreePath *path;
 		gtk_tree_model_get( model, &iter, 0, &thumb, 1, &slide_info, -1 );
 
-		/* Create the button and set its image to the thumbnail of the slide */
-		slide_button = gtk_button_new();
-		image = gtk_image_new_from_pixbuf(thumb);
-		g_object_unref(thumb);
-		gtk_button_set_image(GTK_BUTTON(slide_button), image);
-		g_signal_connect (G_OBJECT (slide_button), "clicked", G_CALLBACK(img_select_slide_from_slide_report_dialog), img);
-
-		/* Get the slide number and store it in the gtk button */
-		path = gtk_tree_model_get_path(model, &iter);
-		g_object_set_data(G_OBJECT(slide_button), "index", GINT_TO_POINTER(gtk_tree_path_get_indices(path)[0]));
-		gtk_tree_path_free(path);
-
 		if (slide_info->transition_id > 0)
 		{
+			/* Create the button and set its image to the thumbnail of the slide */
+			slide_button = gtk_button_new();
+			image = gtk_image_new_from_pixbuf(thumb);
+			g_object_unref(thumb);
+			gtk_button_set_image(GTK_BUTTON(slide_button), image);
+			g_signal_connect (G_OBJECT (slide_button), "clicked", G_CALLBACK(img_select_slide_from_slide_report_dialog), img);
+
+			/* Get the slide number and store it in the gtk button */
+			path = gtk_tree_model_get_path(model, &iter);
+			g_object_set_data(G_OBJECT(slide_button), "index", GINT_TO_POINTER(gtk_tree_path_get_indices(path)[0]));
+			gtk_tree_path_free(path);
+	
 			/* Increment the number of times of the same transition id */
 			number = GPOINTER_TO_INT(g_hash_table_lookup(trans_hash, GINT_TO_POINTER(slide_info->transition_id)));
 			number++;

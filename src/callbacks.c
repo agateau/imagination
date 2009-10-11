@@ -417,6 +417,13 @@ void img_free_allocated_memory(img_window_struct *img_struct)
 		img_struct->total_music_secs = 0;
 		gtk_label_set_text(GTK_LABEL(img_struct->music_time_data), "");
 	}
+	
+	/* Destroy widgets in the rows of the slide transition report dialog */
+	if (img_struct->vbox_slide_report_rows)
+	{
+		gtk_widget_destroy(img_struct->vbox_slide_report_rows);
+		img_struct->vbox_slide_report_rows = NULL;
+	}
 
 	/* Free gchar pointers */
 	if (img_struct->current_dir)
