@@ -812,9 +812,8 @@ void img_show_about_dialog (GtkMenuItem *item,img_window_struct *img_struct)
 
 static void img_about_dialog_activate_link(GtkAboutDialog * dialog, const gchar *link, gpointer data)
 {
-	char * argv[] = { "xdg-open", (char*)link, NULL };
-
-	g_spawn_async( NULL, argv, NULL, G_SPAWN_SEARCH_PATH,NULL, NULL, NULL, NULL);
+	/* Replace xdg-open with GTK+ equivalent */
+	gtk_show_uri( NULL, link, GDK_CURRENT_TIME, NULL );
 }
 
 void img_start_stop_preview(GtkWidget *button, img_window_struct *img)

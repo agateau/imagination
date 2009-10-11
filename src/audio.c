@@ -84,8 +84,10 @@ void img_play_stop_selected_file(GtkButton *button, img_window_struct *img)
 	g_free(path);
 	g_free(filename);
 
-	cmd_line = g_strdup_printf("play -t %s '%s'", img_get_audio_filetype(file), file);
-	g_print ("%s\n",cmd_line);
+	path = g_shell_quote( file );
+
+	cmd_line = g_strdup_printf("play -t %s %s", img_get_audio_filetype(file), path);
+	g_free( path );
 
 	g_shell_parse_argv (cmd_line, &argc, &argv, NULL);
 	g_free(cmd_line);
@@ -104,8 +106,8 @@ void img_play_stop_selected_file(GtkButton *button, img_window_struct *img)
 
 	img_swap_audio_files_button(img, FALSE);
 	message = g_strdup_printf(_("Playing %s..."), file);
+	g_free( file );
 	gtk_statusbar_push(GTK_STATUSBAR(img->statusbar), img->context_id, message);
-	g_free(file);
 	g_free(message);
 }
 
