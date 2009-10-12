@@ -1,6 +1,7 @@
 Imagination changelog
 
-zz/10/09 - 2.5:
+14/10/09 - 2.1:
+			- Fixed seg-fault when using Imagination with GTK 2.18
 			- Fixed crash when playing with Ken Burns and slide text after closing the project.
 			- Added a slides transitions report dialog.
 			- Added Japanese translation.

@@ -353,7 +353,7 @@
 					different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis)
 					and FLV (Flash Video). Each format has its own set of
 					preferences that you'll be asked about when you select any
-					of them.
+					of them. The extension will be automatically added to the filename.
 				</para>
 			</sect3>
 			<sect3 id="quit">
