@@ -1,0 +1,661 @@
+# Japanese translations for imagination package.
+# Copyright (C) 2009 THE imagination'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the imagination package.
+# YannUbuntu & Yukimi <yann_ubuntu-1@yahoo.fr>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: imagination 1.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-12 09:32+0200\n"
+"PO-Revision-Date: 2009-09-26 20:47+0100\n"
+"Last-Translator: YannUbuntu & Yukimi <yann_ubuntu-1@yahoo.fr>\n"
+"Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../imagination.desktop.in.in.h:1
+msgid "A DVD slideshow maker"
+msgstr "DVDスライドショーメーカー"
+
+#: ../imagination.desktop.in.in.h:2
+msgid "A lightweight DVD slideshow maker using GTK+2"
+msgstr "使いやすいDVDスライドショーソフトウェア。GTK+2を使います。"
+
+#: ../imagination.desktop.in.in.h:3
+msgid "Imagination"
+msgstr "Imagination"
+
+#: ../src/audio.c:108
+#, c-format
+msgid "Playing %s..."
+msgstr "プレイする： %s..."
+
+#: ../src/audio.c:128 ../src/main-window.c:1063
+msgid "Play the selected file"
+msgstr "選択されたファイルをプレイする"
+
+#: ../src/audio.c:136
+msgid "Stop the playback"
+msgstr "プレイバックを止める"
+
+#: ../src/audio.c:263
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate\n"
+msgstr ""
+"%s :\n"
+"サンプリング周波数の不一致\n"
+
+#: ../src/audio.c:268
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible number of channels\n"
+msgstr ""
+"%s :\n"
+"チャネル量の不一致\n"
+
+#: ../src/audio.c:274
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate and number of channels\n"
+msgstr ""
+"%s :\n"
+"サンプリング周波数とチャネル量の不一致\n"
+
+#: ../src/audio.c:294
+#, c-format
+msgid ""
+"%s\n"
+"<b>Do you want to continue without these files?</b>"
+msgstr ""
+"%s\n"
+"<b>これらのファイルなしで続行しますか？</b>"
+
+#: ../src/audio.c:298 ../src/audio.c:445
+msgid "Audio files mismatch:"
+msgstr "オーディオファイルの不一致 :"
+
+#: ../src/audio.c:392
+msgid "Incompatible sample rate."
+msgstr "サンプリング周波数の不一致."
+
+#: ../src/audio.c:399
+msgid "Incompatible number of channels."
+msgstr "チャネル量の不一致."
+
+#: ../src/audio.c:406
+msgid "Incompatible sample rate and number of channels."
+msgstr "サンプリング周波数とチャネル量の不一致."
+
+#: ../src/audio.c:428
+#, c-format
+msgid ""
+"File selection contains %d audio file that is incompatible with other files."
+msgid_plural ""
+"File selection contains %d audio files that are incompatible with other "
+"files."
+msgstr[0] ""
+"選択されたファイル中には %d のオーディオファイルが他のファイルと一致しません"
+msgstr[1] ""
+"選択されたファイル中には %d のオーディオファイルが他のファイルと一致しません"
+
+#: ../src/audio.c:434
+msgid "Please check audio tab for more information."
+msgstr "より詳細が必要であれば、オーディオタブもご覧下さい."
+
+#: ../src/main-window.c:218
+msgid "_Slideshow"
+msgstr "スライドショー(_S)"
+
+#: ../src/main-window.c:247
+msgid "Import p_ictures"
+msgstr "画像を追加(_i)"
+
+#: ../src/main-window.c:257
+msgid "Import _music"
+msgstr "音楽を追加(_m)"
+
+#: ../src/main-window.c:274
+msgid "_Preview"
+msgstr "プレビュー(_P)"
+
+#: ../src/main-window.c:282
+msgid "Export"
+msgstr "ビデオを作成する"
+
+#. Slide menu
+#: ../src/main-window.c:299
+msgid "_Slide"
+msgstr "スライド(_S)"
+
+#. Preview quality menu
+#: ../src/main-window.c:321
+msgid "Preview quality"
+msgstr "プレビューの画質"
+
+#: ../src/main-window.c:327
+msgid "_Low"
+msgstr "低(_L)"
+
+#: ../src/main-window.c:331 ../src/export.c:1364 ../src/export.c:1520
+msgid "High"
+msgstr "高"
+
+#. Zoom controls
+#: ../src/main-window.c:335
+msgid "_Zoom"
+msgstr "ズーム(_Z)"
+
+#: ../src/main-window.c:362
+msgid "Add empt_y slide"
+msgstr "空のスライドを追加(_y)"
+
+#: ../src/main-window.c:371
+msgid "Dele_te"
+msgstr "削除(_t)"
+
+#: ../src/main-window.c:379
+msgid "Repor_t"
+msgstr "レポート(_t)"
+
+#: ../src/main-window.c:391
+msgid "Rotate co_unter-clockwise"
+msgstr "反時計回り(_u)"
+
+#: ../src/main-window.c:402
+msgid "_Rotate clockwise"
+msgstr "時計回り(_R)"
+
+#: ../src/main-window.c:417
+msgid "Un_select all"
+msgstr "全ての選択を解除(_s)"
+
+#. View menu
+#: ../src/main-window.c:423
+msgid "_View"
+msgstr "表示(_V)"
+
+#: ../src/main-window.c:429
+msgid "Preview mode"
+msgstr "プレビューモード"
+
+#: ../src/main-window.c:435
+msgid "Overview mode"
+msgstr "一覧モード"
+
+#: ../src/main-window.c:438
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: ../src/main-window.c:443
+msgid "Contents"
+msgstr "目次"
+
+#: ../src/main-window.c:464 ../src/new_slideshow.c:63
+msgid "Create a new slideshow"
+msgstr "新しいスライドショーを作成する"
+
+#: ../src/main-window.c:469
+msgid "Open a slideshow"
+msgstr "スライドショーを開く"
+
+#: ../src/main-window.c:474
+msgid "Save the slideshow"
+msgstr "スライドショーを保存する"
+
+#: ../src/main-window.c:487
+msgid "Import pictures"
+msgstr "画像を追加"
+
+#: ../src/main-window.c:496
+msgid "Import music"
+msgstr "音楽を追加"
+
+#: ../src/main-window.c:501
+msgid "Delete the selected slides"
+msgstr "選択されたスライドを削除する"
+
+#: ../src/main-window.c:510
+msgid "Rotate the slide clockwise"
+msgstr "スライド時計回り"
+
+#: ../src/main-window.c:520
+msgid "Rotate the slide counter-clockwise"
+msgstr "スライド反時計回り"
+
+#: ../src/main-window.c:526
+msgid "Zoom In"
+msgstr "ズームイン"
+
+#: ../src/main-window.c:531
+msgid "Zoom Out"
+msgstr "ズームアウト"
+
+#: ../src/main-window.c:536
+msgid "Normal Size"
+msgstr "普通サイズ"
+
+#: ../src/main-window.c:544 ../src/callbacks.c:1345
+msgid "Starts the preview"
+msgstr "プレビューを開始"
+
+#: ../src/main-window.c:552
+msgid "Goto first slide"
+msgstr "一番目のスライドに戻る"
+
+#: ../src/main-window.c:557
+msgid "Goto previous selected slide"
+msgstr "前のスライドに戻る"
+
+#: ../src/main-window.c:573 ../src/main-window.c:778
+msgid " of "
+msgstr " の "
+
+#: ../src/main-window.c:584
+msgid "Goto next selected slide"
+msgstr "次のスライドに進む"
+
+#: ../src/main-window.c:589
+msgid "Goto last slide"
+msgstr "最後のスライドに進む"
+
+#: ../src/main-window.c:640
+msgid "Video"
+msgstr "ビデオ"
+
+#: ../src/main-window.c:658
+msgid "<b>Slide Settings</b>"
+msgstr "<b>スライド設定</b>"
+
+#. Transition types label
+#: ../src/main-window.c:668
+msgid "Transition Type:"
+msgstr "スライド間のトランジションタイプ:"
+
+#: ../src/main-window.c:688
+msgid "Random"
+msgstr "ランダム"
+
+#: ../src/main-window.c:689
+msgid "Imagination randomly decides which transition to apply"
+msgstr "Imaginationはランダムにトランジションを選ぶ"
+
+#. Transition duration
+#: ../src/main-window.c:695
+msgid "Transition Speed:"
+msgstr "トランジションの早さ:"
+
+#: ../src/main-window.c:706
+msgid "Fast"
+msgstr "早"
+
+#: ../src/main-window.c:708
+msgid "Normal"
+msgstr "普通"
+
+#: ../src/main-window.c:710
+msgid "Slow"
+msgstr "ゆっくり"
+
+#. Slide duration
+#: ../src/main-window.c:717
+msgid "Slide Duration in sec:"
+msgstr "スライドの時間 (秒) :"
+
+#. Slide Total Duration
+#: ../src/main-window.c:728
+msgid "Slideshow Length:"
+msgstr "スライドショーの全体時間:"
+
+#: ../src/main-window.c:745
+msgid "<b>Slide Motion</b>"
+msgstr "<b>スライドズームと動作</b>"
+
+#: ../src/main-window.c:755
+msgid "Stop Point:"
+msgstr "停止ポイント:"
+
+#: ../src/main-window.c:792
+msgid "Duration:"
+msgstr "時間:"
+
+#: ../src/main-window.c:801
+msgid "Zoom: "
+msgstr "ズーム :"
+
+#: ../src/main-window.c:815
+msgid "Add"
+msgstr "追加"
+
+#: ../src/main-window.c:819
+msgid "Update"
+msgstr "保存"
+
+#: ../src/main-window.c:824
+msgid "Remove"
+msgstr "削除"
+
+#: ../src/main-window.c:838
+msgid "<b>Slide Text</b>"
+msgstr "<b>スライドのサブタイトル</b>"
+
+#: ../src/main-window.c:867 ../src/main-window.c:1417
+msgid "Click to expand the area"
+msgstr "クリックで区域を広げる"
+
+#: ../src/main-window.c:884
+msgid "Click to choose the font"
+msgstr "クリックでフォントを選ぶ"
+
+#: ../src/main-window.c:894
+msgid "Animation:"
+msgstr "アニメーション:"
+
+#: ../src/main-window.c:906
+msgid "Animation Speed:"
+msgstr "アニメーションの早さ:"
+
+#: ../src/main-window.c:922
+msgid "Placing is relative to:"
+msgstr "テキスト位置の関係:"
+
+#: ../src/main-window.c:936
+msgid "Exported video"
+msgstr "作成ビデオ"
+
+#: ../src/main-window.c:938
+msgid "Original image"
+msgstr "オリジナル画像"
+
+#: ../src/main-window.c:947
+msgid "Subtitle position:"
+msgstr "テキスト位置:"
+
+#. Background music frame
+#: ../src/main-window.c:988
+msgid "Audio"
+msgstr "オーディオ"
+
+#: ../src/main-window.c:1001
+msgid "<b>Background Music</b>"
+msgstr "<b>複数の音楽が選択可能</b>"
+
+#: ../src/main-window.c:1047
+msgid "Music Duration:"
+msgstr "音楽の長さ:"
+
+#: ../src/main-window.c:1071
+msgid "Delete the selected file"
+msgstr "選択された音楽を削除する"
+
+#: ../src/main-window.c:1078
+msgid "Move the selected file up"
+msgstr "選択された音楽の順番を前にする"
+
+#: ../src/main-window.c:1085
+msgid "Move the selected file down"
+msgstr "選択された音楽を後にする"
+
+#: ../src/main-window.c:1092
+msgid "Clear all files"
+msgstr "全ての音楽を削除する"
+
+#: ../src/main-window.c:1412
+msgid "Click to shrink the area"
+msgstr "クリックで区域を縮める"
+
+#: ../src/main-window.c:1444 ../src/callbacks.c:1104
+msgid "Sorry, I could not perform the operation!"
+msgstr "申し訳ございません、この操作は不可能です！"
+
+#: ../src/main-window.c:1601
+msgid "Resolution"
+msgstr "画質"
+
+#: ../src/main-window.c:1601
+msgid "Type"
+msgstr "タイプ"
+
+#: ../src/main-window.c:1935 ../src/main-window.c:1937 ../src/support.c:139
+msgid "None"
+msgstr "どれにも当てはまらない"
+
+#: ../src/main-window.c:2474
+msgid "Slides Transitions Report Dialog"
+msgstr "スライドのトランジションのレポート:"
+
+#: ../src/main-window.c:2554
+msgid ""
+"\n"
+"<span weight='bold'>Note:</span>\n"
+"\n"
+"Slides whose transition is applied only once are not shown here.\n"
+"Click on the slide to have Imagination automatically select it."
+msgstr ""
+"\n"
+"<span weight='bold'>Note:</span>\n"
+"\n"
+"一つトランジションだけあるスライドを表示しない.\n"
+"スライドをクリークして、選択します."
+
+#: ../src/callbacks.c:205
+#, c-format
+msgid "Please wait, importing slide %d out of %d"
+msgstr "スライド %d (全体: %d )を追加中ですので、もうしばらくお待ち下さい。"
+
+#: ../src/callbacks.c:272
+msgid "Please choose the audio files to import"
+msgstr "音楽を選んで下さい（SHIFTキーで複数のファイルを選択出来ます）"
+
+#: ../src/callbacks.c:283
+msgid "All audio files"
+msgstr "全てのオーディオファイル"
+
+#: ../src/callbacks.c:292 ../src/callbacks.c:365
+msgid "All files"
+msgstr "全てのファイル"
+
+#: ../src/callbacks.c:347
+msgid "Import slides, use SHIFT key for multiple select"
+msgstr "画像を選んで下さい（SHIFTキーで複数のファイルを選択出来ます）"
+
+#: ../src/callbacks.c:359
+msgid "All image files"
+msgstr "全ての画像ファイル"
+
+#: ../src/callbacks.c:453 ../src/callbacks.c:1448
+msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
+msgstr "まだスライドショーを保存していません。本当に閉じますか？"
+
+#: ../src/callbacks.c:513
+#, c-format
+msgid "%d x %d pixels"
+msgid_plural "%d x %d pixels"
+msgstr[0] "%d x %d ピクセル"
+msgstr[1] "%d x %d ピクセル"
+
+#: ../src/callbacks.c:789
+msgid "translator-credits"
+msgstr "翻訳協力者"
+
+#: ../src/callbacks.c:1355
+msgid "Stops the preview"
+msgstr "プレビューを停止する"
+
+#: ../src/callbacks.c:1405
+msgid "Load an Imagination slideshow project"
+msgstr "Imaginationスライドショーを開く"
+
+#: ../src/callbacks.c:1406
+msgid "Save an Imagination slideshow project"
+msgstr "Imaginationスライドショーを保存する"
+
+#: ../src/callbacks.c:2113
+msgid "Create new slide"
+msgstr "新しいスライドショーを作成する"
+
+#: ../src/callbacks.c:2124
+msgid "Empty slide options:"
+msgstr "スライドの設定を削除する"
+
+#: ../src/callbacks.c:2134
+msgid "Use _solid color"
+msgstr "均一色を使います (_s)"
+
+#: ../src/callbacks.c:2140
+msgid "Use _linear gradient"
+msgstr "線形グラデーションを使います (_l)"
+
+#: ../src/callbacks.c:2146
+msgid "Use _radial gradient"
+msgstr "丸形グラデーションを使います (_r)"
+
+#: ../src/callbacks.c:2176
+msgid "Preview"
+msgstr "プレビュー"
+
+#. Display propert title depending on the callback that is calling this function.
+#: ../src/new_slideshow.c:63
+msgid "Project properties"
+msgstr "スライドショーの設定"
+
+#: ../src/new_slideshow.c:83
+msgid "<b>Slideshow Settings</b>"
+msgstr "<b>スライドショーの設定</b>"
+
+#: ../src/new_slideshow.c:116
+msgid "<b>Video Format</b>"
+msgstr "<b>ビデオのタイプ</b>"
+
+#: ../src/new_slideshow.c:128
+msgid "<b>Advanced Settings</b>"
+msgstr "<b>高設定</b>"
+
+#: ../src/new_slideshow.c:135
+msgid "Rescale images to fit desired aspect ratio"
+msgstr "画像サイズの変更"
+
+#: ../src/new_slideshow.c:141
+msgid "Select background color:"
+msgstr "背景画像の色を選んで下さい:"
+
+#: ../src/slideshow_project.c:207
+msgid "This is not an Imagination project file!"
+msgstr "これはImaginationスライドショーではありません！"
+
+#: ../src/support.c:99
+#, c-format
+msgid "Welcome to Imagination - %d transitions loaded."
+msgstr "Imaginationへようこそ -　トランジション追加数: %d 個."
+
+#: ../src/support.c:106
+#, c-format
+msgid "%d slides selected"
+msgstr "選択されたスライド: %d 枚"
+
+#: ../src/support.c:114
+#, c-format
+msgid "%d slide imported %s"
+msgid_plural "%d slides imported %s"
+msgstr[0] "%d 追加されたスライド %s"
+msgstr[1] "%d 追加されたスライド %s"
+
+#: ../src/support.c:114
+msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
+msgstr ""
+" - CTRLキーでファイルを選択・選択解除出来て、SHIFTキーで複数のファイルを選択"
+"出来ます"
+
+#: ../src/support.c:237
+msgid "Please choose the slideshow project filename"
+msgstr "スライドショーの名前を選んで下さい"
+
+#: ../src/export.c:210
+msgid "<b>Export Settings</b>"
+msgstr "<b>セッティングの作成</b>"
+
+#: ../src/export.c:224
+msgid "Filename of the slideshow:"
+msgstr "スライドショーのファイル名:"
+
+#: ../src/export.c:372
+msgid "Exporting the slideshow"
+msgstr "スライドショーを作成しています"
+
+#: ../src/export.c:383
+msgid "Preparing for export ..."
+msgstr "スライドショーの作成の準備をしています"
+
+#: ../src/export.c:394
+msgid "Overall progress:"
+msgstr "全体の進捗:"
+
+#: ../src/export.c:484 ../src/export.c:865
+#, c-format
+msgid "Slide %d export progress:"
+msgstr " %d スライドを作成しています:"
+
+#: ../src/export.c:720
+msgid "Failed to launch the encoder!"
+msgstr "エンコーダは始めることが出来ませんでした！"
+
+#: ../src/export.c:863
+#, c-format
+msgid "Final transition export progress:"
+msgstr "最後のスライドを作成しています:"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures and also switches mode into
+#. * preview if needed.
+#: ../src/export.c:1235
+msgid "VOB export"
+msgstr "VOBで作成する"
+
+#: ../src/export.c:1247 ../src/export.c:1330
+msgid "<b>Television Format</b>"
+msgstr "テレビサイズ"
+
+#: ../src/export.c:1254 ../src/export.c:1337 ../src/export.c:1454
+msgid "Normal 4:3"
+msgstr "一般的な 4:3"
+
+#: ../src/export.c:1259 ../src/export.c:1342 ../src/export.c:1478
+msgid "Widescreen 16:9"
+msgstr "ワイド・スクリーン 16:9"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:1318
+msgid "OGG export"
+msgstr "OGGで作成する"
+
+#: ../src/export.c:1348 ../src/export.c:1504
+msgid "<b>Video Quality:</b>"
+msgstr "<b>ビデオ画質:</b>"
+
+#: ../src/export.c:1355 ../src/export.c:1511
+msgid "Low"
+msgstr "低"
+
+#: ../src/export.c:1359 ../src/export.c:1515
+msgid "Medium"
+msgstr "中"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:1432
+msgid "FLV export"
+msgstr "FLVで作成する"
+
+#: ../src/export.c:1444
+msgid "<b>Video Size</b>"
+msgstr "<b>ビデオのサイズ</b>"
+
+#~ msgid "An error occurred while trying to rotate the slide:"
+#~ msgstr "スライド回転中にエラー発生:"
