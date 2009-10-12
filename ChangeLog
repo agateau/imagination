@@ -2,7 +2,8 @@ Imagination changelog
 
 zz/10/09 - 2.5:
 			- Fixed crash when playing with Ken Burns and slide text after closing the project.
-			- Added a nice slides transitions report.
+			- Added a slides transitions report dialog.
+			- Added Japanese translation.
 			- Fixed display of music duration after loading the slideshow.
 			- Fixed seg-fault when exporting with more audio files.
 			- Image rotation is now stored inside project file.
