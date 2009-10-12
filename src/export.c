@@ -67,6 +67,8 @@ static void
 img_exporter_ogg( img_window_struct *img );
 static void
 img_exporter_flv( img_window_struct *img );
+static void
+img_exporter_3gp( img_window_struct *img );
 
 
 /*
@@ -87,7 +89,7 @@ gint
 img_get_exporters_list( Exporter **exporters )
 {
 	Exporter *list;             /* List of all exporters */
-	gint      no_exporters = 3; /* Total number of exporters */
+	gint      no_exporters = 4; /* Total number of exporters */
 	gint      i = 0;
 	
 	list = g_slice_alloc( sizeof( Exporter ) * no_exporters );
@@ -99,6 +101,8 @@ img_get_exporters_list( Exporter **exporters )
 	list[i++].func = G_CALLBACK( img_exporter_ogg );
 	list[i].description = g_strdup( "FLV (Flash video)" );
 	list[i++].func = G_CALLBACK( img_exporter_flv );
+	list[i].description = g_strdup( "3GP (Mobile Phones)" );
+	list[i++].func = G_CALLBACK( img_exporter_3gp );
 
 	*exporters = list;
 
@@ -1597,6 +1601,118 @@ img_exporter_flv( img_window_struct *img )
 								"-vcodec flv -acodec libmp3lame -ab 56000 "
 								"-ar 22050 -ac 1 -y \"%s.flv\"",
 								img->export_fps, qualities[i],
+								width, height, filename );
+	img->export_cmd_line = cmd_line;
+
+	/* Initiate stage 2 of export - audio processing */
+	g_idle_add( (GSourceFunc)img_prepare_audio, img );
+
+	gtk_widget_destroy( dialog );
+}
+
+static void
+img_exporter_3gp( img_window_struct *img )
+{
+	gchar          *cmd_line;
+	const gchar    *filename;
+	GtkWidget      *dialog;
+	GtkEntry       *entry;
+	GtkWidget      *vbox;
+
+	/* Additional options - 3GP  only */
+	GtkWidget *frame1, *frame2;
+	GtkWidget *label;
+	GtkWidget *hbox;
+	GtkWidget *normal_combo;
+	gint       width, height;
+
+	/* This function call should be the first thing exporter does, since this
+	 * function will take some preventive measures. */
+	dialog = img_create_export_dialog( img, _("3GP export"),
+									   GTK_WINDOW( img->imagination_window ),
+									   &entry, &vbox );
+
+	/* If dialog is NULL, abort. */
+	if( dialog == NULL )
+		return;
+
+	/* Add any export format specific GUI elements here */
+	hbox = gtk_hbox_new( TRUE, 5 );
+	gtk_container_add( GTK_CONTAINER( vbox ), hbox );
+	
+	frame1 = gtk_frame_new( NULL );
+	gtk_box_pack_start( GTK_BOX( hbox ), frame1, FALSE, FALSE, 0 );
+
+	label = gtk_label_new( _("<b>Video Size</b>") );
+	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
+	gtk_frame_set_label_widget( GTK_FRAME( frame1 ), label );
+
+	normal_combo = _gtk_combo_box_new_text(FALSE);
+	gtk_container_add (GTK_CONTAINER (frame1), normal_combo);
+	{
+		GtkTreeIter   iter;
+		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( normal_combo ) ) );
+
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "128 x 96", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "176 x 144", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "352 x 288", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "704 x 576", -1 );
+	}
+	gtk_combo_box_set_active( GTK_COMBO_BOX( normal_combo ), 0 );
+	
+	frame2 = gtk_frame_new( NULL );
+	gtk_box_pack_start( GTK_BOX( hbox ), frame2, FALSE, FALSE, 0 );
+
+	label = gtk_label_new( _("<b>Audio Bitrate</b>") );
+	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
+	gtk_frame_set_label_widget( GTK_FRAME( frame2 ), label );
+	gtk_widget_show_all( dialog );
+
+	/* Run dialog and abort if needed */
+	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
+	{
+		gtk_widget_destroy( dialog );
+		return;
+	}
+
+	/* User is serious, so we better prepare ffmpeg command line;) */
+	img->export_is_running = 1;
+	img->export_fps = 25;
+	filename = gtk_entry_get_text( entry );
+
+	/* Any additional calculation can be placed here. */
+	switch(gtk_combo_box_get_active(GTK_COMBO_BOX(normal_combo)) )
+	{
+		case 0:
+		width  = 128;
+		height = 96;
+		break;
+
+		case 1:
+		width  = 176;
+		height = 144;
+		break;
+
+		case 2:
+		width  = 352;
+		height = 288;
+		break;
+
+		case 3:
+		width  = 704;
+		height = 576;
+		break;
+	}
+
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+								"-i pipe: <#AUDIO#> -f 3gp -s %dx%d "
+								"-vcodec h263 -acodec libfaac -ab 32 "
+								"-ar 8000 -ac 1 -y \"%s.3gp\"",
+								img->export_fps,
 								width, height, filename );
 	img->export_cmd_line = cmd_line;
 
