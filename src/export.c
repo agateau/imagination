@@ -619,7 +619,7 @@ img_prepare_pixbufs( img_window_struct *img,
 									g_list_last( img->work_slide->points )->data :
 									NULL );
 
-	if( gtk_tree_model_iter_next( model, &img->cur_ss_iter ) )
+	if( last_transition && gtk_tree_model_iter_next( model, &img->cur_ss_iter ) )
 	{
 		/* We have next iter, so prepare for next round */
 		cairo_surface_destroy( img->image1 );
