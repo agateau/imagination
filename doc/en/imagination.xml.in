@@ -349,11 +349,14 @@
 			<sect3 id="export">
 				<title>Export</title>
 				<para>
-					This submenu allows you to export the slideshow in three
+					This submenu allows you to export the slideshow in four
 					different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis)
-					and FLV (Flash Video). Each format has its own set of
+					FLV (Flash Video) and 3GP (Mobile Phones). Each format has its own set of
 					preferences that you'll be asked about when you select any
-					of them. The extension will be automatically added to the filename.
+					of them. Please be sure to have all the necessary libraries
+					installed first, otherwise you'll get errors from ffmpeg, the
+					command-line encoder Imagination uses to produce the video.
+					The extension will be automatically added to the filename.
 				</para>
 			</sect3>
 			<sect3 id="quit">

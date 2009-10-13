@@ -1663,13 +1663,6 @@ img_exporter_3gp( img_window_struct *img )
 		gtk_list_store_set( store, &iter, 0, "704 x 576", -1 );
 	}
 	gtk_combo_box_set_active( GTK_COMBO_BOX( normal_combo ), 0 );
-	
-	frame2 = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame2, FALSE, FALSE, 0 );
-
-	label = gtk_label_new( _("<b>Audio Bitrate</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame2 ), label );
 	gtk_widget_show_all( dialog );
 
 	/* Run dialog and abort if needed */
@@ -1710,7 +1703,7 @@ img_exporter_3gp( img_window_struct *img )
 
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
 								"-i pipe: <#AUDIO#> -f 3gp -s %dx%d "
-								"-vcodec h263 -acodec libfaac -ab 32 "
+								"-vcodec h263 -acodec libfaac -b 192k -ab 32k "
 								"-ar 8000 -ac 1 -y \"%s.3gp\"",
 								img->export_fps,
 								width, height, filename );
