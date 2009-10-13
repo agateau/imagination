@@ -376,6 +376,7 @@
 				<listitem><para>Zoom</para></listitem>
 				<listitem><para>Add empty slide</para></listitem>
 				<listitem><para>Delete</para></listitem>
+				<listitem><para>Report</para></listitem>
 				<listitem><para>Rotate clockwise</para></listitem>
 				<listitem><para>Rotate counter-clockwise</para></listitem>
 				<listitem><para>Select all</para></listitem>
@@ -450,6 +451,18 @@
 				<title>Delete</title>
 				<para>
 					This menu entry deletes the selected slides. Hold down the SHIFT key to select more than one slide at once or CTRL to select selectively. Please be aware this action cannot be undone!
+				</para>
+			</sect3>
+			<sect3 id="report">
+				<title>Report</title>
+				<figure id="slide_report">
+					<title>Slide Transitions Report dialog</title>
+					<graphic fileref="images/slide_report_dialog.png"></graphic>
+				</figure>
+				<para>
+					This menu entry shows the Slide Transitions Report dialog where you can see the number of the slides which has the same transition.
+					Click on the slide to have Imagination automatically select it. Slides whose transition is applied only once are not shown
+					here. Please give your feedback on this since we are not sure whether it's an useful feature. Thank you.
 				</para>
 			</sect3>
 			<sect3 id="rotate_clockwise">
