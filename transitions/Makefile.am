@@ -18,6 +18,7 @@ push_wipe_la_LDFLAGS = -module -avoid-version
 wave_la_LDFLAGS = -module -avoid-version
 misc_diagonal_wipe_la_LDFLAGS = -module -avoid-version
 misc_shape_wipe_la_LDFLAGS = -module -avoid-version
+rochade_la_LDFLAGS = -module -avoid-version
 
 # Plugins to be installed
 plugin_LTLIBRARIES = \
@@ -34,7 +35,8 @@ plugin_LTLIBRARIES = \
 	push_wipe.la \
 	wave.la \
 	misc_diagonal_wipe.la \
-	misc_shape_wipe.la
+	misc_shape_wipe.la \
+	rochade.la
 
 bar_wipe_la_SOURCES	= bar_wipe.c
 barn_door_wipe_la_SOURCES = barn_door_wipe.c
@@ -50,6 +52,7 @@ push_wipe_la_SOURCES = push_wipe.c
 wave_la_SOURCES = wave.c
 misc_diagonal_wipe_la_SOURCES = misc_diagonal_wipe.c
 misc_shape_wipe_la_SOURCES = misc_shape_wipe.c
+rochade_la_SOURCES = rochade.c
 
 # instead of linking against all in $(GTK_LIBS), we link only against needed libs
 bar_wipe_la_LIBADD = $(PLUGINS_LIBS)
@@ -66,6 +69,7 @@ push_wipe_la_LIBADD = $(PLUGINS_LIBS)
 wave_la_LIBADD = $(PLUGINS_LIBS)
 misc_diagonal_wipe_la_LIBADD = $(PLUGINS_LIBS)
 misc_shape_wipe_la_LIBADD = $(PLUGINS_LIBS)
+rochade_la_LIBADD = $(PLUGINS_LIBS)
 
 AM_CPPFLAGS = \
 	-DDATADIR=\"$(datadir)\" \
