@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
     "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-  <!ENTITY date "September 2009"> 
-  <!ENTITY version "2.0">
+  <!ENTITY date "October 2009"> 
+  <!ENTITY version "2.1">
   <!ENTITY application "Imagination"> 
 ]>
 <article id="index" lang="en">
@@ -49,8 +49,8 @@
 	<sect1 id="new_format">
 		<title>New Slideshow Project Format</title>
 			<para>
-				Starting from this release, &version;, Imagination's slideshow project format has changed. The old format will be recognized and slideshows saved with this format
-				will be correctly loaded, but from the next release support for old slideshow project files (saved with Imagination's release prior to &version;)
+				Starting from release 2.0 Imagination's slideshow project format has changed. The old format will be recognized and slideshows saved with this format
+				will be correctly loaded, but in next release support for old slideshow project files (saved with Imagination's release prior to 2.0;)
 				will be <emphasis>DROPPED</emphasis>. Please ensure to load ALL your old slideshow projects with Imagination &version; and save them again.
 			</para>
 	</sect1>
