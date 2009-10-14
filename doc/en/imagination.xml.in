@@ -460,7 +460,7 @@
 					<graphic fileref="images/slide_report_dialog.png"></graphic>
 				</figure>
 				<para>
-					This menu entry shows the Slide Transitions Report dialog where you can see the number of the slides which has the same transition.
+					This menu entry shows the Slide Transitions Report dialog where you can see the number of the slides which have the same transition.
 					Click on the slide to have Imagination automatically select it. Slides whose transition is applied only once are not shown
 					here. Please give your feedback on this since we are not sure whether it's an useful feature. Thank you.
 				</para>
