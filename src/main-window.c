@@ -507,7 +507,8 @@ img_window_struct *img_create_window (void)
 
 	rotate_left_button = GTK_WIDGET (gtk_tool_button_new(tmp_image,""));
 	gtk_container_add (GTK_CONTAINER (toolbar), rotate_left_button);
-	gtk_widget_set_tooltip_text(rotate_left_button, _("Rotate the slide clockwise"));
+	gtk_widget_set_tooltip_text( rotate_left_button,
+								 _("Rotate the slide 90 degrees to the left") );
 	g_signal_connect( G_OBJECT( rotate_left_button ), "clicked",
 					  G_CALLBACK (img_rotate_slides_left ), img_struct );
 	
@@ -517,7 +518,8 @@ img_window_struct *img_create_window (void)
 
 	rotate_right_button = GTK_WIDGET (gtk_tool_button_new(tmp_image,""));
 	gtk_container_add (GTK_CONTAINER (toolbar),rotate_right_button);
-	gtk_widget_set_tooltip_text(rotate_right_button, _("Rotate the slide counter-clockwise"));
+	gtk_widget_set_tooltip_text( rotate_right_button,
+								 _("Rotate the slide 90 degrees to the right") );
 	g_signal_connect( G_OBJECT( rotate_right_button ), "clicked",
 					  G_CALLBACK( img_rotate_slides_right ), img_struct );
 
@@ -549,12 +551,14 @@ img_window_struct *img_create_window (void)
 
 	first_slide = GTK_WIDGET (gtk_tool_button_new_from_stock (GTK_STOCK_GOTO_FIRST));
 	gtk_container_add (GTK_CONTAINER (toolbar),first_slide);
-	gtk_widget_set_tooltip_text(first_slide, _("Goto first slide"));
+	gtk_widget_set_tooltip_text( first_slide,
+								 _("Go to the first slide of the slideshow") );
 	g_signal_connect (G_OBJECT (first_slide),"clicked",G_CALLBACK (img_goto_first_slide),img_struct);
 
 	prev_slide = GTK_WIDGET (gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK));
 	gtk_container_add (GTK_CONTAINER (toolbar),prev_slide);
-	gtk_widget_set_tooltip_text(prev_slide, _("Goto previous selected slide"));
+	gtk_widget_set_tooltip_text( prev_slide,
+								 _("Go to the previous slide of the slideshow") );
 	g_signal_connect (G_OBJECT (prev_slide),"clicked",G_CALLBACK (img_goto_prev_slide),img_struct);
 
 	toolbutton_slide_goto = GTK_WIDGET(gtk_tool_item_new ());
@@ -581,12 +585,14 @@ img_window_struct *img_create_window (void)
 
 	next_slide = GTK_WIDGET (gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD));
 	gtk_container_add (GTK_CONTAINER (toolbar),next_slide);
-	gtk_widget_set_tooltip_text(next_slide, _("Goto next selected slide"));
+	gtk_widget_set_tooltip_text( next_slide,
+								 _("Go to the next slide of the slideshow") );
 	g_signal_connect (G_OBJECT (next_slide),"clicked",G_CALLBACK (img_goto_next_slide),img_struct);
 
 	last_slide = GTK_WIDGET (gtk_tool_button_new_from_stock (GTK_STOCK_GOTO_LAST));
 	gtk_container_add (GTK_CONTAINER (toolbar),last_slide);
-	gtk_widget_set_tooltip_text(last_slide, _("Goto last slide"));
+	gtk_widget_set_tooltip_text( last_slide,
+								 _("Go to the last slide of the slideshow") );
 	g_signal_connect (G_OBJECT (last_slide),"clicked",G_CALLBACK (img_goto_last_slide),img_struct);
 
 	gtk_widget_show_all (toolbar);

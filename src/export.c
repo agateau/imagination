@@ -95,13 +95,13 @@ img_get_exporters_list( Exporter **exporters )
 	list = g_slice_alloc( sizeof( Exporter ) * no_exporters );
 
 	/* Populate list with data */
-	list[i].description = g_strdup( "VOB (DVD video)" );
+	list[i].description = g_strdup( _("VOB (DVD video)") );
 	list[i++].func = G_CALLBACK( img_exporter_vob );
-	list[i].description = g_strdup( "OGV (Theora/Vorbis)" );
+	list[i].description = g_strdup( _("OGV (Theora/Vorbis)") );
 	list[i++].func = G_CALLBACK( img_exporter_ogg );
-	list[i].description = g_strdup( "FLV (Flash video)" );
+	list[i].description = g_strdup( _("FLV (Flash video)") );
 	list[i++].func = G_CALLBACK( img_exporter_flv );
-	list[i].description = g_strdup( "3GP (Mobile Phones)" );
+	list[i].description = g_strdup( _("3GP (Mobile Phones)") );
 	list[i++].func = G_CALLBACK( img_exporter_3gp );
 
 	*exporters = list;
@@ -225,7 +225,7 @@ img_create_export_dialog( img_window_struct  *img,
 	hbox_slideshow_name = gtk_hbox_new (TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox_frame1), hbox_slideshow_name, TRUE, TRUE, 0);
 
-	label = gtk_label_new( _("Filename of the slideshow:") );
+	label = gtk_label_new( _("Filename:") );
 	gtk_box_pack_start( GTK_BOX( hbox_slideshow_name ), label, FALSE, TRUE, 0 );
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
@@ -1236,7 +1236,7 @@ img_exporter_vob( img_window_struct *img )
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures and also switches mode into
 	 * preview if needed. */
-	dialog = img_create_export_dialog( img, _("VOB export"),
+	dialog = img_create_export_dialog( img, _("VOB (DVD video)"),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
 
@@ -1319,7 +1319,7 @@ img_exporter_ogg( img_window_struct *img )
 
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("OGG export"),
+	dialog = img_create_export_dialog( img, _("OGV (Theora/Vorbis)"),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
 
@@ -1433,7 +1433,7 @@ img_exporter_flv( img_window_struct *img )
 
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("FLV export"),
+	dialog = img_create_export_dialog( img, _("FLV (Flash video)"),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
 
@@ -1628,7 +1628,7 @@ img_exporter_3gp( img_window_struct *img )
 
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("3GP export"),
+	dialog = img_create_export_dialog( img, _("3GP (Mobile Phones)"),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
 

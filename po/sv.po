@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-12 09:32+0200\n"
+"POT-Creation-Date: 2009-10-17 13:47+0200\n"
 "PO-Revision-Date: 2009-10-09 22:34+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -33,7 +33,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Spelar upp %s..."
 
-#: ../src/audio.c:128 ../src/main-window.c:1063
+#: ../src/audio.c:128 ../src/main-window.c:1069
 msgid "Play the selected file"
 msgstr "Spela upp markerad fil"
 
@@ -143,7 +143,7 @@ msgstr "Kvalitet för förhandsgranskning"
 msgid "_Low"
 msgstr "_Låg"
 
-#: ../src/main-window.c:331 ../src/export.c:1364 ../src/export.c:1520
+#: ../src/main-window.c:331 ../src/export.c:1368 ../src/export.c:1524
 msgid "High"
 msgstr "Hög"
 
@@ -221,216 +221,221 @@ msgstr "Importera musik"
 msgid "Delete the selected slides"
 msgstr "Ta bort markerade bilder"
 
-#: ../src/main-window.c:510
-msgid "Rotate the slide clockwise"
-msgstr "Rotera bilden medsols"
-
-#: ../src/main-window.c:520
-msgid "Rotate the slide counter-clockwise"
+#: ../src/main-window.c:511
+#, fuzzy
+msgid "Rotate the slide 90 degrees to the left"
 msgstr "Rotera bilden motsols"
 
-#: ../src/main-window.c:526
+#: ../src/main-window.c:522
+msgid "Rotate the slide 90 degrees to the right"
+msgstr ""
+
+#: ../src/main-window.c:528
 msgid "Zoom In"
 msgstr "Zooma in"
 
-#: ../src/main-window.c:531
+#: ../src/main-window.c:533
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: ../src/main-window.c:536
+#: ../src/main-window.c:538
 msgid "Normal Size"
 msgstr "Normal storlek"
 
-#: ../src/main-window.c:544 ../src/callbacks.c:1345
+#: ../src/main-window.c:546 ../src/callbacks.c:1349
 msgid "Starts the preview"
 msgstr "Startar förhandsgranskningen"
 
-#: ../src/main-window.c:552
-msgid "Goto first slide"
-msgstr "Gå till första bilden"
+#: ../src/main-window.c:555
+#, fuzzy
+msgid "Go to the first slide of the slideshow"
+msgstr "Filnamn för bildspelet:"
 
-#: ../src/main-window.c:557
-msgid "Goto previous selected slide"
+#: ../src/main-window.c:561
+#, fuzzy
+msgid "Go to the previous slide of the slideshow"
 msgstr "Gå till föregående markerade bild"
 
-#: ../src/main-window.c:573 ../src/main-window.c:778
+#: ../src/main-window.c:577 ../src/main-window.c:784
 msgid " of "
 msgstr " av "
 
-#: ../src/main-window.c:584
-msgid "Goto next selected slide"
+#: ../src/main-window.c:589
+#, fuzzy
+msgid "Go to the next slide of the slideshow"
 msgstr "Gå till nästa markerade bild"
 
-#: ../src/main-window.c:589
-msgid "Goto last slide"
-msgstr "Gå till sista bilden"
+#: ../src/main-window.c:595
+#, fuzzy
+msgid "Go to the last slide of the slideshow"
+msgstr "Filnamn för bildspelet:"
 
-#: ../src/main-window.c:640
+#: ../src/main-window.c:646
 msgid "Video"
 msgstr "Video"
 
-#: ../src/main-window.c:658
+#: ../src/main-window.c:664
 msgid "<b>Slide Settings</b>"
 msgstr "<b>Bildinställningar</b>"
 
 #. Transition types label
-#: ../src/main-window.c:668
+#: ../src/main-window.c:674
 msgid "Transition Type:"
 msgstr "Övergångstyp:"
 
-#: ../src/main-window.c:688
+#: ../src/main-window.c:694
 msgid "Random"
 msgstr "Slumpmässigt"
 
-#: ../src/main-window.c:689
+#: ../src/main-window.c:695
 msgid "Imagination randomly decides which transition to apply"
 msgstr "Imagination bestämmer slumpmässigt vilken övergång att tillämpa"
 
 #. Transition duration
-#: ../src/main-window.c:695
+#: ../src/main-window.c:701
 msgid "Transition Speed:"
 msgstr "Övergångshastighet:"
 
-#: ../src/main-window.c:706
+#: ../src/main-window.c:712
 msgid "Fast"
 msgstr "Snabb"
 
-#: ../src/main-window.c:708
+#: ../src/main-window.c:714
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/main-window.c:710
+#: ../src/main-window.c:716
 msgid "Slow"
 msgstr "Långsam"
 
 #. Slide duration
-#: ../src/main-window.c:717
+#: ../src/main-window.c:723
 msgid "Slide Duration in sec:"
 msgstr "Bildlängd i sekunder:"
 
 #. Slide Total Duration
-#: ../src/main-window.c:728
+#: ../src/main-window.c:734
 msgid "Slideshow Length:"
 msgstr "Bildvisningslängd:"
 
-#: ../src/main-window.c:745
+#: ../src/main-window.c:751
 msgid "<b>Slide Motion</b>"
 msgstr "<b>Bildrörelse</b>"
 
-#: ../src/main-window.c:755
+#: ../src/main-window.c:761
 msgid "Stop Point:"
 msgstr "Stoppunkt:"
 
-#: ../src/main-window.c:792
+#: ../src/main-window.c:798
 msgid "Duration:"
 msgstr "Längd:"
 
-#: ../src/main-window.c:801
+#: ../src/main-window.c:807
 msgid "Zoom: "
 msgstr "Zoom: "
 
-#: ../src/main-window.c:815
+#: ../src/main-window.c:821
 msgid "Add"
 msgstr "Lägg till"
 
-#: ../src/main-window.c:819
+#: ../src/main-window.c:825
 msgid "Update"
 msgstr "Uppdatera"
 
-#: ../src/main-window.c:824
+#: ../src/main-window.c:830
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../src/main-window.c:838
+#: ../src/main-window.c:844
 msgid "<b>Slide Text</b>"
 msgstr "<b>Bildtext</b>"
 
-#: ../src/main-window.c:867 ../src/main-window.c:1417
+#: ../src/main-window.c:873 ../src/main-window.c:1423
 msgid "Click to expand the area"
 msgstr "Klicka för att expandera utrymmet"
 
-#: ../src/main-window.c:884
+#: ../src/main-window.c:890
 msgid "Click to choose the font"
 msgstr "Klicka för att välja typsnitt"
 
-#: ../src/main-window.c:894
+#: ../src/main-window.c:900
 msgid "Animation:"
 msgstr "Animation:"
 
-#: ../src/main-window.c:906
+#: ../src/main-window.c:912
 msgid "Animation Speed:"
 msgstr "Animationshastighet:"
 
-#: ../src/main-window.c:922
+#: ../src/main-window.c:928
 msgid "Placing is relative to:"
 msgstr "Placering är relativ till:"
 
-#: ../src/main-window.c:936
+#: ../src/main-window.c:942
 msgid "Exported video"
 msgstr "Exporterade video"
 
-#: ../src/main-window.c:938
+#: ../src/main-window.c:944
 msgid "Original image"
 msgstr "Ursprungsbild"
 
-#: ../src/main-window.c:947
+#: ../src/main-window.c:953
 msgid "Subtitle position:"
 msgstr "Undertextposition:"
 
 #. Background music frame
-#: ../src/main-window.c:988
+#: ../src/main-window.c:994
 msgid "Audio"
 msgstr "Ljud"
 
-#: ../src/main-window.c:1001
+#: ../src/main-window.c:1007
 msgid "<b>Background Music</b>"
 msgstr "<b>Bakgrundsmusik</b>"
 
-#: ../src/main-window.c:1047
+#: ../src/main-window.c:1053
 msgid "Music Duration:"
 msgstr "Musiklängd:"
 
-#: ../src/main-window.c:1071
+#: ../src/main-window.c:1077
 msgid "Delete the selected file"
 msgstr "Ta bort markerad fil"
 
-#: ../src/main-window.c:1078
+#: ../src/main-window.c:1084
 msgid "Move the selected file up"
 msgstr "Flytta markerad fil uppåt"
 
-#: ../src/main-window.c:1085
+#: ../src/main-window.c:1091
 msgid "Move the selected file down"
 msgstr "Flytta markerad fil nedåt"
 
-#: ../src/main-window.c:1092
+#: ../src/main-window.c:1098
 msgid "Clear all files"
 msgstr "Töm alla filer"
 
-#: ../src/main-window.c:1412
+#: ../src/main-window.c:1418
 msgid "Click to shrink the area"
 msgstr "Klicka för att minska utrymmet"
 
-#: ../src/main-window.c:1444 ../src/callbacks.c:1104
+#: ../src/main-window.c:1450 ../src/callbacks.c:1108
 msgid "Sorry, I could not perform the operation!"
 msgstr "Tyvärr, jag kunde inte genomföra åtgärden!"
 
-#: ../src/main-window.c:1601
+#: ../src/main-window.c:1607
 msgid "Resolution"
 msgstr "Upplösning"
 
-#: ../src/main-window.c:1601
+#: ../src/main-window.c:1607
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/main-window.c:1935 ../src/main-window.c:1937 ../src/support.c:139
+#: ../src/main-window.c:1941 ../src/main-window.c:1943 ../src/support.c:153
 msgid "None"
 msgstr "Ingen"
 
-#: ../src/main-window.c:2474
+#: ../src/main-window.c:2480
 msgid "Slides Transitions Report Dialog"
 msgstr "Rapportdialog för bildövergångar"
 
-#: ../src/main-window.c:2554
+#: ../src/main-window.c:2560
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -445,43 +450,45 @@ msgstr ""
 "Klicka på bilden för att få Imagination att automatiskt välja den."
 
 #: ../src/callbacks.c:205
-#, c-format
-msgid "Please wait, importing slide %d out of %d"
+#, fuzzy, c-format
+msgid "Please wait, importing image %d out of %d"
 msgstr "Vänta, importerar bild %d av %d"
 
-#: ../src/callbacks.c:272
-msgid "Please choose the audio files to import"
-msgstr "Välj ljudfilerna att importera"
+#: ../src/callbacks.c:273
+#, fuzzy
+msgid "Import audio files, use CTRL key for multiple select"
+msgstr "Importera bilder, använd SKIFT-tangenten för flera markeringar"
 
-#: ../src/callbacks.c:283
+#: ../src/callbacks.c:285
 msgid "All audio files"
 msgstr "Alla ljudfiler"
 
-#: ../src/callbacks.c:292 ../src/callbacks.c:365
+#: ../src/callbacks.c:294 ../src/callbacks.c:369
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../src/callbacks.c:347
-msgid "Import slides, use SHIFT key for multiple select"
+#: ../src/callbacks.c:350
+#, fuzzy
+msgid "Import images, use SHIFT key for multiple select"
 msgstr "Importera bilder, använd SKIFT-tangenten för flera markeringar"
 
-#: ../src/callbacks.c:359
+#: ../src/callbacks.c:363
 msgid "All image files"
 msgstr "Alla bildfiler"
 
-#: ../src/callbacks.c:453 ../src/callbacks.c:1448
+#: ../src/callbacks.c:457 ../src/callbacks.c:1452
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr ""
 "Du har inte sparat ditt bildspel än. Är du säker på att du vill stänga det?"
 
-#: ../src/callbacks.c:513
+#: ../src/callbacks.c:517
 #, c-format
 msgid "%d x %d pixels"
 msgid_plural "%d x %d pixels"
 msgstr[0] "%d x %d bildpunkter"
 msgstr[1] "%d x %d bildpunkter"
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:793
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -489,39 +496,40 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: ../src/callbacks.c:1355
+#: ../src/callbacks.c:1359
 msgid "Stops the preview"
 msgstr "Stoppar förhandsgranskningen"
 
-#: ../src/callbacks.c:1405
+#: ../src/callbacks.c:1409
 msgid "Load an Imagination slideshow project"
 msgstr "Läs in ett Imagination-bildspelsprojekt"
 
-#: ../src/callbacks.c:1406
+#: ../src/callbacks.c:1410
 msgid "Save an Imagination slideshow project"
 msgstr "Spara ett Imagination-bildspelsprojekt"
 
-#: ../src/callbacks.c:2113
-msgid "Create new slide"
+#: ../src/callbacks.c:2117
+#, fuzzy
+msgid "Create empty slide"
 msgstr "Skapa en ny bild"
 
-#: ../src/callbacks.c:2124
+#: ../src/callbacks.c:2128
 msgid "Empty slide options:"
 msgstr "Alternativ för tom bild:"
 
-#: ../src/callbacks.c:2134
+#: ../src/callbacks.c:2138
 msgid "Use _solid color"
 msgstr "Använd _enfärgad"
 
-#: ../src/callbacks.c:2140
+#: ../src/callbacks.c:2144
 msgid "Use _linear gradient"
 msgstr "Använd _linjär gradient"
 
-#: ../src/callbacks.c:2146
+#: ../src/callbacks.c:2150
 msgid "Use _radial gradient"
 msgstr "Använd _radiell gradient"
 
-#: ../src/callbacks.c:2176
+#: ../src/callbacks.c:2180
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -554,113 +562,145 @@ msgstr "Välj bakgrundsfärg:"
 msgid "This is not an Imagination project file!"
 msgstr "Detta är inte en projektfil för Imagination!"
 
-#: ../src/support.c:99
-#, c-format
-msgid "Welcome to Imagination - %d transitions loaded."
-msgstr "Välkommen till Imagination - %d övergångar inlästa."
+#: ../src/support.c:100
+#, fuzzy, c-format
+msgid "Welcome to Imagination - %d transition loaded."
+msgid_plural "Welcome to Imagination - %d transitions loaded."
+msgstr[0] "Välkommen till Imagination - %d övergångar inlästa."
+msgstr[1] "Välkommen till Imagination - %d övergångar inlästa."
 
-#: ../src/support.c:106
-#, c-format
-msgid "%d slides selected"
-msgstr "%d bilder markerade"
+#: ../src/support.c:111
+#, fuzzy, c-format
+msgid "%d slide selected"
+msgid_plural "%d slides selected"
+msgstr[0] "%d bilder markerade"
+msgstr[1] "%d bilder markerade"
 
-#: ../src/support.c:114
-#, c-format
-msgid "%d slide imported %s"
-msgid_plural "%d slides imported %s"
+#: ../src/support.c:122
+#, fuzzy, c-format
+msgid "%d slide loaded %s"
+msgid_plural "%d slides loaded %s"
 msgstr[0] "%d bild importerad %s"
 msgstr[1] "%d bilder importerade %s"
 
-#: ../src/support.c:114
+#: ../src/support.c:126
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
 msgstr ""
 " - Använd CTRL-tangenten för att markera/avmarkera eller SKIFT för flera "
 "markeringar"
 
-#: ../src/support.c:237
+#: ../src/support.c:251
 msgid "Please choose the slideshow project filename"
 msgstr "Välj filnamn för bildspelsprojektet"
 
-#: ../src/export.c:210
+#. Populate list with data
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures and also switches mode into
+#. * preview if needed.
+#: ../src/export.c:98 ../src/export.c:1239
+msgid "VOB (DVD video)"
+msgstr ""
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:100 ../src/export.c:1322
+msgid "OGV (Theora/Vorbis)"
+msgstr ""
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:102 ../src/export.c:1436
+msgid "FLV (Flash video)"
+msgstr ""
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:104 ../src/export.c:1631
+msgid "3GP (Mobile Phones)"
+msgstr ""
+
+#: ../src/export.c:214
 msgid "<b>Export Settings</b>"
 msgstr "<b>Exportinställningar</b>"
 
-#: ../src/export.c:224
-msgid "Filename of the slideshow:"
-msgstr "Filnamn för bildspelet:"
+#: ../src/export.c:228
+msgid "Filename:"
+msgstr ""
 
-#: ../src/export.c:372
+#: ../src/export.c:376
 msgid "Exporting the slideshow"
 msgstr "Exporterar bildspelet"
 
-#: ../src/export.c:383
+#: ../src/export.c:387
 msgid "Preparing for export ..."
 msgstr "Förbereder för export ..."
 
-#: ../src/export.c:394
+#: ../src/export.c:398
 msgid "Overall progress:"
 msgstr "Totalt förlopp:"
 
-#: ../src/export.c:484 ../src/export.c:865
+#: ../src/export.c:488 ../src/export.c:869
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Förlopp för export av bild %d:"
 
-#: ../src/export.c:720
+#: ../src/export.c:724
 msgid "Failed to launch the encoder!"
 msgstr "Misslyckades med att starta kodaren!"
 
-#: ../src/export.c:863
+#: ../src/export.c:867
 #, c-format
 msgid "Final transition export progress:"
 msgstr "Förlopp för export av slutgiltig övergång:"
 
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures and also switches mode into
-#. * preview if needed.
-#: ../src/export.c:1235
-msgid "VOB export"
-msgstr "VOB-export"
-
-#: ../src/export.c:1247 ../src/export.c:1330
+#: ../src/export.c:1251 ../src/export.c:1334
 msgid "<b>Television Format</b>"
 msgstr "<b>Tv-format</b>"
 
-#: ../src/export.c:1254 ../src/export.c:1337 ../src/export.c:1454
+#: ../src/export.c:1258 ../src/export.c:1341 ../src/export.c:1458
 msgid "Normal 4:3"
 msgstr "Normal 4:3"
 
-#: ../src/export.c:1259 ../src/export.c:1342 ../src/export.c:1478
+#: ../src/export.c:1263 ../src/export.c:1346 ../src/export.c:1482
 msgid "Widescreen 16:9"
 msgstr "Bredbild 16:9"
 
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/export.c:1318
-msgid "OGG export"
-msgstr "OGG-export"
-
-#: ../src/export.c:1348 ../src/export.c:1504
+#: ../src/export.c:1352 ../src/export.c:1508
 msgid "<b>Video Quality:</b>"
 msgstr "<b>Videokvalitet:</b>"
 
-#: ../src/export.c:1355 ../src/export.c:1511
+#: ../src/export.c:1359 ../src/export.c:1515
 msgid "Low"
 msgstr "Låg"
 
-#: ../src/export.c:1359 ../src/export.c:1515
+#: ../src/export.c:1363 ../src/export.c:1519
 msgid "Medium"
 msgstr "Medel"
 
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/export.c:1432
-msgid "FLV export"
-msgstr "FLV-export"
-
-#: ../src/export.c:1444
+#: ../src/export.c:1448 ../src/export.c:1646
 msgid "<b>Video Size</b>"
 msgstr "<b>Videostorlek</b>"
+
+#~ msgid "Rotate the slide clockwise"
+#~ msgstr "Rotera bilden medsols"
+
+#~ msgid "Goto first slide"
+#~ msgstr "Gå till första bilden"
+
+#~ msgid "Goto last slide"
+#~ msgstr "Gå till sista bilden"
+
+#~ msgid "Please choose the audio files to import"
+#~ msgstr "Välj ljudfilerna att importera"
+
+#~ msgid "VOB export"
+#~ msgstr "VOB-export"
+
+#~ msgid "OGG export"
+#~ msgstr "OGG-export"
+
+#~ msgid "FLV export"
+#~ msgstr "FLV-export"
 
 #~ msgid "An error occurred while trying to rotate the slide:"
 #~ msgstr "Ett fel inträffade vid försök att rotera bilden:"

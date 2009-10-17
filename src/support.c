@@ -96,23 +96,37 @@ void img_set_statusbar_message(img_window_struct *img_struct, gint selected)
 
 	if (img_struct->slides_nr == 0)
 	{
-		message = g_strdup_printf(_("Welcome to Imagination - %d transitions loaded."),img_struct->nr_transitions_loaded);
-		gtk_statusbar_push(GTK_STATUSBAR(img_struct->statusbar),img_struct->context_id,message);
-		g_free(message);
-		gtk_label_set_text(GTK_LABEL(img_struct->total_slide_number_label),NULL);
+		message = g_strdup_printf(
+				ngettext( "Welcome to Imagination - %d transition loaded.",
+						  "Welcome to Imagination - %d transitions loaded.",
+						  img_struct->nr_transitions_loaded ),
+				img_struct->nr_transitions_loaded );
+		gtk_statusbar_push( GTK_STATUSBAR( img_struct->statusbar ),
+							img_struct->context_id, message );
+		g_free( message );
+		gtk_label_set_text( GTK_LABEL( img_struct->total_slide_number_label ), NULL );
 	}
 	else if (selected)
 	{
-		message = g_strdup_printf(_("%d slides selected"),selected);
-		gtk_statusbar_push(GTK_STATUSBAR(img_struct->statusbar),img_struct->context_id,message);
-		g_free(message);
+		message = g_strdup_printf( ngettext( "%d slide selected",
+											 "%d slides selected",
+											 selected ), selected);
+		gtk_statusbar_push( GTK_STATUSBAR( img_struct->statusbar ),
+							img_struct->context_id, message );
+		g_free( message );
 	}
 	else
 	{
 		total_slides = g_strdup_printf("%d",img_struct->slides_nr);
 		gtk_label_set_text(GTK_LABEL(img_struct->total_slide_number_label),total_slides);
-		message = g_strdup_printf(ngettext("%d slide imported %s" ,"%d slides imported %s",img_struct->slides_nr),img_struct->slides_nr,_(" - Use the CTRL key to select/unselect or SHIFT for multiple select"));
-		gtk_statusbar_push(GTK_STATUSBAR(img_struct->statusbar),img_struct->context_id,message);
+		message = g_strdup_printf( ngettext( "%d slide loaded %s",
+											 "%d slides loaded %s",
+											 img_struct->slides_nr ),
+								   img_struct->slides_nr,
+								   _(" - Use the CTRL key to select/unselect "
+									 "or SHIFT for multiple select") );
+		gtk_statusbar_push( GTK_STATUSBAR( img_struct->statusbar ),
+							img_struct->context_id, message );
 		g_free(total_slides);
 		g_free(message);
 	}

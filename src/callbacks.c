@@ -202,7 +202,8 @@ void img_increase_progressbar(img_window_struct *img, gint nr)
 
 	percent = (gdouble)nr / img->slides_nr;
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (img->progress_bar), percent);
-	message = g_strdup_printf(_("Please wait, importing slide %d out of %d"), nr, img->slides_nr);
+	message = g_strdup_printf( _("Please wait, importing image %d out of %d"),
+							   nr, img->slides_nr );
 	gtk_statusbar_push(GTK_STATUSBAR(img->statusbar), img->context_id, message);
 	g_free(message);
 
@@ -269,14 +270,15 @@ void img_select_audio_files_to_add ( GtkMenuItem* button, img_window_struct *img
 	gint response;
 	gchar *time = NULL;
 
-	fs = gtk_file_chooser_dialog_new (_("Please choose the audio files to import"),
-							GTK_WINDOW (img->imagination_window),
-							GTK_FILE_CHOOSER_ACTION_OPEN,
-							GTK_STOCK_CANCEL,
-							GTK_RESPONSE_CANCEL,
-							GTK_STOCK_OPEN,
-							GTK_RESPONSE_ACCEPT,
-							NULL);
+	fs = gtk_file_chooser_dialog_new( _("Import audio files, use CTRL key "
+										"for multiple select"),
+									  GTK_WINDOW (img->imagination_window),
+									  GTK_FILE_CHOOSER_ACTION_OPEN,
+									  GTK_STOCK_CANCEL,
+									  GTK_RESPONSE_CANCEL,
+									  GTK_STOCK_OPEN,
+									  GTK_RESPONSE_ACCEPT,
+									  NULL );
 
 	/* only audio files filter */
 	audio_filter = gtk_file_filter_new ();
@@ -344,14 +346,16 @@ GSList *img_import_slides_file_chooser(img_window_struct *img)
 	GSList *slides = NULL;
 	int response;
 
-	img->import_slide_chooser = gtk_file_chooser_dialog_new (_("Import slides, use SHIFT key for multiple select"),
-						GTK_WINDOW (img->imagination_window),
-						GTK_FILE_CHOOSER_ACTION_OPEN,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						GTK_STOCK_OPEN,
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+	img->import_slide_chooser =
+		gtk_file_chooser_dialog_new( _("Import images, use SHIFT key for "
+									   "multiple select"),
+									 GTK_WINDOW (img->imagination_window),
+									 GTK_FILE_CHOOSER_ACTION_OPEN,
+									 GTK_STOCK_CANCEL,
+									 GTK_RESPONSE_CANCEL,
+									 GTK_STOCK_OPEN,
+									 GTK_RESPONSE_ACCEPT,
+									 NULL);
 	img_file_chooser_add_preview(img);
 
 	/* Image files filter */
@@ -450,7 +454,7 @@ gboolean img_quit_application(GtkWidget *widget, GdkEvent *event, img_window_str
 
 	if (img_struct->project_is_modified)
 	{
-		response = img_ask_user_confirmation(img_struct, _("You didn't save your slideshow yet. Are you sure you want to close it?"));
+		response = img_ask_user_confirmation( img_struct, _("You didn't save your slideshow yet. Are you sure you want to close it?"));
 		if (response != GTK_RESPONSE_OK)
 			return TRUE;
 	}
@@ -2110,7 +2114,7 @@ img_add_empty_slide( GtkMenuItem       *item,
 	gint       i, w, h, pos;
 
 	dialog = gtk_dialog_new_with_buttons(
-					_("Create new slide"),
+					_("Create empty slide"),
 					GTK_WINDOW( img->imagination_window ),
 					GTK_DIALOG_MODAL,
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
