@@ -89,6 +89,10 @@ static gint
 img_sort_report_transitions( gconstpointer a,
 							 gconstpointer b );
 
+static void
+img_toggle_frame_rate( GtkCheckMenuItem  *item,
+					   img_window_struct *img );
+
 
 /* ****************************************************************************
  * Function definitions
@@ -170,6 +174,8 @@ img_window_struct *img_create_window (void)
 	GtkWidget *rotate_right_menu;
 	GtkWidget *rotate_left_button;
 	GtkWidget *rotate_right_button;
+
+	GtkWidget *tmp_checks[PREVIEW_FPS_NO_PRESETS];
 
 	img_struct = g_new0(img_window_struct, 1);
 
@@ -435,6 +441,43 @@ img_window_struct *img_create_window (void)
 							GTK_RADIO_MENU_ITEM( img_struct->menu_preview_mode ), _("Overview mode") );
 	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), img_struct->menu_overview_mode );
 
+	menuitem1 = gtk_separator_menu_item_new();
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), menuitem1 );
+
+	menuitem1 = gtk_menu_item_new_with_mnemonic( _("Preview _frame rate") );
+	gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), menuitem1 );
+
+	menu1 = gtk_menu_new();
+	gtk_menu_item_set_submenu( GTK_MENU_ITEM( menuitem1 ), menu1 );
+
+	{
+		gint       i,
+				   j;
+		GtkWidget *item;
+		gchar     *label;
+		GSList    *group = NULL;
+
+		for( i = 0, j = PREVIEW_FPS_MIN;
+			 i < PREVIEW_FPS_NO_PRESETS;
+			 i++, j += PREVIEW_FPS_STEP )
+		{
+			label = g_strdup_printf( ngettext( "%d frame per second",
+											   "%d frames per second",
+											   j ),
+									 j );
+			item = gtk_radio_menu_item_new_with_label( group, label );
+			tmp_checks[i] = item;
+			g_signal_connect( G_OBJECT( item ), "toggled",
+							  G_CALLBACK( img_toggle_frame_rate ), img_struct );
+			g_object_set_data( G_OBJECT( item ), "index",
+							   GINT_TO_POINTER( j ) );
+			gtk_menu_shell_append( GTK_MENU_SHELL( menu1 ), item );
+			g_free( label );
+			group = gtk_radio_menu_item_get_group( GTK_RADIO_MENU_ITEM( item ) );
+		}
+	}
+
+	/* Help menu */
 	menuitem3 = gtk_menu_item_new_with_mnemonic (_("_Help"));
 	gtk_container_add (GTK_CONTAINER (menubar), menuitem3);
 	menu3 = gtk_menu_new ();
@@ -1261,6 +1304,14 @@ img_window_struct *img_create_window (void)
 	/* Load interface settings or apply default ones */
 	if( ! img_load_window_settings( img_struct ) )
 		img_set_window_default_settings( img_struct );
+
+	/* Update preview frame rate */
+	{
+		gint index =
+			( img_struct->preview_fps - PREVIEW_FPS_MIN ) / PREVIEW_FPS_STEP;
+		gtk_check_menu_item_set_active(
+				GTK_CHECK_MENU_ITEM( tmp_checks[index] ), TRUE );
+	}
 
 	return img_struct;
 }
@@ -2682,3 +2733,15 @@ img_sort_report_transitions( gconstpointer a,
 	return( val_a - val_b );
 }
 
+static void
+img_toggle_frame_rate( GtkCheckMenuItem  *item,
+					   img_window_struct *img )
+{
+	gpointer tmp;
+
+	if( ! gtk_check_menu_item_get_active( item ) )
+		return;
+
+	tmp = g_object_get_data( G_OBJECT( item ), "index" );
+	img->preview_fps = GPOINTER_TO_INT( tmp );
+}

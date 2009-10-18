@@ -27,7 +27,10 @@
 
 /* Transition preview frame rate. I decided to use 25 fps, which
  * should be handled on time by most machines. */
-#define PREVIEW_FPS 15
+#define PREVIEW_FPS_STEP       5
+#define PREVIEW_FPS_MIN        5
+#define PREVIEW_FPS_NO_PRESETS 6
+#define PREVIEW_FPS_DEFAULT    15
 
 /* The transition speed is defined as a duration in seconds. */
 #define	FAST	1
@@ -381,6 +384,7 @@ struct _img_window_struct
 	/* Application related stuff */
 	gdouble  image_area_zoom; /* Zoom to be applied to image area */
 	gdouble  overview_zoom;   /* Zoom to be applied in overview mode */
+	gint     preview_fps;     /* Preview frame rate */
 	gboolean low_quality;     /* Preview quality:
 								  TRUE  - preview in low-res
 								  FALSE - preview in hi-res */

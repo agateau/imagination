@@ -957,10 +957,10 @@ void img_start_stop_preview(GtkWidget *button, img_window_struct *img)
 
 		/* Add transition timeout function */
 		img->preview_is_running = TRUE;
-		img->total_nr_frames = img->total_secs * PREVIEW_FPS;
+		img->total_nr_frames = img->total_secs * img->preview_fps;
 		img->displayed_frame = 0;
 		img->next_slide_off = 0;
-		img_calc_next_slide_time_offset( img, PREVIEW_FPS );
+		img_calc_next_slide_time_offset( img, img->preview_fps );
 
 		/* Create surfaces to be passed to transition renderer */
 		img->image_from = cairo_image_surface_create( CAIRO_FORMAT_RGB24,
@@ -973,7 +973,7 @@ void img_start_stop_preview(GtkWidget *button, img_window_struct *img)
 														  img->video_size[0],
 														  img->video_size[1] );
 
-		img->source_id = g_timeout_add( 1000 / PREVIEW_FPS,
+		img->source_id = g_timeout_add( 1000 / img->preview_fps,
 										(GSourceFunc)img_transition_timeout,
 										img );
 	}
@@ -1275,7 +1275,7 @@ static gboolean img_transition_timeout(img_window_struct *img)
 	 * transition part), connect still preview phase. */
 	if( img->slide_cur_frame == img->slide_trans_frames )
 	{
-		img->source_id = g_timeout_add( 1000 / PREVIEW_FPS,
+		img->source_id = g_timeout_add( 1000 / img->preview_fps,
 										(GSourceFunc)img_still_timeout, img );
 
 		return FALSE;
@@ -1302,8 +1302,8 @@ static gboolean img_still_timeout(img_window_struct *img)
 	{
 		if( img_prepare_pixbufs( img, TRUE ) )
 		{
-			img_calc_next_slide_time_offset( img, PREVIEW_FPS );
-			img->source_id = g_timeout_add( 1000 / PREVIEW_FPS,
+			img_calc_next_slide_time_offset( img, img->preview_fps );
+			img->source_id = g_timeout_add( 1000 / img->preview_fps,
 										    (GSourceFunc)img_transition_timeout,
 											img );
 		}
@@ -1321,7 +1321,7 @@ static gboolean img_still_timeout(img_window_struct *img)
 	}
 
 	/* Render frame */
-	img_render_still_frame( img, PREVIEW_FPS );
+	img_render_still_frame( img, img->preview_fps );
 
 	/* Increment counters */
 	img->still_counter++;
@@ -2546,6 +2546,7 @@ img_save_window_settings( img_window_struct *img )
 	g_key_file_set_double(  kf, group, "zoom_o",  img->overview_zoom );
 	g_key_file_set_boolean( kf, group, "quality", img->low_quality );
 	g_key_file_set_boolean( kf, group, "max",     max );
+	g_key_file_set_integer( kf, group, "preview", img->preview_fps );
 
 	rc_path = g_build_filename( g_get_home_dir(), ".config",
 								"imagination", NULL );
@@ -2589,6 +2590,11 @@ img_load_window_settings( img_window_struct *img )
 	img->low_quality     = g_key_file_get_boolean( kf, group, "quality", NULL );
 	max                  = g_key_file_get_boolean( kf, group, "max",     NULL );
 
+	/* New addition to environment settings */
+	img->preview_fps     = g_key_file_get_integer( kf, group, "preview", NULL );
+	if( ! img->preview_fps )
+		img->preview_fps = PREVIEW_FPS_DEFAULT;
+
 	g_key_file_free( kf );
 
 	/* Update mode */
@@ -2620,6 +2626,7 @@ img_set_window_default_settings( img_window_struct *img )
 	img->image_area_zoom = 1.0;
 	img->overview_zoom = 1.0;
 	img->low_quality = TRUE;
+	img->preview_fps = PREVIEW_FPS_DEFAULT;
 
 	/* Update mode */
 	img->mode = - 1;

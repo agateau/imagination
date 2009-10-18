@@ -20,8 +20,6 @@
 #include "support.h"
 #include <glib/gstdio.h>
 
-#define PLUGINS_INSTALLED 0
-
 static gboolean img_plugin_is_loaded(img_window_struct *, GModule *);
 
 GtkWidget *img_load_icon(gchar *filename, GtkIconSize size)
