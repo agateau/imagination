@@ -90,7 +90,6 @@ icons/16x16/Makefile
 icons/24x24/Makefile
 icons/48x48/Makefile
 icons/scalable/Makefile
-imagination.desktop.in
 ])
 
 echo ""

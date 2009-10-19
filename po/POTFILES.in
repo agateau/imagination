@@ -1,6 +1,6 @@
 # List of source files containing translatable strings.
 
-imagination.desktop.in.in
+imagination.desktop.in
 src/audio.c
 src/imagination.c
 src/main-window.c
@@ -8,4 +8,5 @@ src/callbacks.c
 src/new_slideshow.c
 src/slideshow_project.c
 src/support.c
+src/subtitles.c
 src/export.c
