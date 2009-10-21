@@ -725,7 +725,7 @@ img_window_struct *img_create_window (void)
 	gtk_table_set_col_spacings (GTK_TABLE (table), 4);
 
 	/* Transition type */
-	img_struct->transition_type = _gtk_combo_box_new_text(TRUE);
+	img_struct->transition_type = _gtk_combo_box_new_text( TRUE );
 	gtk_table_attach (GTK_TABLE (table), img_struct->transition_type, 0, 1, 0, 1,(GtkAttachOptions) (GTK_FILL),(GtkAttachOptions) (GTK_FILL), 0, 0);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(gtk_combo_box_get_model(GTK_COMBO_BOX(img_struct->transition_type))),
 										1, GTK_SORT_ASCENDING);

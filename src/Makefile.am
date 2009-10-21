@@ -12,6 +12,7 @@ bin_PROGRAMS = imagination
 
 imagination_SOURCES = \
 	sexy-icon-entry.c sexy-icon-entry.h \
+	imgcellrendereranim.c imgcellrendereranim.h \
 	imagination.c imagination.h \
 	support.c support.h \
 	main-window.c main-window.h \
