@@ -12,13 +12,13 @@ start_color=0.40138857099259939;0.88751049057755393;0.95944151979858094;
 stop_color=1;1;1;
 start_point=0.39166666666666666;0.3298611111111111;
 stop_point=0.59722222222222221;0.69444444444444442;
-duration=8
+duration=6
 transition_id=-1
 speed=4
 no_points=0
-text=This is a brief video showing what\nyou can do with Imagination 2.0\nforthcoming on September...
+text=This is a brief video showing what\nyou can do with Imagination 2.1
 anim id=5
-anim duration=6
+anim duration=4
 text pos=4
 placing=0
 font=Swift 26
@@ -26,6 +26,7 @@ font color=0.47450980392156861;0.12941176470588237;0.68235294117647061;1;
 
 [slide 2]
 filename=sample_ss/The_Big_Apple.jpg
+angle=0
 duration=9
 transition_id=19
 speed=4
@@ -41,6 +42,7 @@ font color=1;1;1;1;
 
 [slide 3]
 filename=sample_ss/0024 (22).JPG
+angle=0
 duration=32
 transition_id=60
 speed=4
@@ -56,6 +58,7 @@ font color=1;1;1;1;
 
 [slide 4]
 filename=sample_ss/[From www.metacafe.com] 173439.1120062.1.jpg
+angle=0
 duration=4
 transition_id=3
 speed=4
@@ -69,12 +72,11 @@ font color=0;0;0;1;
 
 [slide 5]
 filename=sample_ss/0024 (15).JPG
-duration=11
+angle=0
+duration=2
 transition_id=43
 speed=4
-no_points=5
-points=4;0;0;1;3;-946.75;-24;2.8999999999999999;1;-949.25;-330.25;2.8999999999999999;1;-950.5;-875.25;2.8999999999999999;2;0;0;1;
-text=The following transition is a new one
+no_points=0
 anim id=0
 anim duration=1
 text pos=7
@@ -84,6 +86,7 @@ font color=1;0;0;1;
 
 [slide 6]
 filename=sample_ss/0024 (9).JPG
+angle=0
 duration=6
 transition_id=67
 speed=4
@@ -98,6 +101,7 @@ font color=1;1;1;1;
 
 [slide 7]
 filename=sample_ss/Sfondi 17888 (9).jpg
+angle=0
 duration=4
 transition_id=14
 speed=4
@@ -111,8 +115,9 @@ font color=0;0;0;1;
 
 [slide 8]
 filename=sample_ss/0024 (11).JPG
+angle=0
 duration=1
-transition_id=15
+transition_id=71
 speed=4
 no_points=0
 anim id=0
@@ -124,6 +129,7 @@ font color=0;0;0;1;
 
 [slide 9]
 filename=sample_ss/[From www.metacafe.com] 173439.1120056.1.jpg
+angle=0
 duration=6
 transition_id=58
 speed=4
@@ -138,6 +144,7 @@ font color=0.17264057373922331;0;0.35497062638284888;1;
 
 [slide 10]
 filename=sample_ss/[From www.metacafe.com] 173439.1120112.1.jpg
+angle=0
 duration=3
 transition_id=17
 speed=4
@@ -152,6 +159,7 @@ font color=1;1;1;1;
 
 [slide 11]
 filename=sample_ss/0024 (18).JPG
+angle=0
 duration=18
 transition_id=36
 speed=4
