@@ -4,7 +4,7 @@ NOTE FOR PACKAGERS:
 ===================
 
 Before packaging Imagination (unless this hasn't already been done) please
-comment line 22 in file src/support.c from this:
+comment line 23 in file src/support.h from this:
 
 #define PLUGINS_INSTALLED 0
 to this:
