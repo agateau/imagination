@@ -85,7 +85,7 @@ doc/en/Makefile
 doc/en/imagination.xml
 doc/en/images/Makefile
 po/Makefile.in
-po-doc/Makefile.in
+po-doc/Makefile
 icons/Makefile
 icons/16x16/Makefile
 icons/24x24/Makefile

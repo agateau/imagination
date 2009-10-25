@@ -23,17 +23,16 @@ srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 docdir = $(top_srcdir)/doc
 
-if ENABLE_XML2PO
 all-local: $(PACKAGE).pot
 
 $(PACKAGE).pot: $(docdir)/en/$(PACKAGE).xml.in
-	$(XML2PO) -o $(PACKAGE).pot $(docdir)/en/$(PACKAGE).xml.in
+	xml2po -o $(PACKAGE).pot $(docdir)/en/$(PACKAGE).xml.in
 
 update-po: Makefile $(PACKAGE).pot
 	@echo "*** Updating PO ***"
 	langs=`sed -e '/^#/d' $(srcdir)/LINGUAS`; \
 	for lang in $$langs; do \
-		$(XML2PO) -u $$lang.po $(docdir)/en/$(PACKAGE).xml.in; \
+		xml2po -u $$lang.po $(docdir)/en/$(PACKAGE).xml.in; \
 	done
 
 update-xml: Makefile $(PACKAGE).pot
@@ -43,20 +42,10 @@ update-xml: Makefile $(PACKAGE).pot
 		if test -n $(docdir)/$$lang; then \
 			mkdir -p $(docdir)/$$lang; \
 		fi; \
-		$(XML2PO) -p $$lang.po $(docdir)/en/$(PACKAGE).xml.in > $(docdir)/$$lang/$(PACKAGE).xml.in; \
+		xml2po -p $$lang.po $(docdir)/en/$(PACKAGE).xml.in > $(docdir)/$$lang/$(PACKAGE).xml.in; \
 	done
 
-else
-all-local:
-endif
-
-if ENABLE_XML2PO
 dist-check-xml2po: all
-else
-dist-check-xml2po:
-	@echo "*** xml2po must be installed and enabled in order to make dist"
-	@false
-endif
 
 DISTCLEANFILES = $(PACKAGE).pot
 
