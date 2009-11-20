@@ -1280,11 +1280,10 @@ img_exporter_vob( img_window_struct *img )
 		aspect_ratio = "16:9";
 
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
-								"-aspect %s -s %dx%d -i pipe: <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd \"%s.vob\"",
-								img->export_fps, aspect_ratio,
-								img->video_size[0], img->video_size[1],
-								format, filename );
+								"-s %dx%d -i pipe: <#AUDIO#> -y "
+								"-bf 2 -target %s-dvd -aspect %s \"%s.vob\"",
+								img->export_fps,img->video_size[0], img->video_size[1],
+								format, aspect_ratio, filename );
 	img->export_cmd_line = cmd_line;
 
 	/* Initiate stage 2 of export - audio processing */

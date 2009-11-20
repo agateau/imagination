@@ -1,7 +1,8 @@
 Imagination changelog
 
 xx/01/10 - 3.0:
-			- Icons in the transition menu are animated.			
+			- Icons in the transition menu are animated.
+			- Fixed bug 2900684 in the VOB exported aspect ratio.
 
 14/10/09 - 2.1:
 			- Added a new transition family named Rochade.
