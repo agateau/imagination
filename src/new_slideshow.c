@@ -29,6 +29,8 @@ img_update_thumbs( img_window_struct *img );
 static void
 img_update_current_slide( img_window_struct *img );
 
+static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img);
+
 /* ****************************************************************************
  * Public API
  * ************************************************************************* */
@@ -53,8 +55,8 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	GtkWidget *bg_button;
 	GtkWidget *bg_label;
 	GdkColor   color;
-	GtkWidget *vbox_video_format;
-	GtkWidget *pal,*ntsc;
+	GtkWidget *hbox_video_format;
+	GtkWidget *hbox_video_size;
 	GtkWidget *label1;
 	gint       response;
 	gchar     *string;
@@ -94,6 +96,8 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	hbox_slideshow_options = gtk_hbox_new(TRUE, 10);
 	gtk_box_pack_start(GTK_BOX (vbox_frame1), hbox_slideshow_options, TRUE, TRUE, 10);
 
+	/* Video Format */
+
 	frame1 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox_slideshow_options), frame1, TRUE, TRUE, 0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
@@ -102,20 +106,53 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	gtk_container_add (GTK_CONTAINER (frame1), alignment_frame1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment_frame1), 5, 5, 5, 5);
 
-	vbox_video_format = gtk_hbox_new (FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (alignment_frame1), vbox_video_format);
+	hbox_video_format = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (alignment_frame1), hbox_video_format);
 
-	pal = gtk_radio_button_new_with_mnemonic (NULL, "PAL 720 x 576");
-	gtk_box_pack_start (GTK_BOX (vbox_video_format), pal, TRUE, TRUE, 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);
-
-	ntsc = gtk_radio_button_new_with_mnemonic_from_widget (GTK_RADIO_BUTTON (pal), "NTSC 720 x 480");
-	gtk_box_pack_start (GTK_BOX (vbox_video_format), ntsc, TRUE, TRUE, 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);
+	img->video_format_combo = _gtk_combo_box_new_text(FALSE);
+	gtk_box_pack_start( GTK_BOX( hbox_video_format ), img->video_format_combo, FALSE, FALSE, 0 );
+	{
+		GtkTreeIter   iter;
+		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( img->video_format_combo ) ) );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "VOB (DVD Video)", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "OGV (Theora Vorbis)", -1 );		
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "FLV (Flash Video)", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "3GP (Mobile Phones)", -1 );
+		gtk_list_store_append( store, &iter );
+		gtk_list_store_set( store, &iter, 0, "MP4 (MPEG-4)", -1 );
+	}
 
 	label_frame1 = gtk_label_new (_("<b>Video Format</b>"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1), label_frame1);
 	gtk_label_set_use_markup (GTK_LABEL (label_frame1), TRUE);
+
+	/* Video Size */
+	frame1 = gtk_frame_new (NULL);
+	gtk_box_pack_start (GTK_BOX (hbox_slideshow_options), frame1, TRUE, TRUE, 0);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
+
+	alignment_frame1 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	gtk_container_add (GTK_CONTAINER (frame1), alignment_frame1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment_frame1), 5, 5, 5, 5);
+
+	hbox_video_size = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (alignment_frame1), hbox_video_size);
+
+	img->video_size_combo = _gtk_combo_box_new_text(FALSE);
+	gtk_box_pack_start( GTK_BOX( hbox_video_size ), img->video_size_combo, FALSE, FALSE, 0 );
+
+	g_signal_connect (G_OBJECT (img->video_format_combo), "changed", G_CALLBACK (img_video_format_changed),img);
+	gtk_combo_box_set_active( GTK_COMBO_BOX( img->video_format_combo ), 0 );
+
+	label_frame1 = gtk_label_new (_("<b>Video Size</b>"));
+	gtk_frame_set_label_widget (GTK_FRAME (frame1), label_frame1);
+	gtk_label_set_use_markup (GTK_LABEL (label_frame1), TRUE);
+
+	/* Advanced Settings */
 
 	frame3 = gtk_frame_new( NULL );
 	gtk_box_pack_start (GTK_BOX (vbox_frame1), frame3, TRUE, TRUE, 0);
@@ -151,10 +188,10 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 
 	/* Set parameters */
 	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( distort_button ), img->distort_images );
-	if (img->video_size[1] == 480)
+	/*if (img->video_size[1] == 480)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ntsc), TRUE);
 	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);*/
 
 	response = gtk_dialog_run(GTK_DIALOG(dialog1));
 
@@ -172,11 +209,11 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 			gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( distort_button ) );
 		c_dist = ( dist ? ! img->distort_images : img->distort_images );
 
-		/* Get format settings */
+		/* Get format settings 
 		if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( pal ) ) )
 			img->video_size[1] = 576;
 		else
-			img->video_size[1] = 480;
+			img->video_size[1] = 480;*/
 		img->video_ratio = (gdouble)img->video_size[0] / img->video_size[1];
 		c_size = ( size != img->video_size[1] );
 
@@ -255,5 +292,70 @@ img_update_current_slide( img_window_struct *img )
 					 0, img->video_size[1], img->distort_images,
 					 img->background_color, NULL, &img->current_image );
 	gtk_widget_queue_draw( img->image_area );
+}
+
+static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img)
+{
+	GtkTreeIter   iter;
+	GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( img->video_size_combo ) ) );
+
+	gtk_list_store_clear(store);
+	switch (gtk_combo_box_get_active(combo))
+	{
+		case 0:
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "720 x 480 NTSC", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "720 x 576 PAL", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "1280 x 720 HD", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "1920 x 1080 HD", -1 );
+		break;
+
+		case 1:
+		case 2:
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "320 x 240 4:3", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "400 x 300", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "512 x 384", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "640 x 480", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "- - - - - - - - - - - -", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "320 x 180 16:9", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "400 x 225", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "512 x 288", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "640 x 360", -1 );
+		break;
+
+		case 3:
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "320 x 240 4:3", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "400 x 300", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "512 x 384", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "640 x 480", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "- - - - - - - - - - - -", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "320 x 180 16:9", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "400 x 225", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "512 x 288", -1 );
+			gtk_list_store_append( store, &iter );
+			gtk_list_store_set( store, &iter, 0, "640 x 360", -1 );
+		break;
+	}
+	gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo),0);
 }
 

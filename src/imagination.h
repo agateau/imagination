@@ -223,6 +223,8 @@ struct _img_window_struct
   	GtkWidget	*statusbar;
   	GtkWidget	*progress_bar;
   	GtkWidget	*image_area;
+  	GtkWidget	*video_format_combo;
+  	GtkWidget	*video_size_combo;
   	guint		context_id;
   	GtkListStore *thumbnail_model;
   	gchar		*current_dir;
