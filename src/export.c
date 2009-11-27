@@ -59,73 +59,11 @@ img_export_frame_to_ppm( cairo_surface_t *surface,
 						 gint             file_desc );
 
 static void
-img_exporter_vob( img_window_struct *img );
-static void
-img_exporter_ogg( img_window_struct *img );
+img_exporter_ogv( img_window_struct *img );
 static void
 img_exporter_flv( img_window_struct *img );
 static void
 img_exporter_3gp( img_window_struct *img );
-
-
-/*
- * img_get_exporters:
- * @exporters: location to put list of available exporters
- *
- * This function is here to simplify accessing all available exporters.
- *
- * Any newly added exporters should be listed in array returned by this function
- * or Imagination WILL NOT create menu entries for them.
- *
- * List that is placed in exporters parameter should be considered read-only and
- * freed after usage with img_free_exporters_list.
- *
- * Return value: Size of list in exporters.
- */
-gint
-img_get_exporters_list( Exporter **exporters )
-{
-	Exporter *list;             /* List of all exporters */
-	gint      no_exporters = 4; /* Total number of exporters */
-	gint      i = 0;
-	
-	list = g_slice_alloc( sizeof( Exporter ) * no_exporters );
-
-	/* Populate list with data */
-	list[i].description = g_strdup( _("VOB (DVD video)") );
-	list[i++].func = G_CALLBACK( img_exporter_vob );
-	list[i].description = g_strdup( _("OGV (Theora/Vorbis)") );
-	list[i++].func = G_CALLBACK( img_exporter_ogg );
-	list[i].description = g_strdup( _("FLV (Flash video)") );
-	list[i++].func = G_CALLBACK( img_exporter_flv );
-	list[i].description = g_strdup( _("3GP (Mobile Phones)") );
-	list[i++].func = G_CALLBACK( img_exporter_3gp );
-
-	*exporters = list;
-
-	return( no_exporters );
-}
-
-/*
- * img_free_exporters_list:
- * @no_exporters: number of exporters in exporters list
- * @exporters: array of Exporter structs
- *
- * This function takes care of freeing any memory allocated by
- * img_get_exporters_list function.
- */
-void
-img_free_exporters_list( gint      no_exporters,
-						 Exporter *exporters )
-{
-	register gint i;
-
-	for( i = 0; i < no_exporters; i++ )
-		g_free( exporters[i].description );
-
-	g_slice_free1( sizeof( Exporter ) * no_exporters, exporters );
-}
-
 
 /*
  * img_create_export_dialog:
@@ -1213,8 +1151,8 @@ img_export_frame_to_ppm( cairo_surface_t *surface,
  * placeholder named <#AUDIO#>, which will be in next stage replaced by real
  * path to newly produced audio file (at this stage, we don't have any).
  * ************************************************************************* */
-static void
-img_exporter_vob( img_window_struct *img )
+
+void img_exporter_vob( img_window_struct *img )
 {
 	gchar          *cmd_line;
 	gchar          *format;
@@ -1293,7 +1231,7 @@ img_exporter_vob( img_window_struct *img )
 }
 
 static void
-img_exporter_ogg( img_window_struct *img )
+img_exporter_ogv( img_window_struct *img )
 {
 	gchar          *cmd_line;
 	const gchar    *filename;
@@ -1803,3 +1741,30 @@ img_exporter_3gp( img_window_struct *img )
 /* ****************************************************************************
  * End exporters
  * ************************************************************************* */
+
+void img_choose_exporter(GtkWidget *button, img_window_struct *img)
+{
+	switch (img->video_format)
+	{
+		default:
+		case 'V':
+		img_exporter_vob(img);
+		break;
+
+		case 'O':
+		img_exporter_ogv(img);
+		break;
+
+		case 'F':
+		img_exporter_flv(img);
+		break;
+
+		case '3':
+		img_exporter_3gp(img);
+		break;
+
+		case 'M':
+		//img_exporter_vob(img);
+		break;
+	}
+}

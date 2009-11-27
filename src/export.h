@@ -23,22 +23,6 @@
 #include <gtk/gtk.h>
 #include "imagination.h"
 
-/*Exporter is a structure that holds information about specific exporter. */
-typedef struct _Exporter Exporter;
-struct _Exporter
-{
-	gchar     *description;
-	GCallback  func;  /* GCallback is defined as void (*func)( void ) */
-};
-
-
-gint
-img_get_exporters_list( Exporter **exporters );
-
-void
-img_free_exporters_list( gint      no_exporters,
-						 Exporter *exporters );
-
 gboolean
 img_stop_export( img_window_struct *img );
 
@@ -51,10 +35,16 @@ img_calc_next_slide_time_offset( img_window_struct *img,
 								 gdouble            rate );
 
 void
+img_exporter_vob( img_window_struct *img );
+
+void
 img_render_transition_frame( img_window_struct *img );
 
 void
 img_render_still_frame( img_window_struct *img,
 						gdouble            rate );
+
+void
+img_choose_exporter(GtkWidget *button, img_window_struct *img);
 
 #endif

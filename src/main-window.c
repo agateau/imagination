@@ -61,10 +61,6 @@ static void img_show_uri(GtkMenuItem *, img_window_struct *);
 static void img_select_slide_from_slide_report_dialog(GtkButton *, img_window_struct *);
 static void img_show_slides_report_dialog(GtkMenuItem *, img_window_struct *);
 
-static void
-img_create_export_menu( GtkWidget         *item,
-						img_window_struct *img );
-
 static gboolean
 img_iconview_selection_button_press( GtkWidget         *widget,
 									 GdkEventButton    *button,
@@ -287,12 +283,10 @@ img_window_struct *img_create_window (void)
 
 	export_menu = gtk_image_menu_item_new_with_mnemonic (_("Export"));
 	gtk_container_add (GTK_CONTAINER (menu1), export_menu);
+	g_signal_connect (G_OBJECT (export_menu),"activate",G_CALLBACK (img_choose_exporter),img_struct);
 
 	image_menu = img_load_icon ("imagination-generate.png",GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export_menu),image_menu);
-
-	/* Attach subitems to export menu */
-	img_create_export_menu( export_menu, img_struct );
 
 	separatormenuitem1 = gtk_separator_menu_item_new ();
 	gtk_container_add (GTK_CONTAINER (menu1), separatormenuitem1);
@@ -2005,38 +1999,6 @@ static void img_check_numeric_entry (GtkEditable *entry, gchar *text, gint lengh
 {
 	if(*text < '0' || *text > '9')
 		g_signal_stop_emission_by_name( (gpointer)entry, "insert-text" );
-}
-
-/*
- * img_create_export_menu:
- * @item: menu item to attach export menu to.
- *
- * This fuction queries all available exporters and adds them to the menu.
- */
-static void
-img_create_export_menu( GtkWidget         *item,
-						img_window_struct *img )
-{
-	Exporter  *exporters;
-	gint       number, i;
-	GtkWidget *menu;
-
-	number = img_get_exporters_list( &exporters );
-
-	menu = gtk_menu_new();
-	gtk_menu_item_set_submenu( GTK_MENU_ITEM( item ), menu );
-
-	for( i = 0; i < number; i++ )
-	{
-		GtkWidget *ex;
-
-		ex = gtk_menu_item_new_with_label( exporters[i].description );
-		g_signal_connect_swapped( G_OBJECT( ex ), "activate",
-								  exporters[i].func, img );
-		gtk_menu_shell_append( GTK_MENU_SHELL( menu ), ex );
-	}
-
-	img_free_exporters_list( number, exporters );
 }
 
 /*
