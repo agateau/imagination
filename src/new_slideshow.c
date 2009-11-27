@@ -195,10 +195,8 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		gboolean dist = img->distort_images;
-		gint     size = img->video_size[1];
 		GdkColor new;
 		gboolean c_dist,
-				 c_size,
 				 c_color;
 
 		/* Get distorsion settings */
@@ -210,7 +208,6 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 		img_get_format_options(img);
 
 		img->video_ratio = (gdouble)img->video_size[0] / img->video_size[1];
-		c_size = ( size != img->video_size[1] );
 
 		/* Get color settings */
 		gtk_color_button_get_color( GTK_COLOR_BUTTON( bg_button ), &new );
@@ -222,7 +219,7 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 				  ( color.blue  != new.blue  );
 
 		/* Update display properly */
-		if( c_dist || c_size || c_color )
+		if( c_dist || c_color )
 		{
 			/* Update thumbnails */
 			img_update_thumbs( img );
@@ -232,13 +229,6 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 
 			/* Set indicator that project should be saved */
 			img_set_project_mod_state( img, TRUE );
-
-			/* Resize image area 
-			if( c_size )
-				gtk_widget_set_size_request(
-							img->image_area,
-							img->video_size[0] * img->image_area_zoom,
-							img->video_size[1] * img->image_area_zoom );*/
 		}
 	}
 
