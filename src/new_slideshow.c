@@ -188,10 +188,7 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 
 	/* Set parameters */
 	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( distort_button ), img->distort_images );
-	/*if (img->video_size[1] == 480)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ntsc), TRUE);
-	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pal), TRUE);*/
+	img_set_format_options(img);
 
 	response = gtk_dialog_run(GTK_DIALOG(dialog1));
 
@@ -210,7 +207,7 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 		c_dist = ( dist ? ! img->distort_images : img->distort_images );
 
 		/* Get format settings */
-		img_set_format_options(img);
+		img_get_format_options(img);
 
 		img->video_ratio = (gdouble)img->video_size[0] / img->video_size[1];
 		c_size = ( size != img->video_size[1] );
@@ -236,12 +233,12 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 			/* Set indicator that project should be saved */
 			img_set_project_mod_state( img, TRUE );
 
-			/* Resize image area */
+			/* Resize image area 
 			if( c_size )
 				gtk_widget_set_size_request(
 							img->image_area,
 							img->video_size[0] * img->image_area_zoom,
-							img->video_size[1] * img->image_area_zoom );
+							img->video_size[1] * img->image_area_zoom );*/
 		}
 	}
 
@@ -360,15 +357,14 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
 	gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo),0);
 }
 
-void img_set_format_options(img_window_struct *img)
+void img_get_format_options(img_window_struct *img)
 {
 	switch (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_format_combo)) )
 	{
-		default:
-		case 0:
+		case 0: /* VOB */
+			img->video_format = 'V';
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_size_combo)) )
 			{
-				default:
 				case 0:
 				img->video_size[0] = 720;
 				img->video_size[1] = 480;
@@ -391,8 +387,13 @@ void img_set_format_options(img_window_struct *img)
 			}
 		break;
 		
-		case 1:
-		case 2:
+		case 1: /* OGV */
+		case 2: /* FLV */
+			if (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_format_combo)) == 1)
+				img->video_format = 'O';
+			else if (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_format_combo)) == 2)
+				img->video_format = 'F';
+
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_size_combo)) )
 			{
 				case 0:
@@ -447,7 +448,8 @@ void img_set_format_options(img_window_struct *img)
 			}
 		break;
 
-		case 3:
+		case 3: /* 3GP */
+			img->video_format = '3';
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_size_combo)) )
 			{
 				case 0:
@@ -477,7 +479,8 @@ void img_set_format_options(img_window_struct *img)
 			}
 		break;
 
-		case 4:
+		case 4: /* MP4 */
+			img->video_format = 'M';
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_size_combo)) )
 			{
 				case 0:
@@ -493,6 +496,168 @@ void img_set_format_options(img_window_struct *img)
 				case 2:
 				img->video_size[0] = 1920;
 				img->video_size[1] = 1080;
+				break;
+			}
+		break;
+	}
+}
+
+void img_set_format_options(img_window_struct *img)
+{
+	switch (img->video_format)
+	{
+		case 'V':
+			gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_format_combo), 0);
+			switch (img->video_size[1])
+			{
+				case 480:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+				break;
+
+				case 576:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 1);
+				break;
+
+				case 720:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 2);
+				break;
+
+				case 1080:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 3);
+				break;
+			}
+		break;
+
+		case 'O':
+			gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_format_combo), 1);
+			switch (img->video_size[1])
+			{
+				case 240:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+				break;
+
+				case 300:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 1);
+				break;
+
+				case 384:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 2);
+				break;
+
+				case 480:
+				if (img->video_size[0] == 640)
+					gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 3);
+				else
+					gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 9);
+				break;
+				
+				case 600:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 4);
+				break;
+
+				case 180:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 5);
+				break;
+
+				case 225:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 6);
+				break;
+
+				case 288:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 7);
+				break;
+
+				case 360:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 8);
+				break;
+			}
+		break;
+
+		case 'F':
+			gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_format_combo), 2);
+			switch (img->video_size[1])
+			{
+				case 240:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+				break;
+
+				case 300:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 1);
+				break;
+
+				case 384:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 2);
+				break;
+
+				case 480:
+				if (img->video_size[0] == 640)
+					gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 3);
+				else
+					gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 9);
+				break;
+				
+				case 600:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 4);
+				break;
+
+				case 180:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 5);
+				break;
+
+				case 225:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 6);
+				break;
+
+				case 288:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 7);
+				break;
+
+				case 360:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 8);
+				break;
+			}
+		break;
+
+		case '3':
+			gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_format_combo), 3);
+			switch (img->video_size[1])
+			{
+				case 96:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+				break;
+
+				case 144:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 1);
+				break;
+
+				case 288:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 2);
+				break;
+
+				case 576:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 3);
+				break;
+				
+				case 1152:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 4);
+				break;
+			}
+		break;
+		
+		case 'M':
+			gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_format_combo), 4);
+			switch (img->video_size[1])
+			{
+				case 360:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+				break;
+
+				case 720:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 1);
+				break;
+
+				case 1080:
+				gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 2);
 				break;
 			}
 		break;

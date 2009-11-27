@@ -288,6 +288,7 @@ struct _img_window_struct
 	gchar       *project_filename;		// project name for saving
 	gboolean	distort_images;
 	gboolean	project_is_modified;
+	gchar		video_format;
 	gint        video_size[2];
 	gdouble     video_ratio;
 	gdouble     background_color[3];

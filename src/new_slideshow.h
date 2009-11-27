@@ -28,4 +28,5 @@
 
 void img_new_slideshow_settings_dialog(img_window_struct *, gboolean);
 void img_set_format_options (img_window_struct *);
+void img_get_format_options (img_window_struct *);
 #endif
