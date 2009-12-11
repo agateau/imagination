@@ -344,7 +344,7 @@ msgstr "Añadir"
 
 #: ../src/main-window.c:825
 msgid "Update"
-msgstr "Actaualizar"
+msgstr "Actualizar"
 
 #: ../src/main-window.c:830
 msgid "Remove"
