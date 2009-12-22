@@ -1725,26 +1725,6 @@ static void img_combo_box_transition_type_changed (GtkComboBox *combo, img_windo
 	else
 		gtk_widget_set_sensitive( img->trans_duration, TRUE );
 
-	/* If user selected group name, automatically select first transition
-	 * from this group. */
-	if( transition_id == 0 )
-	{
-		GtkTreeIter parent = iter;
-		gtk_tree_model_iter_nth_child( model, &iter, &parent, 0 );
-		gtk_tree_model_get( model, &iter, 0, &pix,
-										  2, &address,
-										  3, &transition_id,
-										  -1 );
-		g_signal_handlers_block_by_func( img->transition_type,
-										 img_combo_box_transition_type_changed,
-										 img);
-		gtk_combo_box_set_active_iter( GTK_COMBO_BOX( img->transition_type),
-									   &iter );
-		g_signal_handlers_unblock_by_func( img->transition_type,
-										   img_combo_box_transition_type_changed,
-										   img);
-	}
-
 	/* Get string representation of the path, which will be
 	 * saved inside slide */
 	p = gtk_tree_model_get_path( model, &iter );

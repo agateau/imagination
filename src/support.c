@@ -52,6 +52,17 @@ gchar *img_convert_seconds_to_time(gint total_secs)
 	return g_strdup_printf("%02d:%02d:%02d", h, m, s);
 }
 
+static void
+sens_cell_func( GtkCellLayout   *layout,
+				GtkCellRenderer *cell,
+				GtkTreeModel    *model,
+				GtkTreeIter     *iter,
+				gpointer         data )
+{
+	gboolean sensitive = ! gtk_tree_model_iter_has_child( model, iter );
+	g_object_set( cell, "sensitive", sensitive, NULL );
+}
+
 GtkWidget *_gtk_combo_box_new_text(gboolean pointer)
 {
 	GtkWidget *combo_box;
@@ -62,19 +73,32 @@ GtkWidget *_gtk_combo_box_new_text(gboolean pointer)
 
 	if (pointer)
 	{
-		tree = gtk_tree_store_new( 5, GDK_TYPE_PIXBUF,
+		tree = gtk_tree_store_new( 6, GDK_TYPE_PIXBUF,
 									  G_TYPE_STRING,
 									  G_TYPE_POINTER,
 									  G_TYPE_INT,
-									  GDK_TYPE_PIXBUF_ANIMATION );
+									  GDK_TYPE_PIXBUF_ANIMATION,
+									  G_TYPE_BOOLEAN );
 		model = GTK_TREE_MODEL( tree );
 
 		combo_box = gtk_combo_box_new_with_model (model);
 		g_object_unref (G_OBJECT( model ));
 		cell = img_cell_renderer_anim_new ();
 		gtk_cell_layout_pack_start( GTK_CELL_LAYOUT( combo_box ), cell, FALSE );
-		gtk_cell_layout_add_attribute( GTK_CELL_LAYOUT (combo_box), cell,
-									   "anim", 4 );
+		gtk_cell_layout_set_attributes( GTK_CELL_LAYOUT (combo_box), cell,
+										"anim", 4,
+										NULL );
+		gtk_cell_layout_set_cell_data_func( GTK_CELL_LAYOUT( combo_box ), cell,
+											sens_cell_func, NULL, NULL );
+		
+		cell = gtk_cell_renderer_text_new ();
+		gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), cell, TRUE);
+		gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), cell,
+										"text", 1,
+										NULL);
+		gtk_cell_layout_set_cell_data_func( GTK_CELL_LAYOUT( combo_box ), cell,
+											sens_cell_func, NULL, NULL );
+		g_object_set(cell, "ypad", (guint)0, NULL);
 	}
 	else
 	{
@@ -83,12 +107,15 @@ GtkWidget *_gtk_combo_box_new_text(gboolean pointer)
 		
 		combo_box = gtk_combo_box_new_with_model (model);
 		g_object_unref (G_OBJECT( model ));
+
+		cell = gtk_cell_renderer_text_new ();
+		gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), cell, TRUE);
+		gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), cell,
+										"text", 0,
+										NULL);
+		g_object_set(cell, "ypad", (guint)0, NULL);
 	}
 
-	cell = gtk_cell_renderer_text_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), cell, TRUE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), cell, "text", pointer ? 1 : 0, NULL);
-	g_object_set(cell, "ypad", (guint)0, NULL);
 	return combo_box;
 }
 
