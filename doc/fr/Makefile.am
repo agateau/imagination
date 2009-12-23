@@ -21,7 +21,7 @@ CLEANFILES = $(DOC_STAMPS)
 all-local: html-build.stamp
 
 html-build.stamp: $(srcdir)/$(DOCUMENT) $(srcdir)/$(STYLESHEET)
-	@echo "*** Building HTML ***"
+	@echo "*** Building French documentation ***"
 	@-chmod -R u+w $(srcdir)
 	rm -rf $(srcdir)/html
 	mkdir $(srcdir)/html/

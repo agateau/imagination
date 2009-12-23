@@ -3,7 +3,7 @@
 SUBDIRS =								\
 	images
 
-TARGET_DIR = $(datadir)/doc/imagination/html/en
+TARGET_DIR = $(datadir)/doc/imagination/html/es
 STYLESHEET = ../imagination.xsl
 DOCUMENT = imagination.xml
 
@@ -21,7 +21,7 @@ CLEANFILES = $(DOC_STAMPS)
 all-local: html-build.stamp
 
 html-build.stamp: $(srcdir)/$(DOCUMENT) $(srcdir)/$(STYLESHEET)
-	@echo "*** Building English documentation ***"
+	@echo "*** Building Spanish documentation ***"
 	@-chmod -R u+w $(srcdir)
 	rm -rf $(srcdir)/html
 	mkdir $(srcdir)/html/

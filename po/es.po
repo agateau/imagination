@@ -348,7 +348,7 @@ msgstr "Actualizar"
 
 #: ../src/main-window.c:830
 msgid "Remove"
-msgstr "Remover"
+msgstr "Eliminar"
 
 #: ../src/main-window.c:844
 msgid "<b>Slide Text</b>"
