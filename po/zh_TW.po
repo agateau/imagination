@@ -1,0 +1,660 @@
+# Chinese Traditional translations for imagination package.
+#  Copyright (C) 2009 THE imagination'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <tw.chi.ming@gmail.com>, 2010.05
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-17 13:47+0200\n"
+"PO-Revision-Date: 2010-05-16 12:00+0800\n"
+"Last-Translator: chiming <tw.chi.ming@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0; \n"
+
+#: ../imagination.desktop.in.in.h:1
+msgid "A DVD slideshow maker"
+msgstr "一個DVD影片秀製作工具"
+
+#: ../imagination.desktop.in.in.h:2
+msgid "A lightweight DVD slideshow maker using GTK+2"
+msgstr "一個GTK+2介面下的簡易DVD影片秀製作工具"
+
+#: ../imagination.desktop.in.in.h:3
+msgid "Imagination"
+msgstr "Imagination 想像"
+
+#: ../src/audio.c:108
+#, c-format
+msgid "Playing %s..."
+msgstr "播放中 %s..."
+
+#: ../src/audio.c:128 ../src/main-window.c:1069
+msgid "Play the selected file"
+msgstr "播放選擇的檔案"
+
+#: ../src/audio.c:136
+msgid "Stop the playback"
+msgstr "停止播放"
+
+#: ../src/audio.c:263
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate\n"
+msgstr ""
+"%s:\n"
+"聲音頻率不同\n"
+
+#: ../src/audio.c:268
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible number of channels\n"
+msgstr ""
+"%s:\n"
+"聲道數不同\n"
+
+#: ../src/audio.c:274
+#, c-format
+msgid ""
+"%s:\n"
+"incompatible sample rate and number of channels\n"
+msgstr ""
+"%s:\n"
+"頻率及聲道數不一致\n"
+
+#: ../src/audio.c:294
+#, c-format
+msgid ""
+"%s\n"
+"<b>Do you want to continue without these files?</b>"
+msgstr ""
+"%s\n"
+"<b>沒有檔案也要繼續嗎?</b>"
+
+#: ../src/audio.c:298 ../src/audio.c:445
+msgid "Audio files mismatch:"
+msgstr "音效檔沒有一致性:"
+
+#: ../src/audio.c:392
+msgid "Incompatible sample rate."
+msgstr "聲音頻率不同."
+
+#: ../src/audio.c:399
+msgid "Incompatible number of channels."
+msgstr "聲道數不同."
+
+#: ../src/audio.c:406
+msgid "Incompatible sample rate and number of channels."
+msgstr "頻率及聲道數都不一致"
+
+#: ../src/audio.c:428
+#, c-format
+msgid ""
+"File selection contains %d audio file that is incompatible with other files."
+msgid_plural ""
+"File selection contains %d audio files that are incompatible with other "
+"files."
+msgstr[0] "選擇的檔案中有 %d 個與其他不同格式的音效檔"
+
+#: ../src/audio.c:434
+msgid "Please check audio tab for more information."
+msgstr "請檢查音效分頁以檢視更多訊息"
+
+#: ../src/main-window.c:218
+msgid "_Slideshow"
+msgstr "影片秀(_S)"
+
+#: ../src/main-window.c:247
+msgid "Import p_ictures"
+msgstr "匯入圖片(_i)"
+
+#: ../src/main-window.c:257
+msgid "Import _music"
+msgstr "匯入音樂(_m)"
+
+#: ../src/main-window.c:274
+msgid "_Preview"
+msgstr "預覽(_P)"
+
+#: ../src/main-window.c:282
+msgid "Export"
+msgstr "匯出"
+
+#. Slide menu
+#: ../src/main-window.c:299
+msgid "_Slide"
+msgstr "場景(_S)"
+
+#. Preview quality menu
+#: ../src/main-window.c:321
+msgid "Preview quality"
+msgstr "預覽品質"
+
+#: ../src/main-window.c:327
+msgid "_Low"
+msgstr "低(_L)"
+
+#: ../src/main-window.c:331 ../src/export.c:1368 ../src/export.c:1524
+msgid "High"
+msgstr "高"
+
+#. Zoom controls
+#: ../src/main-window.c:335
+msgid "_Zoom"
+msgstr "縮放(_Z)"
+
+#: ../src/main-window.c:362
+msgid "Add empt_y slide"
+msgstr "新增場景(_y)"
+
+#: ../src/main-window.c:371
+msgid "Dele_te"
+msgstr "刪除(_t)"
+
+#: ../src/main-window.c:379
+msgid "Repor_t"
+msgstr "回報(_t)"
+
+#: ../src/main-window.c:391
+msgid "Rotate co_unter-clockwise"
+msgstr "順時針旋轉"
+
+#: ../src/main-window.c:402
+msgid "_Rotate clockwise"
+msgstr "逆時針旋轉(_R)"
+
+#: ../src/main-window.c:417
+msgid "Un_select all"
+msgstr "全部不選(_s)"
+
+#. View menu
+#: ../src/main-window.c:423
+msgid "_View"
+msgstr "檢視(_V)"
+
+#: ../src/main-window.c:429
+msgid "Preview mode"
+msgstr "預覽模式"
+
+#: ../src/main-window.c:435
+msgid "Overview mode"
+msgstr "概觀模式"
+
+#: ../src/main-window.c:438
+msgid "_Help"
+msgstr "說明(_H)"
+
+#: ../src/main-window.c:443
+msgid "Contents"
+msgstr "內容"
+
+#: ../src/main-window.c:464 ../src/new_slideshow.c:63
+msgid "Create a new slideshow"
+msgstr "建立一個影片秀"
+
+#: ../src/main-window.c:469
+msgid "Open a slideshow"
+msgstr "開啟一個影片秀"
+
+#: ../src/main-window.c:474
+msgid "Save the slideshow"
+msgstr "儲存影片秀"
+
+#: ../src/main-window.c:487
+msgid "Import pictures"
+msgstr "匯入圖片"
+
+#: ../src/main-window.c:496
+msgid "Import music"
+msgstr "匯入音樂"
+
+#: ../src/main-window.c:501
+msgid "Delete the selected slides"
+msgstr "刪除選擇的場景"
+
+#: ../src/main-window.c:511
+msgid "Rotate the slide 90 degrees to the left"
+msgstr "順時針旋轉90度"
+
+#: ../src/main-window.c:522
+msgid "Rotate the slide 90 degrees to the right"
+msgstr "逆時針旋轉90度"
+
+#: ../src/main-window.c:528
+msgid "Zoom In"
+msgstr "放大"
+
+#: ../src/main-window.c:533
+msgid "Zoom Out"
+msgstr "縮小"
+
+#: ../src/main-window.c:538
+msgid "Normal Size"
+msgstr "正常"
+
+#: ../src/main-window.c:546 ../src/callbacks.c:1349
+msgid "Starts the preview"
+msgstr "開始預覽"
+
+#: ../src/main-window.c:555
+msgid "Go to the first slide of the slideshow"
+msgstr "第 1 張"
+
+#: ../src/main-window.c:561
+msgid "Go to the previous slide of the slideshow"
+msgstr "上 1 張"
+
+#: ../src/main-window.c:577 ../src/main-window.c:784
+msgid " of "
+msgstr "的"
+
+#: ../src/main-window.c:589
+msgid "Go to the next slide of the slideshow"
+msgstr "下 1 張"
+
+#: ../src/main-window.c:595
+msgid "Go to the last slide of the slideshow"
+msgstr "最後張"
+
+#: ../src/main-window.c:646
+msgid "Video"
+msgstr "影片"
+
+#: ../src/main-window.c:664
+msgid "<b>Slide Settings</b>"
+msgstr "<b>場景設定</b>"
+
+#. Transition types label
+#: ../src/main-window.c:674
+msgid "Transition Type:"
+msgstr "轉場效果類型:"
+
+#: ../src/main-window.c:694
+msgid "Random"
+msgstr "亂數取得"
+
+#: ../src/main-window.c:695
+msgid "Imagination randomly decides which transition to apply"
+msgstr "自動由亂數決定效果"
+
+#. Transition duration
+#: ../src/main-window.c:701
+msgid "Transition Speed:"
+msgstr "轉場速度:"
+
+#: ../src/main-window.c:712
+msgid "Fast"
+msgstr "快"
+
+#: ../src/main-window.c:714
+msgid "Normal"
+msgstr "一般"
+
+#: ../src/main-window.c:716
+msgid "Slow"
+msgstr "慢"
+
+#. Slide duration
+#: ../src/main-window.c:723
+msgid "Slide Duration in sec:"
+msgstr "本張持續秒數:"
+
+#. Slide Total Duration
+#: ../src/main-window.c:734
+msgid "Slideshow Length:"
+msgstr "影片秀時間總長:"
+
+#: ../src/main-window.c:751
+msgid "<b>Slide Motion</b>"
+msgstr "<b>場景變化</b>"
+
+#: ../src/main-window.c:761
+msgid "Stop Point:"
+msgstr "停止點:"
+
+#: ../src/main-window.c:798
+msgid "Duration:"
+msgstr "持續時間:"
+
+#: ../src/main-window.c:807
+msgid "Zoom: "
+msgstr "縮放: "
+
+#: ../src/main-window.c:821
+msgid "Add"
+msgstr "新增"
+
+#: ../src/main-window.c:825
+msgid "Update"
+msgstr "更新"
+
+#: ../src/main-window.c:830
+msgid "Remove"
+msgstr "移除"
+
+#: ../src/main-window.c:844
+msgid "<b>Slide Text</b>"
+msgstr "<b>字幕設定</b>"
+
+#: ../src/main-window.c:873 ../src/main-window.c:1423
+msgid "Click to expand the area"
+msgstr "展開文字區"
+
+#: ../src/main-window.c:890
+msgid "Click to choose the font"
+msgstr "選擇字型"
+
+#: ../src/main-window.c:900
+msgid "Animation:"
+msgstr "動作:"
+
+#: ../src/main-window.c:912
+msgid "Animation Speed:"
+msgstr "速度:"
+
+#: ../src/main-window.c:928
+msgid "Placing is relative to:"
+msgstr "相關位置:"
+
+#: ../src/main-window.c:942
+msgid "Exported video"
+msgstr "匯出影片"
+
+#: ../src/main-window.c:944
+msgid "Original image"
+msgstr "原始圖檔"
+
+#: ../src/main-window.c:953
+msgid "Subtitle position:"
+msgstr "字幕位置:"
+
+#. Background music frame
+#: ../src/main-window.c:994
+msgid "Audio"
+msgstr "音效"
+
+#: ../src/main-window.c:1007
+msgid "<b>Background Music</b>"
+msgstr "<b>背景音樂</b>"
+
+#: ../src/main-window.c:1053
+msgid "Music Duration:"
+msgstr "播放時間長度:"
+
+#: ../src/main-window.c:1077
+msgid "Delete the selected file"
+msgstr "移除選擇檔案"
+
+#: ../src/main-window.c:1084
+msgid "Move the selected file up"
+msgstr "上移選擇檔案"
+
+#: ../src/main-window.c:1091
+msgid "Move the selected file down"
+msgstr "下移選擇檔案"
+
+#: ../src/main-window.c:1098
+msgid "Clear all files"
+msgstr "清除所有檔案"
+
+#: ../src/main-window.c:1418
+msgid "Click to shrink the area"
+msgstr "按下以縮放區域"
+
+#: ../src/main-window.c:1450 ../src/callbacks.c:1108
+msgid "Sorry, I could not perform the operation!"
+msgstr "抱歉, 無法執行!"
+
+#: ../src/main-window.c:1607
+msgid "Resolution"
+msgstr "解析度"
+
+#: ../src/main-window.c:1607
+msgid "Type"
+msgstr "類型"
+
+#: ../src/main-window.c:1941 ../src/main-window.c:1943 ../src/support.c:153
+msgid "None"
+msgstr "無"
+
+#: ../src/main-window.c:2480
+msgid "Slides Transitions Report Dialog"
+msgstr "轉場回報對話方塊"
+
+#: ../src/main-window.c:2560
+msgid ""
+"\n"
+"<span weight='bold'>Note:</span>\n"
+"\n"
+"Slides whose transition is applied only once are not shown here.\n"
+"Click on the slide to have Imagination automatically select it."
+msgstr ""
+"\n"
+"<span weight='bold'>注意:</span>\n"
+"\n"
+"場景當轉換時不能進行播放.\n"
+"按這場景程式會自動選擇它."
+
+#: ../src/callbacks.c:205
+#, c-format
+msgid "Please wait, importing image %d out of %d"
+msgstr "請稍侯, 匯入圖片 %d 張之 %d"
+
+#: ../src/callbacks.c:273
+msgid "Import audio files, use CTRL key for multiple select"
+msgstr "音效檔匯入,使用CTRL鍵可以多重選擇"
+
+#: ../src/callbacks.c:285
+msgid "All audio files"
+msgstr "全部音效檔"
+
+#: ../src/callbacks.c:294 ../src/callbacks.c:369
+msgid "All files"
+msgstr "全部檔案"
+
+#: ../src/callbacks.c:350
+msgid "Import images, use SHIFT key for multiple select"
+msgstr "匯入圖片,按著 SHIFT 鍵可多張選擇"
+
+#: ../src/callbacks.c:363
+msgid "All image files"
+msgstr "全部圖檔"
+
+#: ../src/callbacks.c:457 ../src/callbacks.c:1452
+msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
+msgstr "尚未儲存影片秀,您確定要關閉？"
+
+#: ../src/callbacks.c:517
+#, c-format
+msgid "%d x %d pixels"
+msgid_plural "%d x %d pixels"
+msgstr[0] "%d x %d 像素"
+
+#: ../src/callbacks.c:793
+msgid "translator-credits"
+msgstr "中文翻譯 村仔 <tw.chi.ming@gmail.com>"
+
+#: ../src/callbacks.c:1359
+msgid "Stops the preview"
+msgstr "停止預覽"
+
+#: ../src/callbacks.c:1409
+msgid "Load an Imagination slideshow project"
+msgstr "載入一個影片秀專案"
+
+#: ../src/callbacks.c:1410
+msgid "Save an Imagination slideshow project"
+msgstr "儲存一個影片秀專案"
+
+#: ../src/callbacks.c:2117
+msgid "Create empty slide"
+msgstr "新增場景"
+
+#: ../src/callbacks.c:2128
+msgid "Empty slide options:"
+msgstr "空白場景選項:"
+
+#: ../src/callbacks.c:2138
+msgid "Use _solid color"
+msgstr "使用純色(_s)"
+
+#: ../src/callbacks.c:2144
+msgid "Use _linear gradient"
+msgstr "線性漸層(_l)"
+
+#: ../src/callbacks.c:2150
+msgid "Use _radial gradient"
+msgstr "放射狀漸層(_r)"
+
+#: ../src/callbacks.c:2180
+msgid "Preview"
+msgstr "預覽"
+
+#. Display propert title depending on the callback that is calling this function.
+#: ../src/new_slideshow.c:63
+msgid "Project properties"
+msgstr "專案屬性"
+
+#: ../src/new_slideshow.c:83
+msgid "<b>Slideshow Settings</b>"
+msgstr "<b>影片秀設定</b>"
+
+#: ../src/new_slideshow.c:116
+msgid "<b>Video Format</b>"
+msgstr "<b>影片格式</b>"
+
+#: ../src/new_slideshow.c:128
+msgid "<b>Advanced Settings</b>"
+msgstr "<b>進階設定</b>"
+
+#: ../src/new_slideshow.c:135
+msgid "Rescale images to fit desired aspect ratio"
+msgstr "縮放圖檔以符合比例"
+
+#: ../src/new_slideshow.c:141
+msgid "Select background color:"
+msgstr "選擇背景顏色:"
+
+#: ../src/slideshow_project.c:207
+msgid "This is not an Imagination project file!"
+msgstr "這不是一個影片秀專案!"
+
+#: ../src/support.c:100
+#, c-format
+msgid "Welcome to Imagination - %d transition loaded."
+msgid_plural "Welcome to Imagination - %d transitions loaded."
+msgstr[0] "歡迎使用 Imagination 想像 - %d 種特效已載入."
+
+#: ../src/support.c:111
+#, c-format
+msgid "%d slide selected"
+msgid_plural "%d slides selected"
+msgstr[0] "選擇了 %d 個場景"
+
+#: ../src/support.c:122
+#, c-format
+msgid "%d slide loaded %s"
+msgid_plural "%d slides loaded %s"
+msgstr[0] "%d 個場景已匯入 %s"
+
+#: ../src/support.c:126
+msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
+msgstr " - 您可使用 CTRL 鍵以單選/取消，或用 SHIFT 鍵多選，以進行每個場景的設定。"
+
+#: ../src/support.c:251
+msgid "Please choose the slideshow project filename"
+msgstr "請選擇專案檔名"
+
+#. Populate list with data
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures and also switches mode into
+#. * preview if needed.
+#: ../src/export.c:98 ../src/export.c:1239
+msgid "VOB (DVD video)"
+msgstr "VOB (DVD影音格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:100 ../src/export.c:1322
+msgid "OGV (Theora/Vorbis)"
+msgstr "OGV(開放影音格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:102 ../src/export.c:1436
+msgid "FLV (Flash video)"
+msgstr "FLV (串流媒體格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:104 ../src/export.c:1631
+msgid "3GP (Mobile Phones)"
+msgstr "3GP (手機影音格式)"
+
+#: ../src/export.c:214
+msgid "<b>Export Settings</b>"
+msgstr "<b>匯出設定</b>"
+
+#: ../src/export.c:228
+msgid "Filename:"
+msgstr "專案檔名:"
+
+#: ../src/export.c:376
+msgid "Exporting the slideshow"
+msgstr "匯出影片秀"
+
+#: ../src/export.c:387
+msgid "Preparing for export ..."
+msgstr "準備匯出 ..."
+
+#: ../src/export.c:398
+msgid "Overall progress:"
+msgstr "全部匯出進度:"
+
+#: ../src/export.c:488 ../src/export.c:869
+#, c-format
+msgid "Slide %d export progress:"
+msgstr "場景 %d 轉換進度:"
+
+#: ../src/export.c:724
+msgid "Failed to launch the encoder!"
+msgstr "轉檔失敗!"
+
+#: ../src/export.c:867
+#, c-format
+msgid "Final transition export progress:"
+msgstr "完成轉檔匯出程序:"
+
+#: ../src/export.c:1251 ../src/export.c:1334
+msgid "<b>Television Format</b>"
+msgstr "<b>電視格式</b>"
+
+#: ../src/export.c:1258 ../src/export.c:1341 ../src/export.c:1458
+msgid "Normal 4:3"
+msgstr "一般 4:3"
+
+#: ../src/export.c:1263 ../src/export.c:1346 ../src/export.c:1482
+msgid "Widescreen 16:9"
+msgstr "寬螢幕 16:9"
+
+#: ../src/export.c:1352 ../src/export.c:1508
+msgid "<b>Video Quality:</b>"
+msgstr "<b>影片品質:</b>"
+
+#: ../src/export.c:1359 ../src/export.c:1515
+msgid "Low"
+msgstr "低"
+
+#: ../src/export.c:1363 ../src/export.c:1519
+msgid "Medium"
+msgstr "中"
+
+#: ../src/export.c:1448 ../src/export.c:1646
+msgid "<b>Video Size</b>"
+msgstr "<b>影片大小:</b>"

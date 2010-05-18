@@ -1,6 +1,7 @@
 Imagination changelog
 
 xx/01/10 - 3.0:
+			- Added Chinese simplified and Chinese traditional translations.
 			- Icons in the transition menu are animated.
 			- Fixed bug 2900684 in the VOB exported aspect ratio.
 			- Added French translation of the documentation thanks to Yann Ubuntu.
