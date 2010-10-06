@@ -90,6 +90,9 @@ doc/fr/images/Makefile
 doc/es/Makefile
 doc/es/imagination.xml
 doc/es/images/Makefile
+doc/pt_BR/Makefile
+doc/pt_BR/imagination.xml
+doc/pt_BR/images/Makefile
 po/Makefile.in
 icons/Makefile
 icons/16x16/Makefile

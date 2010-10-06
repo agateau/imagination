@@ -1,5 +1,5 @@
 SUBDIRS =							\
-	en es fr
+	en es fr pt_BR
 
 cssdir = $(datadir)/doc/imagination/html
 css_DATA =							\

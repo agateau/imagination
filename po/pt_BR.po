@@ -3,29 +3,31 @@
 # This file is distributed under the same license as the  package.
 # banto palmarino <bantopalmarino@nkosi.org>, 2008.
 # Og Maciel <ogmaciel@gnome.org>, 2009.
+# Sérgio Brandão Cipolla <secipolla@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-12 09:32+0200\n"
-"PO-Revision-Date: 2010-04-26 18:22-0300\n"
+"POT-Creation-Date: 2010-10-04 13:27-0300\n"
+"PO-Revision-Date: 2010-05-15 20:17-0300\n"
 "Last-Translator: Sérgio Brandão Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../imagination.desktop.in.in.h:1
+#: ../imagination.desktop.in.h:1
 msgid "A DVD slideshow maker"
 msgstr "Um criador de apresentações de slides em DVD"
 
-#: ../imagination.desktop.in.in.h:2
+#: ../imagination.desktop.in.h:2
 msgid "A lightweight DVD slideshow maker using GTK+2"
 msgstr "Um criador leve de apresentações de slides em DVD usando GTK+2"
 
-#: ../imagination.desktop.in.in.h:3
+#: ../imagination.desktop.in.h:3
 msgid "Imagination"
 msgstr "Imagination"
 
@@ -34,8 +36,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Reproduzindo %s..."
 
-#: ../src/audio.c:128
-#: ../src/main-window.c:1063
+#: ../src/audio.c:128 ../src/main-window.c:1106
 msgid "Play the selected file"
 msgstr "Reproduzir o arquivo selecionado"
 
@@ -79,8 +80,7 @@ msgstr ""
 "%s\n"
 "<b>Você deseja continuar sem estes arquivos?</b>"
 
-#: ../src/audio.c:298
-#: ../src/audio.c:445
+#: ../src/audio.c:298 ../src/audio.c:445
 msgid "Audio files mismatch:"
 msgstr "Os arquivos não coincidem:"
 
@@ -98,32 +98,39 @@ msgstr "Taxa incompatível de amostra e número de canais."
 
 #: ../src/audio.c:428
 #, c-format
-msgid "File selection contains %d audio file that is incompatible with other files."
-msgid_plural "File selection contains %d audio files that are incompatible with other files."
-msgstr[0] "O arquivo selecionado contém %d arquivo de áudio que não é compatível com outros arquivos."
-msgstr[1] "O arquivo selecionado contém %d arquivos de áudio que não são compatíveis com outros arquivos."
+msgid ""
+"File selection contains %d audio file that is incompatible with other files."
+msgid_plural ""
+"File selection contains %d audio files that are incompatible with other "
+"files."
+msgstr[0] ""
+"O arquivo selecionado contém %d arquivo de áudio que não é compatível com "
+"outros arquivos."
+msgstr[1] ""
+"O arquivo selecionado contém %d arquivos de áudio que não são compatíveis "
+"com outros arquivos."
 
 #: ../src/audio.c:434
 msgid "Please check audio tab for more information."
 msgstr "Por favor cheque a aba Áudio para mais informação."
 
-#: ../src/main-window.c:218
+#: ../src/main-window.c:220
 msgid "_Slideshow"
 msgstr "_Apresentação de slides"
 
-#: ../src/main-window.c:247
+#: ../src/main-window.c:249
 msgid "Import p_ictures"
 msgstr "Importar _imagens"
 
-#: ../src/main-window.c:257
+#: ../src/main-window.c:259
 msgid "Import _music"
 msgstr "Importar _música"
 
-#: ../src/main-window.c:274
+#: ../src/main-window.c:276
 msgid "_Preview"
 msgstr "_Visualização"
 
-#: ../src/main-window.c:282
+#: ../src/main-window.c:284
 msgid "Export"
 msgstr "Exportar"
 
@@ -141,20 +148,18 @@ msgstr "Qualidade da visualização"
 msgid "_Low"
 msgstr "_Baixa"
 
-#: ../src/main-window.c:331
-#: ../src/export.c:1364
-#: ../src/export.c:1520
+#: ../src/main-window.c:331 ../src/export.c:1347 ../src/export.c:1531
 msgid "High"
 msgstr "Alta"
 
 #. Zoom controls
 #: ../src/main-window.c:335
 msgid "_Zoom"
-msgstr "_Ampliar"
+msgstr "_Zoom"
 
 #: ../src/main-window.c:362
 msgid "Add empt_y slide"
-msgstr "Adicionar um slide va_zio"
+msgstr "Adicionar um slide _vazio"
 
 #: ../src/main-window.c:371
 msgid "Dele_te"
@@ -189,255 +194,262 @@ msgstr "Modo de visualização"
 msgid "Overview mode"
 msgstr "Modo de visão geral"
 
-#: ../src/main-window.c:438
+#: ../src/main-window.c:441
+msgid "Preview _frame rate"
+msgstr "Cadência da _visualização"
+
+#: ../src/main-window.c:458
+#, c-format
+msgid "%d frame per second"
+msgid_plural "%d frames per second"
+msgstr[0] "%d quadro por segundo"
+msgstr[1] "%d quadros por segundo"
+
+#. Help menu
+#: ../src/main-window.c:475
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: ../src/main-window.c:443
+#: ../src/main-window.c:480
 msgid "Contents"
 msgstr "Conteúdo"
 
-#: ../src/main-window.c:464
-#: ../src/new_slideshow.c:63
+#: ../src/main-window.c:501 ../src/new_slideshow.c:65
 msgid "Create a new slideshow"
 msgstr "Criar uma nova apresentação de slides"
 
-#: ../src/main-window.c:469
+#: ../src/main-window.c:506
 msgid "Open a slideshow"
 msgstr "Abrir uma apresentação de slides"
 
-#: ../src/main-window.c:474
+#: ../src/main-window.c:511
 msgid "Save the slideshow"
 msgstr "Salvar a apresentação de slides"
 
-#: ../src/main-window.c:487
+#: ../src/main-window.c:524
 msgid "Import pictures"
 msgstr "Importar imagens"
 
-#: ../src/main-window.c:496
+#: ../src/main-window.c:533
 msgid "Import music"
 msgstr "Importar música"
 
-#: ../src/main-window.c:501
+#: ../src/main-window.c:538
 msgid "Delete the selected slides"
 msgstr "Excluir os slides selecionados"
 
-#: ../src/main-window.c:510
-msgid "Rotate the slide clockwise"
-msgstr "Rotacionar o slide no sentido horário"
-
-#: ../src/main-window.c:520
-msgid "Rotate the slide counter-clockwise"
+#: ../src/main-window.c:548
+msgid "Rotate the slide 90 degrees to the left"
 msgstr "Rotacionar o slide no sentido anti-horário"
 
-#: ../src/main-window.c:526
+#: ../src/main-window.c:559
+msgid "Rotate the slide 90 degrees to the right"
+msgstr "Rotacionar o slide no sentido horário"
+
+#: ../src/main-window.c:565
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: ../src/main-window.c:531
+#: ../src/main-window.c:570
 msgid "Zoom Out"
 msgstr "Reduzir"
 
-#: ../src/main-window.c:536
+#: ../src/main-window.c:575
 msgid "Normal Size"
 msgstr "Tamanho normal"
 
-#: ../src/main-window.c:544
-#: ../src/callbacks.c:1345
+#: ../src/main-window.c:583 ../src/callbacks.c:1349
 msgid "Starts the preview"
 msgstr "Iniciar a visualização"
 
-#: ../src/main-window.c:552
-msgid "Goto first slide"
+#: ../src/main-window.c:592
+msgid "Go to the first slide of the slideshow"
 msgstr "Ir para o primeiro slide"
 
-#: ../src/main-window.c:557
-msgid "Goto previous selected slide"
+#: ../src/main-window.c:598
+msgid "Go to the previous slide of the slideshow"
 msgstr "Ir para o slide anterior"
 
-#: ../src/main-window.c:573
-#: ../src/main-window.c:778
+#: ../src/main-window.c:614 ../src/main-window.c:821
 msgid " of "
 msgstr " de "
 
-#: ../src/main-window.c:584
-msgid "Goto next selected slide"
+#: ../src/main-window.c:626
+msgid "Go to the next slide of the slideshow"
 msgstr "Ir para o próximo slide"
 
-#: ../src/main-window.c:589
-msgid "Goto last slide"
+#: ../src/main-window.c:632
+msgid "Go to the last slide of the slideshow"
 msgstr "Ir para o último slide"
 
-#: ../src/main-window.c:640
+#: ../src/main-window.c:683
 msgid "Video"
 msgstr "Vídeo"
 
-#: ../src/main-window.c:658
+#: ../src/main-window.c:701
 msgid "<b>Slide Settings</b>"
 msgstr "<b>Configurações do slide</b>"
 
 #. Transition types label
-#: ../src/main-window.c:668
+#: ../src/main-window.c:711
 msgid "Transition Type:"
 msgstr "Tipo de transição:"
 
-#: ../src/main-window.c:688
+#: ../src/main-window.c:731
 msgid "Random"
 msgstr "Aleatória"
 
-#: ../src/main-window.c:689
+#: ../src/main-window.c:732
 msgid "Imagination randomly decides which transition to apply"
 msgstr "O Imagination aleatoriamente decide qual transição aplicar"
 
 #. Transition duration
-#: ../src/main-window.c:695
+#: ../src/main-window.c:738
 msgid "Transition Speed:"
 msgstr "Velocidade da transição:"
 
-#: ../src/main-window.c:706
+#: ../src/main-window.c:749
 msgid "Fast"
 msgstr "Rápida"
 
-#: ../src/main-window.c:708
+#: ../src/main-window.c:751
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/main-window.c:710
+#: ../src/main-window.c:753
 msgid "Slow"
 msgstr "Lenta"
 
 #. Slide duration
-#: ../src/main-window.c:717
+#: ../src/main-window.c:760
 msgid "Slide Duration in sec:"
 msgstr "Duração do slide em seg.:"
 
 #. Slide Total Duration
-#: ../src/main-window.c:728
+#: ../src/main-window.c:771
 msgid "Slideshow Length:"
 msgstr "Duração da apresentação de slides:"
 
-#: ../src/main-window.c:745
+#: ../src/main-window.c:788
 msgid "<b>Slide Motion</b>"
 msgstr "<b>Movimento do slide</b>"
 
-#: ../src/main-window.c:755
+#: ../src/main-window.c:798
 msgid "Stop Point:"
 msgstr "Ponto de parada:"
 
-#: ../src/main-window.c:792
+#: ../src/main-window.c:835
 msgid "Duration:"
 msgstr "Duração:"
 
-#: ../src/main-window.c:801
+#: ../src/main-window.c:844
 msgid "Zoom: "
-msgstr "Ampliar: "
+msgstr "Zoom: "
 
-#: ../src/main-window.c:815
+#: ../src/main-window.c:858
 msgid "Add"
 msgstr "Adicionar"
 
-#: ../src/main-window.c:819
+#: ../src/main-window.c:862
 msgid "Update"
 msgstr "Atualizar"
 
-#: ../src/main-window.c:824
+#: ../src/main-window.c:867
 msgid "Remove"
 msgstr "Remover"
 
-#: ../src/main-window.c:838
+#: ../src/main-window.c:881
 msgid "<b>Slide Text</b>"
 msgstr "<b>Texto do slide</b>"
 
-#: ../src/main-window.c:867
-#: ../src/main-window.c:1417
+#: ../src/main-window.c:910 ../src/main-window.c:1468
 msgid "Click to expand the area"
 msgstr "Clique para expandir a área"
 
-#: ../src/main-window.c:884
+#: ../src/main-window.c:927
 msgid "Click to choose the font"
 msgstr "Clique para escolher a fonte"
 
-#: ../src/main-window.c:894
+#: ../src/main-window.c:937
 msgid "Animation:"
 msgstr "Animação:"
 
-#: ../src/main-window.c:906
+#: ../src/main-window.c:949
 msgid "Animation Speed:"
 msgstr "Velocidade da animação:"
 
-#: ../src/main-window.c:922
+#: ../src/main-window.c:965
 msgid "Placing is relative to:"
 msgstr "Posicionamento relativo a:"
 
-#: ../src/main-window.c:936
+#: ../src/main-window.c:979
 msgid "Exported video"
 msgstr "Vídeo exportado"
 
-#: ../src/main-window.c:938
+#: ../src/main-window.c:981
 msgid "Original image"
 msgstr "Imagem original"
 
-#: ../src/main-window.c:947
+#: ../src/main-window.c:990
 msgid "Subtitle position:"
 msgstr "Posicionamento do texto"
 
 #. Background music frame
-#: ../src/main-window.c:988
+#: ../src/main-window.c:1031
 msgid "Audio"
 msgstr "Áudio"
 
-#: ../src/main-window.c:1001
+#: ../src/main-window.c:1044
 msgid "<b>Background Music</b>"
 msgstr "<b>Música de fundo</b>"
 
-#: ../src/main-window.c:1047
+#: ../src/main-window.c:1090
 msgid "Music Duration:"
 msgstr "Duração da música"
 
-#: ../src/main-window.c:1071
+#: ../src/main-window.c:1114
 msgid "Delete the selected file"
 msgstr "Excluir o arquivo selecionado"
 
-#: ../src/main-window.c:1078
+#: ../src/main-window.c:1121
 msgid "Move the selected file up"
 msgstr "Mover o arquivo selecionado para cima"
 
-#: ../src/main-window.c:1085
+#: ../src/main-window.c:1128
 msgid "Move the selected file down"
 msgstr "Mover o arquivo selecionado para baixo"
 
-#: ../src/main-window.c:1092
+#: ../src/main-window.c:1135
 msgid "Clear all files"
 msgstr "Remover todos os arquivos"
 
-#: ../src/main-window.c:1412
+#: ../src/main-window.c:1463
 msgid "Click to shrink the area"
 msgstr "Clique para reduzir a área"
 
-#: ../src/main-window.c:1444
-#: ../src/callbacks.c:1104
+#: ../src/main-window.c:1495 ../src/callbacks.c:1108
 msgid "Sorry, I could not perform the operation!"
 msgstr "Desculpe,  mas não foi possível efetuar a operação!"
 
-#: ../src/main-window.c:1601
+#: ../src/main-window.c:1652
 msgid "Resolution"
 msgstr "Resolução"
 
-#: ../src/main-window.c:1601
+#: ../src/main-window.c:1652
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/main-window.c:1935
-#: ../src/main-window.c:1937
-#: ../src/support.c:139
+#. No animation function (id = 0)
+#: ../src/main-window.c:1966 ../src/main-window.c:1968 ../src/support.c:179
+#: ../src/subtitles.c:147
 msgid "None"
 msgstr "Nenhum"
 
-#: ../src/main-window.c:2474
+#: ../src/main-window.c:2473
 msgid "Slides Transitions Report Dialog"
 msgstr "Diálogo de relatório de transições de slides"
 
-#: ../src/main-window.c:2554
+#: ../src/main-window.c:2553
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -453,107 +465,112 @@ msgstr ""
 
 #: ../src/callbacks.c:205
 #, c-format
-msgid "Please wait, importing slide %d out of %d"
-msgstr "Por favor aguarde, importando slide %d de %d"
+msgid "Please wait, importing image %d out of %d"
+msgstr "Por favor aguarde, importando imagem %d de %d"
 
-#: ../src/callbacks.c:272
-msgid "Please choose the audio files to import"
-msgstr "Por favor escolha os arquivos de áudio para importar"
+#: ../src/callbacks.c:273
+msgid "Import audio files, use CTRL key for multiple select"
+msgstr "Importar arquivos de áudio, use a tecla CTRL para seleção múltipla"
 
-#: ../src/callbacks.c:283
+#: ../src/callbacks.c:285
 msgid "All audio files"
 msgstr "Todos os arquivos de áudio"
 
-#: ../src/callbacks.c:292
-#: ../src/callbacks.c:365
+#: ../src/callbacks.c:294 ../src/callbacks.c:369
 msgid "All files"
 msgstr "Todos os arquivos"
 
-#: ../src/callbacks.c:347
-msgid "Import slides, use SHIFT key for multiple select"
-msgstr "Importar slides, use a tecla SHIFT para seleção múltipla"
+#: ../src/callbacks.c:350
+msgid "Import images, use SHIFT key for multiple select"
+msgstr "Importar imagens, use a tecla CTRL para seleção múltipla"
 
-#: ../src/callbacks.c:359
+#: ../src/callbacks.c:363
 msgid "All image files"
 msgstr "Todos os arquivos de imagens"
 
-#: ../src/callbacks.c:453
-#: ../src/callbacks.c:1448
+#: ../src/callbacks.c:457 ../src/callbacks.c:1452
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
-msgstr "Você ainda não salvou sua apresentação de slides. Tem certeza de que deseja fechá-la?"
+msgstr ""
+"Você ainda não salvou sua apresentação de slides. Tem certeza de que deseja "
+"fechá-la?"
 
-#: ../src/callbacks.c:513
+#: ../src/callbacks.c:517
 #, c-format
 msgid "%d x %d pixels"
 msgid_plural "%d x %d pixels"
 msgstr[0] "%d x %d pixel"
-msgstr[1] "%d x %d pixel"
+msgstr[1] "%d x %d pixels"
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:793
 msgid "translator-credits"
 msgstr ""
 "banto palmarino <bantopalmarino@nkosi.org>\n"
 "Og Maciel <ogmaciel@gnome.org>\n"
-"Sérgio Cipolla (revisão) <secipolla@gmail.com>"
+"Sérgio Cipolla <secipolla@gmail.com>"
 
-#: ../src/callbacks.c:1355
+#: ../src/callbacks.c:1359
 msgid "Stops the preview"
 msgstr "Parar a visualização"
 
-#: ../src/callbacks.c:1405
+#: ../src/callbacks.c:1409
 msgid "Load an Imagination slideshow project"
 msgstr "Carregar um projeto de apresentação de slides do Imagination"
 
-#: ../src/callbacks.c:1406
+#: ../src/callbacks.c:1410
 msgid "Save an Imagination slideshow project"
 msgstr "Salvar um projeto de apresentação de slides do Imagination"
 
-#: ../src/callbacks.c:2113
-msgid "Create new slide"
-msgstr "Criar um novo slide"
+#: ../src/callbacks.c:2117
+msgid "Create empty slide"
+msgstr "Criar um slide vazio"
 
-#: ../src/callbacks.c:2124
+#: ../src/callbacks.c:2128
 msgid "Empty slide options:"
 msgstr "Opções do slide vazio:"
 
-#: ../src/callbacks.c:2134
+#: ../src/callbacks.c:2138
 msgid "Use _solid color"
 msgstr "Usar cor _sólida"
 
-#: ../src/callbacks.c:2140
+#: ../src/callbacks.c:2144
 msgid "Use _linear gradient"
 msgstr "Usar gradiente _linear"
 
-#: ../src/callbacks.c:2146
+#: ../src/callbacks.c:2150
 msgid "Use _radial gradient"
 msgstr "Usar gradiente _radial"
 
-#: ../src/callbacks.c:2176
+#: ../src/callbacks.c:2180
 msgid "Preview"
 msgstr "Visualização"
 
 #. Display propert title depending on the callback that is calling this function.
-#: ../src/new_slideshow.c:63
+#: ../src/new_slideshow.c:65
 msgid "Project properties"
 msgstr "Propriedades do projeto"
 
-#: ../src/new_slideshow.c:83
+#: ../src/new_slideshow.c:85
 msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Configurações da apresentação de slides</b>"
 
-#: ../src/new_slideshow.c:116
+#: ../src/new_slideshow.c:129
 msgid "<b>Video Format</b>"
-msgstr "<b>Formato de vídeo</b>"
+msgstr "<b>Formato do vídeo</b>"
 
-#: ../src/new_slideshow.c:128
+#: ../src/new_slideshow.c:151 ../src/export.c:1295 ../src/export.c:1482
+#: ../src/export.c:1663
+msgid "<b>Video Size</b>"
+msgstr "<b>Tamanho do vídeo</b>"
+
+#: ../src/new_slideshow.c:165
 msgid "<b>Advanced Settings</b>"
 msgstr "<b>Configurações avançadas</b>"
 
-#: ../src/new_slideshow.c:135
+#: ../src/new_slideshow.c:172
 msgid "Rescale images to fit desired aspect ratio"
 msgstr "Redimensionar imagens para caber na relação de aspecto desejada"
 
-#: ../src/new_slideshow.c:141
+#: ../src/new_slideshow.c:178
 msgid "Select background color:"
 msgstr "Selecionar cor de fundo:"
 
@@ -561,62 +578,92 @@ msgstr "Selecionar cor de fundo:"
 msgid "This is not an Imagination project file!"
 msgstr "Este não é um arquivo de projeto do Imagination!"
 
-#: ../src/support.c:99
+#: ../src/support.c:130
 #, c-format
-msgid "Welcome to Imagination - %d transitions loaded."
-msgstr "Seja bem-vindo ao Imagination - %d transições carregadas."
+msgid "Welcome to Imagination - %d transition loaded."
+msgid_plural "Welcome to Imagination - %d transitions loaded."
+msgstr[0] "Seja bem-vindo ao Imagination - %d transição carregada."
+msgstr[1] "Seja bem-vindo ao Imagination - %d transições carregadas."
 
-#: ../src/support.c:106
+#: ../src/support.c:141
 #, c-format
-msgid "%d slides selected"
-msgstr "%d slides selecionados"
+msgid "%d slide selected"
+msgid_plural "%d slides selected"
+msgstr[0] "%d slide selecionado"
+msgstr[1] "%d slides selecionados"
 
-#: ../src/support.c:114
+#: ../src/support.c:152
 #, c-format
-msgid "%d slide imported %s"
-msgid_plural "%d slides imported %s"
-msgstr[0] "%d slide importado %s"
-msgstr[1] "%d slides importados %s"
+msgid "%d slide loaded %s"
+msgid_plural "%d slides loaded %s"
+msgstr[0] "%d slide carregado %s"
+msgstr[1] "%d slides carregados %s"
 
-#: ../src/support.c:114
+#: ../src/support.c:156
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
-msgstr " - Use a tecla CTRL para selecionar/desselecionar ou SHIFT para seleção múltipla"
+msgstr ""
+" - Use a tecla CTRL para selecionar/desselecionar ou SHIFT para seleção "
+"múltipla"
 
-#: ../src/support.c:237
+#: ../src/support.c:320
 msgid "Please choose the slideshow project filename"
-msgstr "Por favor escolha o nome do arquivo do projeto de apresentação de slides"
+msgstr ""
+"Por favor escolha o nome do arquivo do projeto de apresentação de slides"
 
-#: ../src/export.c:210
+#: ../src/subtitles.c:151
+msgid "Fade"
+msgstr "Aparecer"
+
+#: ../src/subtitles.c:155
+msgid "Slide from left"
+msgstr "Entrar da esquerda"
+
+#: ../src/subtitles.c:159
+msgid "Slide from right"
+msgstr "Entrar da direita"
+
+#: ../src/subtitles.c:163
+msgid "Slide from top"
+msgstr "Entrar do alto"
+
+#: ../src/subtitles.c:167
+msgid "Slide from bottom"
+msgstr "Entrar de baixo"
+
+#: ../src/subtitles.c:171
+msgid "Grow"
+msgstr "Crescer"
+
+#: ../src/export.c:149
 msgid "<b>Export Settings</b>"
 msgstr "<b>Configurações da exportação</b>"
 
-#: ../src/export.c:224
-msgid "Filename of the slideshow:"
-msgstr "Nome do arquivo da apresentação de slides:"
+#: ../src/export.c:163
+msgid "Filename:"
+msgstr "Nome do arquivo"
 
-#: ../src/export.c:372
+#: ../src/export.c:311
 msgid "Exporting the slideshow"
 msgstr "Exportando a apresentação de slides"
 
-#: ../src/export.c:383
+#: ../src/export.c:322
 msgid "Preparing for export ..."
 msgstr "Preparando para exportar ..."
 
-#: ../src/export.c:394
+#: ../src/export.c:333
 msgid "Overall progress:"
 msgstr "Progresso geral:"
 
-#: ../src/export.c:484
-#: ../src/export.c:865
+#: ../src/export.c:423 ../src/export.c:804
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Progresso da exportação do slide %d:"
 
-#: ../src/export.c:720
+#: ../src/export.c:659
 msgid "Failed to launch the encoder!"
 msgstr "Falha ao lançar o codificador!"
 
-#: ../src/export.c:863
+#: ../src/export.c:802
 #, c-format
 msgid "Final transition export progress:"
 msgstr "Progresso da exportação da transição final:"
@@ -624,71 +671,94 @@ msgstr "Progresso da exportação da transição final:"
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures and also switches mode into
 #. * preview if needed.
-#: ../src/export.c:1235
-msgid "VOB export"
-msgstr "Exportar VOB"
+#: ../src/export.c:1174
+msgid "VOB (DVD video)"
+msgstr "VOB (vídeo DVD)"
 
-#: ../src/export.c:1247
-#: ../src/export.c:1330
+#: ../src/export.c:1186
 msgid "<b>Television Format</b>"
 msgstr "<b>Formato de televisão</b>"
 
-#: ../src/export.c:1254
-#: ../src/export.c:1337
-#: ../src/export.c:1454
+#: ../src/export.c:1193 ../src/export.c:1284 ../src/export.c:1471
 msgid "Normal 4:3"
 msgstr "Normal 4:3"
 
-#: ../src/export.c:1259
-#: ../src/export.c:1342
-#: ../src/export.c:1478
+#: ../src/export.c:1198 ../src/export.c:1288 ../src/export.c:1475
 msgid "Widescreen 16:9"
 msgstr "Tela ampla 16:9"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
-#: ../src/export.c:1318
-msgid "OGG export"
-msgstr "Exportar OGG"
+#: ../src/export.c:1257
+msgid "OGV (Theora/Vorbis)"
+msgstr "OGV (Theora/Vorbis)"
 
-#: ../src/export.c:1348
-#: ../src/export.c:1504
+#: ../src/export.c:1273 ../src/export.c:1460
+msgid "<b>Aspect Ratio</b>"
+msgstr "<b>Proporção de tela</b>"
+
+#: ../src/export.c:1331 ../src/export.c:1515
 msgid "<b>Video Quality:</b>"
-msgstr "<b>Qualidade de vídeo:</b>"
+msgstr "<b>Qualidade do vídeo:</b>"
 
-#: ../src/export.c:1355
-#: ../src/export.c:1511
+#: ../src/export.c:1338 ../src/export.c:1522
 msgid "Low"
 msgstr "Baixa"
 
-#: ../src/export.c:1359
-#: ../src/export.c:1515
+#: ../src/export.c:1342 ../src/export.c:1526
 msgid "Medium"
 msgstr "Média"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
-#: ../src/export.c:1432
-msgid "FLV export"
-msgstr "Exportar FLV"
-
 #: ../src/export.c:1444
-msgid "<b>Video Size</b>"
-msgstr "<b>Tamanho do vídeo</b>"
+msgid "FLV (Flash video)"
+msgstr "FLV (vídeo Flash)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/export.c:1648
+msgid "3GP (Mobile Phones)"
+msgstr "3GP (celulares)"
+
+#~ msgid "Rotate the slide clockwise"
+#~ msgstr "Rotacionar o slide no sentido horário"
+
+#~ msgid "Goto first slide"
+#~ msgstr "Ir para o primeiro slide"
+
+#~ msgid "Goto last slide"
+#~ msgstr "Ir para o último slide"
+
+#~ msgid "Please choose the audio files to import"
+#~ msgstr "Por favor escolha os arquivos de áudio para importar"
+
+#~ msgid "VOB export"
+#~ msgstr "Exportar VOB"
+
+#~ msgid "OGG export"
+#~ msgstr "Exportar OGG"
+
+#~ msgid "FLV export"
+#~ msgstr "Exportar FLV"
 
 #~ msgid "An error occurred while trying to rotate the slide:"
 #~ msgstr "Um erro aconteceu enquanto tentando rotacionar o slide:"
+
 #~ msgid "Slide Number:"
 #~ msgstr "Número do slide:"
+
 #~ msgid "Jump to the entered slide number"
 #~ msgstr "Pular para o slide correspondente ao número digitado"
+
 #~ msgid "Export the DVD slideshow"
 #~ msgstr "Exportar para DVD slideshow"
+
 #~ msgid ""
 #~ "The length of the audio track is longer than the video one. Do you want "
 #~ "to continue?"
 #~ msgstr ""
 #~ "A duração da faixa de áudio é maior que a do vídeo. Você deseja continuar?"
+
 #~ msgid "Export the slideshow as:"
 #~ msgstr "Exportar como:"
-

@@ -185,11 +185,11 @@ void img_load_available_transitions(img_window_struct *img)
 
 	/* Create NULL terminated array of paths that we'll be looking at */
 #if PLUGINS_INSTALLED
-	search_paths[0] = g_build_path( PACKAGE_LIB_DIR, "imagination", NULL );
+	search_paths[0] = g_build_path(G_DIR_SEPARATOR_S, PACKAGE_LIB_DIR, "imagination", NULL );
 #else
 	search_paths[0] = g_strdup("./transitions");
 #endif
-	search_paths[1] = g_build_path( g_get_home_dir(), ".imagination",
+	search_paths[1] = g_build_path(G_DIR_SEPARATOR_S, g_get_home_dir(), ".imagination",
 									"plugins", NULL );
 	search_paths[2] = NULL;
 
