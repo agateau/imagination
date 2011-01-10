@@ -366,9 +366,9 @@ img_create_new_slide( void )
 		slide->font_color[2] = 0; /* B */
 		slide->font_color[3] = 1; /* A */
 		/* default: no font color background */
-        slide->font_bgcolor[0] = 0; /* R */
-        slide->font_bgcolor[1] = 0; /* G */
-        slide->font_bgcolor[2] = 0; /* B */
+        slide->font_bgcolor[0] = 1; /* R */
+        slide->font_bgcolor[1] = 1; /* G */
+        slide->font_bgcolor[2] = 1; /* B */
         slide->font_bgcolor[3] = 1; /* A */
 	}
 

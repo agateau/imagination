@@ -398,7 +398,7 @@ img_text_ani_fade( cairo_t     *cr,
     progress_font_bgcolor[0] = font_bgcolor[0];
     progress_font_bgcolor[1] = font_bgcolor[1];
     progress_font_bgcolor[2] = font_bgcolor[2];
-    progress_font_bgcolor[3] = font_bgcolor[3] * progress;
+    progress_font_bgcolor[3] = font_bgcolor[3] * pow(progress, 6);
 
     /* Paint text */
     img_text_draw_layout(cr, layout, posx, posy, progress_font_color, progress_font_bgcolor);

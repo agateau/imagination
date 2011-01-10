@@ -1,6 +1,7 @@
 /*
 ** Copyright (c) 2009 Giuseppe Torelli <colossus73@gmail.com>
 ** Copyright (C) 2009 Tadej Borovšak   <tadeboro@gmail.com>
+** Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
 **  
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -1158,7 +1159,7 @@ void img_exporter_vob( img_window_struct *img )
 	gchar          *cmd_line;
 	gchar          *format;
 	const gchar    *filename;
-	gchar          *aspect_ratio;
+	gchar          *aspect_ratio, *aspect_ratio_cmd;
 	GtkWidget      *dialog;
 	GtkEntry       *entry;
 	GtkWidget      *vbox;
@@ -1168,6 +1169,11 @@ void img_exporter_vob( img_window_struct *img )
 	GtkWidget *label;
 	GtkWidget *hbox;
 	GtkWidget *radio1, *radio2;
+    
+    /* ffmpeg test */
+    gchar *ffmpeg_test_result;
+    gchar **argv;
+    gint    argc;
 
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures and also switches mode into
@@ -1218,11 +1224,34 @@ void img_exporter_vob( img_window_struct *img )
 	else
 		aspect_ratio = "16:9";
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+
+    /* Check if ffmpeg is compiled with avfilter setdar */
+    g_print("Testing ffmpeg abilities with \"ffmpeg -filters\" ... ");
+
+    g_shell_parse_argv("ffmpeg -filters", &argc, &argv, NULL);
+    g_spawn_sync(NULL, argv, NULL,
+                 G_SPAWN_STDERR_TO_DEV_NULL|G_SPAWN_SEARCH_PATH,
+                 NULL, NULL,
+                 &ffmpeg_test_result, NULL,
+                 NULL, NULL);
+    if (NULL != ffmpeg_test_result && NULL != g_strrstr(ffmpeg_test_result, "setdar"))
+    {
+        g_print("setdar found!\n");
+        aspect_ratio_cmd = "-vf setdar=";
+    }
+    else
+    {
+        g_print("setdar not found!\n");
+        aspect_ratio_cmd = "-aspect ";
+
+    }
+    g_strfreev( argv );
+
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-s %dx%d -i pipe: <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd -aspect %s \"%s.vob\"",
+								"-bf 2 -target %s-dvd %s%s \"%s.vob\"",
 								img->export_fps,img->video_size[0], img->video_size[1],
-								format, aspect_ratio, filename );
+								format, aspect_ratio_cmd, aspect_ratio, filename );
 	img->export_cmd_line = cmd_line;
 
 	/* Initiate stage 2 of export - audio processing */
@@ -1407,7 +1436,7 @@ img_exporter_ogv( img_window_struct *img )
 			break;
 	}
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f ogg -aspect %s -s %dx%d "
 								"-vcodec libtheora -b %dk -acodec libvorbis "
 								"-y \"%s.ogv\"",
@@ -1614,7 +1643,7 @@ img_exporter_flv( img_window_struct *img )
 			break;
 	}
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f flv -s %dx%d "
 								"-vcodec flv -b %dk -acodec libmp3lame -ab 56000 "
 								"-ar 22050 -ac 1 -y \"%s.flv\"",
@@ -1726,7 +1755,7 @@ img_exporter_3gp( img_window_struct *img )
 		break;
 	}
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.02f "
+	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f 3gp -s %dx%d "
 								"-vcodec h263 -acodec libfaac -b 192k -ab 32k "
 								"-ar 8000 -ac 1 -y \"%s.3gp\"",
