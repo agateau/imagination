@@ -1,11 +1,12 @@
 Imagination changelog
 
-xx/01/10 - 3.0:
+xx/01/11 - 3.0:
 			- Added Chinese simplified and Chinese traditional translations.
 			- Icons in the transition menu are animated.
 			- Fixed bug 2900684 in the VOB exported aspect ratio.
 			- Added French translation of the documentation thanks to Yann Ubuntu.
 			- Added Catalan translation thanks to Manuel Tortosa.
+			- Added border to fonts thanks to Robert Cheramy.
 14/10/09 - 2.1:
 			- Added a new transition family named Rochade.
 			- Added 3GP export for mobile phones.

@@ -103,6 +103,7 @@ img_set_slide_text_info( slide_struct      *slide,
 						 gint               placing,
 						 const gchar       *font_desc,
 						 gdouble           *font_color,
+                         gdouble           *font_bgcolor,
 						 img_window_struct *img );
 
 void img_free_slide_struct( slide_struct * );

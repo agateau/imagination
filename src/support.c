@@ -365,6 +365,11 @@ img_create_new_slide( void )
 		slide->font_color[1] = 0; /* G */
 		slide->font_color[2] = 0; /* B */
 		slide->font_color[3] = 1; /* A */
+		/* default: no font color background */
+        slide->font_bgcolor[0] = 0; /* R */
+        slide->font_bgcolor[1] = 0; /* G */
+        slide->font_bgcolor[2] = 0; /* B */
+        slide->font_bgcolor[3] = 1; /* A */
 	}
 
 	return( slide );
@@ -509,6 +514,7 @@ img_set_slide_text_info( slide_struct      *slide,
 						 gint               placing,
 						 const gchar       *font_desc,
 						 gdouble           *font_color,
+                         gdouble           *font_bgcolor,
 						 img_window_struct *img )
 {
 	/* Set the slide text info parameters */
@@ -570,6 +576,14 @@ img_set_slide_text_info( slide_struct      *slide,
 		slide->font_color[2] = font_color[2];
 		slide->font_color[3] = font_color[3];
 	}
+
+    if( font_bgcolor )
+    {
+        slide->font_bgcolor[0] = font_bgcolor[0];
+        slide->font_bgcolor[1] = font_bgcolor[1];
+        slide->font_bgcolor[2] = font_bgcolor[2];
+        slide->font_bgcolor[3] = font_bgcolor[3];
+    }
 }								
 
 void

@@ -41,6 +41,10 @@ img_font_color_changed( GtkColorButton    *button,
 						img_window_struct *img );
 
 void
+img_font_bgcolor_changed( GtkColorButton    *button,
+                          img_window_struct *img );
+
+void
 img_text_pos_changed( ImgTableButton    *button,
 					  gint               item,
 					  img_window_struct *img );
@@ -66,7 +70,8 @@ img_update_sub_properties( img_window_struct *img,
 						   ImgSubPos          position,
 						   ImgRelPlacing      placing,
 						   const gchar       *desc,
-						   gdouble           *color );
+						   gdouble           *color,
+                           gdouble           *bgcolor );
 
 void
 img_combo_box_anim_speed_changed( GtkSpinButton       *spinbutton,

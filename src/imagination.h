@@ -106,7 +106,8 @@ typedef void (*TextAnimationFunc)( cairo_t     *cr,
 								   gint         posx,
 								   gint         posy,
 								   gdouble      progress,
-								   gdouble     *font_color );
+								   gdouble     *font_color,
+                                   gdouble     *font_bgcolor );
 
 
 /* ****************************************************************************
@@ -179,14 +180,15 @@ struct _slide_struct
 	gint   cur_point; /* Currently active stop point */
 
 	/* Subtitle variables */
-	gchar                *subtitle;      /* Subtitle text */
-	TextAnimationFunc     anim;          /* Animation functions */
-	gint                  anim_id;       /* Animation id */
-	gint                  anim_duration; /* Duration of animation */
-	ImgSubPos             position;      /* Final position of subtitle */
-	ImgRelPlacing         placing;       /* Relative placing */
-	PangoFontDescription *font_desc;     /* Font description */
-	gdouble               font_color[4]; /* Font color (RGBA format) */
+	gchar                *subtitle;        /* Subtitle text */
+	TextAnimationFunc     anim;            /* Animation functions */
+	gint                  anim_id;         /* Animation id */
+	gint                  anim_duration;   /* Duration of animation */
+	ImgSubPos             position;        /* Final position of subtitle */
+	ImgRelPlacing         placing;         /* Relative placing */
+	PangoFontDescription *font_desc;       /* Font description */
+	gdouble               font_color[4];   /* Font color (RGBA format) */
+    gdouble               font_bgcolor[4]; /* Font background color (RGBA format) */
 };
 
 typedef struct _img_window_struct img_window_struct;
@@ -256,6 +258,7 @@ struct _img_window_struct
 	GtkWidget *sub_textview;      /* Text view */
 	GtkWidget *sub_font;          /* Font button */
 	GtkWidget *sub_color;         /* Color selector button */
+    GtkWidget *sub_bgcolor;       /* Background Color selector button */
 	GtkWidget *sub_anim;          /* Animation combo box */
 	GtkWidget *sub_anim_duration; /* Animation duration spin button */
 	GtkWidget *sub_placing;       /* Placing combo box */

@@ -1027,6 +1027,7 @@ img_render_still_frame( img_window_struct *img,
 							 img->work_slide->subtitle,
 							 img->work_slide->font_desc,
 							 img->work_slide->font_color,
+                             img->work_slide->font_bgcolor,
 							 img->work_slide->anim,
 							 progress );
 	}
