@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2009 Giuseppe Torelli <colossus73@gmail.com>
  *  Copyright (c) 2009 Tadej Borovšak 	<tadeboro@gmail.com>
- *  Copyright (C) 2010 Robert Chéramy   <robert@cheramy.net>
+ *  Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
  * 
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -163,7 +163,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *import_button;
 	GtkWidget *import_audio_button;
 	GtkWidget *remove_button;
-	GtkWidget *zoom_in_button, *zoom_out_button, *zoom_normal;
+	GtkWidget *zoom_in_button, *zoom_out_button, *zoom_normal, *zoom_fit;
 	GtkWidget *export_menu;
 	GtkWidget *thumb_scrolledwindow;
 	GdkPixbuf *pixbuf;
@@ -575,6 +575,11 @@ img_window_struct *img_create_window (void)
 	gtk_container_add (GTK_CONTAINER (toolbar),zoom_normal);
 	gtk_widget_set_tooltip_text(zoom_normal, _("Normal Size"));
 	g_signal_connect (G_OBJECT (zoom_normal),"clicked",G_CALLBACK (img_zoom_reset),img_struct);
+
+    zoom_fit = GTK_WIDGET (gtk_tool_button_new_from_stock ("gtk-zoom-fit"));
+    gtk_container_add (GTK_CONTAINER (toolbar),zoom_fit);
+    gtk_widget_set_tooltip_text(zoom_fit, _("Fit Zoom in Window"));
+    g_signal_connect (G_OBJECT (zoom_fit),"clicked",G_CALLBACK (img_zoom_fit),img_struct);
 
 	separatortoolitem = GTK_WIDGET (gtk_separator_tool_item_new());
 	gtk_container_add (GTK_CONTAINER (toolbar),separatortoolitem);

@@ -1,6 +1,7 @@
 /*
  *  Copyright (c) 2009 Giuseppe Torelli <colossus73@gmail.com>
  *  Copyright (c) 2009 Tadej Borovšak 	<tadeboro@gmail.com>
+ *  Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -773,7 +774,7 @@ void img_show_about_dialog (GtkMenuItem *item,img_window_struct *img_struct)
 {
 	static GtkWidget *about = NULL;
 	static gchar version[] = VERSION "-" REVISION;
-    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli <colossus73@gmail.com>\nTadej Borovšak <tadeboro@gmail.com>\n\nImagination logo:\nhttp://linuxgraphicsusers.com\n\nInsert Transitions Family:\nJean-Pierre Redonnet <inphilly@gmail.com>",NULL};
+    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli <colossus73@gmail.com>\nTadej Borovšak <tadeboro@gmail.com>\nRobert Chéramy <robert@cheramy.net>\n\nImagination logo:\nhttp://linuxgraphicsusers.com\n\nInsert Transitions Family:\nJean-Pierre Redonnet <inphilly@gmail.com>",NULL};
     //const char *documenters[] = {NULL};
 
 	if (about == NULL)
@@ -1666,6 +1667,30 @@ img_zoom_reset( GtkWidget         *item,
 		img_image_area_change_zoom( 0, TRUE, img );
 	else
 		img_overview_change_zoom( 0, TRUE, img );
+}
+
+void
+img_zoom_fit( GtkWidget         *item,
+              img_window_struct *img )
+{
+    gdouble step, level1, level2;
+    
+    if( img->mode == 0 )
+    {
+        /* we want to fit the frame into prev_root. Frame = video + 4 px */
+        level1 = (float)img->prev_root->allocation.width / (img->video_size[0] + 4);
+        level2 = (float)img->prev_root->allocation.height / (img->video_size[1] + 4);
+        if (level1 < level2)
+            /* step is relative to zoom level 1 */
+            step = level1 - 1;
+        else
+            step = level2 - 1;
+
+        img_image_area_change_zoom( 0, TRUE, img );
+        img_image_area_change_zoom( step, FALSE, img );
+    }
+    else
+        img_overview_change_zoom( 0, TRUE, img );
 }
 
 /*

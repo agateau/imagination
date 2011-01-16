@@ -82,6 +82,10 @@ img_zoom_reset( GtkWidget         *item,
 				img_window_struct *img );
 
 void
+img_zoom_fit( GtkWidget         *item,
+              img_window_struct *img );
+
+void
 img_quality_toggled( GtkCheckMenuItem  *item,
 					 img_window_struct *img );
 void

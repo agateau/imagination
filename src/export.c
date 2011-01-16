@@ -1248,10 +1248,12 @@ void img_exporter_vob( img_window_struct *img )
     g_strfreev( argv );
 
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
-								"-s %dx%d -i pipe: <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd %s%s \"%s.vob\"",
-								img->export_fps,img->video_size[0], img->video_size[1],
-								format, aspect_ratio_cmd, aspect_ratio, filename );
+								"-i pipe: <#AUDIO#> -y "
+								"-bf 2 -target %s-dvd -s %dx%d %s%s \"%s.vob\"",
+								img->export_fps,
+								format,
+                                img->video_size[0], img->video_size[1],
+                                aspect_ratio_cmd, aspect_ratio, filename );
 	img->export_cmd_line = cmd_line;
 
 	/* Initiate stage 2 of export - audio processing */

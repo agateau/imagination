@@ -230,6 +230,9 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 			/* Set indicator that project should be saved */
 			img_set_project_mod_state( img, TRUE );
 		}
+		
+		/* Adjust zoom level */
+        img_zoom_fit(NULL, img);
 	}
 
 	/* Destroy dialog */
