@@ -450,11 +450,42 @@ img_start_export( img_window_struct *img )
 gboolean
 img_stop_export( img_window_struct *img )
 {
+    ssize_t read_bytes=1000;
+    char message[1001];
+    
 	/* Do any additional tasks */
 	if( img->export_is_running > 3 )
 	{
 		kill( img->ffmpeg_export, SIGINT );
 		g_source_remove( img->source_id );
+
+        /* print std output & error to message tab */
+        img_message(img, "ffmpeg output:\n");
+        while (1000 == read_bytes)
+        {
+            read_bytes = read(img->output_filedesc, message, 1000);
+            if (0 != read_bytes && -1 != read_bytes)
+            {
+                /* terminate string */
+                message[read_bytes] = 0;
+                img_message(img, message);
+            }
+        }
+        close(img->output_filedesc);
+
+        /* print std error to message tab */
+        read_bytes = 1000;
+        while (1000 == read_bytes)
+        {
+            read_bytes = read(img->error_filedesc, message, 1000);
+            if (0 != read_bytes && -1 != read_bytes)
+            {
+                /* terminate string */
+                message[read_bytes] = 0;
+                img_message(img, message);
+            }
+        }
+        close(img->error_filedesc);
 
 		close(img->file_desc);
 		g_spawn_close_pid( img->ffmpeg_export );
@@ -643,14 +674,15 @@ img_run_encoder( img_window_struct *img )
 	gboolean    ret;
 
 	g_shell_parse_argv( img->export_cmd_line, &argc, &argv, NULL);
-	g_print( "%s\n", img->export_cmd_line);
+	img_message(img,  "%s\n", img->export_cmd_line);
 
 	ret = g_spawn_async_with_pipes( NULL, argv, NULL,
-									G_SPAWN_SEARCH_PATH |
-									G_SPAWN_STDOUT_TO_DEV_NULL | 
-									G_SPAWN_STDERR_TO_DEV_NULL,
+									G_SPAWN_SEARCH_PATH,
 									NULL, NULL, &img->ffmpeg_export,
-									&img->file_desc, NULL, NULL, &error );
+									&img->file_desc,
+                                    &img->output_filedesc,
+                                    &img->error_filedesc,
+                                    &error );
 	if( ! ret )
 	{
 		message = gtk_message_dialog_new( GTK_WINDOW( img->imagination_window ),
@@ -1058,7 +1090,7 @@ img_export_frame_to_ppm( cairo_surface_t *surface,
 	 * formats. */
 	if( ! format == CAIRO_FORMAT_ARGB32 && ! format == CAIRO_FORMAT_RGB24 )
 	{
-		g_print( "Unsupported cairo surface format!\n" );
+		g_print("Unsupported cairo surface format!\n" );
 		return;
 	}
 
@@ -1226,7 +1258,7 @@ void img_exporter_vob( img_window_struct *img )
 
 
     /* Check if ffmpeg is compiled with avfilter setdar */
-    g_print("Testing ffmpeg abilities with \"ffmpeg -filters\" ... ");
+    img_message(img, "Testing ffmpeg abilities with \"ffmpeg -filters\" ... ");
 
     g_shell_parse_argv("ffmpeg -filters", &argc, &argv, NULL);
     g_spawn_sync(NULL, argv, NULL,
@@ -1236,12 +1268,12 @@ void img_exporter_vob( img_window_struct *img )
                  NULL, NULL);
     if (NULL != ffmpeg_test_result && NULL != g_strrstr(ffmpeg_test_result, "setdar"))
     {
-        g_print("setdar found!\n");
+        img_message(img, "setdar found!\n");
         aspect_ratio_cmd = "-vf setdar=";
     }
     else
     {
-        g_print("setdar not found!\n");
+        img_message(img, "setdar not found!\n");
         aspect_ratio_cmd = "-aspect ";
 
     }

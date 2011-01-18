@@ -143,6 +143,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *music_time;
 	GtkWidget *hbox_buttons, *move_up_button;
 	GtkWidget *move_down_button, *clear_button, *image_buttons, *vbox2, *scrolledwindow1;
+    GtkWidget *message_tab, *message_scroll, *message_view;
 	GtkCellRenderer *renderer, *pixbuf_cell;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
@@ -1148,6 +1149,21 @@ img_window_struct *img_create_window (void)
 	gtk_container_add (GTK_CONTAINER (clear_button), image_buttons);
 	gtk_widget_set_tooltip_text(clear_button, _("Clear all files"));
 	g_signal_connect ( (gpointer) clear_button, "clicked", G_CALLBACK (img_clear_audio_files), img_struct);
+    /* End of Background music frame */
+    
+    /* Begin of Message tab */
+    message_tab = gtk_label_new (_("Messages"));
+    message_scroll = gtk_scrolled_window_new(NULL, NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(message_scroll),
+                                   GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_AUTOMATIC);
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), message_scroll, message_tab);
+
+    message_view = gtk_text_view_new();
+    gtk_text_view_set_editable(GTK_TEXT_VIEW(message_view), FALSE);
+    gtk_container_add(GTK_CONTAINER(message_scroll), message_view);
+    img_struct->message_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (message_view));
+    /* End of Message tab */
 
 	/* Create the model */
 	img_struct->thumbnail_model = gtk_list_store_new( 4, GDK_TYPE_PIXBUF,
@@ -1352,7 +1368,7 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 
 	if (selection == NULL)
 	{
-		g_print ("Paste: selection is NULL\n");
+		img_message (img, "Paste: selection is NULL\n");
 		return;
 	}
 	model			=	GTK_TREE_MODEL(img->thumbnail_model);
@@ -2047,7 +2063,7 @@ static void img_show_uri(GtkMenuItem *menuitem, img_window_struct *img)
 	lang = g_strndup(g_getenv("LANG"),2);
 	file = g_strconcat("file://",DATADIR,"/doc/",PACKAGE,"/html/",lang,"/index.html",NULL);
 	g_free(lang);
-	g_print ("%s\n",file);
+	img_message (img, "%s\n",file);
 
 	/* If help is not localized yet, show default language (english) */
 	if ( !gtk_show_uri(NULL,file, GDK_CURRENT_TIME, NULL))

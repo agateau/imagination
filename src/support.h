@@ -148,4 +148,8 @@ img_scale_gradient( gint              gradient,
 					GdkPixbuf       **pixbuf,
 					cairo_surface_t **surface );
 
+void
+img_message (img_window_struct *img,
+             gchar *message, ...);
+
 #endif

@@ -1058,3 +1058,33 @@ img_scale_gradient( gint              gradient,
 	return( TRUE );
 }
 
+/* Prints a message in the message tab */
+void
+img_message (img_window_struct *img,
+             gchar *message, ...)
+{
+        GtkTextIter message_end;
+        va_list args;
+        char *parsed_message;
+        int parsed_message_size = 0;
+        
+        va_start (args, message);
+        parsed_message_size = vsnprintf(NULL, 0, message, args);
+        va_end(args);
+        /* if we have a glibc 2.0, just print the first 500 char */
+        if (-1 == parsed_message_size)
+            parsed_message_size = 500;
+        parsed_message = malloc(parsed_message_size + 1);
+
+//        vprintf(message, args);
+        va_start(args, message);
+        vsnprintf(parsed_message, parsed_message_size + 1, message, args);
+        va_end(args);
+
+        gtk_text_buffer_get_end_iter(img->message_buffer, &message_end);
+        gtk_text_buffer_insert(img->message_buffer, &message_end,
+                               parsed_message, -1);
+
+        free(parsed_message);
+
+}

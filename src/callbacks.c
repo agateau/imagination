@@ -2113,7 +2113,7 @@ void img_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_dat
 
 void img_clipboard_clear (GtkClipboard *clipboard, img_window_struct *img)
 {
-	g_print ("I'm here\n");
+	img_message (img, "I'm here\n");
 	//gtk_clipboard_clear(clipboard);
 }
 
