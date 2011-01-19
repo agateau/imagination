@@ -460,7 +460,7 @@ img_stop_export( img_window_struct *img )
 		g_source_remove( img->source_id );
 
         /* print std output & error to message tab */
-        img_message(img, "ffmpeg output:\n");
+        img_message(img, _("ffmpeg output:\n"));
         while (1000 == read_bytes)
         {
             read_bytes = read(img->output_filedesc, message, 1000);
@@ -1248,8 +1248,16 @@ void img_exporter_vob( img_window_struct *img )
 
 	/* User is serious, so we better prepare ffmepg command line;) */
 	img->export_is_running = 1;
-	format = img->video_size[1] == 576 ? "pal" : "ntsc";
-	img->export_fps = 30;
+    if (img->video_size[1] == 576)
+    {
+        format = "pal";
+        img->export_fps = 25;
+    }
+    else
+    {
+        format = "ntsc";
+        img->export_fps = 30;
+    }
 	filename = gtk_entry_get_text( entry );
 	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
 		aspect_ratio = "4:3";
