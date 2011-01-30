@@ -1061,13 +1061,14 @@ img_scale_gradient( gint              gradient,
 /* Prints a message in the message tab */
 void
 img_message (img_window_struct *img,
+             gboolean alert_user,
              gchar *message, ...)
 {
         GtkTextIter message_end;
         va_list args;
         char *parsed_message;
         int parsed_message_size = 0;
-        
+
         va_start (args, message);
         parsed_message_size = vsnprintf(NULL, 0, message, args);
         va_end(args);
@@ -1086,5 +1087,14 @@ img_message (img_window_struct *img,
                                parsed_message, -1);
 
         free(parsed_message);
+
+        if (alert_user)
+        {
+            PangoAttrList *   pango_list = pango_attr_list_new();
+            PangoAttribute *  pango_attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
+            pango_attr_list_insert(pango_list, pango_attr);
+            gtk_label_set_attributes(GTK_LABEL(img->message_label), pango_list);
+            pango_attr_list_unref (pango_list);
+        }
 
 }

@@ -1152,17 +1152,21 @@ img_window_struct *img_create_window (void)
     /* End of Background music frame */
     
     /* Begin of Message tab */
-    message_tab = gtk_label_new (_("Messages"));
+    img_struct->message_label = gtk_label_new (_("Messages"));
     message_scroll = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(message_scroll),
                                    GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_AUTOMATIC);
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), message_scroll, message_tab);
+    img_struct->message_page = gtk_notebook_append_page(GTK_NOTEBOOK(notebook),
+                             message_scroll,
+                             img_struct->message_label);
 
     message_view = gtk_text_view_new();
     gtk_text_view_set_editable(GTK_TEXT_VIEW(message_view), FALSE);
     gtk_container_add(GTK_CONTAINER(message_scroll), message_view);
     img_struct->message_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (message_view));
+    g_signal_connect( (gpointer) notebook, "switch_page",
+                      G_CALLBACK (img_notebook_switch_page), img_struct);
     /* End of Message tab */
 
 	/* Create the model */
@@ -1368,7 +1372,7 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 
 	if (selection == NULL)
 	{
-		img_message (img, "Paste: selection is NULL\n");
+		img_message (img, FALSE, "Paste: selection is NULL\n");
 		return;
 	}
 	model			=	GTK_TREE_MODEL(img->thumbnail_model);
@@ -2063,7 +2067,7 @@ static void img_show_uri(GtkMenuItem *menuitem, img_window_struct *img)
 	lang = g_strndup(g_getenv("LANG"),2);
 	file = g_strconcat("file://",DATADIR,"/doc/",PACKAGE,"/html/",lang,"/index.html",NULL);
 	g_free(lang);
-	img_message (img, "%s\n",file);
+	img_message (img, FALSE, "%s\n", file);
 
 	/* If help is not localized yet, show default language (english) */
 	if ( !gtk_show_uri(NULL,file, GDK_CURRENT_TIME, NULL))

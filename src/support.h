@@ -150,6 +150,7 @@ img_scale_gradient( gint              gradient,
 
 void
 img_message (img_window_struct *img,
+             gboolean alert_user,
              gchar *message, ...);
 
 #endif

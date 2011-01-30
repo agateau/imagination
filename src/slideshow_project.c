@@ -454,7 +454,10 @@ img_load_slideshow( img_window_struct *img,
 				g_free( font_desc );
 			}
 			else
+            {
 				img->slides_nr--;
+                img_message(img, TRUE, _("Can't load image %s\n"), slide_filename);
+            }
 
 			img_increase_progressbar(img, i);
 			g_free(slide_filename);

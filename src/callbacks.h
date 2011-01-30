@@ -143,4 +143,11 @@ void
 img_rotate_slide( slide_struct   *slide,
 				  ImgAngle        angle,
 				  GtkProgressBar *progress );
+
+void
+img_notebook_switch_page (GtkNotebook       *notebook,
+                          GtkNotebookPage   *page,
+                          guint              page_num,
+                          img_window_struct *img);
+
 #endif

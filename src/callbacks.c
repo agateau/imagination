@@ -2113,7 +2113,7 @@ void img_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_dat
 
 void img_clipboard_clear (GtkClipboard *clipboard, img_window_struct *img)
 {
-	img_message (img, "I'm here\n");
+	img_message (img, FALSE, "I'm here\n");
 	//gtk_clipboard_clear(clipboard);
 }
 
@@ -2726,3 +2726,19 @@ img_rotate_slide( slide_struct   *slide,
 	slide->angle = angle;
 }
 
+void
+img_notebook_switch_page (GtkNotebook       *notebook,
+                          GtkNotebookPage   *page,
+                          guint              page_num,
+                          img_window_struct *img)
+{
+    /* When message page is viewed, set it back to black */
+    if (page_num == img->message_page)
+    {
+        PangoAttrList *   pango_list = pango_attr_list_new();
+        PangoAttribute *  pango_attr = pango_attr_weight_new (PANGO_WEIGHT_NORMAL);
+        pango_attr_list_insert(pango_list, pango_attr);
+        gtk_label_set_attributes(GTK_LABEL(img->message_label), pango_list);
+        pango_attr_list_unref (pango_list);
+    }
+}

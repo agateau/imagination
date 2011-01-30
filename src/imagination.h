@@ -388,8 +388,9 @@ struct _img_window_struct
 	GPid		play_child_pid;
     
     /* Messages related stuf */
-    GtkTextBuffer *message_buffer;
-    gint output_filedesc, error_filedesc;
+    GtkTextBuffer  *message_buffer;
+    GtkWidget      *message_label;
+    gint            message_page;
 
 	/* Application related stuff */
 	gdouble  image_area_zoom; /* Zoom to be applied to image area */
