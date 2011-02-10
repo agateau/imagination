@@ -316,6 +316,8 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
 	GtkWidget *file_selector;
 	gchar *dest_dir;
 	gint response;
+    GtkFileFilter *video_filter, *all_files_filter;
+    gchar *file_extention, *dot_position, *proposed_filename, *file_basename, *stripped_filename;
 
 	file_selector = gtk_file_chooser_dialog_new (_("Please choose the slideshow project filename"),
 							GTK_WINDOW (img->imagination_window),
@@ -325,6 +327,74 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
 							GTK_STOCK_SAVE,
 							GTK_RESPONSE_ACCEPT,
 							NULL);
+
+    /* only video files filter */
+    video_filter = gtk_file_filter_new ();
+    switch (img->video_format)
+    {
+        default:
+        case 'V':
+        gtk_file_filter_set_name (video_filter, _("VOB (DVD Video)") );
+        gtk_file_filter_add_pattern (video_filter, "*.vob");
+        file_extention = ".vob";
+        break;
+
+        case 'M':
+        gtk_file_filter_set_name (video_filter, _("MP4 (MPEG-4)") );
+        gtk_file_filter_add_pattern (video_filter, "*.mp4");
+        file_extention = ".mp4";
+        break;
+
+        case 'O':
+        gtk_file_filter_set_name (video_filter, _("OGV (Theora Vorbis)") );
+        gtk_file_filter_add_pattern (video_filter, "*.ogv");
+        file_extention = ".ogv";
+        break;
+
+        case 'F':
+        gtk_file_filter_set_name (video_filter, _("FLV (Flash Video)") );
+        gtk_file_filter_add_pattern (video_filter, "*.flv");
+        file_extention = ".flv";
+        break;
+
+        case '3':
+        gtk_file_filter_set_name (video_filter, _("3GP (Mobile Phones)") );
+        gtk_file_filter_add_pattern (video_filter, "*.3gp");
+        file_extention = ".3gp";
+        break;
+    }
+
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (file_selector), video_filter);
+
+    /* All files filter */
+    all_files_filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name(all_files_filter, _("All files"));
+    gtk_file_filter_add_pattern(all_files_filter, "*");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_selector), all_files_filter);
+    
+    /* Propose a file name */
+    if (img->project_filename)
+    {
+        file_basename = g_path_get_basename(img->project_filename);
+        dot_position = g_strrstr(file_basename, ".");
+        if (NULL != dot_position)
+        {
+            stripped_filename = g_strndup(file_basename, dot_position - file_basename);
+            g_free(file_basename);
+        }
+        else
+        {
+            stripped_filename = file_basename;
+        }
+        proposed_filename = g_strjoin(NULL, stripped_filename, file_extention, NULL);
+        g_free(stripped_filename);
+    }
+    else
+    {
+        proposed_filename = g_strjoin(NULL, "unknown", file_extention, NULL);
+    }
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (file_selector), proposed_filename);
+    g_free(proposed_filename);
 
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (file_selector),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG(file_selector));

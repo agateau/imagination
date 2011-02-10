@@ -143,7 +143,7 @@ img_window_struct *img_create_window (void)
 	GtkWidget *music_time;
 	GtkWidget *hbox_buttons, *move_up_button;
 	GtkWidget *move_down_button, *clear_button, *image_buttons, *vbox2, *scrolledwindow1;
-    GtkWidget *message_tab, *message_scroll, *message_view;
+    GtkWidget *message_scroll, *message_view;
 	GtkCellRenderer *renderer, *pixbuf_cell;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
@@ -1163,6 +1163,7 @@ img_window_struct *img_create_window (void)
 
     message_view = gtk_text_view_new();
     gtk_text_view_set_editable(GTK_TEXT_VIEW(message_view), FALSE);
+    gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(message_view), GTK_WRAP_WORD);
     gtk_container_add(GTK_CONTAINER(message_scroll), message_view);
     img_struct->message_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (message_view));
     g_signal_connect( (gpointer) notebook, "switch_page",
@@ -1481,6 +1482,7 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 static void img_clear_audio_files(GtkButton *button, img_window_struct *img)
 {
 	gtk_list_store_clear(GTK_LIST_STORE(img->music_file_liststore));
+    img_play_stop_selected_file(NULL, img);
 	gtk_widget_set_sensitive(img->play_audio_button, FALSE);
 	gtk_widget_set_sensitive(img->remove_audio_button, FALSE);
 	gtk_label_set_text(GTK_LABEL(img->music_time_data), "");

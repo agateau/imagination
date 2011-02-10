@@ -1259,7 +1259,7 @@ void img_exporter_vob( img_window_struct *img )
 
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd -s %dx%d %s%s \"%s.vob\"",
+								"-bf 2 -target %s-dvd -s %dx%d %s%s \"%s\"",
 								img->export_fps,
 								format,
                                 img->video_size[0], img->video_size[1],
@@ -1451,7 +1451,7 @@ img_exporter_ogv( img_window_struct *img )
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f ogg -aspect %s -s %dx%d "
 								"-vcodec libtheora -b %dk -acodec libvorbis "
-								"-y \"%s.ogv\"",
+								"-y \"%s\"",
 								img->export_fps, aspect_ratio, width, height,
 								qualities[i], filename );
 	img->export_cmd_line = cmd_line;
@@ -1658,7 +1658,7 @@ img_exporter_flv( img_window_struct *img )
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f flv -s %dx%d "
 								"-vcodec flv -b %dk -acodec libmp3lame -ab 56000 "
-								"-ar 22050 -ac 1 -y \"%s.flv\"",
+								"-ar 22050 -ac 1 -y \"%s\"",
 								img->export_fps, width, height,
 								qualities[i], filename );
 	img->export_cmd_line = cmd_line;
@@ -1770,7 +1770,7 @@ img_exporter_3gp( img_window_struct *img )
 	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
 								"-i pipe: <#AUDIO#> -f 3gp -s %dx%d "
 								"-vcodec h263 -acodec libfaac -b 192k -ab 32k "
-								"-ar 8000 -ac 1 -y \"%s.3gp\"",
+								"-ar 8000 -ac 1 -y \"%s\"",
 								img->export_fps,
 								width, height, filename );
 	img->export_cmd_line = cmd_line;

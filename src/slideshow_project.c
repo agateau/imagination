@@ -317,6 +317,9 @@ img_load_slideshow( img_window_struct *img,
 		gint anim_id,anim_duration, text_pos, placing, gradient;
 		GdkPixbuf *pix = NULL;
 		gboolean   load_ok;
+        GtkIconTheme *icon_theme;
+        GtkIconInfo  *icon_info;
+        const gchar  *icon_filename;
 		ImgAngle   angle = 0;
 	
 		/* Load project backgroud color */
@@ -347,6 +350,23 @@ img_load_slideshow( img_window_struct *img,
 				load_ok = img_scale_image( slide_filename, img->video_ratio,
 										   88, 0, img->distort_images,
 										   img->background_color, &thumb, NULL );
+                if (! load_ok)
+                {
+                    icon_theme = gtk_icon_theme_get_default();
+                    icon_info = gtk_icon_theme_lookup_icon(icon_theme,
+                                                           GTK_STOCK_MISSING_IMAGE,
+                                                           256,
+                                                           GTK_ICON_LOOKUP_FORCE_SVG);
+                    icon_filename = gtk_icon_info_get_filename(icon_info);
+                                                          
+
+                    img_message(img, TRUE, _("Slide %i: can't load image %s\n"), i, slide_filename);
+                    g_free (slide_filename);
+                    slide_filename = g_strdup(icon_filename);
+                    load_ok = img_scale_image( slide_filename, img->video_ratio,
+                                                88, 0, img->distort_images,
+                                                img->background_color, &thumb, NULL );
+                }
 			}
 			else
 			{

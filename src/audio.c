@@ -90,25 +90,34 @@ void img_play_stop_selected_file(GtkButton *button, img_window_struct *img)
 	g_free( path );
 
 	g_shell_parse_argv (cmd_line, &argc, &argv, NULL);
-	g_free(cmd_line);
 
 	ret = g_spawn_async_with_pipes( NULL, argv, NULL,
 									G_SPAWN_SEARCH_PATH | 
-									G_SPAWN_DO_NOT_REAP_CHILD | 
-									G_SPAWN_STDOUT_TO_DEV_NULL | 
+									G_SPAWN_DO_NOT_REAP_CHILD |
+									G_SPAWN_STDOUT_TO_DEV_NULL |
 									G_SPAWN_STDERR_TO_DEV_NULL,
 									NULL, NULL, &img->play_child_pid, NULL, NULL, NULL, &error );
 
 	/* Free argument vector */
 	g_strfreev( argv );
 
-	g_child_watch_add(img->play_child_pid, (GChildWatchFunc) img_play_audio_ended, img);
+	if (TRUE == ret)
+    {
+        g_child_watch_add(img->play_child_pid, (GChildWatchFunc) img_play_audio_ended, img);
 
-	img_swap_audio_files_button(img, FALSE);
-	message = g_strdup_printf(_("Playing %s..."), file);
-	g_free( file );
-	gtk_statusbar_push(GTK_STATUSBAR(img->statusbar), img->context_id, message);
-	g_free(message);
+        img_swap_audio_files_button(img, FALSE);
+        message = g_strdup_printf(_("Playing %s..."), file);
+        g_free( file );
+        gtk_statusbar_push(GTK_STATUSBAR(img->statusbar), img->context_id, message);
+        g_free(message);
+    }
+    else
+    {
+        img_message(img, TRUE, "Unable to run '%s': %s\n", cmd_line, error->message);
+        g_error_free (error);
+    }
+    g_free(cmd_line);
+
 }
 
 static void img_play_audio_ended (GPid pid, gint status, img_window_struct *img)

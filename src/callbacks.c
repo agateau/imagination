@@ -232,7 +232,7 @@ void img_remove_audio_files (GtkWidget *widget, img_window_struct *img)
 	    {
 			if (gtk_tree_model_get_iter(GTK_TREE_MODEL(img->music_file_liststore), &iter, path))
 			{
-				gtk_tree_model_get(GTK_TREE_MODEL(img->music_file_liststore), &iter, 3, &secs, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(img->music_file_liststore), &iter, 3, &secs, -1);
 				gtk_list_store_remove(img->music_file_liststore, &iter);
 			}
 			gtk_tree_path_free(path);
@@ -241,6 +241,7 @@ void img_remove_audio_files (GtkWidget *widget, img_window_struct *img)
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(img->music_file_liststore), &iter) == FALSE)
 	{
+        img_play_stop_selected_file(NULL, img);
 		gtk_widget_set_sensitive (img->remove_audio_button, FALSE);
 		gtk_widget_set_sensitive (img->play_audio_button, FALSE);
 		gtk_label_set_text(GTK_LABEL(img->music_time_data), "");
