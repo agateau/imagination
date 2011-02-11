@@ -54,6 +54,9 @@ img_placing_changed( GtkComboBox   *combo,
 					 img_window_struct *img );
 
 void
+img_disable_videotab (img_window_struct *img);
+
+void
 img_ken_burns_update_sensitivity( img_window_struct *img,
 								  gboolean           slide_selected,
 								  gint               no_points );

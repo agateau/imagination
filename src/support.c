@@ -363,7 +363,6 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
         file_extention = ".3gp";
         break;
     }
-
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (file_selector), video_filter);
 
     /* All files filter */
@@ -395,6 +394,10 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
     }
     gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (file_selector), proposed_filename);
     g_free(proposed_filename);
+
+    /* set current dir to the project current dir */
+    if (img->project_current_dir)
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_selector),img->project_current_dir);
 
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (file_selector),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG(file_selector));

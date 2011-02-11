@@ -430,6 +430,12 @@ void img_free_allocated_memory(img_window_struct *img_struct)
 		g_free(img_struct->current_dir);
 		img_struct->current_dir = NULL;
 	}
+	
+	if (img_struct->project_current_dir)
+    {
+        g_free(img_struct->project_current_dir);
+        img_struct->project_current_dir = NULL;
+    }
 
 	if (img_struct->project_filename)
 	{
@@ -1396,6 +1402,7 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
 	GtkFileChooserAction action = 0;
 	gint response;
 	gchar *filename = NULL;
+    GtkFileFilter *project_filter, *all_files_filter;
 
 	/* Determine the mode of the chooser. */
 	if (widget == img->open_menu || widget == img->open_button)
@@ -1418,6 +1425,25 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
 					action == GTK_FILE_CHOOSER_ACTION_OPEN ?  GTK_STOCK_OPEN : GTK_STOCK_SAVE,
 					GTK_RESPONSE_ACCEPT,NULL);
 
+        /* Filter .img files */
+        project_filter = gtk_file_filter_new ();
+        gtk_file_filter_set_name(project_filter, _("Imagination projects"));
+        gtk_file_filter_add_pattern(project_filter, "*.img");
+        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(fc), project_filter);
+
+        /* All files filter */
+        all_files_filter = gtk_file_filter_new ();
+        gtk_file_filter_set_name(all_files_filter, _("All files"));
+        gtk_file_filter_add_pattern(all_files_filter, "*");
+        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(fc), all_files_filter);
+
+        if (widget == img->save_as_menu || (widget == img->save_menu && img->project_filename == NULL))
+            gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (fc), "unknown.img");
+        
+        if (img->project_current_dir)
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fc),img->project_current_dir);
+
+
 		gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (fc),TRUE);
 		response = gtk_dialog_run (GTK_DIALOG (fc));
 		if (response == GTK_RESPONSE_ACCEPT)
@@ -1428,6 +1454,10 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
 				gtk_widget_destroy(fc);
 				return;
 			}
+			if (img->project_current_dir)
+                g_free(img->project_current_dir);
+            img->project_current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(fc));
+
 		}
 		else if (response == GTK_RESPONSE_CANCEL || GTK_RESPONSE_DELETE_EVENT)
 		{
@@ -1463,9 +1493,6 @@ void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 		cairo_surface_destroy( img->current_image );
 	img->current_image = NULL;
 	gtk_widget_queue_draw( img->image_area );
-	gtk_widget_set_sensitive(img->random_button, FALSE);
-	gtk_widget_set_sensitive(img->transition_type, FALSE);
-	gtk_widget_set_sensitive(img->duration, FALSE);
 	gtk_label_set_text(GTK_LABEL (img->total_time_data),"");
 
 	/* Reset slideshow properties */
@@ -1476,13 +1503,10 @@ void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 	img->final_transition.speed = NORMAL;
 	img->final_transition.render = NULL;
 
-	/* Disable ken burns controls */
-	img_ken_burns_update_sensitivity( img, FALSE, 0 );
+	/* Disable the video tab */
+    img_disable_videotab (img);
 
-	/* Disable subtitle controls */
-	img_subtitle_update_sensitivity( img, 0 );
-	
-	gtk_entry_set_text(GTK_ENTRY(img->slide_number_entry), "");
+    gtk_entry_set_text(GTK_ENTRY(img->slide_number_entry), "");
 }
 
 void img_move_audio_up( GtkButton *button, img_window_struct *img )

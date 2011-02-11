@@ -1597,18 +1597,10 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 		gtk_widget_queue_draw( img->image_area );
 
 		/* Disable slide settings */
-		gtk_widget_set_sensitive(img->trans_duration,	FALSE);
-		gtk_widget_set_sensitive(img->duration,			FALSE);
-		gtk_widget_set_sensitive(img->transition_type,	FALSE);
-		gtk_widget_set_sensitive(img->random_button,	FALSE);
+        img_disable_videotab(img);
+
 		if (img->slides_nr == 0)
 			gtk_label_set_text(GTK_LABEL (img->total_time_data),"");
-
-		/* Disable Ken Burns controls */
-		img_ken_burns_update_sensitivity( img, FALSE, 0 );
-
-		/* Disable subtitle controls */
-		img_subtitle_update_sensitivity( img, 0 );
 
 		return;
 	}
@@ -1689,15 +1681,19 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
             slide_info_msg = g_strdup_printf(_("File '%s' not found"), info_slide->original_filename);
             gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);
             g_free (slide_info_msg);
+            img_disable_videotab(img);
         }
-        else if (info_slide->o_filename != NULL)
-		{
-			slide_info_msg = g_strdup_printf("%s    %s: %s    %s: %s",info_slide->o_filename, _("Resolution"), info_slide->resolution, _("Type"), info_slide->type);
-			gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);
-			g_free(slide_info_msg);
-		}
-		img_ken_burns_update_sensitivity( img, TRUE, info_slide->no_points );
-		img_subtitle_update_sensitivity( img, 1 );
+        else
+        {
+            if (info_slide->o_filename != NULL)
+            {
+                slide_info_msg = g_strdup_printf("%s    %s: %s    %s: %s",info_slide->o_filename, _("Resolution"), info_slide->resolution, _("Type"), info_slide->type);
+                gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);
+                g_free(slide_info_msg);
+            }
+            img_ken_burns_update_sensitivity( img, TRUE, info_slide->no_points );
+            img_subtitle_update_sensitivity( img, 1 );
+        }
 	}
 
 	if( img->current_image )
@@ -2289,6 +2285,19 @@ img_placing_changed( GtkComboBox   *combo,
 
 	gtk_widget_queue_draw( img->image_area );
 }
+
+void
+img_disable_videotab (img_window_struct *img)
+{
+    gtk_widget_set_sensitive(img->random_button, FALSE);
+    gtk_widget_set_sensitive(img->transition_type, FALSE);
+    gtk_widget_set_sensitive(img->duration, FALSE);
+    gtk_widget_set_sensitive(img->trans_duration,   FALSE);
+
+    img_ken_burns_update_sensitivity (img, FALSE, 0);
+    img_subtitle_update_sensitivity (img, 0);
+}
+
 
 void
 img_ken_burns_update_sensitivity( img_window_struct *img,

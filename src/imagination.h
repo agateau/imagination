@@ -292,6 +292,7 @@ struct _img_window_struct
 
 	/* Project related variables */
 	gchar       *project_filename;		// project name for saving
+	gchar       *project_current_dir;
 	gboolean	distort_images;
 	gboolean	project_is_modified;
 	gchar		video_format;
