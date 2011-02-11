@@ -157,6 +157,9 @@ struct _slide_struct
 	gchar    *o_filename; /* Filename of the image that slide represents */
 	gchar    *r_filename; /* o_filename, rotated according to angle */
 	ImgAngle  angle;      /* Angle of rotated image */
+    gboolean  load_ok;    /* handle loading problems (file not found, format unknown...) */
+    gchar    *original_filename; /* Filename as loaded from the project file */
+
 
 	/* Fields that are filled if we create slide in memory */
 	gint    gradient;         /* Gradient type */

@@ -57,11 +57,16 @@ img_save_slideshow( img_window_struct *img,
 		gtk_tree_model_get(model, &iter,1,&entry,-1);
 		conf = g_strdup_printf("slide %d",count);
 
-		if( entry->o_filename)
+        if (entry->load_ok)
+            filename = entry->o_filename;
+        else
+            filename = entry->original_filename;
+
+        if (filename)
 		{
 			/* Save original filename and rotation */
 			g_key_file_set_string( img_key_file, conf,
-								   "filename", entry->o_filename);
+								   "filename", filename);
 			g_key_file_set_integer( img_key_file, conf, "angle", entry->angle );
 		}
 		else
@@ -316,7 +321,8 @@ img_load_slideshow( img_window_struct *img,
 		gsize length;
 		gint anim_id,anim_duration, text_pos, placing, gradient;
 		GdkPixbuf *pix = NULL;
-		gboolean   load_ok;
+        gboolean      load_ok, img_load_ok;
+        gchar *original_filename = NULL;
         GtkIconTheme *icon_theme;
         GtkIconInfo  *icon_info;
         const gchar  *icon_filename;
@@ -342,6 +348,7 @@ img_load_slideshow( img_window_struct *img,
 		{
 			conf = g_strdup_printf("slide %d", i);
 			slide_filename = g_key_file_get_string(img_key_file,conf,"filename", NULL);
+            original_filename = g_strdup (slide_filename);
 
 			if( slide_filename )
 			{
@@ -350,6 +357,7 @@ img_load_slideshow( img_window_struct *img,
 				load_ok = img_scale_image( slide_filename, img->video_ratio,
 										   88, 0, img->distort_images,
 										   img->background_color, &thumb, NULL );
+                img_load_ok = load_ok;
                 if (! load_ok)
                 {
                     icon_theme = gtk_icon_theme_get_default();
@@ -358,14 +366,16 @@ img_load_slideshow( img_window_struct *img,
                                                            256,
                                                            GTK_ICON_LOOKUP_FORCE_SVG);
                     icon_filename = gtk_icon_info_get_filename(icon_info);
-                                                          
+
 
                     img_message(img, TRUE, _("Slide %i: can't load image %s\n"), i, slide_filename);
+
                     g_free (slide_filename);
                     slide_filename = g_strdup(icon_filename);
                     load_ok = img_scale_image( slide_filename, img->video_ratio,
                                                 88, 0, img->distort_images,
                                                 img->background_color, &thumb, NULL );
+
                 }
 			}
 			else
@@ -419,6 +429,10 @@ img_load_slideshow( img_window_struct *img,
 						img_set_slide_gradient_info( slide_info, gradient,
 													 c_start, c_stop,
 													 p_start, p_stop );
+
+                    /* Handle lod errors */
+                    slide_info->load_ok = img_load_ok;
+                    slide_info->original_filename = original_filename;
 
 					/* If image has been rotated, rotate it now too. */
 					if( angle )

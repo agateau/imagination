@@ -1415,6 +1415,7 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 				 * that for us. */
 				pasted_slide->o_filename = g_strdup(info_slide->o_filename);
 				pasted_slide->r_filename = g_strdup(info_slide->r_filename);
+                pasted_slide->original_filename = g_strdup(info_slide->original_filename);
 				pasted_slide->resolution = g_strdup(info_slide->resolution);
 				pasted_slide->type = g_strdup(info_slide->type);
 				pasted_slide->path = g_strdup(info_slide->path);
@@ -1683,7 +1684,13 @@ void img_iconview_selection_changed(GtkIconView *iconview, img_window_struct *im
 	}
 	else
 	{
-		if (info_slide->o_filename != NULL)
+		if (FALSE == info_slide->load_ok)
+        {
+            slide_info_msg = g_strdup_printf(_("File '%s' not found"), info_slide->original_filename);
+            gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);
+            g_free (slide_info_msg);
+        }
+        else if (info_slide->o_filename != NULL)
 		{
 			slide_info_msg = g_strdup_printf("%s    %s: %s    %s: %s",info_slide->o_filename, _("Resolution"), info_slide->resolution, _("Type"), info_slide->type);
 			gtk_statusbar_push(GTK_STATUSBAR (img->statusbar), img->context_id, slide_info_msg);

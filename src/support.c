@@ -440,6 +440,10 @@ img_create_new_slide( void )
         slide->font_bgcolor[1] = 1; /* G */
         slide->font_bgcolor[2] = 1; /* B */
         slide->font_bgcolor[3] = 1; /* A */
+        
+        /* Load error handling */
+        slide->load_ok = TRUE;
+        slide->original_filename = NULL;
 	}
 
 	return( slide );
@@ -665,6 +669,7 @@ img_free_slide_struct( slide_struct *entry )
 		g_unlink( entry->r_filename );
 	g_free(entry->o_filename);
 	g_free(entry->r_filename);
+    g_free(entry->original_filename);
 	g_free(entry->resolution);
 	g_free(entry->type);
 	
