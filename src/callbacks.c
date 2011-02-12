@@ -120,7 +120,11 @@ void img_set_window_title(img_window_struct *img, gchar *text)
 
 void img_new_slideshow(GtkMenuItem *item,img_window_struct *img_struct)
 {
-	img_new_slideshow_settings_dialog(img_struct, FALSE);
+    if (img_struct->project_is_modified)
+        if (GTK_RESPONSE_OK != img_ask_user_confirmation(img_struct, _("You didn't save your slideshow yet. Are you sure you want to close it?")))
+            return;
+	img_close_slideshow(GTK_WIDGET(item), img_struct);
+    img_new_slideshow_settings_dialog(img_struct, FALSE);
 }
 
 void img_project_properties(GtkMenuItem *item, img_window_struct *img_struct)
@@ -1405,10 +1409,19 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
     GtkFileFilter *project_filter, *all_files_filter;
 
 	/* Determine the mode of the chooser. */
-	if (widget == img->open_menu || widget == img->open_button)
+	if (widget == img->open_menu || widget == img->open_button || widget == img->import_project_menu)
 		action = GTK_FILE_CHOOSER_ACTION_OPEN;
 	else if (widget == img->save_as_menu || widget == img->save_menu || widget == img->save_button)
 		action = GTK_FILE_CHOOSER_ACTION_SAVE;
+    
+    /* close old slideshow if we import */
+    if (widget == img->open_menu || widget == img->open_button)
+    {
+        if (img->project_is_modified)
+            if (GTK_RESPONSE_OK != img_ask_user_confirmation(img, _("You didn't save your slideshow yet. Are you sure you want to close it?")))
+                return;
+        img_close_slideshow(widget, img);
+    }
 
 	/* If user wants to save empty slideshow, simply abort */
 	if( img->slides_nr == 0 && action == GTK_FILE_CHOOSER_ACTION_SAVE  )
@@ -1480,11 +1493,12 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
 
 void img_close_slideshow(GtkWidget *widget, img_window_struct *img)
 {
-	if (img->project_is_modified)
-	{
-		if (GTK_RESPONSE_OK != img_ask_user_confirmation(img, _("You didn't save your slideshow yet. Are you sure you want to close it?")))
-			return;
-	}
+    /* When called from close_menu, ask for confirmation */
+    if (img->project_is_modified && widget == img->close_menu)
+    {
+        if (GTK_RESPONSE_OK != img_ask_user_confirmation(img, _("You didn't save your slideshow yet. Are you sure you want to close it?")))
+            return;
+    }
 	img->project_is_modified = FALSE;
 	img_free_allocated_memory(img);
 	img_set_window_title(img,NULL);

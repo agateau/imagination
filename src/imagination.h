@@ -201,6 +201,8 @@ struct _img_window_struct
 	GtkWidget	*imagination_window;	// Main window
 	GtkAccelGroup *accel_group;
 	GtkWidget	*open_menu;
+    GtkWidget   *close_menu;
+    GtkWidget   *import_project_menu;
 	GtkWidget	*save_menu;
 	GtkWidget	*save_as_menu;
 	GtkWidget	*open_button;

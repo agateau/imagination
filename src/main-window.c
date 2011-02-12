@@ -158,7 +158,6 @@ img_window_struct *img_create_window (void)
 
 	/* Added after cleaning up the img_window_struct */
 	GtkWidget *properties_menu;
-	GtkWidget *close_menu;
 	GtkWidget *import_menu;
 	GtkWidget *import_audio_menu;
 	GtkWidget *import_button;
@@ -233,6 +232,15 @@ img_window_struct *img_create_window (void)
 	gtk_container_add (GTK_CONTAINER (menu1), img_struct->open_menu);
 	g_signal_connect (G_OBJECT (img_struct->open_menu),"activate",G_CALLBACK (img_choose_slideshow_filename),img_struct);
 
+    img_struct->import_project_menu = gtk_image_menu_item_new_with_label (_("Import slideshow"));
+    gtk_container_add (GTK_CONTAINER (menu1),img_struct->import_project_menu);
+    g_signal_connect (G_OBJECT (img_struct->import_project_menu),"activate",G_CALLBACK (img_choose_slideshow_filename),img_struct);
+
+    pixbuf = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_ADD, 18, 0, NULL);
+    image_menu = gtk_image_new_from_pixbuf(pixbuf);
+    g_object_unref(pixbuf);
+    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (img_struct->import_project_menu),image_menu);
+
 	img_struct->save_menu = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, img_struct->accel_group);
 	gtk_container_add (GTK_CONTAINER (menu1), img_struct->save_menu);
 	g_signal_connect (G_OBJECT (img_struct->save_menu),"activate",G_CALLBACK (img_choose_slideshow_filename),img_struct);
@@ -241,9 +249,9 @@ img_window_struct *img_create_window (void)
 	gtk_container_add (GTK_CONTAINER (menu1), img_struct->save_as_menu);
 	g_signal_connect (G_OBJECT (img_struct->save_as_menu),"activate",G_CALLBACK (img_choose_slideshow_filename),img_struct);
 
-	close_menu = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, img_struct->accel_group);
-	gtk_container_add (GTK_CONTAINER (menu1), close_menu);
-	g_signal_connect (G_OBJECT (close_menu),"activate",G_CALLBACK (img_close_slideshow),img_struct);
+	img_struct->close_menu = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, img_struct->accel_group);
+	gtk_container_add (GTK_CONTAINER (menu1), img_struct->close_menu);
+	g_signal_connect (G_OBJECT (img_struct->close_menu),"activate",G_CALLBACK (img_close_slideshow),img_struct);
 
 	separatormenuitem1 = gtk_separator_menu_item_new ();
 	gtk_container_add (GTK_CONTAINER (menu1), separatormenuitem1);
