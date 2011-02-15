@@ -334,7 +334,7 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
     {
         default:
         case 'V':
-        gtk_file_filter_set_name (video_filter, _("VOB (DVD Video)") );
+        gtk_file_filter_set_name (video_filter, _("VOB (DVD video)") );
         gtk_file_filter_add_pattern (video_filter, "*.vob");
         file_extention = ".vob";
         break;
@@ -346,13 +346,13 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
         break;
 
         case 'O':
-        gtk_file_filter_set_name (video_filter, _("OGV (Theora Vorbis)") );
+        gtk_file_filter_set_name (video_filter, _("OGV (Theora/Vorbis)") );
         gtk_file_filter_add_pattern (video_filter, "*.ogv");
         file_extention = ".ogv";
         break;
 
         case 'F':
-        gtk_file_filter_set_name (video_filter, _("FLV (Flash Video)") );
+        gtk_file_filter_set_name (video_filter, _("FLV (Flash video)") );
         gtk_file_filter_add_pattern (video_filter, "*.flv");
         file_extention = ".flv";
         break;

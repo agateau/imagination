@@ -32,6 +32,10 @@
 				<firstname>Tadej</firstname>
 				<surname>Borovšak</surname>
 			</author>
+            <author>
+                <firstname>Robert</firstname>
+                <surname>Chéramy</surname>
+            </author>
 		</authorgroup>
 		<releaseinfo>
 			This manual describes version &version; of &application;.
@@ -165,9 +169,9 @@
 				</para>
 				<para>
 					You can modify text's font size, variant and family using
-					font button below the text field. Color is controlled by
-					color selector button right of the font button (font color
-					can be partially transparent too).
+					font button below the text field. Color is controlled by two
+					color selector buttons (font color and text outline color)
+                    right of the font button (font color can be partially transparent too).
 				</para>
 				<para>
 					Text can be positioned on the slide in nine locations that
@@ -242,6 +246,12 @@
 					<graphic fileref="images/side_panel_audio.png"></graphic>
 				</figure>
 			</sect3>
+            <sect3 id="message_tab">
+                <title>Message Tab</title>
+                <para>
+                    In this tab, imagination will write messages that might be of interest for the user. When a message is important (for example: missing image file), the title of the tab will switch to bold.
+                </para>
+            </sect3>
 		</sect2>
 		<sect2 id="image_area">
 			<title>Image Area</title>
@@ -266,6 +276,7 @@
 			<itemizedlist>
 				<listitem><para>New</para></listitem>
 				<listitem><para>Open</para></listitem>
+                <listitem><para>Import slideshow</para></listitem>
 				<listitem><para>Save</para></listitem>
 				<listitem><para>Save As</para></listitem>
 				<listitem><para>Close</para></listitem>
@@ -283,7 +294,7 @@
 					<graphic fileref="images/new_dialog.png"></graphic>
 				</figure>
 				<para>
-					This menu allows you to create a new slideshow. The slideshow dialog is displayed. You can choose the video format (PAL/NTSC), if to scale the picture so that it covers the whole screen avoiding the black stripes and the background color to be displayed when the picture is too small and the rescaling doesn't succed to cover the whole screen. You can also change these options later.
+					This menu allows you to create a new slideshow. The slideshow dialog is displayed. You can choose the video format and size, if to scale the picture so that it covers the whole screen avoiding the black stripes and the background color to be displayed when the picture is too small and the rescaling doesn't succed to cover the whole screen. You can also change these options later.
 				</para>
 			</sect3>
 			<sect3 id="open">
@@ -292,6 +303,12 @@
 					This menu allows you to open a previously saved slideshow.
 				</para>
 			</sect3>
+            <sect3 id="import_slideshow">
+                <title>Import slideshow</title>
+                <para>
+                    This menu allows you to insert a previously saved slideshow at the end of your slideshow.
+                </para>
+            </sect3>
 			<sect3 id="save">
 				<title>Save</title>
 				<para>
@@ -349,14 +366,12 @@
 			<sect3 id="export">
 				<title>Export</title>
 				<para>
-					This submenu allows you to export the slideshow in four
-					different formats: VOB (DVD Video) OGV (Ogg Theora/Vorbis)
+					This submenu allows you to export the slideshow in the format defined in the New / Properties dialog: VOB (DVD Video) OGV (Ogg Theora/Vorbis)
 					FLV (Flash Video) and 3GP (Mobile Phones). Each format has its own set of
 					preferences that you'll be asked about when you select any
 					of them. Please be sure to have all the necessary libraries
 					installed first, otherwise you'll get errors from ffmpeg, the
 					command-line encoder Imagination uses to produce the video.
-					The extension will be automatically added to the filename.
 				</para>
 			</sect3>
 			<sect3 id="quit">

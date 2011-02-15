@@ -122,8 +122,9 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
 		gtk_list_store_set( store, &iter, 0, "FLV (Flash Video)", -1 );
 		gtk_list_store_append( store, &iter );
 		gtk_list_store_set( store, &iter, 0, "3GP (Mobile Phones)", -1 );
+/* Disable MP4 export or 3.0 release
 		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "MP4 (MPEG-4)", -1 );
+		gtk_list_store_set( store, &iter, 0, "MP4 (MPEG-4)", -1 ); */
 	}
 
 	label_frame1 = gtk_label_new (_("<b>Video Format</b>"));

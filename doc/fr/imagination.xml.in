@@ -28,6 +28,10 @@
 				<firstname>Tadej</firstname>
 				<surname>Borovšak</surname>
 			</author>
+            <author>
+                <firstname>Robert</firstname>
+                <surname>Chéramy</surname>
+            </author>
 		</authorgroup>
 		<releaseinfo>
 			Ce manuel décrit la version &version; de &application;.
@@ -131,7 +135,7 @@
 					Imagination peut ajouter du texte à vos diapositives. Commencez à taper dans le champ approprié et le texte s'affichera dans la zone de l'image. Si vous souhaitez avoir plusieurs lignes de texte, cliquez sur le signe + sur le côté droit du champ de texte pour l'élargir.
 				</para>
 				<para>
-					Vous pouvez modifier la taille, le style et la famille de la police de texte en utilisant le bouton de police situé au-dessous du champ texte. La couleur est contrôlée par le bouton sélecteur de couleur à droite du bouton de police (la couleur de la police peut aussi être en partie transparente).
+					Vous pouvez modifier la taille, le style et la famille de la police de texte en utilisant le bouton de police situé au-dessous du champ texte. Les couleurs (police et contour) sont contrôlées par les boutons sélecteurs de couleur à droite du bouton de police (la couleur de la police peut aussi être en partie transparente).
 				</para>
 				<para>
 					Le texte peut être placé sur la diapositive dans neuf endroits qui peuvent être sélectionnés avec le bouton sélecteur de position. Ces positions peuvent être définies par rapport à la vidéo exportée ou à l'image originale. Qu'est ce que cela signifie? Pour les images, sans l'effet Ken Burns, les deux options produisent le même résultat. Mais si vous appliquez un zoom, le texte qui est positionnée par rapport à l'image d'origine sera agrandi, tandis que le texte positionné par rapport à la vidéo exportée restera à la la même taille.
@@ -163,6 +167,12 @@
 					<graphic fileref="images/side_panel_audio.png"></graphic>
 				</figure>
 			</sect3>
+            <sect3 id="message_tab">
+                <title>Onglet Messages</title>
+                <para>
+                    Dans cet onglet, Imagination écrira des messages qui pourraient intéresser l'utilisateur. Si le message est important (par exemple un fichier image manquant), le titre de l'onglet devriendra gras.                
+                </para>
+            </sect3>
 		</sect2>
 		<sect2 id="image_area">
 			<title>Zone de l'image</title>
@@ -187,6 +197,7 @@
 			<itemizedlist>
 				<listitem><para>Nouveau</para></listitem>
 				<listitem><para>Ouvrir</para></listitem>
+                <listitem><para>Importer diaporama</para></listitem>
 				<listitem><para>Enregistrer</para></listitem>
 				<listitem><para>Enregistrer sous</para></listitem>
 				<listitem><para>Fermer</para></listitem>
@@ -204,7 +215,7 @@
 					<graphic fileref="images/new_dialog.png"></graphic>
 				</figure>
 				<para>
-					Ce menu vous permet de créer un nouveau diaporama. La boîte de dialogue diaporama est affichée. Vous pouvez choisir le format vidéo (PAL / NTSC), le redimensionnement de l'image de sorte qu'elle couvre tout l'écran en évitant les rayures noires, ainsi que la couleur de fond à afficher lorsque l'image est trop petite et que le redimensionnement ne réussit pas à couvrir tout l'écran. Vous pouvez également modifier ces options plus tard.
+					Ce menu vous permet de créer un nouveau diaporama. La boîte de dialogue diaporama est affichée. Vous pouvez choisir le format vidéo, le redimensionnement de l'image de sorte qu'elle couvre tout l'écran en évitant les rayures noires, ainsi que la couleur de fond à afficher lorsque l'image est trop petite et que le redimensionnement ne réussit pas à couvrir tout l'écran. Vous pouvez également modifier ces options plus tard.
 				</para>
 			</sect3>
 			<sect3 id="open">
@@ -213,6 +224,12 @@
 					Ce menu vous permet d'ouvrir un diaporama précédemment enregistré.
 				</para>
 			</sect3>
+            <sect3 id="import_slideshow">
+                <title>Importer diaporame</title>
+                <para>
+                    Ce menu permet d'ajouter nu diaporama sauvé précédement à la fin du diaporama en cours.
+                </para>
+            </sect3>
 			<sect3 id="save">
 				<title>Enregistrer</title>
 				<para>
@@ -259,7 +276,7 @@
 			<sect3 id="export">
 				<title>Exporter</title>
 				<para>
-					Ce sous-menu vous permet d'exporter le diaporama en quatre formats différents : VOB (DVD vidéo) OGV (Ogg Theora / Vorbis), FLV (vidéo Flash) et 3GP (téléphones portables). Chaque format a ses propres paramètres que vous aurez à fixer dans une boite de dialogue quand vous sélectionnez l'un d'entre eux. Veuillez vous assurer que toutes les bibliothèques ont d'abord été installées, sinon vous aurez des erreurs concernant ffmpeg, l'encodeur qu'Imagination utilise pour produire la video. L'extension sera automatiquement ajoutée au nom du fichier.
+					Ce sous-menu vous permet d'exporter le diaporama dans le format spécifié dans les propriétés : VOB (DVD vidéo) OGV (Ogg Theora / Vorbis), FLV (vidéo Flash) et 3GP (téléphones portables). Chaque format a ses propres paramètres que vous aurez à fixer dans une boite de dialogue quand vous sélectionnez l'un d'entre eux. Veuillez vous assurer que toutes les bibliothèques ont d'abord été installées, sinon vous aurez des erreurs concernant ffmpeg, l'encodeur qu'Imagination utilise pour produire la video.
 				</para>
 			</sect3>
 			<sect3 id="quit">
