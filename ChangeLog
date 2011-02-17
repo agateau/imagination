@@ -13,6 +13,7 @@ xx/02/11 - 3.0:
             - Fixed export video extension
             - Imagination projects should now have .img as an extention
             - Changed behaviour of "new" and "open" (now work as expected)
+            - Fixed #2905255 (Copy/Paste bug)
 14/10/09 - 2.1:
 			- Added a new transition family named Rochade.
 			- Added 3GP export for mobile phones.

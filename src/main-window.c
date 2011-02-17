@@ -22,6 +22,7 @@
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
+#include <assert.h>
 
 #include "main-window.h"
 #include "callbacks.h"
@@ -1179,10 +1180,11 @@ img_window_struct *img_create_window (void)
     /* End of Message tab */
 
 	/* Create the model */
-	img_struct->thumbnail_model = gtk_list_store_new( 4, GDK_TYPE_PIXBUF,
-														 G_TYPE_POINTER,
-														 GDK_TYPE_PIXBUF,
-														 G_TYPE_BOOLEAN );
+	img_struct->thumbnail_model = gtk_list_store_new( 4,
+                                                      GDK_TYPE_PIXBUF,  /* thumbnail */
+                                                      G_TYPE_POINTER,   /* slide_info */
+													  GDK_TYPE_PIXBUF,  /* transition thumbnail */
+													  G_TYPE_BOOLEAN ); /* presence of a subtitle */
 
 	/* Create overview mode widgets */
 	/* FIXME: A lot of duplicate code here!! */
@@ -1367,16 +1369,20 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 {
 	GtkClipboard *clipboard;
 	GtkSelectionData *selection;
-	GList *where_to_paste = NULL, *dummy;
+	GList *where_to_paste = NULL, *node;
 	GtkTreeModel *model;
-	GtkTreeIter iter, position;
+	GtkTreeIter iter, position_iter;
 	gchar *total_slides = NULL;
 	GdkPixbuf *thumb, *trans;
 	gboolean   has_sub;
 	slide_struct *pasted_slide, *info_slide;
 	gint pos;
+    GtkTreeRowReference  *position_rawref;
+    GList                *rowref_list = NULL;
+    GtkTreePath          *path, *position_path;
 
-	clipboard = gtk_clipboard_get(IMG_CLIPBOARD);
+
+    clipboard = gtk_clipboard_get(IMG_CLIPBOARD);
 	selection = gtk_clipboard_wait_for_contents(clipboard, IMG_INFO_LIST);
 
 	if (selection == NULL)
@@ -1384,89 +1390,132 @@ static void img_slide_paste(GtkMenuItem* item, img_window_struct *img)
 		img_message (img, FALSE, "Paste: selection is NULL\n");
 		return;
 	}
-	model			=	GTK_TREE_MODEL(img->thumbnail_model);
-	where_to_paste	=	gtk_icon_view_get_selected_items(GTK_ICON_VIEW(img->active_icon));
-	dummy			=	img->selected_paths;
+
+	model			 =	GTK_TREE_MODEL(img->thumbnail_model);
+	where_to_paste	 =	gtk_icon_view_get_selected_items(GTK_ICON_VIEW(img->active_icon));
+    if (where_to_paste == NULL)     /*no icon selected */
+        return;
+    position_rawref  =  gtk_tree_row_reference_new(model, where_to_paste->data);
+
+    /* Build a list selected of icons to move */
+    node = img->selected_paths;
+    while (node)
+    {
+        rowref_list = g_list_append(rowref_list, gtk_tree_row_reference_new(model, node->data));
+        node = node->next;
+    }
 
 	if (img->clipboard_mode == IMG_CLIPBOARD_CUT)
 	{
-		while (dummy)
-		{
-			gtk_tree_model_get_iter (model, &iter,		dummy->data);
-			gtk_tree_model_get_iter (model, &position,	where_to_paste->data);
-			gtk_list_store_move_after(GTK_LIST_STORE(model), &iter, &position);
-			dummy = dummy->next;
-		}
+        /* move the icons */
+		node = rowref_list;
+		while (node)
+        {
+            path = gtk_tree_row_reference_get_path(node->data);
+            if (path)
+            {
+                if (gtk_tree_model_get_iter(model, &iter, path))
+                {
+                    position_path = gtk_tree_row_reference_get_path(position_rawref);
+                    /* position_path can not be NULL as we only move, without delete */
+                    assert (position_path != NULL);
+                    gtk_tree_model_get_iter (model, &position_iter,  position_path);
+                    gtk_list_store_move_after(GTK_LIST_STORE(model), &iter, &position_iter);
+                    gtk_tree_path_free(position_path);
+                }
+                gtk_tree_path_free(path);
+            }
+            node = node->next;
+        }
 	}
-	else
+	else    /* clipboard copy */
 	{
-		while (dummy)
+        node = rowref_list;
+        while (node)
 		{
-			/* Get slide and some additional data */
-			gtk_tree_model_get_iter(model, &iter, dummy->data);
-			gtk_tree_model_get(model, &iter, 0, &thumb,
-											 1, &info_slide,
-											 2, &trans,
-											 3, &has_sub,
-											 -1);
-			if( thumb )
-				g_object_unref( G_OBJECT( thumb ) );
-			if( trans )
-				g_object_unref( G_OBJECT( trans ) );
+            path = gtk_tree_row_reference_get_path(node->data);
+            if (path)
+            {
+                if (gtk_tree_model_get_iter(model, &iter, path))
+                {
+                    /* Get slide and some additional data */
+                    gtk_tree_model_get_iter(model, &iter, path);
+                    gtk_tree_model_get(model, &iter, 0, &thumb,
+                                                    1, &info_slide,
+                                                    2, &trans,
+                                                    3, &has_sub,
+                                                    -1);
+                    if( thumb )
+                        g_object_unref( G_OBJECT( thumb ) );
+                    if( trans )
+                        g_object_unref( G_OBJECT( trans ) );
 
-			/* Create new slide that is exact copy of rpevious one */
-			pasted_slide = g_slice_copy( sizeof( slide_struct ), info_slide );
+                    /* Create new slide that is exact copy of rpevious one */
+                    pasted_slide = g_slice_copy( sizeof( slide_struct ), info_slide );
 
-			if (pasted_slide)
-			{
-				/* Fill fields with fresh strings, since g_slice_copy cannot do
-				 * that for us. */
-				pasted_slide->o_filename = g_strdup(info_slide->o_filename);
-				pasted_slide->r_filename = g_strdup(info_slide->r_filename);
-                pasted_slide->original_filename = g_strdup(info_slide->original_filename);
-				pasted_slide->resolution = g_strdup(info_slide->resolution);
-				pasted_slide->type = g_strdup(info_slide->type);
-				pasted_slide->path = g_strdup(info_slide->path);
+                    if (pasted_slide)
+                    {
+                        /* Fill fields with fresh strings, since g_slice_copy cannot do
+                        * that for us. */
+                        pasted_slide->o_filename = g_strdup(info_slide->o_filename);
+                        pasted_slide->r_filename = g_strdup(info_slide->r_filename);
+                        pasted_slide->original_filename = g_strdup(info_slide->original_filename);
+                        pasted_slide->resolution = g_strdup(info_slide->resolution);
+                        pasted_slide->type = g_strdup(info_slide->type);
+                        pasted_slide->path = g_strdup(info_slide->path);
 
-				/* Stop Points also need to copied by hand. */
-				if (info_slide->no_points)
-				{
-					GList *dummy_pnt = info_slide->points;
-					ImgStopPoint *point;
+                        /* Stop Points also need to copied by hand. */
+                        if (info_slide->no_points)
+                        {
+                            GList *dummy_pnt = info_slide->points;
+                            ImgStopPoint *point;
 
-					pasted_slide->points = NULL;
-					while (dummy_pnt)
-					{
-						point = g_slice_copy( sizeof( ImgStopPoint ),
-											  dummy_pnt->data );
-						pasted_slide->points = g_list_append(pasted_slide->points, point);
-						dummy_pnt = dummy_pnt->next;
-					}
-				}
+                            pasted_slide->points = NULL;
+                            while (dummy_pnt)
+                            {
+                                point = g_slice_copy( sizeof( ImgStopPoint ),
+                                                    dummy_pnt->data );
+                                pasted_slide->points = g_list_append(pasted_slide->points, point);
+                                dummy_pnt = dummy_pnt->next;
+                            }
+                        }
 
-				/* Text should be duplicated if present. Font descripštion
-				 * should also be copied!! */
-				if (info_slide->subtitle)
-					pasted_slide->subtitle = g_strdup(info_slide->subtitle);
-				pasted_slide->font_desc =
-						pango_font_description_copy( info_slide->font_desc );
+                        /* Text should be duplicated if present. Font descripštion
+                        * should also be copied!! */
+                        if (info_slide->subtitle)
+                            pasted_slide->subtitle = g_strdup(info_slide->subtitle);
+                        pasted_slide->font_desc =
+                                pango_font_description_copy( info_slide->font_desc );
 
-				pos = gtk_tree_path_get_indices(where_to_paste->data)[0]+1;
-				gtk_list_store_insert_with_values(
-						GTK_LIST_STORE( model ), &iter, pos,
-												 0, thumb,
-						 						 1, pasted_slide,
-						 						 2, trans,
-						 						 3, has_sub,
-						 						 -1 );
-				
-				/* Let's update the total number of slides and the label in toolbar */
-				img->slides_nr++;
-			}
+                        position_path = gtk_tree_row_reference_get_path(position_rawref);
+                        /* position_path can not be NULL as we only copy, without delete */
+                        assert (position_path != NULL);
+                        pos = gtk_tree_path_get_indices(position_path)[0]+1;
+                        gtk_tree_path_free(position_path);
 
-			dummy = dummy->next;
+                        gtk_list_store_insert_with_values(
+                                GTK_LIST_STORE( model ), &iter, pos,
+                                                        0, thumb,
+                                                        1, pasted_slide,
+                                                        2, trans,
+                                                        3, has_sub,
+                                                        -1 );
+                    /* Let's update the total number of slides and the label in toolbar */
+                    img->slides_nr++;
+                    }
+                }
+                gtk_tree_path_free(path);
+
 		}
+        node = node->next;
+
 	}
+    }
+
+    /* Free rowref_list */
+    g_list_foreach(rowref_list, (GFunc) gtk_tree_row_reference_free, NULL);
+    g_list_free(rowref_list);
+    gtk_tree_row_reference_free(position_rawref);
 
 	/* Free the GList containing the paths of the selected slides */
 	if (img->selected_paths)
