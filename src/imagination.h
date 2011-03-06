@@ -40,7 +40,7 @@
 #define old_comment_string \
 	"Imagination Slideshow Project - http://imagination.sf.net"
 #define comment_string \
-	"Imagination 3.0 Slideshow Project - http://imagination.sf.net"
+	"Imagination 2.0 Slideshow Project - http://imagination.sf.net"
 
 
 /* ****************************************************************************
