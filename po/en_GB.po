@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-18 20:10+0100\n"
-"PO-Revision-Date: 2009-09-23 13:37+0100\n"
-"Last-Translator: Giuseppe Torelli\n"
+"PO-Revision-Date: 2011-03-06 09:46+0100\n"
+"Last-Translator: \n"
 "Language-Team: English (British)\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -116,9 +116,8 @@ msgid "_Slideshow"
 msgstr "_Slideshow"
 
 #: ../src/main-window.c:236
-#, fuzzy
 msgid "Import slideshow"
-msgstr "Exporting the slideshow"
+msgstr "Import slideshow"
 
 #: ../src/main-window.c:260
 msgid "Import p_ictures"
@@ -197,16 +196,15 @@ msgid "Overview mode"
 msgstr "Overview mode"
 
 #: ../src/main-window.c:452
-#, fuzzy
 msgid "Preview _frame rate"
-msgstr "Preview mode"
+msgstr "Preview _frame rate"
 
 #: ../src/main-window.c:469
 #, c-format
 msgid "%d frame per second"
 msgid_plural "%d frames per second"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d frame per second"
+msgstr[1] "%d frames per second"
 
 #. Help menu
 #: ../src/main-window.c:486
@@ -242,13 +240,12 @@ msgid "Delete the selected slides"
 msgstr "Delete the selected slides"
 
 #: ../src/main-window.c:559
-#, fuzzy
 msgid "Rotate the slide 90 degrees to the left"
-msgstr "Rotate the slide counter-clockwise"
+msgstr "Rotate the slide 90 degrees to the left"
 
 #: ../src/main-window.c:570
 msgid "Rotate the slide 90 degrees to the right"
-msgstr ""
+msgstr "Rotate the slide 90 degrees to the right"
 
 #: ../src/main-window.c:576
 msgid "Zoom In"
@@ -264,35 +261,31 @@ msgstr "Normal Size"
 
 #: ../src/main-window.c:591
 msgid "Fit Zoom in Window"
-msgstr ""
+msgstr "Fit Zoom in Window"
 
 #: ../src/main-window.c:599 ../src/callbacks.c:1362
 msgid "Starts the preview"
 msgstr "Starts the preview"
 
 #: ../src/main-window.c:608
-#, fuzzy
 msgid "Go to the first slide of the slideshow"
-msgstr "Filename of the slideshow:"
+msgstr "Go to the first slide of the slideshow"
 
 #: ../src/main-window.c:614
-#, fuzzy
 msgid "Go to the previous slide of the slideshow"
-msgstr "Goto previous selected slide"
+msgstr "Go to the previous slide of the slideshow"
 
 #: ../src/main-window.c:630 ../src/main-window.c:837
 msgid " of "
 msgstr " of "
 
 #: ../src/main-window.c:642
-#, fuzzy
 msgid "Go to the next slide of the slideshow"
-msgstr "Goto next selected slide"
+msgstr "Go to the next slide of the slideshow"
 
 #: ../src/main-window.c:648
-#, fuzzy
 msgid "Go to the last slide of the slideshow"
-msgstr "Filename of the slideshow:"
+msgstr "Go to the last slide of the slideshow"
 
 #: ../src/main-window.c:699
 msgid "Video"
@@ -383,14 +376,12 @@ msgid "Click to choose the font"
 msgstr "Click to choose the font"
 
 #: ../src/main-window.c:950
-#, fuzzy
 msgid "Click to choose the font color"
-msgstr "Click to choose the font"
+msgstr "Click to choose the font color"
 
 #: ../src/main-window.c:957
-#, fuzzy
 msgid "Click to choose the font background color"
-msgstr "Click to choose the font"
+msgstr "Click to choose the font background color"
 
 #: ../src/main-window.c:961
 msgid "Animation:"
@@ -449,7 +440,7 @@ msgstr "Clear all files"
 #. Begin of Message tab
 #: ../src/main-window.c:1164
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
 #: ../src/main-window.c:1557
 msgid "Click to shrink the area"
@@ -462,7 +453,7 @@ msgstr "Sorry, I could not perform the operation!"
 #: ../src/main-window.c:1738
 #, c-format
 msgid "File '%s' not found"
-msgstr ""
+msgstr "File '%s' not found"
 
 #: ../src/main-window.c:1747
 msgid "Resolution"
@@ -502,14 +493,13 @@ msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr "You didn't save your slideshow yet. Are you sure you want to close it?"
 
 #: ../src/callbacks.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "Please wait, importing image %d out of %d"
-msgstr "Please wait, importing slide %d out of %d"
+msgstr "Please wait, importing image %d out of %d"
 
 #: ../src/callbacks.c:279
-#, fuzzy
 msgid "Import audio files, use CTRL key for multiple select"
-msgstr "Import slides, use SHIFT key for multiple select"
+msgstr "Import audio files, use CTRL key for multiple select"
 
 #: ../src/callbacks.c:291
 msgid "All audio files"
@@ -521,9 +511,8 @@ msgid "All files"
 msgstr "All files"
 
 #: ../src/callbacks.c:356
-#, fuzzy
 msgid "Import images, use SHIFT key for multiple select"
-msgstr "Import slides, use SHIFT key for multiple select"
+msgstr "Import images, use SHIFT key for multiple select"
 
 #: ../src/callbacks.c:369
 msgid "All image files"
@@ -553,14 +542,12 @@ msgid "Save an Imagination slideshow project"
 msgstr "Save an Imagination slideshow project"
 
 #: ../src/callbacks.c:1443
-#, fuzzy
 msgid "Imagination projects"
-msgstr "Imagination"
+msgstr "Imagination projects"
 
 #: ../src/callbacks.c:2195
-#, fuzzy
 msgid "Create empty slide"
-msgstr "Create new slide"
+msgstr "Create empty slide"
 
 #: ../src/callbacks.c:2206
 msgid "Empty slide options:"
@@ -619,33 +606,33 @@ msgstr "This is not an Imagination project file!"
 #: ../src/slideshow_project.c:371
 #, c-format
 msgid "Slide %i: can't load image %s\n"
-msgstr ""
+msgstr "Slide %i: can't load image %s\n"
 
 #: ../src/slideshow_project.c:493
 #, c-format
 msgid "Can't load image %s\n"
-msgstr ""
+msgstr "Can't load image %s\n"
 
 #: ../src/support.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to Imagination - %d transition loaded."
 msgid_plural "Welcome to Imagination - %d transitions loaded."
-msgstr[0] "Welcome to Imagination - %d transitions loaded."
+msgstr[0] "Welcome to Imagination - %d transition loaded."
 msgstr[1] "Welcome to Imagination - %d transitions loaded."
 
 #: ../src/support.c:141
-#, fuzzy, c-format
+#, c-format
 msgid "%d slide selected"
 msgid_plural "%d slides selected"
-msgstr[0] "%d slides selected"
+msgstr[0] "%d slide selected"
 msgstr[1] "%d slides selected"
 
 #: ../src/support.c:152
-#, fuzzy, c-format
+#, c-format
 msgid "%d slide loaded %s"
 msgid_plural "%d slides loaded %s"
-msgstr[0] "%d slide imported %s"
-msgstr[1] "%d slides imported %s"
+msgstr[0] "%d slide loaded %s"
+msgstr[1] "%d slides loaded %s"
 
 #: ../src/support.c:156
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
@@ -660,53 +647,53 @@ msgstr "Please choose the slideshow project filename"
 #. * preview if needed.
 #: ../src/support.c:337 ../src/export.c:1183
 msgid "VOB (DVD video)"
-msgstr ""
+msgstr "VOB (DVD video)"
 
 #: ../src/support.c:343
 msgid "MP4 (MPEG-4)"
-msgstr ""
+msgstr "MP4 (MPEG-4)"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
 #: ../src/support.c:349 ../src/export.c:1299
 msgid "OGV (Theora/Vorbis)"
-msgstr ""
+msgstr "OGV (Theora/Vorbis)"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
 #: ../src/support.c:355 ../src/export.c:1486
 msgid "FLV (Flash video)"
-msgstr ""
+msgstr "FLV (Flash video)"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
 #: ../src/support.c:361 ../src/export.c:1690
 msgid "3GP (Mobile Phones)"
-msgstr ""
+msgstr "3GP (Mobile Phones)"
 
 #: ../src/subtitles.c:166
 msgid "Fade"
-msgstr ""
+msgstr "Fade"
 
 #: ../src/subtitles.c:170
 msgid "Slide from left"
-msgstr ""
+msgstr "Slide from left"
 
 #: ../src/subtitles.c:174
 msgid "Slide from right"
-msgstr ""
+msgstr "Slide from right"
 
 #: ../src/subtitles.c:178
 msgid "Slide from top"
-msgstr ""
+msgstr "Slide from top"
 
 #: ../src/subtitles.c:182
 msgid "Slide from bottom"
-msgstr ""
+msgstr "Slide from bottom"
 
 #: ../src/subtitles.c:186
 msgid "Grow"
-msgstr ""
+msgstr "Grow"
 
 #: ../src/export.c:150
 msgid "<b>Export Settings</b>"
@@ -714,7 +701,7 @@ msgstr "<b>Export Settings</b>"
 
 #: ../src/export.c:164
 msgid "Filename:"
-msgstr ""
+msgstr "Filename:"
 
 #: ../src/export.c:312
 msgid "Exporting the slideshow"
@@ -755,9 +742,8 @@ msgid "Widescreen 16:9"
 msgstr "Widescreen 16:9"
 
 #: ../src/export.c:1315 ../src/export.c:1502
-#, fuzzy
 msgid "<b>Aspect Ratio</b>"
-msgstr "<b>Slide Motion</b>"
+msgstr "<b>Aspect Ratio</b>"
 
 #: ../src/export.c:1373 ../src/export.c:1557
 msgid "<b>Video Quality:</b>"
