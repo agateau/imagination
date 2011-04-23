@@ -1,5 +1,8 @@
 Imagination changelog
 
+xx/xx/xx - trunk:
+            - Fixed compilation error on Fedora 13 (check for libm)
+
 06/03/11 - 3.0:
 			- Added Chinese simplified and Chinese traditional translations.
 			- Icons in the transition menu are animated.

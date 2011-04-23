@@ -19,6 +19,8 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_INTLTOOL
 
+AC_SEARCH_LIBS([sqrtf], [m], ,AC_MSG_ERROR([Unable to find math library]))
+
 # for plugins
 AC_DISABLE_STATIC
 AM_PROG_LIBTOOL
