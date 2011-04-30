@@ -31,7 +31,7 @@ output_flow( sox_effect_t       *effp,
 {
 	if( ! g_atomic_int_get( global->sox_flags ) )
 	{
-		size_t len = sox_write( global->output, ibuf, *isamp );
+		sox_write( global->output, ibuf, *isamp );
 		*osamp = 0;
 
 		return( SOX_SUCCESS );
