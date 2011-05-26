@@ -3,6 +3,8 @@ Imagination changelog
 xx/xx/xx - trunk:
             - Fixed compilation error on Fedora 13 (check for libm)
             - Fix loading of slides without image, bug #3306969
+            - Fix: Propose a project name (unknown.img) when saving a new
+              project from the "save" button.
 
 06/03/11 - 3.0:
 			- Added Chinese simplified and Chinese traditional translations.

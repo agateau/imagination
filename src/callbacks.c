@@ -1440,7 +1440,7 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
 
         /* Filter .img files */
         project_filter = gtk_file_filter_new ();
-        gtk_file_filter_set_name(project_filter, _("Imagination projects"));
+        gtk_file_filter_set_name(project_filter, _("Imagination projects (*.img)"));
         gtk_file_filter_add_pattern(project_filter, "*.img");
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(fc), project_filter);
 
@@ -1450,9 +1450,10 @@ void img_choose_slideshow_filename(GtkWidget *widget, img_window_struct *img)
         gtk_file_filter_add_pattern(all_files_filter, "*");
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(fc), all_files_filter);
 
-        if (widget == img->save_as_menu || (widget == img->save_menu && img->project_filename == NULL))
+        /* if we are saving, propose a default filename */
+        if (action == GTK_FILE_CHOOSER_ACTION_SAVE)
             gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (fc), "unknown.img");
-        
+
         if (img->project_current_dir)
             gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fc),img->project_current_dir);
 
