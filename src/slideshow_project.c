@@ -391,6 +391,8 @@ img_load_slideshow( img_window_struct *img,
 				load_ok = img_scale_gradient( gradient, p_start, p_stop,
 											  c_start, c_stop, 88, 72,
 											  &thumb, NULL );
+                /* No image is loaded, so img_load_ok is OK if load_ok is */
+                img_load_ok = load_ok;
 			}
 
 			/* Try to load image. If this fails, skip this slide */
@@ -430,7 +432,7 @@ img_load_slideshow( img_window_struct *img,
 													 c_start, c_stop,
 													 p_start, p_stop );
 
-                    /* Handle lod errors */
+                    /* Handle load errors */
                     slide_info->load_ok = img_load_ok;
                     slide_info->original_filename = original_filename;
 

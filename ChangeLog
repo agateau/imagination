@@ -2,6 +2,7 @@ Imagination changelog
 
 xx/xx/xx - trunk:
             - Fixed compilation error on Fedora 13 (check for libm)
+            - Fix loading of slides without image, bug #3306969
 
 06/03/11 - 3.0:
 			- Added Chinese simplified and Chinese traditional translations.
