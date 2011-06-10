@@ -5,6 +5,7 @@ xx/xx/xx - trunk:
             - Fix loading of slides without image, bug #3306969
             - Fix: Propose a project name (unknown.img) when saving a new
               project from the "save" button.
+            - Rewrote the handling of video formats, including saving/loading the project settings. Fixes bug #3306974.
 
 06/03/11 - 3.0:
 			- Added Chinese simplified and Chinese traditional translations.

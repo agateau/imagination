@@ -59,13 +59,6 @@ static void
 img_export_frame_to_ppm( cairo_surface_t *surface,
 						 gint             file_desc );
 
-static void
-img_exporter_ogv( img_window_struct *img );
-static void
-img_exporter_flv( img_window_struct *img );
-static void
-img_exporter_3gp( img_window_struct *img );
-
 /*
  * img_create_export_dialog:
  * @title: title to display with dialog
@@ -1131,20 +1124,19 @@ img_export_frame_to_ppm( cairo_surface_t *surface,
 }
 
 /* ****************************************************************************
- * Exporter functions
+ * Exporter function
  *
- * These are the functions that will be called when user selects export format.
+ * This is the function that will be called when user selects export format.
  *
- * There is exactly one function per export format. Addresses of these functions
- * are stored inside Exporter structs, which can be obtained by calling
- * img_get_exporters function.
+ * There is one function for all formats, data is stored in video_format_list
+ * (new_slideshow.c). If you wish to add a new format, have a look at 
+ * video_format_list.
  *
- * Each exporter function receives pointer to main img_window_struct structure,
+ * The exporter function receives a pointer to main img_window_struct structure,
  * from which it calculates appropriate ffmpeg export string.
  *
  * Structure, passed in as a parameter, should be treated like read-only
- * information source. Exceptions to this rule are export_fps and
- * export_cmd_line fields. Those fields MUST be set to appropriate value.
+ * information source. Exceptions to this rule is the export_cmd_line field.
  *
  * For example, if we spawn ffmpeg with "-r 25" in it's cmd line, export_fps
  * should be set to 25. This will ensure that ffmpeg will receive proper amount
@@ -1156,31 +1148,19 @@ img_export_frame_to_ppm( cairo_surface_t *surface,
  * path to newly produced audio file (at this stage, we don't have any).
  * ************************************************************************* */
 
-void img_exporter_vob( img_window_struct *img )
+void img_exporter (GtkWidget *button, img_window_struct *img )
 {
-	gchar          *cmd_line;
-	gchar          *format;
+	gchar          *cmd_line, *bitrate_cmd, *aspect_ratio_cmd;
 	const gchar    *filename;
-	gchar          *aspect_ratio, *aspect_ratio_cmd;
 	GtkWidget      *dialog;
 	GtkEntry       *entry;
 	GtkWidget      *vbox;
 
-	/* Additional options - VOB only */
-	GtkWidget *frame;
-	GtkWidget *label;
-	GtkWidget *hbox;
-	GtkWidget *radio1, *radio2;
-    
-    /* ffmpeg test */
-    gchar *ffmpeg_test_result;
-    gchar **argv;
-    gint    argc;
-
 	/* This function call should be the first thing exporter does, since this
 	 * function will take some preventive measures and also switches mode into
 	 * preview if needed. */
-	dialog = img_create_export_dialog( img, _("VOB (DVD video)"),
+    /* FIXME: change with a gtk_file_chooser ? */
+	dialog = img_create_export_dialog( img, _(video_format_list[img->video_format_index].name),
 									   GTK_WINDOW( img->imagination_window ),
 									   &entry, &vbox );
 
@@ -1188,52 +1168,73 @@ void img_exporter_vob( img_window_struct *img )
 	if( dialog == NULL )
 		return;
 
-	/* Add any export format specific GUI elements here */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, FALSE, 0 );
+	gtk_widget_show_all (dialog );
 
-	label = gtk_label_new( _("<b>Television Format</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	hbox = gtk_hbox_new( TRUE, 5 );
-	gtk_container_add( GTK_CONTAINER( frame ), hbox );
-
-	radio1 = gtk_radio_button_new_with_mnemonic( NULL, _("Normal 4:3") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radio1 ), TRUE );
-	gtk_box_pack_start( GTK_BOX( hbox ), radio1, FALSE, FALSE, 0 );
-
-	radio2 = gtk_radio_button_new_with_mnemonic_from_widget(
-				GTK_RADIO_BUTTON( radio1 ), _("Widescreen 16:9") );
-	gtk_box_pack_start( GTK_BOX( hbox ), radio2, FALSE, FALSE, 0 );
-
-	gtk_widget_show_all( dialog );
-
-	/* Run dialog and abort if needed */
-	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
+    /* Run dialog and abort if needed */
+	if ( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
 	{
 		gtk_widget_destroy( dialog );
 		return;
 	}
 
+    if (gtk_entry_get_text_length (entry) == 0) /* No filename given */
+    {
+        gtk_widget_destroy( dialog );
+        return;
+    }
+
+    filename = gtk_entry_get_text( entry );
+
 	/* User is serious, so we better prepare ffmepg command line;) */
 	img->export_is_running = 1;
-    if (img->video_size[1] == 576)
-    {
-        format = "pal";
-        img->export_fps = 25;
-    }
-    else
-    {
-        format = "ntsc";
-        img->export_fps = 30;
-    }
-	filename = gtk_entry_get_text( entry );
-	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
-		aspect_ratio = "4:3";
-	else
-		aspect_ratio = "16:9";
 
+    if (NULL != video_format_list[img->video_format_index].aspect_ratio_list)
+        aspect_ratio_cmd = g_strdup_printf("%s%s",
+                    img->ffmpeg_aspect_ratio_cmd,
+                    video_format_list[img->video_format_index].aspect_ratio_list[img->aspect_ratio_index].ffmpeg_option);
+    else
+        aspect_ratio_cmd = g_strdup("");
+
+    if (NULL != video_format_list[img->video_format_index].bitratelist)
+        bitrate_cmd = g_strdup_printf("-b %d",
+                    video_format_list[img->video_format_index].bitratelist[img->bitrate_index].value);
+    else
+        bitrate_cmd = g_strdup("");
+
+
+	cmd_line = g_strdup_printf("ffmpeg -f image2pipe -vcodec ppm "
+                "-i pipe: <#AUDIO#> "
+                "-y "                   /* overwrite output */
+                "%s "                   /* ffmpeg option */
+                "-r %s "                /* frame rate */
+                "-s %dx%d "             /* size */
+                "%s "                   /* aspect ratio */
+                "%s "                   /* Bitrate */
+                "\"%s\"",               /*filename */
+                video_format_list[img->video_format_index].ffmpeg_option,
+                video_format_list[img->video_format_index].fps_list[img->fps_index].ffmpeg_option,
+                img->video_size[0], img->video_size[1],
+                aspect_ratio_cmd,
+                bitrate_cmd,
+                filename);
+	img->export_cmd_line = cmd_line;
+
+	/* Initiate stage 2 of export - audio processing */
+	g_idle_add( (GSourceFunc)img_prepare_audio, img );
+
+    g_free(aspect_ratio_cmd);
+    g_free(bitrate_cmd);
+	gtk_widget_destroy( dialog );
+}
+
+
+/* Test ffmpeg abilities */
+void test_ffmpeg(img_window_struct *img)
+{
+    /* ffmpeg test */
+    gchar *ffmpeg_test_result;
+    gchar **argv;
+    gint    argc;
 
     /* Check if ffmpeg is compiled with avfilter setdar */
     img_message(img, FALSE, "Testing ffmpeg abilities with \"ffmpeg -filters\" ... ");
@@ -1247,566 +1248,14 @@ void img_exporter_vob( img_window_struct *img )
     if (NULL != ffmpeg_test_result && NULL != g_strrstr(ffmpeg_test_result, "setdar"))
     {
         img_message(img, FALSE, "setdar found!\n");
-        aspect_ratio_cmd = "-vf setdar=";
+        img->ffmpeg_aspect_ratio_cmd = "-vf setdar=";
     }
     else
     {
         img_message(img, FALSE, "setdar not found!\n");
-        aspect_ratio_cmd = "-aspect ";
+        img->ffmpeg_aspect_ratio_cmd = "-aspect ";
 
     }
     g_strfreev( argv );
 
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
-								"-i pipe: <#AUDIO#> -y "
-								"-bf 2 -target %s-dvd -s %dx%d %s%s \"%s\"",
-								img->export_fps,
-								format,
-                                img->video_size[0], img->video_size[1],
-                                aspect_ratio_cmd, aspect_ratio, filename );
-	img->export_cmd_line = cmd_line;
-
-	/* Initiate stage 2 of export - audio processing */
-	g_idle_add( (GSourceFunc)img_prepare_audio, img );
-
-	gtk_widget_destroy( dialog );
-}
-
-static void
-img_exporter_ogv( img_window_struct *img )
-{
-	gchar          *cmd_line;
-	const gchar    *filename;
-	gchar          *aspect_ratio;
-	GtkWidget      *dialog;
-	GtkEntry       *entry;
-	GtkWidget      *vbox;
-
-	/* Additional options - OGG  only */
-	GtkWidget *frame, *alignment, *label;
-	GtkWidget *hbox, *vbox_normal;
-	GtkWidget *radio1, *radio2;
-	GtkWidget *video_size_combo;
-	GtkWidget *radios[3];
-	gint	  i, width, height;
-
-	/* These values have been contributed by Jean-Pierre Redonnet.
-	 * Thanks. */
-	gint       qualities[] = { 512, 1024, 2048 };
-
-	/* This function call should be the first thing exporter does, since this
-	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("OGV (Theora/Vorbis)"),
-									   GTK_WINDOW( img->imagination_window ),
-									   &entry, &vbox );
-
-	/* If dialog is NULL, abort. */
-	if( dialog == NULL )
-		return;
-
-	/* Add any export format specific GUI elements here */
-	hbox = gtk_hbox_new( TRUE, 10 );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, FALSE, 0 );
-
-	/* Aspect Ratio */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame, TRUE, TRUE, 0 );
-
-	label = gtk_label_new( _("<b>Aspect Ratio</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	alignment = gtk_alignment_new(0.5, 0.5, 0.5, 0.5);
-	gtk_container_add (GTK_CONTAINER (frame), alignment);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 5, 5);
-
-	vbox_normal = gtk_vbox_new( FALSE, 0 );
-	gtk_container_add( GTK_CONTAINER( alignment ), vbox_normal );
-
-	radio1 = gtk_radio_button_new_with_mnemonic( NULL, _("Normal 4:3") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radio1 ), TRUE );
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), radio1, FALSE, FALSE, 0 );
-
-	radio2 = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON( radio1 ), _("Widescreen 16:9") );
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), radio2, FALSE, FALSE, 0 );
-
-	/* Video Size */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame, TRUE, TRUE, 0 );
-
-	label = gtk_label_new( _("<b>Video Size</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	alignment = gtk_alignment_new(0.5, 0.5, 0.5, 0.5);
-	gtk_container_add (GTK_CONTAINER (frame), alignment);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 5, 5);
-
-	vbox_normal = gtk_vbox_new( FALSE, 0 );
-	gtk_container_add (GTK_CONTAINER (alignment), vbox_normal);
-
-	video_size_combo = _gtk_combo_box_new_text(FALSE);
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), video_size_combo, FALSE, FALSE, 0 );
-	{
-		GtkTreeIter   iter;
-		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( video_size_combo ) ) );
-
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "320 x 240", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "352 x 288", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "400 x 300", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "512 x 384", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "640 x 480", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "704 x 576", -1 );
-	}
-	gtk_combo_box_set_active( GTK_COMBO_BOX( video_size_combo ), 0 );
-
-	/* Video Quality */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, FALSE, 0 );
-
-	label = gtk_label_new( _("<b>Video Quality:</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	hbox = gtk_hbox_new( TRUE, 5 );
-	gtk_container_add( GTK_CONTAINER( frame ), hbox );
-
-	radios[0] = gtk_radio_button_new_with_mnemonic( NULL, _("Low") );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[0], FALSE, FALSE, 0 );
-
-	radios[1] = gtk_radio_button_new_with_mnemonic_from_widget(
-				GTK_RADIO_BUTTON( radios[0] ), _("Medium") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radios[1] ), TRUE );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[1], FALSE, FALSE, 0 );
-
-	radios[2] = gtk_radio_button_new_with_mnemonic_from_widget(
-				GTK_RADIO_BUTTON( radios[0] ), _("High") );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[2], FALSE, FALSE, 0 );
-
-	gtk_widget_show_all( dialog );
-
-	/* Run dialog and abort if needed */
-	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
-	{
-		gtk_widget_destroy( dialog );
-		return;
-	}
-
-	/* User is serious, so we better prepare ffmpeg command line;) */
-	img->export_is_running = 1;
-	img->export_fps = 30;
-	filename = gtk_entry_get_text( entry );
-
-	/* Any additional calculation can be placed here. */
-	switch(gtk_combo_box_get_active(GTK_COMBO_BOX(video_size_combo)) )
-	{
-		case 0:
-		width  = 320;
-		height = 240;
-		break;
-		
-		case 1:
-		width  = 352;
-		height = 288;
-		break;
-
-		case 2:
-		width  = 400;
-		height = 300;
-		break;
-
-		case 3:
-		width  = 512;
-		height = 384;
-		break;
-
-		case 4:
-		width  = 640;
-		height = 480;
-		break;
-
-		case 5:
-		width  = 704;
-		height = 576;
-		break;
-	}
-
-	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
-		aspect_ratio = "4:3";
-	else
-		aspect_ratio = "16:9";
-
-	for( i = 0; i < 3; i++ )
-	{
-		if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radios[i] ) ) )
-			break;
-	}
-
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
-								"-i pipe: <#AUDIO#> -f ogg -aspect %s -s %dx%d "
-								"-vcodec libtheora -b %dk -acodec libvorbis "
-								"-y \"%s\"",
-								img->export_fps, aspect_ratio, width, height,
-								qualities[i], filename );
-	img->export_cmd_line = cmd_line;
-
-	/* Initiate stage 2 of export - audio processing */
-	g_idle_add( (GSourceFunc)img_prepare_audio, img );
-
-	gtk_widget_destroy( dialog );
-}
-
-static void
-img_exporter_flv( img_window_struct *img )
-{
-	gchar          *cmd_line;
-	const gchar    *filename;
-	GtkWidget      *dialog;
-	GtkEntry       *entry;
-	GtkWidget      *vbox;
-
-	/* Additional options - FLV  only */
-	GtkWidget *frame;
-	GtkWidget *label;
-	GtkWidget *hbox, *vbox_normal, *alignment;
-	GtkWidget *radio1, *radio2;
-	GtkWidget *video_size_combo;
-	GtkWidget *radios[3];
-	gint       i, width, height;
-	gint       qualities[] = { 384, 768, 1536 };
-
-	/* This function call should be the first thing exporter does, since this
-	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("FLV (Flash video)"),
-									   GTK_WINDOW( img->imagination_window ),
-									   &entry, &vbox );
-
-	/* If dialog is NULL, abort. */
-	if( dialog == NULL )
-		return;
-
-	/* Add any export format specific GUI elements here */
-	hbox = gtk_hbox_new( TRUE, 10 );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, FALSE, 0 );
-
-	/* Aspect Ratio */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame, TRUE, TRUE, 0 );
-
-	label = gtk_label_new( _("<b>Aspect Ratio</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	alignment = gtk_alignment_new(0.5, 0.5, 0.5, 0.5);
-	gtk_container_add (GTK_CONTAINER (frame), alignment);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 5, 5);
-
-	vbox_normal = gtk_vbox_new( FALSE, 0 );
-	gtk_container_add( GTK_CONTAINER( alignment ), vbox_normal );
-
-	radio1 = gtk_radio_button_new_with_mnemonic( NULL, _("Normal 4:3") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radio1 ), TRUE );
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), radio1, FALSE, FALSE, 0 );
-
-	radio2 = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON( radio1 ), _("Widescreen 16:9") );
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), radio2, FALSE, FALSE, 0 );
-
-	/* Video Size */
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame, TRUE, TRUE, 0 );
-
-	label = gtk_label_new( _("<b>Video Size</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	alignment = gtk_alignment_new(0.5, 0.5, 0.5, 0.5);
-	gtk_container_add (GTK_CONTAINER (frame), alignment);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 5, 5);
-
-	vbox_normal = gtk_vbox_new( FALSE, 0 );
-	gtk_container_add (GTK_CONTAINER (alignment), vbox_normal);
-
-	video_size_combo = _gtk_combo_box_new_text(FALSE);
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), video_size_combo, FALSE, FALSE, 0 );
-	{
-		GtkTreeIter   iter;
-		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( video_size_combo ) ) );
-
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "320 x 240", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "352 x 288", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "400 x 300", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "512 x 384", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "640 x 360", -1 );
-	}
-	gtk_combo_box_set_active( GTK_COMBO_BOX( video_size_combo ), 0 );
-
-	frame = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, FALSE, 0 );
-
-	label = gtk_label_new( _("<b>Video Quality:</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame ), label );
-
-	hbox = gtk_hbox_new( TRUE, 5 );
-	gtk_container_add( GTK_CONTAINER( frame ), hbox );
-
-	radios[0] = gtk_radio_button_new_with_mnemonic( NULL, _("Low") );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[0], FALSE, FALSE, 0 );
-
-	radios[1] = gtk_radio_button_new_with_mnemonic_from_widget(
-				GTK_RADIO_BUTTON( radios[0] ), _("Medium") );
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( radios[1] ), TRUE );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[1], FALSE, FALSE, 0 );
-
-	radios[2] = gtk_radio_button_new_with_mnemonic_from_widget(
-				GTK_RADIO_BUTTON( radios[0] ), _("High") );
-	gtk_box_pack_start( GTK_BOX( hbox ), radios[2], FALSE, FALSE, 0 );
-
-	gtk_widget_show_all( dialog );
-
-	/* Run dialog and abort if needed */
-	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
-	{
-		gtk_widget_destroy( dialog );
-		return;
-	}
-
-	/* User is serious, so we better prepare ffmpeg command line;) */
-	img->export_is_running = 1;
-	img->export_fps = 30;
-	filename = gtk_entry_get_text( entry );
-
-	/* The -aspect parameter for FLV format seems to be ignored by ffmpeg */
-	if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radio1 ) ) )
-	{
-		switch(gtk_combo_box_get_active(GTK_COMBO_BOX(video_size_combo)) )
-		{
-			case 0:
-			width  = 320;
-			height = 240;
-			break;
-		
-			case 1:
-			width  = 352;
-			height = 288;
-			break;
-
-			case 2:
-			width  = 400;
-			height = 300;
-			break;
-
-			case 3:
-			width  = 512;
-			height = 384;
-			break;
-
-			case 4:
-			width  = 640;
-			height = 480;
-			break;
-		}
-	}
-	else
-	{
-		switch(gtk_combo_box_get_active(GTK_COMBO_BOX(video_size_combo)) )
-		{
-			case 0:
-			width  = 426;
-			height = 240;
-			break;
-		
-			case 1:
-			width  = 512;
-			height = 288;
-			break;
-
-			case 2:
-			width  = 534;
-			height = 300;
-			break;
-
-			case 3:
-			width  = 682;
-			height = 384;
-			break;
-
-			case 4:
-			width  = 640;
-			height = 360;
-			break;
-		}
-	}
-
-	for( i = 0; i < 3; i++ )
-	{
-		if( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( radios[i] ) ) )
-			break;
-	}
-
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
-								"-i pipe: <#AUDIO#> -f flv -s %dx%d "
-								"-vcodec flv -b %dk -acodec libmp3lame -ab 56000 "
-								"-ar 22050 -ac 1 -y \"%s\"",
-								img->export_fps, width, height,
-								qualities[i], filename );
-	img->export_cmd_line = cmd_line;
-
-	/* Initiate stage 2 of export - audio processing */
-	g_idle_add( (GSourceFunc)img_prepare_audio, img );
-
-	gtk_widget_destroy( dialog );
-}
-
-static void
-img_exporter_3gp( img_window_struct *img )
-{
-	gchar          *cmd_line;
-	const gchar    *filename;
-	GtkWidget      *dialog;
-	GtkEntry       *entry;
-	GtkWidget      *vbox;
-
-	/* Additional options - 3GP  only */
-	GtkWidget *frame1, *alignment;
-	GtkWidget *label;
-	GtkWidget *hbox, *vbox_normal;
-	GtkWidget *normal_combo;
-	gint       width, height;
-
-	/* This function call should be the first thing exporter does, since this
-	 * function will take some preventive measures. */
-	dialog = img_create_export_dialog( img, _("3GP (Mobile Phones)"),
-									   GTK_WINDOW( img->imagination_window ),
-									   &entry, &vbox );
-
-	/* If dialog is NULL, abort. */
-	if( dialog == NULL )
-		return;
-
-	/* Add any export format specific GUI elements here */
-	hbox = gtk_hbox_new( TRUE, 5 );
-	gtk_container_add( GTK_CONTAINER( vbox ), hbox );
-	
-	frame1 = gtk_frame_new( NULL );
-	gtk_box_pack_start( GTK_BOX( hbox ), frame1, FALSE, TRUE, 0 );
-
-	label = gtk_label_new( _("<b>Video Size</b>") );
-	gtk_label_set_use_markup( GTK_LABEL( label ), TRUE );
-	gtk_frame_set_label_widget( GTK_FRAME( frame1 ), label );
-
-	alignment = gtk_alignment_new(0, 0, 0.5, 0.5);
-	gtk_container_add (GTK_CONTAINER (frame1), alignment);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 5, 5, 5, 5);
-
-	vbox_normal = gtk_vbox_new( FALSE, 0 );
-	gtk_container_add (GTK_CONTAINER (alignment), vbox_normal);
-
-	normal_combo = _gtk_combo_box_new_text(FALSE);
-	gtk_box_pack_start( GTK_BOX( vbox_normal ), normal_combo, FALSE, FALSE, 0 );
-	{
-		GtkTreeIter   iter;
-		GtkListStore *store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( normal_combo ) ) );
-
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "128 x 96", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "176 x 144", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "352 x 288", -1 );
-		gtk_list_store_append( store, &iter );
-		gtk_list_store_set( store, &iter, 0, "704 x 576", -1 );
-	}
-	gtk_combo_box_set_active( GTK_COMBO_BOX( normal_combo ), 0 );
-	gtk_widget_show_all( dialog );
-
-	/* Run dialog and abort if needed */
-	if( gtk_dialog_run( GTK_DIALOG( dialog ) ) != GTK_RESPONSE_ACCEPT )
-	{
-		gtk_widget_destroy( dialog );
-		return;
-	}
-
-	/* User is serious, so we better prepare ffmpeg command line;) */
-	img->export_is_running = 1;
-	img->export_fps = 25;
-	filename = gtk_entry_get_text( entry );
-
-	/* Any additional calculation can be placed here. */
-	switch(gtk_combo_box_get_active(GTK_COMBO_BOX(normal_combo)) )
-	{
-		case 0:
-		width  = 128;
-		height = 96;
-		break;
-
-		case 1:
-		width  = 176;
-		height = 144;
-		break;
-
-		case 2:
-		width  = 352;
-		height = 288;
-		break;
-
-		case 3:
-		width  = 704;
-		height = 576;
-		break;
-	}
-
-	cmd_line = g_strdup_printf( "ffmpeg -f image2pipe -vcodec ppm -r %.0f "
-								"-i pipe: <#AUDIO#> -f 3gp -s %dx%d "
-								"-vcodec h263 -acodec libfaac -b 192k -ab 32k "
-								"-ar 8000 -ac 1 -y \"%s\"",
-								img->export_fps,
-								width, height, filename );
-	img->export_cmd_line = cmd_line;
-
-	/* Initiate stage 2 of export - audio processing */
-	g_idle_add( (GSourceFunc)img_prepare_audio, img );
-
-	gtk_widget_destroy( dialog );
-}
-/* ****************************************************************************
- * End exporters
- * ************************************************************************* */
-
-void img_choose_exporter(GtkWidget *button, img_window_struct *img)
-{
-	switch (img->video_format)
-	{
-		default:
-		case 'V':
-		img_exporter_vob(img);
-		break;
-
-		case 'O':
-		img_exporter_ogv(img);
-		break;
-
-		case 'F':
-		img_exporter_flv(img);
-		break;
-
-		case '3':
-		img_exporter_3gp(img);
-		break;
-
-		case 'M':
-		//img_exporter_vob(img);
-		break;
-	}
 }

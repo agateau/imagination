@@ -18,6 +18,7 @@
  */
 
 #include "support.h"
+#include "new_slideshow.h"
 #include <glib/gstdio.h>
 
 static gboolean img_plugin_is_loaded(img_window_struct *, GModule *);
@@ -318,6 +319,7 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
 	gint response;
     GtkFileFilter *video_filter, *all_files_filter;
     gchar *file_extention, *dot_position, *proposed_filename, *file_basename, *stripped_filename;
+    gint i;
 
 	file_selector = gtk_file_chooser_dialog_new (_("Please choose the slideshow project filename"),
 							GTK_WINDOW (img->imagination_window),
@@ -330,39 +332,22 @@ void img_show_file_chooser(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,
 
     /* only video files filter */
     video_filter = gtk_file_filter_new ();
-    switch (img->video_format)
+
+    gtk_file_filter_set_name (video_filter,
+                video_format_list[img->video_format_index].name);
+
+    i = 0;
+    while (video_format_list[img->video_format_index].file_extensions[i] != NULL)
     {
-        default:
-        case 'V':
-        gtk_file_filter_set_name (video_filter, _("VOB (DVD video)") );
-        gtk_file_filter_add_pattern (video_filter, "*.vob");
-        file_extention = ".vob";
-        break;
-
-        case 'M':
-        gtk_file_filter_set_name (video_filter, _("MP4 (MPEG-4)") );
-        gtk_file_filter_add_pattern (video_filter, "*.mp4");
-        file_extention = ".mp4";
-        break;
-
-        case 'O':
-        gtk_file_filter_set_name (video_filter, _("OGV (Theora/Vorbis)") );
-        gtk_file_filter_add_pattern (video_filter, "*.ogv");
-        file_extention = ".ogv";
-        break;
-
-        case 'F':
-        gtk_file_filter_set_name (video_filter, _("FLV (Flash video)") );
-        gtk_file_filter_add_pattern (video_filter, "*.flv");
-        file_extention = ".flv";
-        break;
-
-        case '3':
-        gtk_file_filter_set_name (video_filter, _("3GP (Mobile Phones)") );
-        gtk_file_filter_add_pattern (video_filter, "*.3gp");
-        file_extention = ".3gp";
-        break;
+        file_extention = g_strconcat("*",
+                video_format_list[img->video_format_index].file_extensions[i],
+                                     NULL);
+        gtk_file_filter_add_pattern (video_filter, file_extention);
+        g_free(file_extention);
+        i++;
     }
+    file_extention = video_format_list[img->video_format_index].file_extensions[0];
+
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (file_selector), video_filter);
 
     /* All files filter */
@@ -1163,6 +1148,8 @@ img_message (img_window_struct *img,
         gtk_text_buffer_get_end_iter(img->message_buffer, &message_end);
         gtk_text_buffer_insert(img->message_buffer, &message_end,
                                parsed_message, -1);
+
+        printf (parsed_message);
 
         free(parsed_message);
 

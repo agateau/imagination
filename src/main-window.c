@@ -29,6 +29,7 @@
 #include "export.h"
 #include "subtitles.h"
 #include "imgcellrendererpixbuf.h"
+#include "new_slideshow.h"
 
 static const GtkTargetEntry drop_targets[] =
 {
@@ -193,6 +194,11 @@ img_window_struct *img_create_window (void)
 	img_struct->video_size[0] = 720;
 	img_struct->video_size[1] = 576;
 	img_struct->video_ratio = (gdouble)720 / 576;
+	img_struct->video_format_index = 0; /* VOB is default */
+    img_struct->aspect_ratio_index = 0;
+    img_struct->bitrate_index = 0;
+    img_struct->fps_index = 0;
+    img_struct->export_fps = video_format_list[img_struct->video_format_index].fps_list[img_struct->fps_index].value;
 
 	img_struct->final_transition.duration = 0;
 	img_struct->final_transition.render = NULL;
@@ -294,7 +300,7 @@ img_window_struct *img_create_window (void)
 
 	export_menu = gtk_image_menu_item_new_with_mnemonic (_("Export"));
 	gtk_container_add (GTK_CONTAINER (menu1), export_menu);
-	g_signal_connect (G_OBJECT (export_menu),"activate",G_CALLBACK (img_choose_exporter),img_struct);
+	g_signal_connect (G_OBJECT (export_menu),"activate",G_CALLBACK (img_exporter),img_struct);
 
 	image_menu = img_load_icon ("imagination-generate.png",GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export_menu),image_menu);

@@ -45,6 +45,10 @@ img_render_still_frame( img_window_struct *img,
 						gdouble            rate );
 
 void
-img_choose_exporter(GtkWidget *button, img_window_struct *img);
+img_exporter(GtkWidget *button, img_window_struct *img);
+
+void
+test_ffmpeg(img_window_struct *img);
+
 
 #endif

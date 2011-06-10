@@ -29,4 +29,41 @@
 void img_new_slideshow_settings_dialog(img_window_struct *, gboolean);
 void img_set_format_options (img_window_struct *);
 void img_get_format_options (img_window_struct *);
+
+struct video_size {
+    gchar *name;
+    gint  x;
+    gint  y;
+};
+
+struct video_bitrate {
+    gchar  *name;
+    gint    value;
+};
+
+struct aspect_ratio {
+    gchar   *name;
+    gchar   *ffmpeg_option;
+};
+
+struct video_fps {
+    gchar   *name;
+    gchar   *ffmpeg_option;
+    gdouble value;
+};
+
+struct video_format {
+    gchar *name;
+    gchar *config_name;
+    gchar  video_format;       /* for compatibility, should disappear. */
+    gchar *ffmpeg_option;
+    struct video_size *sizelist;
+    struct aspect_ratio *aspect_ratio_list;
+    struct video_bitrate *bitratelist;
+    struct video_fps *fps_list;
+    gchar **file_extensions;
+};
+
+extern struct video_format video_format_list[];
+
 #endif

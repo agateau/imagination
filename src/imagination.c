@@ -27,6 +27,7 @@
 #include "main-window.h"
 #include "support.h"
 #include "callbacks.h"
+#include "export.h"
 
 extern void output_message(unsigned , const char *, const char *, va_list ap);
 
@@ -62,6 +63,8 @@ int main (int argc, char *argv[])
 	{
 		img_load_slideshow( img_window, argv[1] );
 	}
+
+    test_ffmpeg(img_window);
 
 	gtk_main ();
 
