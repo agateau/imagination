@@ -20,6 +20,11 @@
 
 #include "new_slideshow.h"
 
+/* As you cant use gettext in the video format declaration,
+    we use gettext_noop to mark them,
+    and explicitly call gettext when using the strings. */
+#define gettext_noop(string) string
+
 /* Define video formats */
 struct aspect_ratio aspect_ratio_list[] = {
     {"4:3", "4:3"},
@@ -63,9 +68,9 @@ struct video_size OGV_size_list[] = {
 
 /* These values have been contributed by Jean-Pierre Redonnet. */
 struct video_bitrate OGV_bitrate_list[] = {
-    {"512 kbps (low)", 512*1024},
-    {"1024 kbps (medium)", 1024*1024},
-    {"2048 kbps (high)", 2048*1024},
+    {gettext_noop("512 kbps (low)"), 512*1024},
+    {gettext_noop("1024 kbps (medium)"), 1024*1024},
+    {gettext_noop("2048 kbps (high)"), 2048*1024},
     {NULL}
 };
 
@@ -94,9 +99,9 @@ struct video_size FLV_size_list[] = {
 };
 
 struct video_bitrate FLV_bitrate_list[] = {
-    {"384 kbps (low)", 384*1024},
-    {"768 kbps (medium)", 768*1024},
-    {"1536 kbps (high)", 1536*1024},
+    {gettext_noop("384 kbps (low)"), 384*1024},
+    {gettext_noop("768 kbps (medium)"), 768*1024},
+    {gettext_noop("1536 kbps (high)"), 1536*1024},
     {NULL}
 };
 
@@ -126,8 +131,8 @@ gchar *x3GP_extensions[] = {
 
 struct video_format video_format_list[] = {
     /* name, config_name, video_format, ffmpeg_option, sizelist,
-                                aspect_ratio_list, bitratelist */
-    {"VOB (DVD Video)", "VOB", 'V',
+            aspect_ratio_list, bitratelist, fps_list, file_extensions */
+    {gettext_noop("VOB (DVD Video)"), "VOB", 'V',
         "-loglevel debug "
         "-bf 2 " /* use 2 B-Frames */
         /* target is set with aspect ratio: pal-dvd or ntsc-dvd */
@@ -135,14 +140,14 @@ struct video_format video_format_list[] = {
         VOB_extensions
     }, /* FIXME Do add _() around every .name for i18n */
 
-    {"OGV (Theora Vorbis)", "OGV", 'O',
+    {gettext_noop("OGV (Theora Vorbis)"), "OGV", 'O',
         "-f ogg "
         "-vcodec libtheora -acodec libvorbis"
         , OGV_size_list, aspect_ratio_list, OGV_bitrate_list, OGV_fps_list,
         OGV_extensions
     },
         
-    {"FLV (Flash Video)", "FLV", 'F',
+    {gettext_noop("FLV (Flash Video)"), "FLV", 'F',
         "-f flv -vcodec flv -acodec libmp3lame"
         "-ab 56000"     /* audio bitrate */
         "-ar 22050"     /* audio sampling frequency*/
@@ -151,7 +156,7 @@ struct video_format video_format_list[] = {
         FLV_extensions
     },
         
-    {"3GP (Mobile Phones)", "3GP", '3',
+    {gettext_noop("3GP (Mobile Phones)"), "3GP", '3',
         "-f 3gp -vcodec h263 -acodec libfaac"
         "-b 192k "                  /* bitrate */
         "-ab 32k -ar 8000 -ac 1"    /* audio bitrate, sampling frequency and number of channels */
@@ -249,7 +254,7 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
     i = 0;
     while (video_format_list[i].name != NULL) {
         gtk_list_store_append( store, &iter );
-        gtk_list_store_set( store, &iter, 0, video_format_list[i].name, -1 );
+        gtk_list_store_set( store, &iter, 0, gettext(video_format_list[i].name), -1 );
         i++;
 	}
 
@@ -492,7 +497,7 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
         i = 0;
         while (video_format_list[video_format].bitratelist[i].name != NULL) {
             gtk_list_store_append( store, &iter );
-            gtk_list_store_set( store, &iter, 0, video_format_list[video_format].bitratelist[i].name, -1 );
+            gtk_list_store_set( store, &iter, 0, gettext(video_format_list[video_format].bitratelist[i].name), -1 );
             i++;
         }
         gtk_combo_box_set_active(GTK_COMBO_BOX(img->bitrate_combo),0);

@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: imagination 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-18 20:10+0100\n"
-"PO-Revision-Date: 2011-02-13 23:27+0100\n"
+"POT-Creation-Date: 2011-06-11 21:14+0200\n"
+"PO-Revision-Date: 2011-06-11 20:43+0100\n"
 "Last-Translator: Robert Chéramy <robert@cheramy.net>\n"
 "Language-Team: German\n"
 "Language: \n"
@@ -46,7 +46,7 @@ msgstr "Imagination"
 msgid "Playing %s..."
 msgstr "Spiele »%s« ab ..."
 
-#: ../src/audio.c:137 ../src/main-window.c:1130
+#: ../src/audio.c:137 ../src/main-window.c:1136
 msgid "Play the selected file"
 msgstr "Ausgewählte Datei abspielen"
 
@@ -124,95 +124,95 @@ msgstr[1] ""
 msgid "Please check audio tab for more information."
 msgstr "Wählen Sie den Musikreiter für weitere Information."
 
-#: ../src/main-window.c:222
+#: ../src/main-window.c:228
 msgid "_Slideshow"
 msgstr "_Diaschau"
 
-#: ../src/main-window.c:236
+#: ../src/main-window.c:242
 msgid "Import slideshow"
 msgstr "Diaschau importieren"
 
-#: ../src/main-window.c:260
+#: ../src/main-window.c:266
 msgid "Import p_ictures"
 msgstr "_Bilder importieren"
 
-#: ../src/main-window.c:270
+#: ../src/main-window.c:276
 msgid "Import _music"
 msgstr "_Musik importieren"
 
-#: ../src/main-window.c:287
+#: ../src/main-window.c:293
 msgid "_Preview"
 msgstr "_Vorschau"
 
-#: ../src/main-window.c:295
+#: ../src/main-window.c:301
 msgid "Export"
 msgstr "_Exportieren"
 
 #. Slide menu
-#: ../src/main-window.c:310
+#: ../src/main-window.c:316
 msgid "_Slide"
 msgstr "_Dia"
 
 #. Preview quality menu
-#: ../src/main-window.c:332
+#: ../src/main-window.c:338
 msgid "Preview quality"
 msgstr "Darstellungsqualität der Vorschau"
 
-#: ../src/main-window.c:338
+#: ../src/main-window.c:344
 msgid "_Low"
 msgstr "_Niedrig"
 
-#: ../src/main-window.c:342 ../src/export.c:1389 ../src/export.c:1573
+#: ../src/main-window.c:348
 msgid "High"
 msgstr "Hoch"
 
 #. Zoom controls
-#: ../src/main-window.c:346
+#: ../src/main-window.c:352
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: ../src/main-window.c:373
+#: ../src/main-window.c:379
 msgid "Add empt_y slide"
 msgstr "_Leeres Dia hinzufügen"
 
-#: ../src/main-window.c:382
+#: ../src/main-window.c:388
 msgid "Dele_te"
 msgstr "Lö_schen"
 
-#: ../src/main-window.c:390
+#: ../src/main-window.c:396
 msgid "Repor_t"
 msgstr "_Bericht"
 
-#: ../src/main-window.c:402
+#: ../src/main-window.c:408
 msgid "Rotate co_unter-clockwise"
 msgstr "_Gegen den Uhrzeigersinn drehen"
 
-#: ../src/main-window.c:413
+#: ../src/main-window.c:419
 msgid "_Rotate clockwise"
 msgstr "Im Uh_rzeigersinn drehen"
 
-#: ../src/main-window.c:428
+#: ../src/main-window.c:434
 msgid "Un_select all"
 msgstr "A_uswahl afheben"
 
 #. View menu
-#: ../src/main-window.c:434
+#: ../src/main-window.c:440
 msgid "_View"
 msgstr "_Ansicht"
 
-#: ../src/main-window.c:440
+#: ../src/main-window.c:446
 msgid "Preview mode"
 msgstr "Vorschau"
 
-#: ../src/main-window.c:446
+#: ../src/main-window.c:452
 msgid "Overview mode"
 msgstr "Übersicht"
 
-#: ../src/main-window.c:452
+#: ../src/main-window.c:458
 msgid "Preview _frame rate"
 msgstr "Bildfrequenz Vorschau"
 
-#: ../src/main-window.c:469
+#: ../src/main-window.c:475
 #, c-format
 msgid "%d frame per second"
 msgid_plural "%d frames per second"
@@ -220,273 +220,273 @@ msgstr[0] "%d Frame pro Sekunde"
 msgstr[1] "%d Frames pro Sekunde"
 
 #. Help menu
-#: ../src/main-window.c:486
+#: ../src/main-window.c:492
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../src/main-window.c:491
+#: ../src/main-window.c:497
 msgid "Contents"
 msgstr "Inhalte"
 
-#: ../src/main-window.c:512 ../src/new_slideshow.c:65
+#: ../src/main-window.c:518 ../src/new_slideshow.c:210
 msgid "Create a new slideshow"
 msgstr "Neue Diaschau anlegen"
 
-#: ../src/main-window.c:517
+#: ../src/main-window.c:523
 msgid "Open a slideshow"
 msgstr "Eine Diaschau öffnen"
 
-#: ../src/main-window.c:522
+#: ../src/main-window.c:528
 msgid "Save the slideshow"
 msgstr "Die Diaschau speichern"
 
-#: ../src/main-window.c:535
+#: ../src/main-window.c:541
 msgid "Import pictures"
 msgstr "Bilder importieren"
 
-#: ../src/main-window.c:544
+#: ../src/main-window.c:550
 msgid "Import music"
 msgstr "Musik importieren"
 
-#: ../src/main-window.c:549
+#: ../src/main-window.c:555
 msgid "Delete the selected slides"
 msgstr "Ausgewählte Dias löschen"
 
-#: ../src/main-window.c:559
+#: ../src/main-window.c:565
 msgid "Rotate the slide 90 degrees to the left"
 msgstr "Das Dia gegen den Uhrzeigersinn drehen"
 
-#: ../src/main-window.c:570
+#: ../src/main-window.c:576
 msgid "Rotate the slide 90 degrees to the right"
 msgstr "Das Dia in den Uhrzeigersinn drehen"
 
-#: ../src/main-window.c:576
+#: ../src/main-window.c:582
 msgid "Zoom In"
 msgstr "Vergrößern"
 
-#: ../src/main-window.c:581
+#: ../src/main-window.c:587
 msgid "Zoom Out"
 msgstr "Verkleinern"
 
-#: ../src/main-window.c:586
+#: ../src/main-window.c:592
 msgid "Normal Size"
 msgstr "Normale Größe"
 
-#: ../src/main-window.c:591
+#: ../src/main-window.c:597
 msgid "Fit Zoom in Window"
 msgstr "Zoom an Fenster anpassen"
 
-#: ../src/main-window.c:599 ../src/callbacks.c:1362
+#: ../src/main-window.c:605 ../src/callbacks.c:1362
 msgid "Starts the preview"
 msgstr "Startet die Vorschau"
 
-#: ../src/main-window.c:608
+#: ../src/main-window.c:614
 msgid "Go to the first slide of the slideshow"
 msgstr "Zum ersten Dia"
 
-#: ../src/main-window.c:614
+#: ../src/main-window.c:620
 msgid "Go to the previous slide of the slideshow"
 msgstr "Zum vorigen Dia"
 
-#: ../src/main-window.c:630 ../src/main-window.c:837
+#: ../src/main-window.c:636 ../src/main-window.c:843
 msgid " of "
 msgstr " von "
 
-#: ../src/main-window.c:642
+#: ../src/main-window.c:648
 msgid "Go to the next slide of the slideshow"
 msgstr "Zum nächsten Dia"
 
-#: ../src/main-window.c:648
+#: ../src/main-window.c:654
 msgid "Go to the last slide of the slideshow"
 msgstr "Zum letzten Dia"
 
-#: ../src/main-window.c:699
+#: ../src/main-window.c:705
 msgid "Video"
 msgstr "Video"
 
-#: ../src/main-window.c:717
+#: ../src/main-window.c:723
 msgid "<b>Slide Settings</b>"
 msgstr "<b>Dia-Einstellungen</b>"
 
 #. Transition types label
-#: ../src/main-window.c:727
+#: ../src/main-window.c:733
 msgid "Transition Type:"
 msgstr "Überblend-Effekt:"
 
-#: ../src/main-window.c:747
+#: ../src/main-window.c:753
 msgid "Random"
 msgstr "Zufällig"
 
-#: ../src/main-window.c:748
+#: ../src/main-window.c:754
 msgid "Imagination randomly decides which transition to apply"
 msgstr "Imagination wählt einen Effekt zufällig aus"
 
 #. Transition duration
-#: ../src/main-window.c:754
+#: ../src/main-window.c:760
 msgid "Transition Speed:"
 msgstr "Überblendgeschwindigkeit:"
 
-#: ../src/main-window.c:765
+#: ../src/main-window.c:771
 msgid "Fast"
 msgstr "Schnell"
 
-#: ../src/main-window.c:767
+#: ../src/main-window.c:773
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/main-window.c:769
+#: ../src/main-window.c:775
 msgid "Slow"
 msgstr "Langsam"
 
 #. Slide duration
-#: ../src/main-window.c:776
+#: ../src/main-window.c:782
 msgid "Slide Duration in sec:"
 msgstr "Dia-Anzeigedauer (in Sek.):"
 
 #. Slide Total Duration
-#: ../src/main-window.c:787
+#: ../src/main-window.c:793
 msgid "Slideshow Length:"
 msgstr "Länge der Diaschau:"
 
-#: ../src/main-window.c:804
+#: ../src/main-window.c:810
 msgid "<b>Slide Motion</b>"
 msgstr "<b>Dia-Bewegung</b>"
 
-#: ../src/main-window.c:814
+#: ../src/main-window.c:820
 msgid "Stop Point:"
 msgstr "Anhaltepunkt:"
 
-#: ../src/main-window.c:851
+#: ../src/main-window.c:857
 msgid "Duration:"
 msgstr "Dauer:"
 
-#: ../src/main-window.c:860
+#: ../src/main-window.c:866
 msgid "Zoom: "
 msgstr "Zoom: "
 
-#: ../src/main-window.c:874
+#: ../src/main-window.c:880
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: ../src/main-window.c:878
+#: ../src/main-window.c:884
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: ../src/main-window.c:883
+#: ../src/main-window.c:889
 msgid "Remove"
 msgstr "Entfernen"
 
-#: ../src/main-window.c:897
+#: ../src/main-window.c:903
 msgid "<b>Slide Text</b>"
 msgstr "<b>Dia-Text</b>"
 
-#: ../src/main-window.c:926 ../src/main-window.c:1562
+#: ../src/main-window.c:932 ../src/main-window.c:1568
 msgid "Click to expand the area"
 msgstr "Klicken, um die Fläche zu erweitern"
 
-#: ../src/main-window.c:943
+#: ../src/main-window.c:949
 msgid "Click to choose the font"
 msgstr "Klicken, um die Schriftart zu wählen"
 
-#: ../src/main-window.c:950
+#: ../src/main-window.c:956
 msgid "Click to choose the font color"
 msgstr "Klicken, um die Schriftfarbe zu wählen"
 
-#: ../src/main-window.c:957
+#: ../src/main-window.c:963
 msgid "Click to choose the font background color"
 msgstr "Klicken, um die Schriftkonturfarbe zu wählen"
 
-#: ../src/main-window.c:961
+#: ../src/main-window.c:967
 msgid "Animation:"
 msgstr "Animation:"
 
-#: ../src/main-window.c:973
+#: ../src/main-window.c:979
 msgid "Animation Speed:"
 msgstr "Animationsgeschwindigkeit:"
 
-#: ../src/main-window.c:989
+#: ../src/main-window.c:995
 msgid "Placing is relative to:"
 msgstr "Plazierung relativ zu:"
 
-#: ../src/main-window.c:1003
+#: ../src/main-window.c:1009
 msgid "Exported video"
 msgstr "Exportiertes Video"
 
-#: ../src/main-window.c:1005
+#: ../src/main-window.c:1011
 msgid "Original image"
 msgstr "Ursprüngliches Bild"
 
-#: ../src/main-window.c:1014
+#: ../src/main-window.c:1020
 msgid "Subtitle position:"
 msgstr "Position des Untertitels"
 
 #. Background music frame
-#: ../src/main-window.c:1055
+#: ../src/main-window.c:1061
 msgid "Audio"
 msgstr "Audio"
 
-#: ../src/main-window.c:1068
+#: ../src/main-window.c:1074
 msgid "<b>Background Music</b>"
 msgstr "<b>Hintergrundmusik</b>"
 
-#: ../src/main-window.c:1114
+#: ../src/main-window.c:1120
 msgid "Music Duration:"
 msgstr "Musikdauer:"
 
-#: ../src/main-window.c:1138
+#: ../src/main-window.c:1144
 msgid "Delete the selected file"
 msgstr "Die ausgewählte Datei löschen"
 
-#: ../src/main-window.c:1145
+#: ../src/main-window.c:1151
 msgid "Move the selected file up"
 msgstr "Die ausgewählte Datei nach oben verschieben"
 
-#: ../src/main-window.c:1152
+#: ../src/main-window.c:1158
 msgid "Move the selected file down"
 msgstr "Die ausgewählte Datei nach unten verschieben"
 
-#: ../src/main-window.c:1159
+#: ../src/main-window.c:1165
 msgid "Clear all files"
 msgstr "Alle Dateien entfernen"
 
 #. End of Background music frame
 #. Begin of Message tab
-#: ../src/main-window.c:1164
+#: ../src/main-window.c:1170
 msgid "Messages"
 msgstr "Meldungen"
 
-#: ../src/main-window.c:1557
+#: ../src/main-window.c:1563
 msgid "Click to shrink the area"
 msgstr "Klicken, um die Fläche zu verkleinern"
 
-#: ../src/main-window.c:1589 ../src/callbacks.c:1120
+#: ../src/main-window.c:1595 ../src/callbacks.c:1120
 msgid "Sorry, I could not perform the operation!"
 msgstr "Entschuldigung, die Operation konnte nicht durchgeführt werden!"
 
-#: ../src/main-window.c:1738
+#: ../src/main-window.c:1744
 #, c-format
 msgid "File '%s' not found"
 msgstr "Datei '%s' nicht gefunden"
 
-#: ../src/main-window.c:1747
+#: ../src/main-window.c:1753
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: ../src/main-window.c:1747
+#: ../src/main-window.c:1753
 msgid "Type"
 msgstr "Typ"
 
 #. No animation function (id = 0)
-#: ../src/main-window.c:2062 ../src/main-window.c:2064 ../src/support.c:179
+#: ../src/main-window.c:2068 ../src/main-window.c:2070 ../src/support.c:180
 #: ../src/subtitles.c:162
 msgid "None"
 msgstr "Keiner"
 
-#: ../src/main-window.c:2605
+#: ../src/main-window.c:2611
 msgid "Slides Transitions Report Dialog"
 msgstr "Diaübergänge"
 
-#: ../src/main-window.c:2685
+#: ../src/main-window.c:2691
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -502,7 +502,7 @@ msgstr ""
 "Klicken Sie das Dia an, damit Imagination dieses automatisch auswählt."
 
 #: ../src/callbacks.c:124 ../src/callbacks.c:469 ../src/callbacks.c:1421
-#: ../src/callbacks.c:1499
+#: ../src/callbacks.c:1500
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr ""
 "Sie haben die Diaschau noch nicht gespeichert. Sind Sie sicher, dass Sie "
@@ -522,7 +522,7 @@ msgid "All audio files"
 msgstr "Alle Musikdateien"
 
 #: ../src/callbacks.c:300 ../src/callbacks.c:375 ../src/callbacks.c:1449
-#: ../src/support.c:370
+#: ../src/support.c:355
 msgid "All files"
 msgstr "Alle Dateien"
 
@@ -560,136 +560,166 @@ msgid "Save an Imagination slideshow project"
 msgstr "Eine Imagination Diaschau speichern"
 
 #: ../src/callbacks.c:1443
-msgid "Imagination projects"
-msgstr "Imagination Diaschauen"
+msgid "Imagination projects (*.img)"
+msgstr "Imagination Diaschauen (*.img)"
 
-#: ../src/callbacks.c:2195
+#: ../src/callbacks.c:2196
 msgid "Create empty slide"
 msgstr "Leeres Dia anlegen"
 
-#: ../src/callbacks.c:2206
+#: ../src/callbacks.c:2207
 msgid "Empty slide options:"
 msgstr "Einstellungen für leeres Dia:"
 
-#: ../src/callbacks.c:2216
+#: ../src/callbacks.c:2217
 msgid "Use _solid color"
 msgstr "_Feste Hintergrundfarbe"
 
-#: ../src/callbacks.c:2222
+#: ../src/callbacks.c:2223
 msgid "Use _linear gradient"
 msgstr "_Linearer Farbverlauf"
 
-#: ../src/callbacks.c:2228
+#: ../src/callbacks.c:2229
 msgid "Use _radial gradient"
 msgstr "_Radialer Farbverlauf"
 
-#: ../src/callbacks.c:2258
+#: ../src/callbacks.c:2259
 msgid "Preview"
 msgstr "Vorschau"
 
+#: ../src/new_slideshow.c:71
+msgid "512 kbps (low)"
+msgstr "512 kbps (niedrig)"
+
+#: ../src/new_slideshow.c:72
+msgid "1024 kbps (medium)"
+msgstr "1024 kbps (mittel)"
+
+#: ../src/new_slideshow.c:73
+msgid "2048 kbps (high)"
+msgstr "2048 kbps (hoch)"
+
+#: ../src/new_slideshow.c:102
+msgid "384 kbps (low)"
+msgstr "384 kbps (niedrig)"
+
+#: ../src/new_slideshow.c:103
+msgid "768 kbps (medium)"
+msgstr "768 kbps (mittel)"
+
+#: ../src/new_slideshow.c:104
+msgid "1536 kbps (high)"
+msgstr "1536 kbps (hoch)"
+
+#. name, config_name, video_format, ffmpeg_option, sizelist,
+#. aspect_ratio_list, bitratelist, fps_list, file_extensions
+#: ../src/new_slideshow.c:135
+msgid "VOB (DVD Video)"
+msgstr "VOB (DVD video)"
+
+#. FIXME Do add _() around every .name for i18n
+#: ../src/new_slideshow.c:143
+msgid "OGV (Theora Vorbis)"
+msgstr "OGV (Theora/Vorbis)"
+
+#: ../src/new_slideshow.c:150
+msgid "FLV (Flash Video)"
+msgstr "FLV (Flash video)"
+
+#: ../src/new_slideshow.c:159
+msgid "3GP (Mobile Phones)"
+msgstr "3GP (Mobile Phones)"
+
 #. Display propert title depending on the callback that is calling this function.
-#: ../src/new_slideshow.c:65
+#: ../src/new_slideshow.c:210
 msgid "Project properties"
 msgstr "Projekteigenschaften"
 
-#: ../src/new_slideshow.c:85
+#: ../src/new_slideshow.c:230
 msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Diaschau-Einstellungen</b>"
 
-#: ../src/new_slideshow.c:130
-msgid "<b>Video Format</b>"
-msgstr "<b>Videoformat</b>"
+#. Video Format
+#: ../src/new_slideshow.c:245
+msgid "Video Format:"
+msgstr "Videoformat:"
 
-#: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
-#: ../src/export.c:1705
-msgid "<b>Video Size</b>"
-msgstr "<b>Videogröße</b>"
+#. Video Size
+#: ../src/new_slideshow.c:262
+msgid "Video Size:"
+msgstr "Videogröße:"
 
-#: ../src/new_slideshow.c:166
+#. FPS
+#: ../src/new_slideshow.c:272
+msgid "Frames per Second (FPS):"
+msgstr "Frame pro Sekunde (FPS):"
+
+#. Aspect Ratio
+#: ../src/new_slideshow.c:282
+msgid "Aspect Ratio:"
+msgstr "Aspektverhältnis:"
+
+#. Bitrate
+#: ../src/new_slideshow.c:292
+msgid "Bitrate:"
+msgstr "Datenrate:"
+
+#: ../src/new_slideshow.c:314
 msgid "<b>Advanced Settings</b>"
 msgstr "<b>Erweiterte Einstellungen</b>"
 
-#: ../src/new_slideshow.c:173
+#: ../src/new_slideshow.c:321
 msgid "Rescale images to fit desired aspect ratio"
 msgstr "Bilder in das Format einpassen"
 
-#: ../src/new_slideshow.c:179
+#: ../src/new_slideshow.c:327
 msgid "Select background color:"
 msgstr "Hintergrundfarbe:"
 
-#: ../src/slideshow_project.c:213
+#: ../src/slideshow_project.c:237
 msgid "This is not an Imagination project file!"
 msgstr "Dies ist keine Projektdatei für Imagination."
 
-#: ../src/slideshow_project.c:371
+#: ../src/slideshow_project.c:507
 #, c-format
 msgid "Slide %i: can't load image %s\n"
 msgstr "Dia %i: kann Bild %s nicht laden\n"
 
-#: ../src/slideshow_project.c:493
+#: ../src/slideshow_project.c:631
 #, c-format
 msgid "Can't load image %s\n"
 msgstr "Kann Bild %s nicht laden\n"
 
-#: ../src/support.c:130
+#: ../src/support.c:131
 #, c-format
 msgid "Welcome to Imagination - %d transition loaded."
 msgid_plural "Welcome to Imagination - %d transitions loaded."
 msgstr[0] "Willkommen zu Imagination - %d Überblend-Effekt geladen"
 msgstr[1] "Willkommen zu Imagination - %d Überblend-Effekte geladen"
 
-#: ../src/support.c:141
+#: ../src/support.c:142
 #, c-format
 msgid "%d slide selected"
 msgid_plural "%d slides selected"
 msgstr[0] "%d Dias ausgewählt"
 msgstr[1] "%d Dias ausgewählt"
 
-#: ../src/support.c:152
+#: ../src/support.c:153
 #, c-format
 msgid "%d slide loaded %s"
 msgid_plural "%d slides loaded %s"
 msgstr[0] "%d Dia geladen %s"
 msgstr[1] "%d Dias importiert %s"
 
-#: ../src/support.c:156
+#: ../src/support.c:157
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
 msgstr ""
 " - Benutzen Sie zum Auswählen die Strg-Taste und die Shift-Taste für eine "
 "Mehrfachauswahl"
 
-#: ../src/support.c:322
+#: ../src/support.c:324
 msgid "Please choose the slideshow project filename"
 msgstr "Projektnamen für die Diaschau wählen"
-
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures and also switches mode into
-#. * preview if needed.
-#: ../src/support.c:337 ../src/export.c:1183
-msgid "VOB (DVD video)"
-msgstr "VOB (DVD video)"
-
-#: ../src/support.c:343
-msgid "MP4 (MPEG-4)"
-msgstr "MP4 (MPEG-4)"
-
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/support.c:349 ../src/export.c:1299
-msgid "OGV (Theora/Vorbis)"
-msgstr "OGV (Theora/Vorbis)"
-
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/support.c:355 ../src/export.c:1486
-msgid "FLV (Flash video)"
-msgstr "FLV (Flash video)"
-
-#. This function call should be the first thing exporter does, since this
-#. * function will take some preventive measures.
-#: ../src/support.c:361 ../src/export.c:1690
-msgid "3GP (Mobile Phones)"
-msgstr "3GP (Mobile Phones)"
 
 #: ../src/subtitles.c:166
 msgid "Fade"
@@ -715,67 +745,64 @@ msgstr "von unten gleiten"
 msgid "Grow"
 msgstr "zunehmen"
 
-#: ../src/export.c:150
+#: ../src/export.c:143
 msgid "<b>Export Settings</b>"
 msgstr "<b>Export-Einstellungen</b>"
 
-#: ../src/export.c:164
+#: ../src/export.c:157
 msgid "Filename:"
 msgstr "Dateiname:"
 
-#: ../src/export.c:312
+#: ../src/export.c:305
 msgid "Exporting the slideshow"
 msgstr "Diaschau wird exportiert"
 
-#: ../src/export.c:323
+#: ../src/export.c:316
 msgid "Preparing for export ..."
 msgstr "Export vorbereiten ..."
 
-#: ../src/export.c:334
+#: ../src/export.c:327
 msgid "Overall progress:"
 msgstr "Gesamtfortschritt: "
 
-#: ../src/export.c:424 ../src/export.c:807
+#: ../src/export.c:417 ../src/export.c:800
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "Exportfortschritt bei Dia %d:"
 
-#: ../src/export.c:661
+#: ../src/export.c:654
 msgid "Failed to launch the encoder!"
 msgstr "Konnte den Encoder nicht starten."
 
-#: ../src/export.c:805
+#: ../src/export.c:798
 #, c-format
 msgid "Final transition export progress:"
 msgstr "Exportfortschritt beim letzten Dia:"
 
-#: ../src/export.c:1195
-msgid "<b>Television Format</b>"
-msgstr "<b>Fernsehformat</b>"
+#, fuzzy
+#~ msgid "low"
+#~ msgstr "Langsam"
 
-#: ../src/export.c:1202 ../src/export.c:1326 ../src/export.c:1513
-msgid "Normal 4:3"
-msgstr "Normal 4:3"
+#~ msgid "MP4 (MPEG-4)"
+#~ msgstr "MP4 (MPEG-4)"
 
-#: ../src/export.c:1207 ../src/export.c:1330 ../src/export.c:1517
-msgid "Widescreen 16:9"
-msgstr "Breitbild 16:9"
+#~ msgid "<b>Television Format</b>"
+#~ msgstr "<b>Fernsehformat</b>"
 
-#: ../src/export.c:1315 ../src/export.c:1502
-msgid "<b>Aspect Ratio</b>"
-msgstr "<b>Aspektverhältnis</b>"
+#~ msgid "Normal 4:3"
+#~ msgstr "Normal 4:3"
 
-#: ../src/export.c:1373 ../src/export.c:1557
-msgid "<b>Video Quality:</b>"
-msgstr "<b>Videoqualität</b>"
+#~ msgid "Widescreen 16:9"
+#~ msgstr "Breitbild 16:9"
 
-#: ../src/export.c:1380 ../src/export.c:1564
-msgid "Low"
-msgstr "Niedrig"
+#~ msgid "<b>Video Quality:</b>"
+#~ msgstr "<b>Videoqualität</b>"
 
-#: ../src/export.c:1384 ../src/export.c:1568
-msgid "Medium"
-msgstr "Mittel"
+#~ msgid "Low"
+#~ msgstr "Niedrig"
+
+#~ msgid "Medium"
+#~ msgstr "Mittel"
 
 #~ msgid "Rotate the slide clockwise"
 #~ msgstr "Das Dia im Uhrzeigersinn drehen"
