@@ -1,6 +1,4 @@
 /*
- *  Copyright (c) 2009 Giuseppe Torelli <colossus73@gmail.com>
- *  Copyright (c) 2009 Tadej Borovšak 	<tadeboro@gmail.com>
  *  Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -19,16 +17,44 @@
  *
  */
 
-#ifndef __NEW_SLIDESHOW_H__
-#define __NEW_SLIDESHOW_H__
+#ifndef __VIDEO_FORMAT_H__
+#define __VIDEO_FORMAT_H__
 
 #include <gtk/gtk.h>
-#include "main-window.h"
-#include "sexy-icon-entry.h"
-#include "callbacks.h"
 
-void img_new_slideshow_settings_dialog(img_window_struct *, gboolean);
-void img_set_format_options (img_window_struct *);
-void img_get_format_options (img_window_struct *);
+struct video_size {
+    gchar *name;
+    gint  x;
+    gint  y;
+};
+
+struct video_bitrate {
+    gchar  *name;
+    gint    value;
+};
+
+struct aspect_ratio {
+    gchar   *name;
+    gchar   *ffmpeg_option;
+};
+
+struct video_fps {
+    gchar   *name;
+    gchar   *ffmpeg_option;
+    gdouble value;
+};
+
+struct video_format {
+    gchar *name;
+    gchar *config_name;
+    gchar *ffmpeg_option;
+    struct video_size *sizelist;
+    struct aspect_ratio *aspect_ratio_list;
+    struct video_bitrate *bitratelist;
+    struct video_fps *fps_list;
+    gchar **file_extensions;
+};
+
+extern struct video_format video_format_list[];
 
 #endif

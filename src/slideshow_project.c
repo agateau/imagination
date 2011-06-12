@@ -1,7 +1,8 @@
 /*
  *  Copyright (C) 2009 Giuseppe Torelli <colossus73@gmail.com>
  *  Copyright (c) 2009 Tadej Borovšak 	<tadeboro@gmail.com>
- * 
+ *  Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -18,7 +19,7 @@
  */
 
 #include "slideshow_project.h"
-#include "new_slideshow.h"
+#include "video_formats.h"
 
 static gboolean img_populate_hash_table( GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GHashTable ** );
 

@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2009 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2011 Robert Chéramy   <robert@cheramy.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,7 +19,7 @@
  */
 
 #include "support.h"
-#include "new_slideshow.h"
+#include "video_formats.h"
 #include <glib/gstdio.h>
 
 static gboolean img_plugin_is_loaded(img_window_struct *, GModule *);
