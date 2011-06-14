@@ -23,9 +23,10 @@
 #include <gtk/gtk.h>
 
 struct video_size {
-    gchar *name;
-    gint  x;
-    gint  y;
+    gchar  *name;
+    gint    x;
+    gint    y;
+    gint    default_fps_idx, default_aspect_ratio_idx, default_bitrate_idx;
 };
 
 struct video_bitrate {

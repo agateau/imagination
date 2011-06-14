@@ -32,7 +32,7 @@ static void
 img_update_current_slide( img_window_struct *img );
 
 static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img);
-
+static void img_video_size_changed (GtkComboBox *combo, img_window_struct *img);
 
 /* ****************************************************************************
  * Public API
@@ -113,6 +113,8 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
         gtk_list_store_set( store, &iter, 0, gettext(video_format_list[i].name), -1 );
         i++;
 	}
+    /* Fill combobox depending on selected video format */
+    g_signal_connect (G_OBJECT (img->video_format_combo), "changed", G_CALLBACK (img_video_format_changed),img);
 
 	/* Video Size */
     label = gtk_label_new (_("Video Size:"));
@@ -123,6 +125,8 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
     img->video_size_combo = _gtk_combo_box_new_text(FALSE);
     gtk_table_attach(GTK_TABLE(table), img->video_size_combo, 1, 2, 1, 2,
                               GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 2);
+    /* Preset other parameters depending on selected size */
+    g_signal_connect (G_OBJECT (img->video_size_combo), "changed", G_CALLBACK (img_video_size_changed),img);
 
     /* FPS */
     label = gtk_label_new( _("Frames per Second (FPS):") );
@@ -153,9 +157,6 @@ void img_new_slideshow_settings_dialog(img_window_struct *img, gboolean flag)
     img->bitrate_combo = _gtk_combo_box_new_text(FALSE);
     gtk_table_attach(GTK_TABLE(table), img->bitrate_combo, 1, 2, 4, 5,
                               GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 2);
-
-    /* Fill combobox depending on selected video format */
-    g_signal_connect (G_OBJECT (img->video_format_combo), "changed", G_CALLBACK (img_video_format_changed),img);
 
 	/* Advanced Settings */
 
@@ -294,7 +295,7 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
     gint          video_format, i;
 
 	video_format = gtk_combo_box_get_active(combo);
-    
+
     /* Video size */
     store = GTK_LIST_STORE( gtk_combo_box_get_model(GTK_COMBO_BOX( img->video_size_combo ) ) );
     gtk_list_store_clear(store);
@@ -305,7 +306,7 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
                             video_format_list[video_format].sizelist[i].name, -1 );
         i++;
 	}
-	gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+	/* Combo is set to default size at the end because it triggers img_video_size_changed */
 
     /* Aspect Ratio */
     if (video_format_list[video_format].aspect_ratio_list == NULL)
@@ -327,7 +328,7 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
         }
         gtk_combo_box_set_active(GTK_COMBO_BOX(img->aspect_ratio_combo), 0);
     }
-    
+
     /* FPS */
     store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(img->fps_combo)));
     gtk_list_store_clear(store);
@@ -359,7 +360,30 @@ static void img_video_format_changed (GtkComboBox *combo, img_window_struct *img
         gtk_combo_box_set_active(GTK_COMBO_BOX(img->bitrate_combo),0);
     }
 
+    /* This triggers img_video_size_changed and presets other combo boxes to default parameters */
+    gtk_combo_box_set_active(GTK_COMBO_BOX(img->video_size_combo), 0);
+}
 
+static void img_video_size_changed (GtkComboBox *combo, img_window_struct *img)
+{
+    gint size_idx, format_idx, index;
+
+    size_idx = gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_size_combo));
+    if (size_idx == -1)
+        return;
+    format_idx = gtk_combo_box_get_active(GTK_COMBO_BOX(img->video_format_combo));
+
+    index = video_format_list[format_idx].sizelist[size_idx].default_fps_idx;
+    if (index != -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(img->fps_combo), index);
+
+    index = video_format_list[format_idx].sizelist[size_idx].default_aspect_ratio_idx;
+    if (index != -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(img->aspect_ratio_combo), index);
+
+    index = video_format_list[format_idx].sizelist[size_idx].default_bitrate_idx;
+    if (index != -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(img->bitrate_combo), index);
 }
 
 void img_get_format_options(img_window_struct *img)
