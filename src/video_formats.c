@@ -153,6 +153,19 @@ gchar *x3GP_extensions[] = {
     NULL
 };
 
+/* x264 */
+struct video_size x264_size_list[] = {
+    {"HD 852x480",      852,    480, -1, -1, -1},
+    {"HD 1280x720",    1280,    720, -1, -1, -1},
+    {"HD 1920x1080",   1920,   1080, -1, -1, -1},
+    {NULL}
+};
+
+gchar *x264_extensions[] = {
+    ".mp4",
+    NULL
+};
+
 struct video_format video_format_list[] = {
     /* name, config_name, video_format, ffmpeg_option, sizelist,
             aspect_ratio_list, bitratelist, fps_list, file_extensions */
@@ -170,7 +183,7 @@ struct video_format video_format_list[] = {
         , OGV_size_list, aspect_ratio_list, OGV_bitrate_list, OGV_fps_list,
         OGV_extensions
     },
-        
+
     {gettext_noop("FLV (Flash Video)"), "FLV",
         "-f flv -vcodec flv -acodec libmp3lame"
         "-ab 56000"     /* audio bitrate */
@@ -179,13 +192,23 @@ struct video_format video_format_list[] = {
         , FLV_size_list, aspect_ratio_list, FLV_bitrate_list, OGV_fps_list,
         FLV_extensions
     },
-        
+
     {gettext_noop("3GP (Mobile Phones)"), "3GP",
         "-f 3gp -vcodec h263 -acodec libfaac"
         "-b 192k "                  /* bitrate */
         "-ab 32k -ar 8000 -ac 1"    /* audio bitrate, sampling frequency and number of channels */
         , x3GP_size_list, NULL, NULL, x3GP_fps_list,
         x3GP_extensions
+    },
+    /* ffmpeg options for x264 thanks to David Gnedt */
+    {gettext_noop("H.264/MPEG-4 AVC"), "x264",
+        "-vcodec libx264 -crf 15 " /* FIXME -crf should be in a "Quality" option that also includes bitrate */
+        "-acodec libmp3lame -ac 2 -ar 44100 -ab 128k",
+        x264_size_list,
+        aspect_ratio_list,
+        NULL,
+        VOB_fps_list,
+        x264_extensions
     },
     {NULL}
 };
