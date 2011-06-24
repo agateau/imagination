@@ -1,29 +1,30 @@
+# Dutch translations for imagination package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the imagination package.
+# valenstijn <valenstyn@gmail.com>, 2011.
 #
-# , 2009.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: imagination 3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-18 20:10+0100\n"
-"PO-Revision-Date: 2009-12-10 15:02+0200\n"
-"Last-Translator: \n"
-"Language-Team: Kurdî <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: valenstijn <valenstyn@gmail.com>\n"
+"Language-Team: Dutch\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../imagination.desktop.in.h:1
 msgid "A DVD slideshow maker"
-msgstr "Çêkera pêşandana slaytan a DVDyê"
+msgstr "Maakteen DVD diashow"
 
 #: ../imagination.desktop.in.h:2
 msgid "A lightweight DVD slideshow maker using GTK+2"
-msgstr "Çêkera pêşandana slaytan a DVDyê a sivik ku GTK+2 bi kar tîne"
+msgstr "Een lichtgewicht DVD diashow maker, met gebruik van GTK+2"
 
 #: ../imagination.desktop.in.h:3
 msgid "Imagination"
@@ -32,15 +33,15 @@ msgstr "Imagination"
 #: ../src/audio.c:109
 #, c-format
 msgid "Playing %s..."
-msgstr "Lê dide %s..."
+msgstr "U hoort %s..."
 
 #: ../src/audio.c:137 ../src/main-window.c:1130
 msgid "Play the selected file"
-msgstr "Pela bijartî lê bide"
+msgstr "Laat het geselecteerde bestand horen"
 
 #: ../src/audio.c:145
 msgid "Stop the playback"
-msgstr "Lêdanê bisekinîne"
+msgstr "Stopt de playback"
 
 #: ../src/audio.c:272
 #, c-format
@@ -49,7 +50,7 @@ msgid ""
 "incompatible sample rate\n"
 msgstr ""
 "%s:\n"
-"sample rate lê nayê\n"
+"Niet compatibele sample rate\n"
 
 #: ../src/audio.c:277
 #, c-format
@@ -58,7 +59,7 @@ msgid ""
 "incompatible number of channels\n"
 msgstr ""
 "%s:\n"
-"hejmara qenalan lê nayê\n"
+"niet compatibel aantal kanalen\n"
 
 #: ../src/audio.c:283
 #, c-format
@@ -66,8 +67,8 @@ msgid ""
 "%s:\n"
 "incompatible sample rate and number of channels\n"
 msgstr ""
-"%s:\n"
-"sample rate û hejmara qenalan lê nayê\n"
+"%s\n"
+"niet compatibele sample rate en aantal kanalen\n"
 
 #: ../src/audio.c:303
 #, c-format
@@ -76,23 +77,23 @@ msgid ""
 "<b>Do you want to continue without these files?</b>"
 msgstr ""
 "%s\n"
-"<b>Dixwazî bêyî van pelan berdewam bikî?</b>"
+"<b>Wilt u verder gaan zonder deze bestanden?<b>"
 
 #: ../src/audio.c:307 ../src/audio.c:454
 msgid "Audio files mismatch:"
-msgstr "Pelên dengê li hev nayên:"
+msgstr "Foute audiobestanden:"
 
 #: ../src/audio.c:401
 msgid "Incompatible sample rate."
-msgstr "Sample rate lê nayê."
+msgstr "Niet compatibele sample rate"
 
 #: ../src/audio.c:408
 msgid "Incompatible number of channels."
-msgstr "Hejmara qenalan lê nayê."
+msgstr "Niet compatibel aantal kanalen"
 
 #: ../src/audio.c:415
 msgid "Incompatible sample rate and number of channels."
-msgstr "sample rate û hejmara qenalan lê nayê."
+msgstr "Niet compatibele sample rate en aantal kanalen"
 
 #: ../src/audio.c:437
 #, c-format
@@ -101,379 +102,376 @@ msgid ""
 msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
-msgstr[0] "Hilbijartin pela dengan %d dihewîne ku bi pelên din re li hev nayê."
+msgstr[0] ""
+"Selectie bevat een %audio bestand dat niet compatibel is met andere bestanden"
 msgstr[1] ""
-"Hilbijartin pelên dengan %d dihewîne ku bi pelên din re li hev nayê."
+"Selectie bevat %audio bestanden die niet compatibel zijn met andere bestanden"
 
 #: ../src/audio.c:443
 msgid "Please check audio tab for more information."
-msgstr "Ji bo zêdetir agahiyê li hilpekîna dengê binêre."
+msgstr "Raadpleeg de audio tab voor meer informatie"
 
 #: ../src/main-window.c:222
 msgid "_Slideshow"
-msgstr "_Pêşandana Slaytê"
+msgstr "_Diashow"
 
 #: ../src/main-window.c:236
-#, fuzzy
 msgid "Import slideshow"
-msgstr "Pêşandana slaytan tê derxistin"
+msgstr "Importeer een diashow"
 
 #: ../src/main-window.c:260
 msgid "Import p_ictures"
-msgstr "Wêneyan têxe"
+msgstr "Importeer foto's"
 
 #: ../src/main-window.c:270
 msgid "Import _music"
-msgstr "Mûzîk têxê"
+msgstr "Importeer _muziek"
 
 #: ../src/main-window.c:287
 msgid "_Preview"
-msgstr "_Pêşdîtin"
+msgstr "_Voorvertoning"
 
 #: ../src/main-window.c:295
 msgid "Export"
-msgstr "Derxe"
+msgstr "Exporteer"
 
 #. Slide menu
 #: ../src/main-window.c:310
 msgid "_Slide"
-msgstr "_Slayt"
+msgstr "_Beeld"
 
 #. Preview quality menu
 #: ../src/main-window.c:332
 msgid "Preview quality"
-msgstr "Qalîteya Pêşdîtinê"
+msgstr "Kwaliteit van voorvertoning"
 
 #: ../src/main-window.c:338
 msgid "_Low"
-msgstr "_Hindik"
+msgstr "_Laag"
 
 #: ../src/main-window.c:342 ../src/export.c:1389 ../src/export.c:1573
 msgid "High"
-msgstr "Zehf"
+msgstr "Hoog"
 
 #. Zoom controls
 #: ../src/main-window.c:346
 msgid "_Zoom"
-msgstr "_Nêzkirin"
+msgstr "_Zoom"
 
 #: ../src/main-window.c:373
 msgid "Add empt_y slide"
-msgstr "Slayteke vala lê zêdeke"
+msgstr "Voeg een leeg beeld toe"
 
 #: ../src/main-window.c:382
 msgid "Dele_te"
-msgstr "Jê bibe"
+msgstr "Verwijder"
 
 #: ../src/main-window.c:390
 msgid "Repor_t"
-msgstr "Rapor bike"
+msgstr ""
 
 #: ../src/main-window.c:402
 msgid "Rotate co_unter-clockwise"
-msgstr "Ber aliyê vajî a saetê ve bizivirîne"
+msgstr "Draai tegen wijzerzin"
 
 #: ../src/main-window.c:413
 msgid "_Rotate clockwise"
-msgstr "_Ber aliyê saetê ve bizivirîne"
+msgstr "Draai in wijzerzin"
 
 #: ../src/main-window.c:428
 msgid "Un_select all"
-msgstr "Tu yekê hilnebijêre"
+msgstr "Deselecteer alles"
 
 #. View menu
 #: ../src/main-window.c:434
 msgid "_View"
-msgstr "_Dîtin"
+msgstr "_Scherm"
 
 #: ../src/main-window.c:440
 msgid "Preview mode"
-msgstr "Moda pêşdîtinê"
+msgstr "Voorvertoning mode"
 
 #: ../src/main-window.c:446
 msgid "Overview mode"
-msgstr "Moda dîtina seranser"
+msgstr "Overzicht mode"
 
 #: ../src/main-window.c:452
-#, fuzzy
 msgid "Preview _frame rate"
-msgstr "Moda pêşdîtinê"
+msgstr "Beeldsnelheid bij voorvertoning"
 
 #: ../src/main-window.c:469
 #, c-format
 msgid "%d frame per second"
 msgid_plural "%d frames per second"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d beeld per second"
+msgstr[1] "%d beelden per second"
 
 #. Help menu
 #: ../src/main-window.c:486
 msgid "_Help"
-msgstr "_Alîkarî"
+msgstr "_Help"
 
 #: ../src/main-window.c:491
 msgid "Contents"
-msgstr "Naverok"
+msgstr "Inhoud"
 
 #: ../src/main-window.c:512 ../src/new_slideshow.c:65
 msgid "Create a new slideshow"
-msgstr "Pêşandaneke nû ya slaytan"
+msgstr "Maak een nieuwe diashow"
 
 #: ../src/main-window.c:517
 msgid "Open a slideshow"
-msgstr "Pêşandaneke nû ya slaytan veke"
+msgstr "Open een diashow"
 
 #: ../src/main-window.c:522
 msgid "Save the slideshow"
-msgstr "Pêşandana slaytan tomarke"
+msgstr "Sla de diashow op"
 
 #: ../src/main-window.c:535
 msgid "Import pictures"
-msgstr "Wêneyan têxê"
+msgstr "Importeer foto's"
 
 #: ../src/main-window.c:544
 msgid "Import music"
-msgstr "Mûzîk têxê"
+msgstr "Importeer muziek"
 
 #: ../src/main-window.c:549
 msgid "Delete the selected slides"
-msgstr "Slaytên bijartî jê bibe"
+msgstr "Verwijder de geselecteerde foto's"
 
 #: ../src/main-window.c:559
 msgid "Rotate the slide 90 degrees to the left"
-msgstr "Slaytê ber aliyê çepê 90 derece bizivirîne"
+msgstr "Draai het beeld 90 graden naar links"
 
 #: ../src/main-window.c:570
 msgid "Rotate the slide 90 degrees to the right"
-msgstr "Slaytê ber aliyê rastê 90 derece bizivirîne"
+msgstr "Draai het beeld 90 graden naar rechts"
 
 #: ../src/main-window.c:576
 msgid "Zoom In"
-msgstr "Nêzkirin"
+msgstr "Zoom in"
 
 #: ../src/main-window.c:581
 msgid "Zoom Out"
-msgstr "Dûrkirin"
+msgstr "Zoom uit"
 
 #: ../src/main-window.c:586
 msgid "Normal Size"
-msgstr "Mezinahiya normal"
+msgstr "Normale afmeting"
 
 #: ../src/main-window.c:591
 msgid "Fit Zoom in Window"
-msgstr ""
+msgstr "Pas zoom aan voor het venster"
 
 #: ../src/main-window.c:599 ../src/callbacks.c:1362
 msgid "Starts the preview"
-msgstr "Pêşdîtinê destpêke"
+msgstr "Start de voorvertoning"
 
 #: ../src/main-window.c:608
 msgid "Go to the first slide of the slideshow"
-msgstr "Here slayta yekemîn a pêşandana slaytan"
+msgstr "Ga naar het eerste beeld van de diashow"
 
 #: ../src/main-window.c:614
 msgid "Go to the previous slide of the slideshow"
-msgstr "Here slayta berê a pêşandana slaytan"
+msgstr "Ga naar het vorige beeld van de diashow"
 
 #: ../src/main-window.c:630 ../src/main-window.c:837
 msgid " of "
-msgstr "ji"
+msgstr "  van "
 
 #: ../src/main-window.c:642
 msgid "Go to the next slide of the slideshow"
-msgstr "Here slayta pêş a pêşandana slaytan"
+msgstr "Ga naar het volgende beeld van de diashow"
 
 #: ../src/main-window.c:648
 msgid "Go to the last slide of the slideshow"
-msgstr "Here slayta dawîn pêşandana slaytan"
+msgstr "Ga naar het laatste beeld van de diaschow"
 
 #: ../src/main-window.c:699
 msgid "Video"
-msgstr "Vîdyo"
+msgstr "Video"
 
 #: ../src/main-window.c:717
 msgid "<b>Slide Settings</b>"
-msgstr "<b>Mîhengên Slaytan</b>"
+msgstr "<b>Beeld instellingen</b>"
 
 #. Transition types label
 #: ../src/main-window.c:727
 msgid "Transition Type:"
-msgstr "Cureya derbasbûnê:"
+msgstr "Overgang type"
 
 #: ../src/main-window.c:747
 msgid "Random"
-msgstr "Çawalêhato"
+msgstr "Willekeurig"
 
 #: ../src/main-window.c:748
 msgid "Imagination randomly decides which transition to apply"
-msgstr "Imaginations bi awayeke çawalêhato cureya derbasbûnê hildibijêre"
+msgstr "Imagination kent willekeurig een overgang toe"
 
 #. Transition duration
 #: ../src/main-window.c:754
 msgid "Transition Speed:"
-msgstr "Leza derbasbûnê:"
+msgstr "Overgang snelheid"
 
 #: ../src/main-window.c:765
 msgid "Fast"
-msgstr "Bilez"
+msgstr "Snel"
 
 #: ../src/main-window.c:767
 msgid "Normal"
-msgstr "Normal"
+msgstr "Normaal"
 
 #: ../src/main-window.c:769
 msgid "Slow"
-msgstr "Hêdîka"
+msgstr "Traag"
 
 #. Slide duration
 #: ../src/main-window.c:776
 msgid "Slide Duration in sec:"
-msgstr "Slayt çend çirke didome:"
+msgstr "diaduur in sec:"
 
 #. Slide Total Duration
 #: ../src/main-window.c:787
 msgid "Slideshow Length:"
-msgstr "Dirêjahiya pêşandana slaytan:"
+msgstr "Lengte van de diashow"
 
 #: ../src/main-window.c:804
 msgid "<b>Slide Motion</b>"
-msgstr "<b>Tevgera Slaytê</b>"
+msgstr "<b>Beeld beweging</b>"
 
 #: ../src/main-window.c:814
 msgid "Stop Point:"
-msgstr "Noqteya rawestinê:"
+msgstr "Stop punt"
 
 #: ../src/main-window.c:851
 msgid "Duration:"
-msgstr "Dirêjahî:"
+msgstr "Lengte"
 
 #: ../src/main-window.c:860
 msgid "Zoom: "
-msgstr "Nêzkirin:"
+msgstr "Zoom"
 
 #: ../src/main-window.c:874
 msgid "Add"
-msgstr "Lê zêdeke"
+msgstr "Voeg toe"
 
 #: ../src/main-window.c:878
 msgid "Update"
-msgstr "Rojaneke"
+msgstr "Bevestig"
 
 #: ../src/main-window.c:883
 msgid "Remove"
-msgstr "Rake"
+msgstr "Verwijder"
 
 #: ../src/main-window.c:897
 msgid "<b>Slide Text</b>"
-msgstr "<b>Nivîsa Slaytê</b>"
+msgstr "<b>Beeld tekst</b>"
 
 #: ../src/main-window.c:926 ../src/main-window.c:1562
 msgid "Click to expand the area"
-msgstr "Bitike ku qadê fireh bikî"
+msgstr "Klikken voor meer ruimte"
 
 #: ../src/main-window.c:943
 msgid "Click to choose the font"
-msgstr "Bitike ku curenivîsê hilbijêrî"
+msgstr "Klikken voor een andere font"
 
 #: ../src/main-window.c:950
-#, fuzzy
 msgid "Click to choose the font color"
-msgstr "Bitike ku curenivîsê hilbijêrî"
+msgstr "Klikken voor een tekst kleur"
 
 #: ../src/main-window.c:957
-#, fuzzy
 msgid "Click to choose the font background color"
-msgstr "Bitike ku curenivîsê hilbijêrî"
+msgstr "Klikken voor een achtergrond kleur"
 
 #: ../src/main-window.c:961
 msgid "Animation:"
-msgstr "Anîmasyon:"
+msgstr "Animatie:"
 
 #: ../src/main-window.c:973
 msgid "Animation Speed:"
-msgstr "Leza anîmasyonê:"
+msgstr "Animatie snelheid"
 
 #: ../src/main-window.c:989
 msgid "Placing is relative to:"
-msgstr "Placing is relative to:"
+msgstr "Plaats is relatief tot:"
 
 #: ../src/main-window.c:1003
 msgid "Exported video"
-msgstr "Vîdyoyê derxe"
+msgstr "Geëxporteerde video"
 
 #: ../src/main-window.c:1005
 msgid "Original image"
-msgstr "Wêneya resen"
+msgstr "Origineel beeld"
 
 #: ../src/main-window.c:1014
 msgid "Subtitle position:"
-msgstr "Cihê pozîsyonê"
+msgstr "Positie ondertiteling"
 
 #. Background music frame
 #: ../src/main-window.c:1055
 msgid "Audio"
-msgstr "Deng"
+msgstr "Geluid"
 
 #: ../src/main-window.c:1068
 msgid "<b>Background Music</b>"
-msgstr "<b>Mûzîka li paş</b>"
+msgstr "<b>Achtergrond geluid</b>"
 
 #: ../src/main-window.c:1114
 msgid "Music Duration:"
-msgstr "Dirêjahiya mûzîkê:"
+msgstr "Lengte muziek:"
 
 #: ../src/main-window.c:1138
 msgid "Delete the selected file"
-msgstr "Pela bijartî jê bibe"
+msgstr "Verwijder het geselecteerde bestand"
 
 #: ../src/main-window.c:1145
 msgid "Move the selected file up"
-msgstr "Pela bijartî bibe jor"
+msgstr "Breng het geselecteerde bestand omhoog"
 
 #: ../src/main-window.c:1152
 msgid "Move the selected file down"
-msgstr "Pela bijartî bibe jêr"
+msgstr "Breng het geselecteerde bestand omlaag"
 
 #: ../src/main-window.c:1159
 msgid "Clear all files"
-msgstr "Hemû pelan paqijke"
+msgstr "Verwijder alle bestanden"
 
 #. End of Background music frame
 #. Begin of Message tab
 #: ../src/main-window.c:1164
 msgid "Messages"
-msgstr ""
+msgstr "Mededelingen"
 
 #: ../src/main-window.c:1557
 msgid "Click to shrink the area"
-msgstr "Bitike ku qadê teng bikî"
+msgstr "Klikken om de ruimte in te krimpen"
 
 #: ../src/main-window.c:1589 ../src/callbacks.c:1120
 msgid "Sorry, I could not perform the operation!"
-msgstr "Xemgîn im, lê nikarim çalakiyê pêk bînim!"
+msgstr "Sorry, ik kan deze operatie niet uitvoeren!"
 
 #: ../src/main-window.c:1738
 #, c-format
 msgid "File '%s' not found"
-msgstr ""
+msgstr "Bestand %s niet gevonden"
 
 #: ../src/main-window.c:1747
 msgid "Resolution"
-msgstr "Rezolûsyon"
+msgstr "Resolutie"
 
 #: ../src/main-window.c:1747
 msgid "Type"
-msgstr "Cure"
+msgstr "Type"
 
 #. No animation function (id = 0)
 #: ../src/main-window.c:2062 ../src/main-window.c:2064 ../src/support.c:179
 #: ../src/subtitles.c:162
 msgid "None"
-msgstr "Ne yek jî"
+msgstr "Geen"
 
 #: ../src/main-window.c:2605
 msgid "Slides Transitions Report Dialog"
-msgstr "Diyaloga rapora derbasbûnên slaytan"
+msgstr "Beeld overgang raport dialoog"
 
 #: ../src/main-window.c:2685
 msgid ""
@@ -484,41 +482,42 @@ msgid ""
 "Click on the slide to have Imagination automatically select it."
 msgstr ""
 "\n"
-"<span bilindahî='bold'>Not:</span>\n"
+"<span weight='bold'>Note:</span>\n"
 "\n"
-"Slaytên ku derbasbûna tenê carekê lê hetiye sepandin li vir tên nîşandan.\n"
-"Ji bo ku Imagination wê jixweber hilbijêre lê bitike."
+"Beelden waar slechts 1 overgang aan werd toegekend, worden niet getoond.\n"
+"Klik op het beeld zodat Imagination het automatisch selecteerd."
 
 #: ../src/callbacks.c:124 ../src/callbacks.c:469 ../src/callbacks.c:1421
 #: ../src/callbacks.c:1499
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
-msgstr "Te hê pêşandata slaytan a xwe tomar nekiriye. Ji dil dixwazî bigirî?"
+msgstr "U hebt uw diashow nog niet opgeslagen. Toch doorgaan ?"
 
 #: ../src/callbacks.c:210
 #, c-format
 msgid "Please wait, importing image %d out of %d"
-msgstr "Li bendê be, wêbe tên têxistin %d qediya ji %d"
+msgstr "Even wachten, importeer beeld %d van %d"
 
 #: ../src/callbacks.c:279
 msgid "Import audio files, use CTRL key for multiple select"
-msgstr "Pelên dengê têxê, ji bo ku pir pel hilbijêrî pêl CTRL bike"
+msgstr ""
+"Importeer audio bestanden, gebruik de CTRL toets voor meerdere selecties"
 
 #: ../src/callbacks.c:291
 msgid "All audio files"
-msgstr "Hemû pelên dengê"
+msgstr "Alle audio bestanden"
 
 #: ../src/callbacks.c:300 ../src/callbacks.c:375 ../src/callbacks.c:1449
 #: ../src/support.c:370
 msgid "All files"
-msgstr "Hemû pel"
+msgstr ""
 
 #: ../src/callbacks.c:356
 msgid "Import images, use SHIFT key for multiple select"
-msgstr "Wêneyan têxe, ji bo bijartina pir pelan SHIFT bi kar bîne"
+msgstr "Importeer beelden, gebruik de SHIFT toets voor meerdere selecties"
 
 #: ../src/callbacks.c:369
 msgid "All image files"
-msgstr "Hemû pelên wêneyan"
+msgstr "Alle beeld bestanden"
 
 #: ../src/callbacks.c:529
 #, c-format
@@ -529,134 +528,136 @@ msgstr[1] "%d x %d pixels"
 
 #: ../src/callbacks.c:805
 msgid "translator-credits"
-msgstr "wergêr-alîkar"
+msgstr "Vertaling"
 
 #: ../src/callbacks.c:1372
 msgid "Stops the preview"
-msgstr "Pêşdîtinê bisekinîne"
+msgstr "Stop de voorvertoning"
 
 #: ../src/callbacks.c:1432
 msgid "Load an Imagination slideshow project"
-msgstr "Projeyeke pêşandana slaytan a Imaginationê barke"
+msgstr "Laad een Imagination diashow project"
 
 #: ../src/callbacks.c:1433
 msgid "Save an Imagination slideshow project"
-msgstr "Projeyeke pêşandana slaytan a Imaginationê tomarke"
+msgstr "Bewaar een Imagination diashow project"
 
 #: ../src/callbacks.c:1443
 #, fuzzy
 msgid "Imagination projects"
-msgstr "Imagination"
+msgstr "Imagination projecten"
 
 #: ../src/callbacks.c:2195
 msgid "Create empty slide"
-msgstr "Slayteke vala biafirîne"
+msgstr "Maak een leeg beeld"
 
 #: ../src/callbacks.c:2206
 msgid "Empty slide options:"
-msgstr "Vebijêrkên slayta vala:"
+msgstr "Leeg beeld opties:"
 
 #: ../src/callbacks.c:2216
 msgid "Use _solid color"
-msgstr "Rengê sade bi kar bîne"
+msgstr "Gebruk een vaste kleur"
 
 #: ../src/callbacks.c:2222
 msgid "Use _linear gradient"
-msgstr "Gardiyenta lîneer bi kar bîne"
+msgstr "Gebruik een lineaire gradatie"
 
 #: ../src/callbacks.c:2228
 msgid "Use _radial gradient"
-msgstr "Gradiyenta radyal bi kar bîne"
+msgstr "Gebruik een radiale gradatie"
 
 #: ../src/callbacks.c:2258
 msgid "Preview"
-msgstr "Pêşdîtin"
+msgstr "Voorvertoning"
 
 #. Display propert title depending on the callback that is calling this function.
 #: ../src/new_slideshow.c:65
 msgid "Project properties"
-msgstr "Taybetiyên projeyê"
+msgstr "Project eigenschappen"
 
 #: ../src/new_slideshow.c:85
 msgid "<b>Slideshow Settings</b>"
-msgstr "<b>Mîhengên Pêşandana Slaytan</b>"
+msgstr "<b>Diashow Instellingen</b>"
 
 #: ../src/new_slideshow.c:130
 #, fuzzy
 msgid "<b>Video Format</b>"
-msgstr "<b>Formata Vîdyoyê</b>"
+msgstr "<b>Video formaat</b>"
 
 #: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
 #: ../src/export.c:1705
 #, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Qalîteya Vîdyoyê:</b>"
+msgstr "<b>Video kwaliteit</b>"
 
 #: ../src/new_slideshow.c:166
 msgid "<b>Advanced Settings</b>"
-msgstr "<b>Mîhengên Pêşketî</b>"
+msgstr "<b>Geavanceerde instellingen</b>"
 
 #: ../src/new_slideshow.c:173
 msgid "Rescale images to fit desired aspect ratio"
-msgstr "Ku li aspect ratio a diyarkirî were, mezinahiya wêneyê biguhere"
+msgstr "Herschaal de beelden naar het gewenste aspect ratio"
 
 #: ../src/new_slideshow.c:179
 msgid "Select background color:"
-msgstr "Rengê rûerdê hilbijêre:"
+msgstr "Selecteer de achtergrond kleur"
 
 #: ../src/slideshow_project.c:213
 msgid "This is not an Imagination project file!"
-msgstr "Ev pela projeyeke Imaginationê ye!"
+msgstr "Dit is geen Imagination project bestand"
 
 #: ../src/slideshow_project.c:371
 #, c-format
 msgid "Slide %i: can't load image %s\n"
-msgstr ""
+msgstr "Beeld %i: kan het beeld %s niet laden\n"
 
 #: ../src/slideshow_project.c:493
 #, c-format
 msgid "Can't load image %s\n"
-msgstr ""
+msgstr "Kan het beeld %s niet laden\n"
 
 #: ../src/support.c:130
 #, c-format
 msgid "Welcome to Imagination - %d transition loaded."
 msgid_plural "Welcome to Imagination - %d transitions loaded."
-msgstr[0] "Bi xêr hatî Imaginationê - %d derbasbûn hat barkirin."
-msgstr[1] "Bi xêr hatî Imaginationê - %d derbasbûn hatin barkirin."
+msgstr[0] "Welkom bij Imagination - %d overgang geladen"
+msgstr[1] "Welkom bij Imagination - %d overgangen geladen"
 
 #: ../src/support.c:141
 #, c-format
 msgid "%d slide selected"
 msgid_plural "%d slides selected"
-msgstr[0] "%d slayt hat bijartin"
-msgstr[1] "%d slayt hatin bijartin"
+msgstr[0] "%d beeld geselecteerd"
+msgstr[1] "%d beelden geselecteerd"
 
 #: ../src/support.c:152
 #, c-format
 msgid "%d slide loaded %s"
 msgid_plural "%d slides loaded %s"
-msgstr[0] "%d slayt hat barkirin %s"
-msgstr[1] "%d slayt hatin barkirin %s"
+msgstr[0] "%d beeld ingeladen"
+msgstr[1] "%d beelden ingeladen"
 
 #: ../src/support.c:156
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
-msgstr " - Ji bo bijartina ji yekê zêde bişkojka CTRL an jî SHIFT bi kar bîne"
+msgstr ""
+" - Gebruik de CTRL toets voor selecteren/deselecteren of SHIFT voor meerdere "
+"selecties"
 
 #: ../src/support.c:322
 msgid "Please choose the slideshow project filename"
-msgstr "Navê pela projeya pêşandana slaytan binivîse"
+msgstr "Kies een bestadsnaam"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures and also switches mode into
 #. * preview if needed.
 #: ../src/support.c:337 ../src/export.c:1183
 msgid "VOB (DVD video)"
-msgstr "VOB (Vîdyoyên DVD)"
+msgstr "VOB (DVD video)"
 
 #: ../src/support.c:343
 msgid "MP4 (MPEG-4)"
-msgstr ""
+msgstr "MP4 (MPEG-4)"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
@@ -668,165 +669,105 @@ msgstr "OGV (Theora/Vorbis)"
 #. * function will take some preventive measures.
 #: ../src/support.c:355 ../src/export.c:1486
 msgid "FLV (Flash video)"
-msgstr "FLV (vîdyoyên flash)"
+msgstr "FLV (Flash video)"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures.
 #: ../src/support.c:361 ../src/export.c:1690
 msgid "3GP (Mobile Phones)"
-msgstr "3GP (Telefonên bêrikê)"
+msgstr "3GP (Mobile Phones)"
 
 #: ../src/subtitles.c:166
 msgid "Fade"
-msgstr ""
+msgstr "Uitvloeien"
 
 #: ../src/subtitles.c:170
 msgid "Slide from left"
-msgstr ""
+msgstr "Invoegen vanaf links"
 
 #: ../src/subtitles.c:174
 msgid "Slide from right"
-msgstr ""
+msgstr "Invoegen vanaf rechts"
 
 #: ../src/subtitles.c:178
 msgid "Slide from top"
-msgstr ""
+msgstr "Invoegen vanaf boven"
 
 #: ../src/subtitles.c:182
 msgid "Slide from bottom"
-msgstr ""
+msgstr "Invoegen vanaf beneden"
 
 #: ../src/subtitles.c:186
 msgid "Grow"
-msgstr ""
+msgstr "Groeien"
 
 #: ../src/export.c:150
 msgid "<b>Export Settings</b>"
-msgstr "<b>Mîhengên Derxistinê</b>"
+msgstr "<b>Export instellingen</b>"
 
 #: ../src/export.c:164
 msgid "Filename:"
-msgstr "Navê pelê:"
+msgstr "Bestandsnaam:"
 
 #: ../src/export.c:312
 msgid "Exporting the slideshow"
-msgstr "Pêşandana slaytan tê derxistin"
+msgstr "Exporteer de diashow"
 
 #: ../src/export.c:323
 msgid "Preparing for export ..."
-msgstr "Li benda derxistinê ye...."
+msgstr "Voorbereiding tot export ..."
 
 #: ../src/export.c:334
 msgid "Overall progress:"
-msgstr "Pêşdeçûna seranser:"
+msgstr "Algehele vooruitgang:"
 
 #: ../src/export.c:424 ../src/export.c:807
 #, c-format
 msgid "Slide %d export progress:"
-msgstr "Rewşa derxistina slayta %d:"
+msgstr "Beeld %d export vooruitgang:"
 
 #: ../src/export.c:661
 msgid "Failed to launch the encoder!"
-msgstr "Di meşandina encoderê de çewtî!"
+msgstr "Kan de encoder niet starten !"
 
 #: ../src/export.c:805
 #, c-format
 msgid "Final transition export progress:"
-msgstr "Rewşa derxistina derbasbûna fînal:"
+msgstr "Finale overgang export vooruitgang"
 
 #: ../src/export.c:1195
 msgid "<b>Television Format</b>"
-msgstr "<b>Formata televîzyonê</b>"
+msgstr "<b>Televisie formaat</b>"
 
 #: ../src/export.c:1202 ../src/export.c:1326 ../src/export.c:1513
 msgid "Normal 4:3"
-msgstr "Normal 4:3"
+msgstr "Normaal 4:3"
 
 #: ../src/export.c:1207 ../src/export.c:1330 ../src/export.c:1517
 msgid "Widescreen 16:9"
-msgstr "Ekrana fireh 16:9"
+msgstr "Breedbeeld 16:9"
 
 #: ../src/export.c:1315 ../src/export.c:1502
 #, fuzzy
 msgid "<b>Aspect Ratio</b>"
-msgstr "<b>Tevgera Slaytê</b>"
+msgstr "<b>Aspect Ratio</b>"
 
 #: ../src/export.c:1373 ../src/export.c:1557
 msgid "<b>Video Quality:</b>"
-msgstr "<b>Qalîteya Vîdyoyê:</b>"
+msgstr "<b>Video kwaliteit</b>"
 
 #: ../src/export.c:1380 ../src/export.c:1564
 msgid "Low"
-msgstr "Hindik"
+msgstr "Laag"
 
 #: ../src/export.c:1384 ../src/export.c:1568
 msgid "Medium"
-msgstr "Navincî"
+msgstr "Gemiddeld"
 
 #, fuzzy
 #~ msgid "Video Size:"
-#~ msgstr "<b>Mezinahiya vîdyoyê</b>"
+#~ msgstr "<b>Video lengte</b>"
 
 #, fuzzy
-#~ msgid "VOB (DVD Video)"
-#~ msgstr "VOB (Vîdyoyên DVD)"
-
-#, fuzzy
-#~ msgid "OGV (Theora Vorbis)"
-#~ msgstr "OGV (Theora/Vorbis)"
-
-#, fuzzy
-#~ msgid "FLV (Flash Video)"
-#~ msgstr "FLV (vîdyoyên flash)"
-
-#~ msgid "Goto first slide"
-#~ msgstr "Here slayta yekemîn"
-
-#~ msgid "Goto last slide"
-#~ msgstr "Here slayta yekemîn"
-
-#~ msgid "An error occurred while trying to rotate the slide:"
-#~ msgstr "Di zivirandina slaytê de çewtiyek derket holê :"
-
-#~ msgid "Slide Number:"
-#~ msgstr "Hejmara slaytê:"
-
-#~ msgid "Jump to the entered slide number"
-#~ msgstr "Here slayta ku hejmara wê hatî dayîn"
-
-#~ msgid ""
-#~ "The length of the audio track is longer than the video one. Do you want "
-#~ "to continue?"
-#~ msgstr "Dirêjahiya dengê bijartî ji vîdyoyê dirêjtir e. Dixwazî bidomînî??"
-
-#, fuzzy
-#~ msgid "Rotate the slide clockwise"
-#~ msgstr "_Ber aliyê saetê ve bizivirîne"
-
-#, fuzzy
-#~ msgid "Please choose the audio files to import"
-#~ msgstr "Navê pela projeya pêşandana slaytan binivîse"
-
-#, fuzzy
-#~ msgid "VOB export"
-#~ msgstr "Derxe"
-
-#, fuzzy
-#~ msgid "OGG export"
-#~ msgstr "Derxe"
-
-#, fuzzy
-#~ msgid "FLV export"
-#~ msgstr "Derxe"
-
-#, fuzzy
-#~ msgid "Sorry,I could not perform the operation!"
-#~ msgstr "Xemgîn im, lê nikarim çalakiyê pêk bînim!"
-
-#, fuzzy
-#~ msgid "Export the DVD slideshow"
-#~ msgstr "Pêşandana slaytan tê derxistin"
-
-#, fuzzy
-#~ msgid "Export the slideshow as:"
-#~ msgstr "Pêşandana slaytan tê derxistin"
+#~ msgid "Frames per Second (FPS):"
+#~ msgstr "%d beeld per second"

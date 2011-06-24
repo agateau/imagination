@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 21:14+0200\n"
+"POT-Creation-Date: 2011-02-18 20:10+0100\n"
 "PO-Revision-Date: 2011-06-11 20:50+0100\n"
 "Last-Translator: Robert Chéramy <robert@cheramy.net>\n"
 "Language-Team: Chinese Traditional\n"
@@ -35,7 +35,7 @@ msgstr "Imagination 想像"
 msgid "Playing %s..."
 msgstr "播放中 %s..."
 
-#: ../src/audio.c:137 ../src/main-window.c:1136
+#: ../src/audio.c:137 ../src/main-window.c:1130
 msgid "Play the selected file"
 msgstr "播放選擇的檔案"
 
@@ -108,368 +108,368 @@ msgstr[0] "選擇的檔案中有 %d 個與其他不同格式的音效檔"
 msgid "Please check audio tab for more information."
 msgstr "請檢查音效分頁以檢視更多訊息"
 
-#: ../src/main-window.c:228
+#: ../src/main-window.c:222
 msgid "_Slideshow"
 msgstr "影片秀(_S)"
 
-#: ../src/main-window.c:242
+#: ../src/main-window.c:236
 msgid "Import slideshow"
 msgstr "匯出影片秀"
 
-#: ../src/main-window.c:266
+#: ../src/main-window.c:260
 msgid "Import p_ictures"
 msgstr "匯入圖片(_i)"
 
-#: ../src/main-window.c:276
+#: ../src/main-window.c:270
 msgid "Import _music"
 msgstr "匯入音樂(_m)"
 
-#: ../src/main-window.c:293
+#: ../src/main-window.c:287
 msgid "_Preview"
 msgstr "預覽(_P)"
 
-#: ../src/main-window.c:301
+#: ../src/main-window.c:295
 msgid "Export"
 msgstr "匯出"
 
 #. Slide menu
-#: ../src/main-window.c:316
+#: ../src/main-window.c:310
 msgid "_Slide"
 msgstr "場景(_S)"
 
 #. Preview quality menu
-#: ../src/main-window.c:338
+#: ../src/main-window.c:332
 msgid "Preview quality"
 msgstr "預覽品質"
 
-#: ../src/main-window.c:344
+#: ../src/main-window.c:338
 msgid "_Low"
 msgstr "低(_L)"
 
-#: ../src/main-window.c:348
+#: ../src/main-window.c:342 ../src/export.c:1389 ../src/export.c:1573
 msgid "High"
 msgstr "高"
 
 #. Zoom controls
-#: ../src/main-window.c:352
+#: ../src/main-window.c:346
 msgid "_Zoom"
 msgstr "縮放(_Z)"
 
-#: ../src/main-window.c:379
+#: ../src/main-window.c:373
 msgid "Add empt_y slide"
 msgstr "新增場景(_y)"
 
-#: ../src/main-window.c:388
+#: ../src/main-window.c:382
 msgid "Dele_te"
 msgstr "刪除(_t)"
 
-#: ../src/main-window.c:396
+#: ../src/main-window.c:390
 msgid "Repor_t"
 msgstr "回報(_t)"
 
-#: ../src/main-window.c:408
+#: ../src/main-window.c:402
 msgid "Rotate co_unter-clockwise"
 msgstr "順時針旋轉(_u)"
 
-#: ../src/main-window.c:419
+#: ../src/main-window.c:413
 msgid "_Rotate clockwise"
 msgstr "逆時針旋轉(_R)"
 
-#: ../src/main-window.c:434
+#: ../src/main-window.c:428
 msgid "Un_select all"
 msgstr "全部不選(_s)"
 
 #. View menu
-#: ../src/main-window.c:440
+#: ../src/main-window.c:434
 msgid "_View"
 msgstr "檢視(_V)"
 
-#: ../src/main-window.c:446
+#: ../src/main-window.c:440
 msgid "Preview mode"
 msgstr "預覽模式"
 
-#: ../src/main-window.c:452
+#: ../src/main-window.c:446
 msgid "Overview mode"
 msgstr "概觀模式"
 
-#: ../src/main-window.c:458
+#: ../src/main-window.c:452
 msgid "Preview _frame rate"
 msgstr "預覽模式(_f)"
 
-#: ../src/main-window.c:475
+#: ../src/main-window.c:469
 #, c-format
 msgid "%d frame per second"
 msgid_plural "%d frames per second"
 msgstr[0] "每秒 %d 畫面"
 
 #. Help menu
-#: ../src/main-window.c:492
+#: ../src/main-window.c:486
 msgid "_Help"
 msgstr "說明(_H)"
 
-#: ../src/main-window.c:497
+#: ../src/main-window.c:491
 msgid "Contents"
 msgstr "內容"
 
-#: ../src/main-window.c:518 ../src/new_slideshow.c:210
+#: ../src/main-window.c:512 ../src/new_slideshow.c:65
 msgid "Create a new slideshow"
 msgstr "建立一個影片秀"
 
-#: ../src/main-window.c:523
+#: ../src/main-window.c:517
 msgid "Open a slideshow"
 msgstr "開啟一個影片秀"
 
-#: ../src/main-window.c:528
+#: ../src/main-window.c:522
 msgid "Save the slideshow"
 msgstr "儲存影片秀"
 
-#: ../src/main-window.c:541
+#: ../src/main-window.c:535
 msgid "Import pictures"
 msgstr "匯入圖片"
 
-#: ../src/main-window.c:550
+#: ../src/main-window.c:544
 msgid "Import music"
 msgstr "匯入音樂"
 
-#: ../src/main-window.c:555
+#: ../src/main-window.c:549
 msgid "Delete the selected slides"
 msgstr "刪除選擇的場景"
 
-#: ../src/main-window.c:565
+#: ../src/main-window.c:559
 msgid "Rotate the slide 90 degrees to the left"
 msgstr "順時針旋轉90度"
 
-#: ../src/main-window.c:576
+#: ../src/main-window.c:570
 msgid "Rotate the slide 90 degrees to the right"
 msgstr "逆時針旋轉90度"
 
-#: ../src/main-window.c:582
+#: ../src/main-window.c:576
 msgid "Zoom In"
 msgstr "放大"
 
-#: ../src/main-window.c:587
+#: ../src/main-window.c:581
 msgid "Zoom Out"
 msgstr "縮小"
 
-#: ../src/main-window.c:592
+#: ../src/main-window.c:586
 msgid "Normal Size"
 msgstr "正常"
 
-#: ../src/main-window.c:597
+#: ../src/main-window.c:591
 msgid "Fit Zoom in Window"
 msgstr "縮放至視窗大小"
 
-#: ../src/main-window.c:605 ../src/callbacks.c:1362
+#: ../src/main-window.c:599 ../src/callbacks.c:1362
 msgid "Starts the preview"
 msgstr "開始預覽"
 
-#: ../src/main-window.c:614
+#: ../src/main-window.c:608
 msgid "Go to the first slide of the slideshow"
 msgstr "首張"
 
-#: ../src/main-window.c:620
+#: ../src/main-window.c:614
 msgid "Go to the previous slide of the slideshow"
 msgstr "上張"
 
-#: ../src/main-window.c:636 ../src/main-window.c:843
+#: ../src/main-window.c:630 ../src/main-window.c:837
 msgid " of "
 msgstr "的"
 
-#: ../src/main-window.c:648
+#: ../src/main-window.c:642
 msgid "Go to the next slide of the slideshow"
 msgstr "下張"
 
-#: ../src/main-window.c:654
+#: ../src/main-window.c:648
 msgid "Go to the last slide of the slideshow"
 msgstr "末張"
 
-#: ../src/main-window.c:705
+#: ../src/main-window.c:699
 msgid "Video"
 msgstr "影片"
 
-#: ../src/main-window.c:723
+#: ../src/main-window.c:717
 msgid "<b>Slide Settings</b>"
 msgstr "<b>場景設定</b>"
 
 #. Transition types label
-#: ../src/main-window.c:733
+#: ../src/main-window.c:727
 msgid "Transition Type:"
 msgstr "轉場效果類型:"
 
-#: ../src/main-window.c:753
+#: ../src/main-window.c:747
 msgid "Random"
 msgstr "亂數取得"
 
-#: ../src/main-window.c:754
+#: ../src/main-window.c:748
 msgid "Imagination randomly decides which transition to apply"
 msgstr "自動由亂數決定效果"
 
 #. Transition duration
-#: ../src/main-window.c:760
+#: ../src/main-window.c:754
 msgid "Transition Speed:"
 msgstr "轉場速度:"
 
-#: ../src/main-window.c:771
+#: ../src/main-window.c:765
 msgid "Fast"
 msgstr "快"
 
-#: ../src/main-window.c:773
+#: ../src/main-window.c:767
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/main-window.c:775
+#: ../src/main-window.c:769
 msgid "Slow"
 msgstr "慢"
 
 #. Slide duration
-#: ../src/main-window.c:782
+#: ../src/main-window.c:776
 msgid "Slide Duration in sec:"
 msgstr "本張持續秒數:"
 
 #. Slide Total Duration
-#: ../src/main-window.c:793
+#: ../src/main-window.c:787
 msgid "Slideshow Length:"
 msgstr "影片秀時間總長:"
 
-#: ../src/main-window.c:810
+#: ../src/main-window.c:804
 msgid "<b>Slide Motion</b>"
 msgstr "<b>場景變化</b>"
 
-#: ../src/main-window.c:820
+#: ../src/main-window.c:814
 msgid "Stop Point:"
 msgstr "停止點:"
 
-#: ../src/main-window.c:857
+#: ../src/main-window.c:851
 msgid "Duration:"
 msgstr "持續時間:"
 
-#: ../src/main-window.c:866
+#: ../src/main-window.c:860
 msgid "Zoom: "
 msgstr "縮放: "
 
-#: ../src/main-window.c:880
+#: ../src/main-window.c:874
 msgid "Add"
 msgstr "新增"
 
-#: ../src/main-window.c:884
+#: ../src/main-window.c:878
 msgid "Update"
 msgstr "更新"
 
-#: ../src/main-window.c:889
+#: ../src/main-window.c:883
 msgid "Remove"
 msgstr "移除"
 
-#: ../src/main-window.c:903
+#: ../src/main-window.c:897
 msgid "<b>Slide Text</b>"
 msgstr "<b>字幕設定</b>"
 
-#: ../src/main-window.c:932 ../src/main-window.c:1568
+#: ../src/main-window.c:926 ../src/main-window.c:1562
 msgid "Click to expand the area"
 msgstr "展開文字區"
 
-#: ../src/main-window.c:949
+#: ../src/main-window.c:943
 msgid "Click to choose the font"
 msgstr "選擇字型"
 
-#: ../src/main-window.c:956
+#: ../src/main-window.c:950
 msgid "Click to choose the font color"
 msgstr "選擇字型顏色"
 
-#: ../src/main-window.c:963
+#: ../src/main-window.c:957
 msgid "Click to choose the font background color"
 msgstr "選擇字型背景色"
 
-#: ../src/main-window.c:967
+#: ../src/main-window.c:961
 msgid "Animation:"
 msgstr "動作:"
 
-#: ../src/main-window.c:979
+#: ../src/main-window.c:973
 msgid "Animation Speed:"
 msgstr "速度:"
 
-#: ../src/main-window.c:995
+#: ../src/main-window.c:989
 msgid "Placing is relative to:"
 msgstr "相關位置:"
 
-#: ../src/main-window.c:1009
+#: ../src/main-window.c:1003
 msgid "Exported video"
 msgstr "匯出影片"
 
-#: ../src/main-window.c:1011
+#: ../src/main-window.c:1005
 msgid "Original image"
 msgstr "原始圖檔"
 
-#: ../src/main-window.c:1020
+#: ../src/main-window.c:1014
 msgid "Subtitle position:"
 msgstr "字幕位置:"
 
 #. Background music frame
-#: ../src/main-window.c:1061
+#: ../src/main-window.c:1055
 msgid "Audio"
 msgstr "音效"
 
-#: ../src/main-window.c:1074
+#: ../src/main-window.c:1068
 msgid "<b>Background Music</b>"
 msgstr "<b>背景音樂</b>"
 
-#: ../src/main-window.c:1120
+#: ../src/main-window.c:1114
 msgid "Music Duration:"
 msgstr "播放時間長度:"
 
-#: ../src/main-window.c:1144
+#: ../src/main-window.c:1138
 msgid "Delete the selected file"
 msgstr "移除選擇檔案"
 
-#: ../src/main-window.c:1151
+#: ../src/main-window.c:1145
 msgid "Move the selected file up"
 msgstr "上移選擇檔案"
 
-#: ../src/main-window.c:1158
+#: ../src/main-window.c:1152
 msgid "Move the selected file down"
 msgstr "下移選擇檔案"
 
-#: ../src/main-window.c:1165
+#: ../src/main-window.c:1159
 msgid "Clear all files"
 msgstr "清除所有檔案"
 
 #. End of Background music frame
 #. Begin of Message tab
-#: ../src/main-window.c:1170
+#: ../src/main-window.c:1164
 msgid "Messages"
 msgstr "訊息"
 
-#: ../src/main-window.c:1563
+#: ../src/main-window.c:1557
 msgid "Click to shrink the area"
 msgstr "按下以縮放區域"
 
-#: ../src/main-window.c:1595 ../src/callbacks.c:1120
+#: ../src/main-window.c:1589 ../src/callbacks.c:1120
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉, 無法執行!"
 
-#: ../src/main-window.c:1744
+#: ../src/main-window.c:1738
 #, c-format
 msgid "File '%s' not found"
 msgstr "檔案 '%s' 未發現"
 
-#: ../src/main-window.c:1753
+#: ../src/main-window.c:1747
 msgid "Resolution"
 msgstr "解析度"
 
-#: ../src/main-window.c:1753
+#: ../src/main-window.c:1747
 msgid "Type"
 msgstr "類型"
 
 #. No animation function (id = 0)
-#: ../src/main-window.c:2068 ../src/main-window.c:2070 ../src/support.c:180
+#: ../src/main-window.c:2062 ../src/main-window.c:2064 ../src/support.c:179
 #: ../src/subtitles.c:162
 msgid "None"
 msgstr "無"
 
-#: ../src/main-window.c:2611
+#: ../src/main-window.c:2605
 msgid "Slides Transitions Report Dialog"
 msgstr "轉場回報對話方塊"
 
-#: ../src/main-window.c:2691
+#: ../src/main-window.c:2685
 msgid ""
 "\n"
 "<span weight='bold'>Note:</span>\n"
@@ -484,7 +484,7 @@ msgstr ""
 "按這場景程式會自動選擇它."
 
 #: ../src/callbacks.c:124 ../src/callbacks.c:469 ../src/callbacks.c:1421
-#: ../src/callbacks.c:1500
+#: ../src/callbacks.c:1499
 msgid "You didn't save your slideshow yet. Are you sure you want to close it?"
 msgstr "尚未儲存影片秀,您確定要關閉？"
 
@@ -502,7 +502,7 @@ msgid "All audio files"
 msgstr "全部音效檔"
 
 #: ../src/callbacks.c:300 ../src/callbacks.c:375 ../src/callbacks.c:1449
-#: ../src/support.c:355
+#: ../src/support.c:370
 msgid "All files"
 msgstr "全部檔案"
 
@@ -538,163 +538,137 @@ msgstr "儲存一個影片秀專案"
 
 #: ../src/callbacks.c:1443
 #, fuzzy
-msgid "Imagination projects (*.img)"
+msgid "Imagination projects"
 msgstr "Imagination 想像 (*.img)"
 
-#: ../src/callbacks.c:2196
+#: ../src/callbacks.c:2195
 msgid "Create empty slide"
 msgstr "新增場景"
 
-#: ../src/callbacks.c:2207
+#: ../src/callbacks.c:2206
 msgid "Empty slide options:"
 msgstr "空白場景選項:"
 
-#: ../src/callbacks.c:2217
+#: ../src/callbacks.c:2216
 msgid "Use _solid color"
 msgstr "使用純色(_s)"
 
-#: ../src/callbacks.c:2223
+#: ../src/callbacks.c:2222
 msgid "Use _linear gradient"
 msgstr "線性漸層(_l)"
 
-#: ../src/callbacks.c:2229
+#: ../src/callbacks.c:2228
 msgid "Use _radial gradient"
 msgstr "放射狀漸層(_r)"
 
-#: ../src/callbacks.c:2259
+#: ../src/callbacks.c:2258
 msgid "Preview"
 msgstr "預覽"
 
-#: ../src/new_slideshow.c:71
-msgid "512 kbps (low)"
-msgstr ""
-
-#: ../src/new_slideshow.c:72
-msgid "1024 kbps (medium)"
-msgstr ""
-
-#: ../src/new_slideshow.c:73
-msgid "2048 kbps (high)"
-msgstr ""
-
-#: ../src/new_slideshow.c:102
-msgid "384 kbps (low)"
-msgstr ""
-
-#: ../src/new_slideshow.c:103
-msgid "768 kbps (medium)"
-msgstr ""
-
-#: ../src/new_slideshow.c:104
-msgid "1536 kbps (high)"
-msgstr ""
-
-#. name, config_name, video_format, ffmpeg_option, sizelist,
-#. aspect_ratio_list, bitratelist, fps_list, file_extensions
-#: ../src/new_slideshow.c:135
-msgid "VOB (DVD Video)"
-msgstr "VOB (DVD影音格式)"
-
-#. FIXME Do add _() around every .name for i18n
-#: ../src/new_slideshow.c:143
-msgid "OGV (Theora Vorbis)"
-msgstr "OGV(開放影音格式)"
-
-#: ../src/new_slideshow.c:150
-msgid "FLV (Flash Video)"
-msgstr "FLV (串流媒體格式)"
-
-#: ../src/new_slideshow.c:159
-msgid "3GP (Mobile Phones)"
-msgstr "3GP (手機影音格式)"
-
 #. Display propert title depending on the callback that is calling this function.
-#: ../src/new_slideshow.c:210
+#: ../src/new_slideshow.c:65
 msgid "Project properties"
 msgstr "專案屬性"
 
-#: ../src/new_slideshow.c:230
+#: ../src/new_slideshow.c:85
 msgid "<b>Slideshow Settings</b>"
 msgstr "<b>影片秀設定</b>"
 
-#. Video Format
-#: ../src/new_slideshow.c:245
-msgid "Video Format:"
+#: ../src/new_slideshow.c:130
+#, fuzzy
+msgid "<b>Video Format</b>"
 msgstr "影片格式:"
 
-#. Video Size
-#: ../src/new_slideshow.c:262
-msgid "Video Size:"
-msgstr "影片大小:"
-
-#. FPS
-#: ../src/new_slideshow.c:272
+#: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
+#: ../src/export.c:1705
 #, fuzzy
-msgid "Frames per Second (FPS):"
-msgstr "每秒 %d 畫面"
+msgid "<b>Video Size</b>"
+msgstr "<b>影片品質:</b>"
 
-#. Aspect Ratio
-#: ../src/new_slideshow.c:282
-msgid "Aspect Ratio:"
-msgstr "場景變化:"
-
-#. Bitrate
-#: ../src/new_slideshow.c:292
-msgid "Bitrate:"
-msgstr ""
-
-#: ../src/new_slideshow.c:314
+#: ../src/new_slideshow.c:166
 msgid "<b>Advanced Settings</b>"
 msgstr "<b>進階設定</b>"
 
-#: ../src/new_slideshow.c:321
+#: ../src/new_slideshow.c:173
 msgid "Rescale images to fit desired aspect ratio"
 msgstr "縮放圖檔以符合比例"
 
-#: ../src/new_slideshow.c:327
+#: ../src/new_slideshow.c:179
 msgid "Select background color:"
 msgstr "選擇背景顏色:"
 
-#: ../src/slideshow_project.c:237
+#: ../src/slideshow_project.c:213
 msgid "This is not an Imagination project file!"
 msgstr "這不是一個影片秀專案!"
 
-#: ../src/slideshow_project.c:507
+#: ../src/slideshow_project.c:371
 #, c-format
 msgid "Slide %i: can't load image %s\n"
 msgstr "場景 %i: 無法載入圖片 %s\n"
 
-#: ../src/slideshow_project.c:631
+#: ../src/slideshow_project.c:493
 #, c-format
 msgid "Can't load image %s\n"
 msgstr "無法載入圖片 %s\n"
 
-#: ../src/support.c:131
+#: ../src/support.c:130
 #, c-format
 msgid "Welcome to Imagination - %d transition loaded."
 msgid_plural "Welcome to Imagination - %d transitions loaded."
 msgstr[0] "歡迎使用 Imagination 想像 - %d 種特效已載入."
 
-#: ../src/support.c:142
+#: ../src/support.c:141
 #, c-format
 msgid "%d slide selected"
 msgid_plural "%d slides selected"
 msgstr[0] "選擇了 %d 個場景"
 
-#: ../src/support.c:153
+#: ../src/support.c:152
 #, c-format
 msgid "%d slide loaded %s"
 msgid_plural "%d slides loaded %s"
 msgstr[0] "%d 個場景已匯入 %s"
 
-#: ../src/support.c:157
+#: ../src/support.c:156
 msgid " - Use the CTRL key to select/unselect or SHIFT for multiple select"
 msgstr ""
 " - 您可使用 CTRL 鍵以單選/取消，或用 SHIFT 鍵多選，以進行每個場景的設定。"
 
-#: ../src/support.c:324
+#: ../src/support.c:322
 msgid "Please choose the slideshow project filename"
 msgstr "請選擇專案檔名"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures and also switches mode into
+#. * preview if needed.
+#: ../src/support.c:337 ../src/export.c:1183
+#, fuzzy
+msgid "VOB (DVD video)"
+msgstr "VOB (DVD影音格式)"
+
+#: ../src/support.c:343
+msgid "MP4 (MPEG-4)"
+msgstr "MP4 (影音格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/support.c:349 ../src/export.c:1299
+#, fuzzy
+msgid "OGV (Theora/Vorbis)"
+msgstr "OGV(開放影音格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/support.c:355 ../src/export.c:1486
+#, fuzzy
+msgid "FLV (Flash video)"
+msgstr "FLV (串流媒體格式)"
+
+#. This function call should be the first thing exporter does, since this
+#. * function will take some preventive measures.
+#: ../src/support.c:361 ../src/export.c:1690
+msgid "3GP (Mobile Phones)"
+msgstr "3GP (手機影音格式)"
 
 #: ../src/subtitles.c:166
 msgid "Fade"
@@ -720,61 +694,76 @@ msgstr "由下而上"
 msgid "Grow"
 msgstr "變大"
 
-#: ../src/export.c:143
+#: ../src/export.c:150
 msgid "<b>Export Settings</b>"
 msgstr "<b>匯出設定</b>"
 
-#: ../src/export.c:157
+#: ../src/export.c:164
 msgid "Filename:"
 msgstr "專案檔名:"
 
-#: ../src/export.c:305
+#: ../src/export.c:312
 msgid "Exporting the slideshow"
 msgstr "匯出影片秀"
 
-#: ../src/export.c:316
+#: ../src/export.c:323
 msgid "Preparing for export ..."
 msgstr "準備匯出 ..."
 
-#: ../src/export.c:327
+#: ../src/export.c:334
 msgid "Overall progress:"
 msgstr "全部匯出進度:"
 
-#: ../src/export.c:417 ../src/export.c:800
+#: ../src/export.c:424 ../src/export.c:807
 #, c-format
 msgid "Slide %d export progress:"
 msgstr "場景 %d 轉換進度:"
 
-#: ../src/export.c:654
+#: ../src/export.c:661
 msgid "Failed to launch the encoder!"
 msgstr "轉檔失敗!"
 
-#: ../src/export.c:798
+#: ../src/export.c:805
 #, c-format
 msgid "Final transition export progress:"
 msgstr "完成轉檔匯出程序:"
 
+#: ../src/export.c:1195
+msgid "<b>Television Format</b>"
+msgstr "<b>電視格式</b>"
+
+#: ../src/export.c:1202 ../src/export.c:1326 ../src/export.c:1513
+msgid "Normal 4:3"
+msgstr "一般 4:3"
+
+#: ../src/export.c:1207 ../src/export.c:1330 ../src/export.c:1517
+msgid "Widescreen 16:9"
+msgstr "寬螢幕 16:9"
+
+#: ../src/export.c:1315 ../src/export.c:1502
+#, fuzzy
+msgid "<b>Aspect Ratio</b>"
+msgstr "場景變化:"
+
+#: ../src/export.c:1373 ../src/export.c:1557
+msgid "<b>Video Quality:</b>"
+msgstr "<b>影片品質:</b>"
+
+#: ../src/export.c:1380 ../src/export.c:1564
+msgid "Low"
+msgstr "低"
+
+#: ../src/export.c:1384 ../src/export.c:1568
+msgid "Medium"
+msgstr "中"
+
+#~ msgid "Video Size:"
+#~ msgstr "影片大小:"
+
+#, fuzzy
+#~ msgid "Frames per Second (FPS):"
+#~ msgstr "每秒 %d 畫面"
+
 #, fuzzy
 #~ msgid "low"
 #~ msgstr "慢"
-
-#~ msgid "MP4 (MPEG-4)"
-#~ msgstr "MP4 (影音格式)"
-
-#~ msgid "<b>Television Format</b>"
-#~ msgstr "<b>電視格式</b>"
-
-#~ msgid "Normal 4:3"
-#~ msgstr "一般 4:3"
-
-#~ msgid "Widescreen 16:9"
-#~ msgstr "寬螢幕 16:9"
-
-#~ msgid "<b>Video Quality:</b>"
-#~ msgstr "<b>影片品質:</b>"
-
-#~ msgid "Low"
-#~ msgstr "低"
-
-#~ msgid "Medium"
-#~ msgstr "中"

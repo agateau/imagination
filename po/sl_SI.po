@@ -595,13 +595,15 @@ msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Nastavitve diaprojekcije</b>"
 
 #: ../src/new_slideshow.c:130
+#, fuzzy
 msgid "<b>Video Format</b>"
 msgstr "<b>Video oblika</b>"
 
 #: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
 #: ../src/export.c:1705
+#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Velikost videa:</b>"
+msgstr "<b>Kvaliteta videa:</b>"
 
 #: ../src/new_slideshow.c:166
 msgid "<b>Advanced Settings</b>"
@@ -779,6 +781,10 @@ msgstr "Nizka"
 #: ../src/export.c:1384 ../src/export.c:1568
 msgid "Medium"
 msgstr "Srednja"
+
+#, fuzzy
+#~ msgid "Video Size:"
+#~ msgstr "<b>Velikost videa:</b>"
 
 #~ msgid "Rotate the slide clockwise"
 #~ msgstr "Zavrti diapozitiv v smeri urinega kazalca"

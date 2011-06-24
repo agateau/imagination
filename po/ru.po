@@ -594,13 +594,15 @@ msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Параметры Слайд-шоу</b>"
 
 #: ../src/new_slideshow.c:130
+#, fuzzy
 msgid "<b>Video Format</b>"
 msgstr "<b>Видео формат</b>"
 
 #: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
 #: ../src/export.c:1705
+#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Размер видео</b>"
+msgstr "<b>Качество видео:</b>"
 
 #: ../src/new_slideshow.c:166
 msgid "<b>Advanced Settings</b>"
@@ -777,6 +779,10 @@ msgstr "Низкое"
 #: ../src/export.c:1384 ../src/export.c:1568
 msgid "Medium"
 msgstr "Среднее"
+
+#, fuzzy
+#~ msgid "Video Size:"
+#~ msgstr "<b>Размер видео</b>"
 
 #~ msgid "Rotate the slide clockwise"
 #~ msgstr "Повернуть слайд по часовой стрелке"
