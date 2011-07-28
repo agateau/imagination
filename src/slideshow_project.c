@@ -414,8 +414,11 @@ img_load_slideshow( img_window_struct *img,
 
 				/* Get the mem address of the transition */
 				spath = (gchar *)g_hash_table_lookup( table, GINT_TO_POINTER( transition_id ) );
-				gtk_tree_model_get_iter_from_string( model, &iter, spath );
-				gtk_tree_model_get( model, &iter, 2, &render, 0, &pix, -1 );
+				if (spath)
+				{
+					gtk_tree_model_get_iter_from_string( model, &iter, spath );
+					gtk_tree_model_get( model, &iter, 2, &render, 0, &pix, -1 );
+				}
 				slide_info = img_create_new_slide();
 				if( slide_info )
 				{
