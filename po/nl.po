@@ -1,26 +1,25 @@
-# Dutch translations for imagination package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the imagination package.
-# valenstijn <valenstyn@gmail.com>, 2011.
+# This file is distributed under the same license as the PACKAGE package.
 #
-#, fuzzy
+# Valenstijn <valenstyn@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: imagination 3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-18 20:10+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: valenstijn <valenstyn@gmail.com>\n"
-"Language-Team: Dutch\n"
+"PO-Revision-Date: 2011-10-01 17:35+0200\n"
+"Last-Translator: Valenstijn <valenstyn@gmail.com>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: ../imagination.desktop.in.h:1
 msgid "A DVD slideshow maker"
-msgstr "Maakteen DVD diashow"
+msgstr "Maakt een DVD diashow"
 
 #: ../imagination.desktop.in.h:2
 msgid "A lightweight DVD slideshow maker using GTK+2"
@@ -103,9 +102,11 @@ msgid_plural ""
 "File selection contains %d audio files that are incompatible with other "
 "files."
 msgstr[0] ""
-"Selectie bevat een %audio bestand dat niet compatibel is met andere bestanden"
+"Selectie bevat een %d audio bestand dat niet compatibel is met andere "
+"bestanden"
 msgstr[1] ""
-"Selectie bevat %audio bestanden die niet compatibel zijn met andere bestanden"
+"Selectie bevat %d audio bestanden die niet compatibel zijn met andere "
+"bestanden"
 
 #: ../src/audio.c:443
 msgid "Please check audio tab for more information."
@@ -168,7 +169,7 @@ msgstr "Verwijder"
 
 #: ../src/main-window.c:390
 msgid "Repor_t"
-msgstr ""
+msgstr "Raport"
 
 #: ../src/main-window.c:402
 msgid "Rotate co_unter-clockwise"
@@ -203,8 +204,8 @@ msgstr "Beeldsnelheid bij voorvertoning"
 #, c-format
 msgid "%d frame per second"
 msgid_plural "%d frames per second"
-msgstr[0] "%d beeld per second"
-msgstr[1] "%d beelden per second"
+msgstr[0] "%d frame per second"
+msgstr[1] "%d frames per second"
 
 #. Help menu
 #: ../src/main-window.c:486
@@ -225,7 +226,7 @@ msgstr "Open een diashow"
 
 #: ../src/main-window.c:522
 msgid "Save the slideshow"
-msgstr "Sla de diashow op"
+msgstr "Bewaar de diashow"
 
 #: ../src/main-window.c:535
 msgid "Import pictures"
@@ -285,7 +286,7 @@ msgstr "Ga naar het volgende beeld van de diashow"
 
 #: ../src/main-window.c:648
 msgid "Go to the last slide of the slideshow"
-msgstr "Ga naar het laatste beeld van de diaschow"
+msgstr "Ga naar het laatste beeld van de diashow"
 
 #: ../src/main-window.c:699
 msgid "Video"
@@ -298,7 +299,7 @@ msgstr "<b>Beeld instellingen</b>"
 #. Transition types label
 #: ../src/main-window.c:727
 msgid "Transition Type:"
-msgstr "Overgang type"
+msgstr "Overgang type:"
 
 #: ../src/main-window.c:747
 msgid "Random"
@@ -328,7 +329,7 @@ msgstr "Traag"
 #. Slide duration
 #: ../src/main-window.c:776
 msgid "Slide Duration in sec:"
-msgstr "diaduur in sec:"
+msgstr "dia duur in sec:"
 
 #. Slide Total Duration
 #: ../src/main-window.c:787
@@ -341,15 +342,15 @@ msgstr "<b>Beeld beweging</b>"
 
 #: ../src/main-window.c:814
 msgid "Stop Point:"
-msgstr "Stop punt"
+msgstr "Stop punt:"
 
 #: ../src/main-window.c:851
 msgid "Duration:"
-msgstr "Lengte"
+msgstr "Lengte:"
 
 #: ../src/main-window.c:860
 msgid "Zoom: "
-msgstr "Zoom"
+msgstr "Zoom: "
 
 #: ../src/main-window.c:874
 msgid "Add"
@@ -389,11 +390,11 @@ msgstr "Animatie:"
 
 #: ../src/main-window.c:973
 msgid "Animation Speed:"
-msgstr "Animatie snelheid"
+msgstr "Animatie snelheid:"
 
 #: ../src/main-window.c:989
 msgid "Placing is relative to:"
-msgstr "Plaats is relatief tot:"
+msgstr "Plaatsing is relatief tot:"
 
 #: ../src/main-window.c:1003
 msgid "Exported video"
@@ -405,7 +406,7 @@ msgstr "Origineel beeld"
 
 #: ../src/main-window.c:1014
 msgid "Subtitle position:"
-msgstr "Positie ondertiteling"
+msgstr "Positie ondertiteling:"
 
 #. Background music frame
 #: ../src/main-window.c:1055
@@ -471,7 +472,7 @@ msgstr "Geen"
 
 #: ../src/main-window.c:2605
 msgid "Slides Transitions Report Dialog"
-msgstr "Beeld overgang raport dialoog"
+msgstr "Beeld overgang rapport dialoog"
 
 #: ../src/main-window.c:2685
 msgid ""
@@ -485,7 +486,7 @@ msgstr ""
 "<span weight='bold'>Note:</span>\n"
 "\n"
 "Beelden waar slechts 1 overgang aan werd toegekend, worden niet getoond.\n"
-"Klik op het beeld zodat Imagination het automatisch selecteerd."
+"Klik op het beeld zodat Imagination het automatisch selecteert."
 
 #: ../src/callbacks.c:124 ../src/callbacks.c:469 ../src/callbacks.c:1421
 #: ../src/callbacks.c:1499
@@ -509,7 +510,7 @@ msgstr "Alle audio bestanden"
 #: ../src/callbacks.c:300 ../src/callbacks.c:375 ../src/callbacks.c:1449
 #: ../src/support.c:370
 msgid "All files"
-msgstr ""
+msgstr "Alle bestanden"
 
 #: ../src/callbacks.c:356
 msgid "Import images, use SHIFT key for multiple select"
@@ -528,7 +529,7 @@ msgstr[1] "%d x %d pixels"
 
 #: ../src/callbacks.c:805
 msgid "translator-credits"
-msgstr "Vertaling"
+msgstr "Vertaling door"
 
 #: ../src/callbacks.c:1372
 msgid "Stops the preview"
@@ -543,7 +544,6 @@ msgid "Save an Imagination slideshow project"
 msgstr "Bewaar een Imagination diashow project"
 
 #: ../src/callbacks.c:1443
-#, fuzzy
 msgid "Imagination projects"
 msgstr "Imagination projecten"
 
@@ -581,15 +581,13 @@ msgid "<b>Slideshow Settings</b>"
 msgstr "<b>Diashow Instellingen</b>"
 
 #: ../src/new_slideshow.c:130
-#, fuzzy
 msgid "<b>Video Format</b>"
 msgstr "<b>Video formaat</b>"
 
 #: ../src/new_slideshow.c:152 ../src/export.c:1337 ../src/export.c:1524
 #: ../src/export.c:1705
-#, fuzzy
 msgid "<b>Video Size</b>"
-msgstr "<b>Video kwaliteit</b>"
+msgstr "<b>Video lengte</b>"
 
 #: ../src/new_slideshow.c:166
 msgid "<b>Advanced Settings</b>"
@@ -597,7 +595,7 @@ msgstr "<b>Geavanceerde instellingen</b>"
 
 #: ../src/new_slideshow.c:173
 msgid "Rescale images to fit desired aspect ratio"
-msgstr "Herschaal de beelden naar het gewenste aspect ratio"
+msgstr "Verschaal de beelden naar het gewenste aspect ratio"
 
 #: ../src/new_slideshow.c:179
 msgid "Select background color:"
@@ -605,17 +603,17 @@ msgstr "Selecteer de achtergrond kleur"
 
 #: ../src/slideshow_project.c:213
 msgid "This is not an Imagination project file!"
-msgstr "Dit is geen Imagination project bestand"
+msgstr "Dit is geen Imagination project bestand !"
 
 #: ../src/slideshow_project.c:371
 #, c-format
 msgid "Slide %i: can't load image %s\n"
-msgstr "Beeld %i: kan het beeld %s niet laden\n"
+msgstr "Beeld %i: kan het beeld %s\n niet laden"
 
 #: ../src/slideshow_project.c:493
 #, c-format
 msgid "Can't load image %s\n"
-msgstr "Kan het beeld %s niet laden\n"
+msgstr "Kan het beeld %s\n niet laden"
 
 #: ../src/support.c:130
 #, c-format
@@ -646,7 +644,7 @@ msgstr ""
 
 #: ../src/support.c:322
 msgid "Please choose the slideshow project filename"
-msgstr "Kies een bestadsnaam"
+msgstr "Kies een bestandsnaam"
 
 #. This function call should be the first thing exporter does, since this
 #. * function will take some preventive measures and also switches mode into
@@ -733,7 +731,7 @@ msgstr "Kan de encoder niet starten !"
 #: ../src/export.c:805
 #, c-format
 msgid "Final transition export progress:"
-msgstr "Finale overgang export vooruitgang"
+msgstr "Finale overgang export :"
 
 #: ../src/export.c:1195
 msgid "<b>Television Format</b>"
@@ -748,7 +746,6 @@ msgid "Widescreen 16:9"
 msgstr "Breedbeeld 16:9"
 
 #: ../src/export.c:1315 ../src/export.c:1502
-#, fuzzy
 msgid "<b>Aspect Ratio</b>"
 msgstr "<b>Aspect Ratio</b>"
 
@@ -764,10 +761,4 @@ msgstr "Laag"
 msgid "Medium"
 msgstr "Gemiddeld"
 
-#, fuzzy
-#~ msgid "Video Size:"
-#~ msgstr "<b>Video lengte</b>"
 
-#, fuzzy
-#~ msgid "Frames per Second (FPS):"
-#~ msgstr "%d beeld per second"
