@@ -577,7 +577,7 @@ img_load_slideshow( img_window_struct *img,
                     slide_info->original_filename = original_filename;
 
 					/* If image has been rotated, rotate it now too. */
-					if( angle )
+					if( slide_filename && angle )
 					{
 						img_rotate_slide( slide_info, angle, NULL );
 						g_object_unref( thumb );
