@@ -2080,6 +2080,11 @@ img_goto_point ( GtkEntry          *entry,
 	}
 }
 
+static
+gdouble interpolate(gdouble from, gdouble to, gdouble k)
+{
+	return from * ( 1 - k ) + to * k;
+}
 
 void
 img_calc_current_ken_point( ImgStopPoint *res,
@@ -2088,16 +2093,12 @@ img_calc_current_ken_point( ImgStopPoint *res,
 							gdouble       progress,
 							gint          mode )
 {
-	gdouble fracx, /* Factor for x offset */
-			fracy, /* Factor for y offset */
-			fracz; /* Factor for zoom */
+	gdouble k;
 
 	switch( mode )
 	{
 		case( 0 ): /* Linear mode */
-			fracx = progress;
-			fracy = progress;
-			fracz = progress;
+			k = 0.5 + 0.5 * sin((progress - 0.5) * M_PI);
 			break;
 
 		case( 1 ): /* Acceleration mode */
@@ -2107,9 +2108,9 @@ img_calc_current_ken_point( ImgStopPoint *res,
 			break;
 	}
 
-	res->offx = from->offx * ( 1 - fracx ) + to->offx * fracx;
-	res->offy = from->offy * ( 1 - fracy ) + to->offy * fracy;
-	res->zoom = from->zoom * ( 1 - fracz ) + to->zoom * fracz;
+	res->offx = interpolate(from->offx, to->offx, k);
+	res->offy = interpolate(from->offy, to->offy, k);
+	res->zoom = interpolate(from->zoom, to->zoom, k);
 }
 
 void img_clipboard_cut_copy_operation(img_window_struct *img, ImgClipboardMode mode)
