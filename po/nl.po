@@ -608,12 +608,12 @@ msgstr "Dit is geen Imagination project bestand !"
 #: ../src/slideshow_project.c:371
 #, c-format
 msgid "Slide %i: can't load image %s\n"
-msgstr "Beeld %i: kan het beeld %s\n niet laden"
+msgstr "Beeld %i: kan het beeld %s niet laden\n"
 
 #: ../src/slideshow_project.c:493
 #, c-format
 msgid "Can't load image %s\n"
-msgstr "Kan het beeld %s\n niet laden"
+msgstr "Kan het beeld %s niet laden\n"
 
 #: ../src/support.c:130
 #, c-format
